@@ -1,4 +1,4 @@
-nitialize() {
+initialize() {
 	initializeMutationRate(1e-5);
 	
 	scriptForQTLs = "if (runif(1) < 0.5) -1; else 1;";
