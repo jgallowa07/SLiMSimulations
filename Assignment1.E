@@ -14,14 +14,15 @@ initialize() {
 	sim.addSubpop("p2", 1000);
 	
 	// set up migration; comment these out for zero gene flow
-	p1.setMigrationRates(p2, 0.01);
-	p2.setMigrationRates(p1, 0.01);
+
+	//p1.setMigrationRates(p2, 0.01);
+	//p2.setMigrationRates(p1, 0.01);
 	
 	//sim.registerLateEvent("s2", s1.source, 1, 1);
 }
 1 late() {
-	// optional: give m1 mutations to everyone, as standing variation
-	// if this is commented out, QTLs effectively start as 0
+	//For every fish, give about 10% of there bases in th e chromosome a mutation of type m2
+	//Randomly either being a 1 or -1 effect. 
 	G = sim.subpopulations.genomes;
 	n = size(G);
 	X = 0:999;
@@ -77,20 +78,20 @@ s1 2000 late() {
 	plus = muts[muts.selectionCoeff == 1.0];
 	minus = muts[muts.selectionCoeff == -1.0];
 	
-	cat("\nOverall frequencies:\n\n");
-	for (q in Q)
-	{
-		qPlus = plus[plus.position == q];
-		qMinus = minus[minus.position == q];
-		pf = sum(sim.mutationFrequencies(NULL, qPlus));
-		mf = sum(sim.mutationFrequencies(NULL, qMinus));
-		pf1 = sum(sim.mutationFrequencies(p1, qPlus));
-		mf1 = sum(sim.mutationFrequencies(p1, qMinus));
-		pf2 = sum(sim.mutationFrequencies(p2, qPlus));
-		mf2 = sum(sim.mutationFrequencies(p2, qMinus));
-		
-		cat("   QTL " + q + ": f(+) == " + pf + ", f(-) == " + mf + "\n");
-		cat("         in p1: f(+) == " + pf1 + ", f(-) == " + mf1 + "\n");
-		cat("         in p2: f(+) == " + pf2 + ", f(-) == " + mf2 + "\n\n");
-	}
+	//cat("\nOverall frequencies:\n\n");
+	//for (q in Q)
+	//{
+	//	qPlus = plus[plus.position == q];
+	//	qMinus = minus[minus.position == q];
+	//	pf = sum(sim.mutationFrequencies(NULL, qPlus));
+	//	mf = sum(sim.mutationFrequencies(NULL, qMinus));
+	//	pf1 = sum(sim.mutationFrequencies(p1, qPlus));
+	//	mf1 = sum(sim.mutationFrequencies(p1, qMinus));
+	//	pf2 = sum(sim.mutationFrequencies(p2, qPlus));
+	//	mf2 = sum(sim.mutationFrequencies(p2, qMinus));
+	//	
+	//	cat("   QTL " + q + ": f(+) == " + pf + ", f(-) == " + mf + "\n");
+	//	cat("         in p1: f(+) == " + pf1 + ", f(-) == " + mf1 + "\n");
+	//	cat("         in p2: f(+) == " + pf2 + ", f(-) == " + mf2 + "\n\n");
+	//}
 }
