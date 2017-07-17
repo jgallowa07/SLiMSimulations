@@ -20,7 +20,6 @@ nitialize() {
 //	p1.setMigrationRates(p2, 0.01);
 //	p2.setMigrationRates(p1, 0.01);
 	
-	//sim.registerLateEvent("s2", s1.source);
 }
 
 1 late() {
