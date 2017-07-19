@@ -8,8 +8,8 @@ initialize() {
 	//m1.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-	
-	//defineConstant("Count",count);	
+	end = 5000;
+	defineConstant("End",end);	
 }
 1 early() {
 	sim.tag = 2;
@@ -78,7 +78,7 @@ fitness(NULL, p2) {
 
 
 
-s1 2000 late() {
+s1 5000 late() {
 	cat("-------------------------------\n");
 	cat("Output for generation " + sim.generation + ":\n\n");
 	
