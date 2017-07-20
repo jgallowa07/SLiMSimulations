@@ -8,7 +8,7 @@ initialize() {
 	//m1.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-	end = 400;
+	end = 40000;
 	interval = 10;
 	numPoint = end/interval;
 	defineConstant("END",end);
@@ -23,8 +23,8 @@ initialize() {
 	sim.addSubpop("p2", 1000);
 	
 	// set up migration; comment these out for zero gene flow
-//	p1.setMigrationRates(p2, 0.01);
-//	p2.setMigrationRates(p1, 0.01);
+	p1.setMigrationRates(p2, 0.01);
+	p2.setMigrationRates(p1, 0.01);
 	cat("DATA:"+"\n");
 	cat(numP+"\n");	
 	
@@ -36,18 +36,19 @@ initialize() {
 	G = sim.subpopulations.genomes;
 	n = size(G);
 	X = 0:999;
-	for (g in G){
-		Mutations = asLogical(rbinom(1000,1,0.1));
-		for (i in X){
-			if(Mutations[i]){
+	
+	Mutations = asLogical(rbinom(1000,1,0.1));
+	for (i in X){
+		if(Mutations[i]){
+			for (g in G){	
 				if(runif(1) < 0.5){
 					g.addNewMutation(m1,1.0,i);
 				}else{
 					g.addNewMutation(m1,-1.0,i);
 				}
 			}
-		}	
-	}					
+		}
+	}	
 			
 				
 }
@@ -82,7 +83,7 @@ initialize() {
 	
 }
 
-200{p1.outputSample(10);}
+//200{p1.outputSample(10);}
 
 fitness(m1) {
 	// the QTLs themselves are neutral; their effect is handled below
@@ -97,5 +98,5 @@ fitness(NULL, p2) {
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
 
-10000 late() {sim.simulationFinished();}
+40000 late() {sim.simulationFinished();}
 
