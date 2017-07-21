@@ -76,17 +76,21 @@ initialize() {
 		
 
 		Chrom_Pos = 0:999;
-			
 		muts = sim.mutationsOfType(m1);
-		//cat("sizeof muts at position 0: "+ size(muts[muts.position==0])+"\n");
 		polymorphic_sites = 0:0;
-		//cat("Size of Polymorphic_sites (before): " + size(polymorphic_sites) + "\n");
+		respective_frequencies = 0:0;
+		numIndiv = size(sim.subpopulations.individuals);
 		for (i in Chrom_Pos){
-			if (size(muts[muts.position == i]) > 0) {
+			number_of_muts_at_i = size(muts[muts.position == i]);
+			if (number_of_muts_at_i > 0) {
 				polymorphic_sites = c(polymorphic_sites,i);
+				respective_frequency = number_of_muts_at_i / numIndiv;
+				respective_frequencies = c(respective_frequencies,respective_frequency);
 			}
 		}
 		cat(size(polymorphic_sites)+" "+0+"\n");
+		cat(size(respective_frequencies)+"\n");
+		cat("\n");
 		//cat("Size of Polymorphic_sites (after): " + size(polymorphic_sites) + "\n");
 		//cat(polymorphic_sites); 
 	}
