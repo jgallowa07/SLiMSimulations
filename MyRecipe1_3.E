@@ -8,8 +8,8 @@ initialize() {
 	//m1.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-	end = 40000;
-	interval = 10;
+	end = 4000;
+	interval = 100;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("INT",interval);
@@ -70,8 +70,25 @@ initialize() {
 			
 		//cat(mean(p1.individuals.tag)+" "+mean(p2.individuals.tag)+"\n");
 
-		cat(mean(p1.genomes.countOfMutationsOfType(m1))+ " " + mean(p2.genomes.countOfMutationsOfType(m1))+ "\n");	
+		//cat(mean(p1.genomes.countOfMutationsOfType(m1))+ " " + mean(p2.genomes.countOfMutationsOfType(m1))+ "\n");	
+		
+		//cat(sim.mutations);	
+		
+
+		Chrom_Pos = 0:999;
 			
+		muts = sim.mutationsOfType(m1);
+		//cat("sizeof muts at position 0: "+ size(muts[muts.position==0])+"\n");
+		polymorphic_sites = 0:0;
+		//cat("Size of Polymorphic_sites (before): " + size(polymorphic_sites) + "\n");
+		for (i in Chrom_Pos){
+			if (size(muts[muts.position == i]) > 0) {
+				polymorphic_sites = c(polymorphic_sites,i);
+			}
+		}
+		cat(size(polymorphic_sites)+" "+0+"\n");
+		//cat("Size of Polymorphic_sites (after): " + size(polymorphic_sites) + "\n");
+		//cat(polymorphic_sites); 
 	}
 	if(sim.generation == END)
 	{
