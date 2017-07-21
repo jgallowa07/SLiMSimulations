@@ -8,8 +8,8 @@ initialize() {
 	//m1.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-	end = 2001;
-	interval = 1000;
+	end = 40001;
+	interval = 40000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("INT",interval);
@@ -30,25 +30,25 @@ initialize() {
 	
 }
 
-//1 late() {
+1 late() {
 	// optional: give m1 mutations to everyone, as standing variation
 	// if this is commented out, QTLs effectively start as 0
-//	G = sim.subpopulations.genomes;
-//	n = size(G);
-//	X = 0:999;
-//	for (g in G){
-//		Mutations = asLogical(rbinom(1000,1,0.1));
-//		for (i in X){
-//			if(Mutations[i]){
-//				if(runif(1) < 0.5){
-//					g.addNewMutation(m1,1.0,i);
-//				}else{
-//					g.addNewMutation(m1,-1.0,i);
-//				}
-//			}
-//		}	
-//	}									
-//}
+	G = sim.subpopulations.genomes;
+	n = size(G);
+	X = 0:999;
+	Mutations = asLogical(rbinom(1000,1,0.1));
+	for (i in X){
+		if(Mutations[i]){
+			for (g in G){	
+				if(runif(1) < 0.5){
+					g.addNewMutation(m1,1.0,i);
+				}else{
+					g.addNewMutation(m1,-1.0,i);
+				}
+			}
+		}
+	}	
+}
 1: late() {
 	// construct phenotypes for the additive effects of QTLs
 	for (individual in sim.subpopulations.individuals)
@@ -100,6 +100,7 @@ initialize() {
 		minus = muts[muts.selectionCoeff == -1.0];
 		
 		cat("\nOverall frequencies:\n\n");
+		cat("Generation: "+ sim.generation + "\n");
 		for (q in polymorphic_sites)
 		{
 			qPlus = plus[plus.position == q];
@@ -138,5 +139,5 @@ fitness(NULL, p2) {
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
 
-40000 late() {sim.simulationFinished();}
+40001 late() {sim.simulationFinished();}
 
