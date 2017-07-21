@@ -8,8 +8,8 @@ initialize() {
 	//m1.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-	end = 4000;
-	interval = 100;
+	end = 2001;
+	interval = 1000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("INT",interval);
@@ -78,27 +78,49 @@ initialize() {
 		Chrom_Pos = 0:999;
 		muts = sim.mutationsOfType(m1);
 		polymorphic_sites = 0:0;
-		respective_frequencies = 0:0;
+		//respective_frequenciesp1 = 0:0;
+		//respective_frequenciesp2 = 0:0;
 		numIndiv = size(sim.subpopulations.individuals);
 		for (i in Chrom_Pos){
 			number_of_muts_at_i = size(muts[muts.position == i]);
 			if (number_of_muts_at_i > 0) {
 				polymorphic_sites = c(polymorphic_sites,i);
-				respective_frequency = number_of_muts_at_i / numIndiv;
-				respective_frequencies = c(respective_frequencies,respective_frequency);
+				//respective_frequency = number_of_muts_at_i / numIndiv;
+				//respective_frequencies = c(respective_frequencies,respective_frequency);
+				
 			}
 		}
-		cat(size(polymorphic_sites)+" "+0+"\n");
-		cat(size(respective_frequencies)+"\n");
-		cat("\n");
+		//cat(size(polymorphic_sites)+" "+0+"\n");
+		//cat(size(respective_frequencies)+"\n");
+		//cat("\n");
 		//cat("Size of Polymorphic_sites (after): " + size(polymorphic_sites) + "\n");
-		//cat(polymorphic_sites); 
+		//cat(polymorphic_sites);
+		
+		plus = muts[muts.selectionCoeff == 1.0];
+		minus = muts[muts.selectionCoeff == -1.0];
+		
+		cat("\nOverall frequencies:\n\n");
+		for (q in polymorphic_sites)
+		{
+			qPlus = plus[plus.position == q];
+			qMinus = minus[minus.position == q];
+			pf = sum(sim.mutationFrequencies(NULL, qPlus));
+			mf = sum(sim.mutationFrequencies(NULL, qMinus));
+			pf1 = sum(sim.mutationFrequencies(p1, qPlus));
+			mf1 = sum(sim.mutationFrequencies(p1, qMinus));
+			pf2 = sum(sim.mutationFrequencies(p2, qPlus));
+			mf2 = sum(sim.mutationFrequencies(p2, qMinus));
+			
+			cat("   QTL " + q + ": f(+) == " + pf + ", f(-) == " + mf + "\n");
+			cat("         in p1: f(+) == " + pf1 + ", f(-) == " + mf1 + "\n");
+			cat("         in p2: f(+) == " + pf2 + ", f(-) == " + mf2 + "\n\n");
+		} 
 	}
 	if(sim.generation == END)
 	{
 		sim.simulationFinished();
 	}
-	
+		
 }
 
 //200{p1.outputSample(10);}
