@@ -3,9 +3,14 @@ initialize() {
 	
 	scriptForQTLs = "if (runif(1) < 0.5) -1; else 1;";
 	initializeMutationType("m1", 0.5, "s", scriptForQTLs);
+	//initializeMutationType("m1", 0.5, "f", 1.0);
+	//initializeMutaitonType("m2", 0.5, "f", -1.0);
+	//initializeGenomicElementType("g1", c(m1,m2), c(1.0,1.0));
 	initializeGenomicElementType("g1", m1, 1.0);
 	//m1.convertToSubstitution = F;
-	//m1.mutationStackPolicy = "l";
+	
+	m1.mutationStackPolicy = "l";
+	//m2.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 	end = 40001;
@@ -62,11 +67,11 @@ initialize() {
 			//cat("-------------------------------\n");
 			//cat("Output for generation " + sim.generation + ":\n\n");
 	
-			//cat("p1 mean fitness = " + mean(p1.cachedFitness(NULL)) + "\n");
-			//cat("p2 mean fitness = " + mean(p2.cachedFitness(NULL)) + "\n");
+		cat("p1 mean fitness = " + mean(p1.cachedFitness(NULL)) + "\n");
+		cat("p2 mean fitness = " + mean(p2.cachedFitness(NULL)) + "\n");
 	
-			//cat("p1 mean phenotype = " + mean(p1.individuals.tag) + "\n");
-			//cat("p2 mean phenotype = " + mean(p2.individuals.tag) + "\n");
+		cat("p1 mean phenotype = " + mean(p1.individuals.tag) + "\n");
+		cat("p2 mean phenotype = " + mean(p2.individuals.tag) + "\n");
 			
 		//cat(mean(p1.individuals.tag)+" "+mean(p2.individuals.tag)+"\n");
 
@@ -77,10 +82,12 @@ initialize() {
 
 		Chrom_Pos = 0:999;
 		muts = sim.mutationsOfType(m1);
+		//m1_muts = sim.mutationsOfType(m1);
+		//m2_muts = sim.mutationsOfType(m2);
 		polymorphic_sites = 0:0;
 		//respective_frequenciesp1 = 0:0;
 		//respective_frequenciesp2 = 0:0;
-		numIndiv = size(sim.subpopulations.individuals);
+		//numIndiv = size(sim.subpopulations.individuals);
 		for (i in Chrom_Pos){
 			number_of_muts_at_i = size(muts[muts.position == i]);
 			if (number_of_muts_at_i > 0) {
