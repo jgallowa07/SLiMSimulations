@@ -65,6 +65,10 @@ initialize() {
 	{
 		//cat("-------------------------------\n");
 		//cat("Output for generation " + sim.generation + ":\n\n");
+		p1_mean_fitness = mean(p1.cachedFitness(NULL));
+		p2_mean_fitness = mean(p2.cachedFitness(NULL));
+		p1_mean_phenotype =  mean(p1.individuals.tag);
+		p2_mean_phenotype = mean(p2.individuals.tag);
 	
 		//cat("p1 mean fitness = " + mean(p1.cachedFitness(NULL)) + "\n");
 		//cat("p2 mean fitness = " + mean(p2.cachedFitness(NULL)) + "\n");
@@ -89,8 +93,8 @@ initialize() {
 			}
 		}
 		
-		//cat("Number of Polymorphic Sites: " + size(polymorphic_sites)+ "\n");	
-		cat(size(polymorphic_sites)+ " "+ 0 + "\n");	
+		cat(size(polymorphic_sites) + " " + 0 + "\n");	
+		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");	
 			
 				
 		//cat("\nOverall frequencies:\n\n");
@@ -136,6 +140,16 @@ initialize() {
 	if(sim.generation == END)
 	{
 		sim.simulationFinished();
+		//cat("-------------------------------\n");
+		//cat("Output for generation " + sim.generation + ":\n\n");
+	
+		//cat("p1 mean fitness = " + mean(p1.cachedFitness(NULL)) + "\n");
+		//cat("p2 mean fitness = " + mean(p2.cachedFitness(NULL)) + "\n");
+	
+		//cat("p1 mean phenotype = " + mean(p1.individuals.tag) + "\n");
+		//cat("p2 mean phenotype = " + mean(p2.individuals.tag) + "\n");
+			
+		
 	}
 		
 }
