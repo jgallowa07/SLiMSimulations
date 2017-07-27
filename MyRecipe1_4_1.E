@@ -15,7 +15,7 @@ initialize() {
 	interval = 50;
 	numPoint = end/interval;
 	defineConstant("END",end);
-	defineConstant("INT",interval);
+	defineConstant("Int",interval);
 	defineConstant("numP",numPoint);	
 	//cat(numP+"\n");	
 	
@@ -61,7 +61,7 @@ initialize() {
 		individual.tag = m1muts - m2muts;
 	}
 	
-	if((sim.generation-1) % INT == 0)
+	if((sim.generation-1) % Int == 0)
 	{
 		//cat("-------------------------------\n");
 		//cat("Output for generation " + sim.generation + ":\n\n");
@@ -93,33 +93,32 @@ initialize() {
 			}
 		}
 		
-		cat(size(polymorphic_sites) + " " + 0 + "\n");	
-		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");	
-			
-				
+		//cat(size(polymorphic_sites) + " " + 0 + "\n");	
+		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
+
 		//cat("\nOverall frequencies:\n\n");
 		//cat("Generation: "+ sim.generation + "\n");
 		high_freq_Plus = NULL;
 		high_freq_Minus = NULL;
 		low_freq_Plus = NULL;
 		low_freq_Minus = NULL;
-		//for (q in polymorphic_sites)
-		//{
-		//	qPlus = m1_muts[m1_muts.position == q];
-		//	qMinus = m2_muts[m2_muts.position == q];
-		//	pf = sum(sim.mutationFrequencies(NULL, qPlus));
-		//	mf = sum(sim.mutationFrequencies(NULL, qMinus));
+		for (q in polymorphic_sites)
+		{
+			qPlus = m1_muts[m1_muts.position == q];
+			qMinus = m2_muts[m2_muts.position == q];
+			pf = sum(sim.mutationFrequencies(NULL, qPlus));
+			mf = sum(sim.mutationFrequencies(NULL, qMinus));
 		
-		//	if (pf > 0.2){ 
-		//		high_freq_Plus = c(high_freq_Plus,q);
-		//	}else{
-		//		low_freq_Plus = c(low_freq_Plus,q);
-		//	}
-		//	if (mf > 0.2){ 
-		//		high_freq_Minus = c(high_freq_Minus,q);
-		//	}else{
-		//		low_freq_Minus = c(low_freq_Minus,q);
-		//	}
+			if (pf > 0.2){ 
+				high_freq_Plus = c(high_freq_Plus,q);
+			}else{
+				low_freq_Plus = c(low_freq_Plus,q);
+			}
+			if (mf > 0.2){ 
+				high_freq_Minus = c(high_freq_Minus,q);
+			}else{
+				low_freq_Minus = c(low_freq_Minus,q);
+			}
 			
 			
 			//pf1 = sum(sim.mutationFrequencies(p1, qPlus));
@@ -131,7 +130,14 @@ initialize() {
 			//cat("         in p1: f(+) == " + pf1 + ", f(-) == " + mf1 + "\n");
 			//cat("         in p2: f(+) == " + pf2 + ", f(-) == " + mf2 + "\n\n");
 			
-		//}
+		}
+		numHFP = size(high_freq_Plus);
+		numLFP = size(low_freq_Plus);
+		numHFM = size(high_freq_Minus);
+		numLFM = size(low_freq_Minus);
+
+		cat(numHFP+" "+numLFP+" "+numHFM+" "+numLFM+"\n");
+			
 		//cat("num high freq plus: " + size(high_freq_Plus) + "\n"); 
 		//cat("num low freq plus: " + size(low_freq_Plus) + "\n"); 
 		//cat("num high freq minus: " + size(high_freq_Minus) + "\n"); 
@@ -148,10 +154,7 @@ initialize() {
 	
 		//cat("p1 mean phenotype = " + mean(p1.individuals.tag) + "\n");
 		//cat("p2 mean phenotype = " + mean(p2.individuals.tag) + "\n");
-			
-		
 	}
-		
 }
 
 //200{p1.outputSample(10);}
@@ -166,6 +169,4 @@ fitness(NULL, p2) {
 	phenotype = asFloat(individual.tag);
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
-
 40001 late() {sim.simulationFinished();}
-
