@@ -202,10 +202,10 @@ initialize() {
 				
 		}	
 
-		cat(size(respectiveNumHighFreq_m1)+"\n");			
-		cat(size(respectiveNumLowFreq_m1)+"\n");			
-		cat(size(respectiveNumHighFreq_m2)+"\n");			
-		cat(size(respectiveNumLowFreq_m2)+"\n");			
+		//cat(size(respectiveNumHighFreq_m1)+"\n");			
+		//cat(size(respectiveNumLowFreq_m1)+"\n");			
+		//cat(size(respectiveNumHighFreq_m2)+"\n");			
+		//cat(size(respectiveNumLowFreq_m2)+"\n");			
 		
 		sim.simulationFinished();
 
