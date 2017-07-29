@@ -205,4 +205,36 @@ fitness(NULL, p2) {
 	phenotype = asFloat(individual.tag);
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
+fitness(NULL, p3) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p4) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p5) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p6) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p7) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p8) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p9) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
+fitness(NULL, p10) {
+	phenotype = asFloat(individual.tag);
+	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
+}
 40001 late() {sim.simulationFinished();}
