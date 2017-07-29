@@ -4,20 +4,17 @@ initialize() {
 	initializeMutationType("m1", 0.5, "f", 1.0);
 	initializeMutationType("m2", 0.5, "f", -1.0);
 	initializeGenomicElementType("g1", c(m1,m2), c(1.0,1.0));
-	//m1.convertToSubstitution = F;
-	//m2.convertToSubstitution = F;
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 1000;
-	interval = 50;
+	end = 20000;
+	interval = 20000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
 	defineConstant("numP",numPoint);	
-	//cat(numP+"\n");	
 	
 }
 1 early() {
@@ -210,8 +207,8 @@ initialize() {
 			respectiveNumHighFreq_m2 = c(respectiveNumHighFreq_m2,indNumOfHighFreq_m2);
 			respectiveNumLowFreq_m2 = c(respectiveNumLowFreq_m2,indNumOfLowFreq_m2);
 			
-			//cat(indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2+"\n");
-			cat(indNumOfHighFreq_m1+"\n");	
+			cat(indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2+"\n");
+			//cat(indNumOfHighFreq_m1+"\n");	
 		}	
 
 				
