@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 400;
-	interval = 400;
+	end = 20000;
+	interval = 20000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -19,11 +19,10 @@ initialize() {
 }
 1 early() {
 	subPopSize = 10;
-	sim.addSubpop("p1", 2000); 
+	sim.addSubpop("p1", 1800); 
 	freshWater = 2:subPopSize;
 	for (i in freshWater)
 	{
-		//print("iteration"+i);
 		//f = sample(1:300,1);
 		//print(f);
 		sim.addSubpop(i,200);
@@ -40,16 +39,6 @@ initialize() {
 	{
 		subPops[0].setMigrationRates(k,0.005);
 	}
-
-	//sim.tag = 2;
-	//sim.addSubpop("p1", 1000);
-	//sim.addSubpop("p2", 1000);
-	
-	// set up migration; comment these out for zero gene flow
-	//p1.setMigrationRates(p2, 0.01);
-	//p2.setMigrationRates(p1, 0.01);
-	cat("DATA:"+"\n");
-	cat(numP+"\n");	
 }
 
 1 late() {

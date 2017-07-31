@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 1000;
-	interval = 100;
+	end = 200;
+	interval = 200;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -19,7 +19,7 @@ initialize() {
 }
 1 early() {
 	subPopSize = 10;
-	sim.addSubpop("p1", 2000); 
+	sim.addSubpop("p1", 1800); 
 	freshWater = 2:subPopSize;
 	for (i in freshWater)
 	{
@@ -161,28 +161,12 @@ initialize() {
 
 		individuals = sim.subpopulations.individuals;
 		
-		//respectiveNumHighFreq_m1 = NULL;			
-		//respectiveNumLowFreq_m1 = NULL;			
-		//respectiveNumHighFreq_m2 = NULL;			
-		//respectiveNumLowFreq_m2 = NULL;			
+		respectiveNumHighFreq_m1 = NULL;			
+		respectiveNumLowFreq_m1 = NULL;			
+		respectiveNumHighFreq_m2 = NULL;			
+		respectiveNumLowFreq_m2 = NULL;			
 		
-		for (n in individuals){
-			
-			m1mutations = n.uniqueMutationsOfType(m1);
-			m2mutations = n.uniqueMutationsOfType(m2);
-			
-			inohfm1 = size(m1mutations[m1mutations.tag == 0]);
-			inolfm1 = size(m1mutations[m1mutations.tag == 1]);
-	
-			inohfm2 = size(m2mutations[m2mutations.tag == 2]); 	
-			inolfm2 = size(m2mutations[m2mutations.tag == 3]);
-
-			catn("NEWWAY--------------------------------");
-
-			cat(inohfm1+" "+inolfm1+" "+inohfm2+" "+inolfm2+"\n");
-						 	
 		
-		} 
 	
 		for (i in individuals){
 			
@@ -217,7 +201,7 @@ initialize() {
 			respectiveNumHighFreq_m2 = c(respectiveNumHighFreq_m2,indNumOfHighFreq_m2);
 			respectiveNumLowFreq_m2 = c(respectiveNumLowFreq_m2,indNumOfLowFreq_m2);
 			
-			catn("OLDWAY--------------------------------");
+			//catn("OLDWAY--------------------------------");
 			cat(indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2+"\n");
 		}
 		//catn("num high freq orig: " + size(respectiveNumHighFreq_m1));
