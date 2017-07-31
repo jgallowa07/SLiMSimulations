@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 20000;
-	interval = 20000;
+	end = 40000;
+	interval = 40000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -57,6 +57,12 @@ initialize() {
 	low_freq_Plus = NULL;
 	low_freq_Minus = NULL;
 	
+	
+	p1_mean_fitness = NULL;
+	p2_mean_fitness = NULL;
+	p1_mean_phenotype = NULL;
+	p2_mean_phenotype = NULL;
+	
 	for (fix in sim.substitutions){
 		if(fix.mutationType  == m1){
 			m1subs = m1subs + 1;
@@ -97,7 +103,7 @@ initialize() {
 		}
 		
 		//cat(size(polymorphic_sites) + " " + 0 + "\n");	
-		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
+		//cat(p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
 
 		for (q in polymorphic_sites)
 		{

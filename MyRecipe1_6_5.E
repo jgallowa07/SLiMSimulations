@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 20000;
-	interval = 20000;
+	end = 40000;
+	interval = 40000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);

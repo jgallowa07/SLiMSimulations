@@ -102,7 +102,7 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='One-big lots small: indiv-based metrics of realized genetic architecture, Whole Pop')
+py.iplot(fig, filename='MyRecipe1_7_1')
 
 
 #x = np.random.randn(500)

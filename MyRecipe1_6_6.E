@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 20000;
-	interval = 20000;
+	end = 40000;
+	interval = 40000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -116,7 +116,7 @@ initialize() {
 			qPlus = m1_muts[m1_muts.position == q];
 			qMinus = m2_muts[m2_muts.position == q];
 			pf = sum(sim.mutationFrequencies(p1, qPlus));
-			mf = sum(sim.mutationFrequencies(p2, qMinus));
+			mf = sum(sim.mutationFrequencies(p1, qMinus));
 		
 			if (pf > 0.2 & pf < 0.8){ 
 				high_freq_Plus = c(high_freq_Plus,q);

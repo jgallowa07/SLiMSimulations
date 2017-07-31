@@ -102,7 +102,7 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='indiv-based metrics of realized genetic architecture p2')
+py.iplot(fig, filename='MyRecipe1_6_7')
 
 
 #x = np.random.randn(500)

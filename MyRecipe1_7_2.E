@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 1000;
-	interval = 100;
+	end = 400;
+	interval = 400;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -78,11 +78,6 @@ initialize() {
 	m1subs = 0;
 	m2subs = 0;
 	
-	high_freq_Plus = NULL;
-	high_freq_Minus = NULL;
-	low_freq_Plus = NULL;
-	low_freq_Minus = NULL;
-	
 	for (fix in sim.substitutions){
 		if(fix.mutationType  == m1){
 			m1subs = m1subs + 1;
@@ -124,8 +119,6 @@ initialize() {
 				polymorphic_sites = c(polymorphic_sites,i);
 			}
 		}
-		//cat("hard: "+size(polymorphic_sites)+"\n");
-		//cat("easy: "+polymorphic_sites_easy+"\n");
 		//cat(size(polymorphic_sites) + " " + 0 + "\n");	
 		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
 
@@ -135,37 +128,24 @@ initialize() {
 			qMinus = m2_muts[m2_muts.position == q];
 			pf = sum(sim.mutationFrequencies(NULL, qPlus));
 			mf = sum(sim.mutationFrequencies(NULL, qMinus));
-		
+
 			if (pf > 0.2 & pf < 0.8){ 
-				high_freq_Plus = c(high_freq_Plus,q);
 				qPlus.tag = 0;
 			}else{
-				low_freq_Plus = c(low_freq_Plus,q);
 				qPlus.tag = 1;
 			}
 			if (mf > 0.2 & mf < 0.8){ 
-				high_freq_Minus = c(high_freq_Minus,q);
 				qMinus.tag = 2;						
 			}else{
-				low_freq_Minus = c(low_freq_Minus,q);
 				qMinus.tag = 3;
 			}
 		}
-		numHFP = size(high_freq_Plus);
-		numLFP = size(low_freq_Plus);
-		numHFM = size(high_freq_Minus);
-		numLFM = size(low_freq_Minus);
 	}
 	if(sim.generation == END)
 	{
 
-		individuals = sim.subpopulations.individuals;
-		
-		//respectiveNumHighFreq_m1 = NULL;			
-		//respectiveNumLowFreq_m1 = NULL;			
-		//respectiveNumHighFreq_m2 = NULL;			
-		//respectiveNumLowFreq_m2 = NULL;			
-		
+		individuals = sim.subpopulations.individuals;	
+	
 		for (n in individuals){
 			
 			m1mutations = n.uniqueMutationsOfType(m1);
@@ -177,53 +157,13 @@ initialize() {
 			inohfm2 = size(m2mutations[m2mutations.tag == 2]); 	
 			inolfm2 = size(m2mutations[m2mutations.tag == 3]);
 
-			catn("NEWWAY--------------------------------");
+			//catn("NEWWAY--------------------------------");
 
-			cat(inohfm1+" "+inolfm1+" "+inohfm2+" "+inolfm2+"\n");
-						 	
+			writeFile("./myOut172.txt",inohfm1+" "+inolfm1+" "+inohfm2+" "+inolfm2,append = T);
 		
 		} 
-	
-		for (i in individuals){
-			
-			m1mutations = i.uniqueMutationsOfType(m1);
-			m2mutations = i.uniqueMutationsOfType(m2);
-
-			indNumOfHighFreq_m1 = 0;
-			indNumOfLowFreq_m1 = 0;
-			indNumOfHighFreq_m2 = 0;
-			indNumOfLowFreq_m2 = 0;
-			
-			for (m_1 in m1mutations){
-				//Funky logic alert y'alls
-				//if true:
-				//this means that the m_1 mutation position is contained in the vector of high_freq_Plus (plus == m1)
-				//i.e m_1 is a high frequency mutation. 
-				if(size(high_freq_Plus[high_freq_Plus == m_1.position]) > 0){	
-					indNumOfHighFreq_m1 = indNumOfHighFreq_m1 + 1;
-				}else{
-					indNumOfLowFreq_m1 = indNumOfLowFreq_m1 + 1;
-				}
-			}	
-			for (m_2 in m2mutations){	
-				if(size(high_freq_Minus[high_freq_Minus == m_2.position]) > 0){	
-					indNumOfHighFreq_m2 = indNumOfHighFreq_m2 + 1;
-				}else{
-					indNumOfLowFreq_m2 = indNumOfLowFreq_m2 + 1;
-				}
-			}
-			respectiveNumHighFreq_m1 = c(respectiveNumHighFreq_m1,indNumOfHighFreq_m1);
-			respectiveNumLowFreq_m1 = c(respectiveNumLowFreq_m1,indNumOfLowFreq_m1);
-			respectiveNumHighFreq_m2 = c(respectiveNumHighFreq_m2,indNumOfHighFreq_m2);
-			respectiveNumLowFreq_m2 = c(respectiveNumLowFreq_m2,indNumOfLowFreq_m2);
-			
-			catn("OLDWAY--------------------------------");
-			cat(indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2+"\n");
-		}
-		//catn("num high freq orig: " + size(respectiveNumHighFreq_m1));
-		//nhf = sim.mutations[sim.mutations.tag == 0]; 
-		//catn("num high freq new: "+ size(nhf));	
-		//sim.simulationFinished();
+		
+		sim.simulationFinished();
 	}
 }
 
