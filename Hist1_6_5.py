@@ -13,7 +13,11 @@ x_axis = []
 numAxis = 0
 
 def main():
-	File = open("myOut171.txt","r")
+	File = open("myOut165.txt","r")
+	for i in range(0,15):
+		File.readline()
+	numAxis = int(File.readline())
+	print("numAxis: "+str(numAxis))	
 	for line in File:
 		n1,n2,n3,n4 = (float(s) for s in line.split())
 		col1.append(n1)
@@ -23,14 +27,14 @@ def main():
 		#trace5.append(n5)
 		
 	
-	return 
+	return numAxis
 
 		
-main();
-#print(col1)
-#print(col2)
-#print(col3)
-#print(col4)
+numAxis = main();
+print(col1)
+print(col2)
+print(col3)
+print(col4)
 trace1 = go.Histogram(
     x=col1,
     histnorm='count',
@@ -87,7 +91,7 @@ trace4 = go.Histogram(
 data = [trace1,trace2,trace3,trace4]
 
 layout = go.Layout(
-    title='One-big lots small: indiv-based metrics of realized genetic architecture, Whole Pop',
+    title='indiv-based metrics of realized genetic architecture',
     xaxis=dict(
         title='# Mutations'
     ),
@@ -98,7 +102,7 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='MyRecipe1_7_1(2)')
+py.iplot(fig, filename='MyRecipe1_6_5')
 
 
 #x = np.random.randn(500)

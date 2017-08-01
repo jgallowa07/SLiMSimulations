@@ -142,24 +142,47 @@ initialize() {
 	if(sim.generation == END)
 	{
 
-		individuals = sim.subpopulations.individuals;	
+		Oceanic = p1.individuals;
 	
-		for (n in individuals){
+		Freshwater = 1:9;			
+	
+		for (n in Oceanic){
 			
 			m1mutations = n.uniqueMutationsOfType(m1);
 			m2mutations = n.uniqueMutationsOfType(m2);
-			
-			inohfm1 = size(m1mutations[m1mutations.tag == 0]);
-			inolfm1 = size(m1mutations[m1mutations.tag == 1]);
+			//Oinoh/lm1/2 = "oceanic individual's # of high/low frequency m1/m2"
+			Oinohfm1 = size(m1mutations[m1mutations.tag == 0]);
+			Oinolfm1 = size(m1mutations[m1mutations.tag == 1]);
 	
-			inohfm2 = size(m2mutations[m2mutations.tag == 2]); 	
-			inolfm2 = size(m2mutations[m2mutations.tag == 3]);
+			Oinohfm2 = size(m2mutations[m2mutations.tag == 2]); 	
+			Oinolfm2 = size(m2mutations[m2mutations.tag == 3]);
 
-			//catn("NEWWAY--------------------------------");
-
-			writeFile("./myOut172.txt",inohfm1+" "+inolfm1+" "+inohfm2+" "+inolfm2,append = T);
+			writeFile("./myOut173_Oc.txt",Oinohfm1+" "+Oinolfm1+" "+Oinohfm2+" "+Oinolfm2,append = T);
 		
 		} 
+
+		for (subPop in Freshwater){
+
+			Finohfm1 = NULL;
+			Finolfm1 = NULL;
+			Finohfm2 = NULL;
+			Finolfm2 = NULL;
+		
+			for (individual in sim.subpopulations[subPop].individuals){
+				m1muts = individual.uniqueMutationsOfType(m1);
+				m2muts = individual.uniqueMutationsOfType(m2);				
+
+				Finohfm1 = c(Finohfm1,size(m1muts[m1muts.tag == 0]));
+				Finolfm1 = c(Finolfm1,size(m1muts[m1muts.tag == 1]));
+				Finohfm2 = c(Finohfm2,size(m2muts[m2muts.tag == 2]));
+				Finolfm2 = c(Finolfm2,size(m2muts[m2muts.tag == 3]));
+			}
+			
+			for (z in 0:199){
+				writeFile("./myOut173_Fr.txt",Finohfm1[z]+" "+Finolfm1[z]+" "+Finohfm2[z]+" "+Finolfm2[z],append = T);
+			}			
+		}			
+	
 		catn("Oceanic mean phenotype: " + Oceanic_mean_phenotype);
 		catn("Freshwater Mean Phenotype: " + Freshwater_mean_phenotype);
 		

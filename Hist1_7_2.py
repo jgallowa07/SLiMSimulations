@@ -13,7 +13,7 @@ x_axis = []
 numAxis = 0
 
 def main():
-	File = open("myOut171.txt","r")
+	File = open("myOut172.txt","r")
 	for line in File:
 		n1,n2,n3,n4 = (float(s) for s in line.split())
 		col1.append(n1)
@@ -23,14 +23,13 @@ def main():
 		#trace5.append(n5)
 		
 	
-	return 
+	return 1
 
-		
 main();
-#print(col1)
-#print(col2)
-#print(col3)
-#print(col4)
+#print(len(col1))
+#print(len(col2))
+#print(len(col3))
+#print(len(col4))
 trace1 = go.Histogram(
     x=col1,
     histnorm='count',
@@ -98,9 +97,9 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='MyRecipe1_7_1(2)')
+py.iplot(fig, filename='MyRecipe1_7_2(2)')
 
 
 #x = np.random.randn(500)
 #data = [go.Histogram(x=col1)]
-#py.iplot(data, filename='basic histogram')
+#py.iplot(data, fisizeame='basic histogram')

@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 20000;
-	interval = 20000;
+	end = 40000;
+	interval = 40000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -18,38 +18,16 @@ initialize() {
 	
 }
 1 early() {
-	subPopSize = 10;
-	sim.addSubpop("p1", 1800); 
-	freshWater = 2:subPopSize;
-	for (i in freshWater)
-	{
-		//print("iteration"+i);
-		//f = sample(1:300,1);
-		//print(f);
-		sim.addSubpop(i,200);
-	}
-	subPops = sim.subpopulations;
-
-	x = 1:(subPopSize-1);
-	
-	for (j in x)
-	{
-		subPops[j].setMigrationRates(1,0.0005);
-	}
-	for (k in freshWater)
-	{
-		subPops[0].setMigrationRates(k,0.005);
-	}
-
-	//sim.tag = 2;
-	//sim.addSubpop("p1", 1000);
-	//sim.addSubpop("p2", 1000);
+	sim.tag = 2;
+	sim.addSubpop("p1", 1000);
+	sim.addSubpop("p2", 1000);
 	
 	// set up migration; comment these out for zero gene flow
-	//p1.setMigrationRates(p2, 0.01);
-	//p2.setMigrationRates(p1, 0.01);
+	p1.setMigrationRates(p2, 0.01);
+	p2.setMigrationRates(p1, 0.01);
 	cat("DATA:"+"\n");
 	cat(numP+"\n");	
+	
 }
 
 1 late() {
@@ -62,9 +40,6 @@ initialize() {
 	for (i in X){
 		if(Mutations[i]){
 			for (g in G){	
-				//a = rexp(1,0.5);
-				//b = rexp(5);
-				//x = a / (a+b);
 				if(runif(1) < 0.5){
 					g.addNewMutation(m1,1.0,i);
 				}else{
@@ -83,8 +58,15 @@ initialize() {
 	low_freq_Plus = NULL;
 	low_freq_Minus = NULL;
 
-	Oceanic_mean_phenotype = NULL;
-	Freshwaer_mean_phenotype =NULL;
+	high_freq_Plus_p1 = NULL;
+	high_freq_Minus_p1 = NULL;
+	low_freq_Plus_p1 = NULL;
+	low_freq_Minus_p1 = NULL;
+	
+	high_freq_Plus_p2 = NULL;
+	high_freq_Minus_p2 = NULL;
+	low_freq_Plus_p2 = NULL;
+	low_freq_Minus_p2 = NULL;
 	
 	for (fix in sim.substitutions){
 		if(fix.mutationType  == m1){
@@ -108,22 +90,24 @@ initialize() {
 		//cat("Output for generation " + sim.generation + ":\n\n");
 		p1_mean_fitness = mean(p1.cachedFitness(NULL));
 		p2_mean_fitness = mean(p2.cachedFitness(NULL));
-		Oceanic_mean_phenotype =  mean(p1.individuals.tag);
-		mean_fresh = NULL;
-		for (i in 1:9){
-		
-			mean_fresh = c(mean_fresh,mean(sim.subpopulations[i].individuals.tag));
-		}
-		Freshwater_mean_phenotype = mean(mean_fresh);
+		p1_mean_phenotype =  mean(p1.individuals.tag);
+		p2_mean_phenotype = mean(p2.individuals.tag);
+	
+		//cat("p1 mean fitness = " + mean(p1.cachedFitness(NULL)) + "\n");
+		//cat("p2 mean fitness = " + mean(p2.cachedFitness(NULL)) + "\n");
+	
+		//cat("p1 mean phenotype = " + mean(p1.individuals.tag) + "\n");
+		//cat("p2 mean phenotype = " + mean(p2.individuals.tag) + "\n");
+			
+		//cat(mean(p1.individuals.tag)+" "+mean(p2.individuals.tag)+"\n");
+
 		//cat(mean(p1.genomes.countOfMutationsOfType(m1))+ " " + mean(p2.genomes.countOfMutationsOfType(m1))+ "\n");	
+		
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
 		m2_muts = sim.mutationsOfType(m2);
 		polymorphic_sites = NULL;
-	
-		//polymorphic_sites_easy = unique(sim.mutations.position);		
-
 		for (i in Chrom_Pos){
 			number_of_m1muts_at_i = size(m1_muts[m1_muts.position == i]);
 			number_of_m2muts_at_i = size(m2_muts[m2_muts.position == i]);
@@ -131,37 +115,85 @@ initialize() {
 				polymorphic_sites = c(polymorphic_sites,i);
 			}
 		}
-		//cat("hard: "+size(polymorphic_sites)+"\n");
-		//cat("easy: "+polymorphic_sites_easy+"\n");
+		
 		//cat(size(polymorphic_sites) + " " + 0 + "\n");	
 		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
 
+		//cat("\nOverall frequencies:\n\n");
+		//cat("Generation: "+ sim.generation + "\n");
 		for (q in polymorphic_sites)
 		{
 			qPlus = m1_muts[m1_muts.position == q];
 			qMinus = m2_muts[m2_muts.position == q];
 			pf = sum(sim.mutationFrequencies(NULL, qPlus));
 			mf = sum(sim.mutationFrequencies(NULL, qMinus));
-		
+								
+			pf1 = sum(sim.mutationFrequencies(p1, qPlus));
+			mf1 = sum(sim.mutationFrequencies(p1, qMinus));
+			
+			pf2 = sum(sim.mutationFrequencies(p2, qPlus));
+			mf2 = sum(sim.mutationFrequencies(p2, qMinus));
+
 			if (pf > 0.2 & pf < 0.8){ 
 				high_freq_Plus = c(high_freq_Plus,q);
-				qPlus.tag = 0;
 			}else{
 				low_freq_Plus = c(low_freq_Plus,q);
-				qPlus.tag = 1;
 			}
 			if (mf > 0.2 & mf < 0.8){ 
 				high_freq_Minus = c(high_freq_Minus,q);
-				qMinus.tag = 2;						
 			}else{
 				low_freq_Minus = c(low_freq_Minus,q);
-				qMinus.tag = 3;
 			}
+			
+			
+			if (pf > 0.2 & pf < 0.8){ 
+				high_freq_Plus = c(high_freq_Plus,q);
+			}else{
+				low_freq_Plus = c(low_freq_Plus,q);
+			}
+			if (mf > 0.2 & mf < 0.8){ 
+				high_freq_Minus = c(high_freq_Minus,q);
+			}else{
+				low_freq_Minus = c(low_freq_Minus,q);
+			}
+
+
+			if (pf > 0.2 & pf < 0.8){ 
+				high_freq_Plus = c(high_freq_Plus,q);
+			}else{
+				low_freq_Plus = c(low_freq_Plus,q);
+			}
+			if (mf > 0.2 & mf < 0.8){ 
+				high_freq_Minus = c(high_freq_Minus,q);
+			}else{
+				low_freq_Minus = c(low_freq_Minus,q);
+			}
+
+			//pf1 = sum(sim.mutationFrequencies(p1, qPlus));
+			//mf1 = sum(sim.mutationFrequencies(p1, qMinus));
+			//pf2 = sum(sim.mutationFrequencies(p2, qPlus));
+			///mf2 = sum(sim.mutationFrequencies(p2, qMinus));
+			
+			//cat("   QTL " + q + ": f(+) == " + pf + ", f(-) == " + mf + "\n");
+			//cat("         in p1: f(+) == " + pf1 + ", f(-) == " + mf1 + "\n");
+			//cat("         in p2: f(+) == " + pf2 + ", f(-) == " + mf2 + "\n\n");
+			
 		}
 		numHFP = size(high_freq_Plus);
 		numLFP = size(low_freq_Plus);
 		numHFM = size(high_freq_Minus);
 		numLFM = size(low_freq_Minus);
+
+		//cat(numHFP+" "+numLFP+" "+numHFM+" "+numLFM+"\n");
+		//cat(high_freq_Plus);
+		//cat(low_freq_Plus);
+		//cat(high_freq_Minus);
+		//cat(low_freq_Minus);
+			
+		//cat("num high freq plus: " + size(high_freq_Plus) + "\n"); 
+		//cat("num low freq plus: " + size(low_freq_Plus) + "\n"); 
+		//cat("num high freq minus: " + size(high_freq_Minus) + "\n"); 
+		//cat("num low freq minus: " + size(low_freq_Minus) + "\n"); 
 	}
 	if(sim.generation == END)
 	{
@@ -172,9 +204,14 @@ initialize() {
 		respectiveNumLowFreq_m1 = NULL;			
 		respectiveNumHighFreq_m2 = NULL;			
 		respectiveNumLowFreq_m2 = NULL;			
-		
-		
 	
+		//cat("HFP"+"\n");
+		//cat("\n");
+		//cat(high_freq_Plus+"\n");
+		//cat(low_freq_Plus);
+		//cat(high_freq_Minus);
+		//cat(low_freq_Minus);
+				
 		for (i in individuals){
 			
 			m1mutations = i.uniqueMutationsOfType(m1);
@@ -202,21 +239,26 @@ initialize() {
 				}else{
 					indNumOfLowFreq_m2 = indNumOfLowFreq_m2 + 1;
 				}
+				
 			}
 			respectiveNumHighFreq_m1 = c(respectiveNumHighFreq_m1,indNumOfHighFreq_m1);
 			respectiveNumLowFreq_m1 = c(respectiveNumLowFreq_m1,indNumOfLowFreq_m1);
 			respectiveNumHighFreq_m2 = c(respectiveNumHighFreq_m2,indNumOfHighFreq_m2);
 			respectiveNumLowFreq_m2 = c(respectiveNumLowFreq_m2,indNumOfLowFreq_m2);
 			
-			//catn("OLDWAY--------------------------------");
-			writeFile("./myOut171.txt",indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2,append = T);
-		}
-		//catn("num high freq orig: " + size(respectiveNumHighFreq_m1));
-		//nhf = sim.mutations[sim.mutations.tag == 0]; 
-		//catn("num high freq new: "+ size(nhf));	
-		catn("Oceanic mean phenotype: " + Oceanic_mean_phenotype);
-		catn("Freshwater mean phenotype: " + Freshwater_mean_phenotype);
+			cat(indNumOfHighFreq_m1+" "+indNumOfLowFreq_m1+" "+indNumOfHighFreq_m2+" "+indNumOfLowFreq_m2+"\n");
+			//cat(indNumOfHighFreq_m1+"\n");	
+		}	
+
+				
+			
+		//cat(respectiveNumHighFreq_m1+"\n");			
+		//cat(size(respectiveNumLowFreq_m1)+"\n");			
+		//cat(size(respectiveNumHighFreq_m2)+"\n");			
+		//cat(size(respectiveNumLowFreq_m2)+"\n");			
+		
 		sim.simulationFinished();
+
 	}
 }
 
@@ -228,38 +270,6 @@ fitness(NULL, p1) {
 	return 1.0 + dnorm(10.0 - phenotype, 0.0, 5.0);    // optimum of +10
 }
 fitness(NULL, p2) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p3) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p4) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p5) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p6) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p7) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p8) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p9) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p10) {
 	phenotype = asFloat(individual.tag);
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
