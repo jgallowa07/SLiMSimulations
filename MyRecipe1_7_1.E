@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 200;
-	interval = 200;
+	end = 20000;
+	interval = 20000;
 	numPoint = end/interval;
 	defineConstant("END",end);
 	defineConstant("Int",interval);
@@ -207,7 +207,7 @@ initialize() {
 		//catn("num high freq orig: " + size(respectiveNumHighFreq_m1));
 		//nhf = sim.mutations[sim.mutations.tag == 0]; 
 		//catn("num high freq new: "+ size(nhf));	
-		//sim.simulationFinished();
+		sim.simulationFinished();
 	}
 }
 
