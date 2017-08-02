@@ -12,8 +12,9 @@ col5 = []
 x_axis = []
 numAxis = 0
 
+
 def main():
-	File = open("myOut173_Wh","r")
+	File = open("myOut176_Oc.txt","r")
 	for line in File:
 		n1,n2,n3,n4 = (float(s) for s in line.split())
 		col1.append(n1)
@@ -86,7 +87,7 @@ trace4 = go.Histogram(
 data = [trace1,trace2,trace3,trace4]
 
 layout = go.Layout(
-    title='One-big lots small: indiv-based metrics of realized genetic architecture, Whole Pop',
+    title='One-big lots small: indiv-based metrics of realized genetic architecture, Oceanic',
     xaxis=dict(
         title='# Mutations'
     ),
@@ -97,7 +98,7 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='MyRecipe1_7_3(Whole)')
+py.iplot(fig, filename='MyRecipe1_7_6(Oceanic)')
 
 
 #x = np.random.randn(500)

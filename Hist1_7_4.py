@@ -14,7 +14,7 @@ numAxis = 0
 
 
 def main():
-	File = open("myOut174_Fr.txt","r")
+	File = open("myOut174_Oc.txt","r")
 	for line in File:
 		n1,n2,n3,n4 = (float(s) for s in line.split())
 		col1.append(n1)
