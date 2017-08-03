@@ -9,7 +9,7 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 40000;
+	end = 20000;
 	interval = 500;
 	numPoint = end/interval;
 	subPopSize = 11;
@@ -106,7 +106,7 @@ initialize() {
 		}
 		Freshwater_mean_phenotype = mean(mean_fresh);
 	
-		//cat(mean(p1.genomes.countOfMutationsOfType(m1))+ " " + mean(p2.genomes.countOfMutationsOfType(m1))+ "\n");	
+		writeFile("./myOut177_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
