@@ -9,8 +9,8 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 
-	end = 200;
-	interval = 200;
+	end = 20000;
+	interval = 1000;
 	numPoint = end/interval;
 	subPopSize = 11;
 	//freshWater = subPopSize - 1;
