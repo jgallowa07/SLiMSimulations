@@ -10,10 +10,10 @@ col4 = []
 col5 = []
 
 x_axis = []
-numAxis = 400
+numAxis = 40
 
 def main():
-	File = open("myOut176_Ph.txt","r")
+	File = open("myOut177_Ph","r")
 	for line in File:
 		n1, n2= (float(s) for s in line.split())
 		col1.append(n1)
@@ -32,7 +32,7 @@ main();
 #print("numAxis: "+str(numAxis))	
 
 for i in range(0,numAxis + 1):
-	x_axis.append(i*50)
+	x_axis.append(i*500)
 print(x_axis)	
 
 trace0 = go.Scatter(
