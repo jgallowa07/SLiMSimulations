@@ -1,8 +1,8 @@
 initialize() {
 
 
-	end = 20000;
-	interval = 500;
+	end = 100;
+	interval = 100;
 
 	numLakes = 10;	
 	multiples = 1/numLakes;
@@ -30,7 +30,7 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 	
-	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.1);
+	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.09);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
 }
@@ -56,8 +56,8 @@ initialize() {
 		}
 	}
 	
-	//x = size(p2.individuals.spatialPosition[p2.individuals.spatialPosition == 0.15]);
-	//catn("Num at position 0.15: " + x);	
+	x = sum(abs(p2.individuals.spatialPosition - 0.05) < 1e-8);
+	catn("Num at position 0.05: " + x + "\n");	
 	catn(p2.individuals.spatialPosition);
 }
 1: early(){
@@ -120,11 +120,6 @@ initialize() {
 		p1_mean_fitness = mean(p1.cachedFitness(NULL));
 		p2_mean_fitness = mean(p2.cachedFitness(NULL));
 		Oceanic_mean_phenotype =  mean(p1.individuals.tag);
-//		mean_fresh = NULL;
-//		lastfreshindex = SubPopSize - 1;
-//		for (i in 1:lastfreshindex){
-//			mean_fresh = c(mean_fresh,mean(sim.subpopulations[i].individuals.tag));
-//		}
 		Freshwater_mean_phenotype = mean(p2.individuals.tag);
 	
 		writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
@@ -240,39 +235,6 @@ fitness(NULL, p2) {
 	phenotype = asFloat(individual.tag);
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
-fitness(NULL, p3) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p4) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p5) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p6) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p7) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p8) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p9) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-fitness(NULL, p10) {
-	phenotype = asFloat(individual.tag);
-	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
-}
-
 
 1: mateChoice() {
 	return i1.strength(individual); 
