@@ -1,4 +1,25 @@
 initialize() {
+
+
+	end = 20000;
+	interval = 500;
+
+	numLakes = 10;	
+	multiples = 1/numLakes;
+	half = multiples / 2;
+	numPoint = end/interval;
+	subPopSize = 11;
+
+	defineConstant("SubPopSize", subPopSize);
+	defineConstant("END",end);
+	defineConstant("Int",interval);
+	defineConstant("numP",numPoint);	
+	defineConstant("NUMLakes",numLakes);
+	defineConstant("M", multiples);
+	defineConstant("H", half);
+	
+	initializeSLiMOptions(dimensionality="x");
+
 	initializeMutationRate(1e-5);
 	
 	initializeMutationType("m1", 0.5, "f", 1.0);
@@ -8,41 +29,39 @@ initialize() {
 	m2.mutationStackPolicy = "l";
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
-
-	end = 200;
-	interval = 200;
-	numPoint = end/interval;
-	subPopSize = 11;
-	//freshWater = subPopSize - 1;
-	defineConstant("SubPopSize", subPopSize);
-	defineConstant("END",end);
-	defineConstant("Int",interval);
-	defineConstant("numP",numPoint);	
 	
+	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.1);
+	i1.setInteractionFunction("n", 0.5, 0.02);
 	
 }
-1 early() {
-	//subPopSize = SubPopSize;
-	sim.addSubpop("p1", 2000); 
-	freshWater = 2:SubPopSize;
-	for (i in freshWater)
-	{
-		//f = sample(1:300,1);
-		//print(f);
-		sim.addSubpop(i,200);
-	}
-	subPops = sim.subpopulations;
-
-	x = 1:(SubPopSize-1);
+1 early(){
+	sim.addSubpop("p1", 2000);
+	sim.addSubpop("p2", 2000);
 	
-	for (j in x)
-	{
-		subPops[j].setMigrationRates(1,0.0005);
+	p1.setSpatialBounds(c(0.0, 1.0));
+	p2.setSpatialBounds(c(0.0, 1.0));
+	
+	p1.setMigrationRates(p2,0.0005);
+	p2.setMigrationRates(p1,0.0005);
+	
+	for (ind in p1.individuals){
+		ind.setSpatialPosition(p1.pointUniform());
 	}
-	for (k in freshWater)
-	{
-		subPops[0].setMigrationRates(k,0.00005);
+	
+	lakeIndividuals = p2.individuals;
+
+	for (i in 0:(NUMLakes-1)){
+		for (j in 0:199){
+			lakeIndividuals[200*i + j].setSpatialPosition(asFloat((i/10)+0.05));						
+		}
 	}
+	
+	//x = size(p2.individuals.spatialPosition[p2.individuals.spatialPosition == 0.15]);
+	//catn("Num at position 0.15: " + x);	
+	catn(p2.individuals.spatialPosition);
+}
+1: early(){
+	i1.evaluate();
 }
 
 1 late() {
@@ -67,7 +86,10 @@ initialize() {
 		}
 	}	
 }
+
+
 1: late() {
+
 	m1subs = 0;
 	m2subs = 0;
 		
@@ -93,27 +115,26 @@ initialize() {
 	
 	if(((sim.generation-1) % Int == 0) | (sim.generation == END))
 	{
-		//cat("-------------------------------\n");
-		//cat("Output for generation " + sim.generation + ":\n\n");
+		cat("-------------------------------\n");
+		cat("Output for generation " + sim.generation + ":\n\n");
 		p1_mean_fitness = mean(p1.cachedFitness(NULL));
 		p2_mean_fitness = mean(p2.cachedFitness(NULL));
 		Oceanic_mean_phenotype =  mean(p1.individuals.tag);
-		mean_fresh = NULL;
-		lastfreshindex = SubPopSize - 1;
-		for (i in 1:lastfreshindex){
-		
-			mean_fresh = c(mean_fresh,mean(sim.subpopulations[i].individuals.tag));
-		}
-		Freshwater_mean_phenotype = mean(mean_fresh);
+//		mean_fresh = NULL;
+//		lastfreshindex = SubPopSize - 1;
+//		for (i in 1:lastfreshindex){
+//			mean_fresh = c(mean_fresh,mean(sim.subpopulations[i].individuals.tag));
+//		}
+		Freshwater_mean_phenotype = mean(p2.individuals.tag);
 	
-		writeFile("./myOut177_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
 		m2_muts = sim.mutationsOfType(m2);
 		polymorphic_sites = NULL;
-		mut_pos = sim.mutations.position;	
-		polymorphic_sites_easy = unique(mut_pos);		
+			
+		//polymorphic_sites_easy = unique(sim.mutations.position);		
 
 		for (i in Chrom_Pos){
 			number_of_m1muts_at_i = size(m1_muts[m1_muts.position == i]);
@@ -122,10 +143,6 @@ initialize() {
 				polymorphic_sites = c(polymorphic_sites,i);
 			}
 		}
-		catn("sizeof polymorphic sites: " + size(polymorphic_sites));	
-		catn("sizeof polymorphic sites(easy): " + size(polymorphic_sites_easy));
-		
-		
 		//cat(size(polymorphic_sites) + " " + 0 + "\n");	
 		//cat(size(polymorphic_sites)+" "+p1_mean_fitness+" "+p2_mean_fitness+" "+p1_mean_phenotype+" "+p2_mean_phenotype+"\n");
 
@@ -149,8 +166,9 @@ initialize() {
 		}
 
 		Oceanic = p1.individuals;
-		lastfreshindex = SubPopSize - 1;
-		Freshwater = 1:lastfreshindex;			
+		Freshwater = p2.individuals;
+//		lastfreshindex = SubPopSize - 1;
+//		Freshwater = 1:lastfreshindex;			
 
 		oceanicMeanNumberOfHighFreqM1 = NULL;
 		oceanicMeanNumberOfLowFreqM1 = NULL;
@@ -163,41 +181,26 @@ initialize() {
 		freshwaterMeanNumberOfLowFreqM2 = NULL;
 	
 
-		for (n in Oceanic){
+		for (o_individual in Oceanic){
 			
-			m1mutations = n.uniqueMutationsOfType(m1);
-			m2mutations = n.uniqueMutationsOfType(m2);
+			muts = o_individual.genomes.mutations;
+
 			//Oinoh/lm1/2 = "oceanic individual's # of high/low frequency m1/m2"
-			oceanicMeanNumberOfHighFreqM1 = c(oceanicMeanNumberOfHighFreqM1,size(m1mutations[m1mutations.tag == 0]));
-			oceanicMeanNumberOfLowFreqM1 = c(oceanicMeanNumberOfLowFreqM1,size(m1mutations[m1mutations.tag == 1]));
-	
-			oceanicMeanNumberOfHighFreqM2 = c(oceanicMeanNumberOfHighFreqM2,size(m2mutations[m2mutations.tag == 2])); 	
-			oceanicMeanNumberOfLowFreqM2 = c(oceanicMeanNumberOfLowFreqM2,size(m2mutations[m2mutations.tag == 3]));
-
-			
-
-			//writeFile("./myOut174_Oc.txt",Oinohfm1+" "+Oinolfm1+" "+Oinohfm2+" "+Oinolfm2,append = T);
+			oceanicMeanNumberOfHighFreqM1 = c(oceanicMeanNumberOfHighFreqM1,size(muts[muts.tag == 0]));
+			oceanicMeanNumberOfLowFreqM1 = c(oceanicMeanNumberOfLowFreqM1,size(muts[muts.tag == 1]));
+			oceanicMeanNumberOfHighFreqM2 = c(oceanicMeanNumberOfHighFreqM2,size(muts[muts.tag == 2])); 	
+			oceanicMeanNumberOfLowFreqM2 = c(oceanicMeanNumberOfLowFreqM2,size(muts[muts.tag == 3]));
 		}
  
-		for (subPop in Freshwater){
+		for (f_individual in Freshwater){
 
-			//Finohfm1 = NULL;
-			//Finolfm1 = NULL;
-			//Finohfm2 = NULL;
-			//Finolfm2 = NULL;
-		
-			for (individual in sim.subpopulations[subPop].individuals){
-				m1muts = individual.uniqueMutationsOfType(m1);
-				m2muts = individual.uniqueMutationsOfType(m2);				
+			mutss = f_individual.genomes.mutations;
 
-				freshwaterMeanNumberOfHighFreqM1 = c(freshwaterMeanNumberOfHighFreqM1,size(m1muts[m1muts.tag == 0]));
-				freshwaterMeanNumberOfLowFreqM1 = c(freshwaterMeanNumberOfLowFreqM1,size(m1muts[m1muts.tag == 1]));
-				freshwaterMeanNumberOfHighFreqM2 = c(freshwaterMeanNumberOfHighFreqM2,size(m2muts[m2muts.tag == 2]));
-				freshwaterMeanNumberOfLowFreqM2 = c(freshwaterMeanNumberOfLowFreqM2,size(m2muts[m2muts.tag == 3]));
-			}
-			//for (z in 0:199){
-			//	writeFile("./myOut174_Fr.txt",Finohfm1[z]+" "+Finolfm1[z]+" "+Finohfm2[z]+" "+Finolfm2[z],append = T);
-			//}			
+			freshwaterMeanNumberOfHighFreqM1 = c(freshwaterMeanNumberOfHighFreqM1,size(mutss[mutss.tag == 0]));
+			freshwaterMeanNumberOfLowFreqM1 = c(freshwaterMeanNumberOfLowFreqM1,size(mutss[mutss.tag == 1]));
+			freshwaterMeanNumberOfHighFreqM2 = c(freshwaterMeanNumberOfHighFreqM2,size(mutss[mutss.tag == 2]));
+			freshwaterMeanNumberOfLowFreqM2 = c(freshwaterMeanNumberOfLowFreqM2,size(mutss[mutss.tag == 3]));
+
 		}
 	
 		omnohfm1 = mean(oceanicMeanNumberOfHighFreqM1);
@@ -215,11 +218,9 @@ initialize() {
 		wmnohfm2 = mean(c(omnohfm2,fmnohfm2));
 		wmnolfm2 = mean(c(omnolfm2,fmnolfm2));
 
-		//writeFile("./myOut177_Wh",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
-		//writeFile("./myOut177_Oc",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
-		//writeFile("./myOut177_Fr",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
-		
-		
+		writeFile("./myOut182_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
+		writeFile("./myOut182_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
+		writeFile("./myOut182_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
 			
 	}
 	if(sim.generation == END)
@@ -271,4 +272,33 @@ fitness(NULL, p10) {
 	phenotype = asFloat(individual.tag);
 	return 1.0 + dnorm(-10.0 - phenotype, 0.0, 5.0);   // optimum of -10
 }
+
+
+1: mateChoice() {
+	return i1.strength(individual); 
+}
+
+modifyChild(p1){
+	if(sourceSubpop != subpop){
+		num = parent1.spatialPosition + rnorm(1,0,0.02);
+		nearestMult = num + H - (num + H) % M;
+		if(num < nearestMult){
+			child.setSpatialPosition(nearestMult - H);
+		}else{
+			child.setSpatialPosition(nearestMult + H);		
+		}
+		
+	}else{
+		pos = parent1.spatialPosition + rnorm(1,0,0.02);
+		child.setSpatialPosition(p1.pointReflected(pos));	
+	}
+	return T;
+}
+
+modifyChild(p2){
+	child.setSpatialPosition(parent1.spatialPosition);
+	return T;
+}
+
+
 40001 late() {sim.simulationFinished();}

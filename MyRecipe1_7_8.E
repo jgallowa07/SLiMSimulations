@@ -93,8 +93,8 @@ initialize() {
 	
 	if(((sim.generation-1) % Int == 0) | (sim.generation == END))
 	{
-		//cat("-------------------------------\n");
-		//cat("Output for generation " + sim.generation + ":\n\n");
+		cat("-------------------------------\n");
+		cat("Output for generation " + sim.generation + ":\n\n");
 		p1_mean_fitness = mean(p1.cachedFitness(NULL));
 		p2_mean_fitness = mean(p2.cachedFitness(NULL));
 		Oceanic_mean_phenotype =  mean(p1.individuals.tag);
@@ -112,7 +112,7 @@ initialize() {
 		m1_muts = sim.mutationsOfType(m1);
 		m2_muts = sim.mutationsOfType(m2);
 		polymorphic_sites = NULL;
-	
+			
 		//polymorphic_sites_easy = unique(sim.mutations.position);		
 
 		for (i in Chrom_Pos){
@@ -172,9 +172,6 @@ initialize() {
 	
 			oceanicMeanNumberOfHighFreqM2 = c(oceanicMeanNumberOfHighFreqM2,size(muts[muts.tag == 2])); 	
 			oceanicMeanNumberOfLowFreqM2 = c(oceanicMeanNumberOfLowFreqM2,size(muts[muts.tag == 3]));
-
-			
-
 		}
  
 		for (subPop in Freshwater){
