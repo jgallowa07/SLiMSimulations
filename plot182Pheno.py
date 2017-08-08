@@ -10,29 +10,21 @@ col4 = []
 col5 = []
 
 x_axis = []
-numAxis = 40
+File = open("myOut182_Ph.txt","r")
+first = File.readline()
+numAxis,interval = (int(i) for i in first.split())
+for line in File:
+	n1, n2= (float(s) for s in line.split())
+	col1.append(n1)
+	col2.append(n2)
+	#col3.append(n3)
+	#col4.append(n4)
+	#trace5.append(n5)
 
-def main():
-	File = open("myOut178_Ph","r")
-	for line in File:
-		n1, n2= (float(s) for s in line.split())
-		col1.append(n1)
-		col2.append(n2)
-		#col3.append(n3)
-		#col4.append(n4)
-		#trace5.append(n5)
-		
-	
-	return 1
-
-		
-main();
-
-
-#print("numAxis: "+str(numAxis))	
+print("numAxis: "+str(numAxis))	
 
 for i in range(0,numAxis + 1):
-	x_axis.append(i*500)
+	x_axis.append(i*interval)
 print(x_axis)	
 
 trace0 = go.Scatter(
@@ -94,4 +86,4 @@ layout = dict(title = 'Average Phenotype',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='MyRecipe1_7_8(Phenotypes)')
+py.iplot(fig, filename='Tester2')

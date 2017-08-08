@@ -1,8 +1,8 @@
 initialize() {
 
 
-	end = 100;
-	interval = 100;
+	end = 20000;
+	interval = 250;
 
 	numLakes = 10;	
 
@@ -36,10 +36,10 @@ initialize() {
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	writeFile("./myOut182_Ph.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Oc.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Fr.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
+	writeFile("./myOut182_Ph.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Oc.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Fr.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Wh.txt",numPoint+" "+interval,append = F);
 }
 1 early(){
 	sim.addSubpop("p1", IIO);

@@ -5,19 +5,22 @@ initialize() {
 	interval = 100;
 
 	numLakes = 10;	
-	multiples = 1/numLakes;
-	half = multiples / 2;
-	numPoint = end/interval;
-	subPopSize = 11;
 
-	defineConstant("SubPopSize", subPopSize);
-	defineConstant("END",end);
-	defineConstant("Int",interval);
-	defineConstant("numP",numPoint);	
-	defineConstant("NUMLakes",numLakes);
-	defineConstant("M", multiples);
-	defineConstant("H", half);
+	IndividualsInOcean = 2000;
 	
+	IndividualsInFresh = 100 * numLakes;	
+
+	lengthOfPops = asFloat(numLakes);
+	numPoint = end/interval;
+		
+
+	defineConstant("END",end);
+	defineConstant("INT",interval);
+	defineConstant("NLAKES",numLakes);
+	defineConstant("IIO", IndividualsInOcean);
+	defineConstant("IIF", IndividualsInFresh);	
+	defineConstant("LOP", lengthOfPops);
+
 	initializeSLiMOptions(dimensionality="x");
 
 	initializeMutationRate(1e-5);
@@ -30,16 +33,22 @@ initialize() {
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 	
-	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.09);
+	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
+	writeFile("./myOut182_Ph.txt",numPoint+" ",append = F);
+	writeFile("./myOut182_Oc.txt",numPoint+" ",append = F);
+	writeFile("./myOut182_Fr.txt",numPoint+" ",append = F);
+	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
 }
 1 early(){
-	sim.addSubpop("p1", 2000);
-	sim.addSubpop("p2", 2000);
+	sim.addSubpop("p1", IIO);
+	sim.addSubpop("p2", IIF);
 	
-	p1.setSpatialBounds(c(0.0, 1.0));
-	p2.setSpatialBounds(c(0.0, 1.0));
+	IPF = IIF/NLAKES;
+
+	p1.setSpatialBounds(c(0.0, LOP));
+	p2.setSpatialBounds(c(0.0, LOP));
 	
 	p1.setMigrationRates(p2,0.0005);
 	p2.setMigrationRates(p1,0.0005);
@@ -50,14 +59,18 @@ initialize() {
 	
 	lakeIndividuals = p2.individuals;
 
-	for (i in 0:(NUMLakes-1)){
-		for (j in 0:199){
-			lakeIndividuals[200*i + j].setSpatialPosition(asFloat((i/10)+0.05));						
+	for (i in 0:(NLAKES-1)){
+		for (j in 0:(IPF-1)){
+			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
 		}
 	}
 	
-	x = sum(abs(p2.individuals.spatialPosition - 0.05) < 1e-8);
-	catn("Num at position 0.05: " + x + "\n");	
+	Loc = 0.5;
+	for(i in 1:10){
+		x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
+		catn("Num at position "+Loc+ ": " + x + "\n");	
+		Loc = Loc + 1;
+	}
 	catn(p2.individuals.spatialPosition);
 }
 1: early(){
@@ -113,7 +126,7 @@ initialize() {
 		individual.tag = substitutionOffset + (m1muts - m2muts);
 	}
 	
-	if(((sim.generation-1) % Int == 0) | (sim.generation == END))
+	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
 	{
 		cat("-------------------------------\n");
 		cat("Output for generation " + sim.generation + ":\n\n");
@@ -221,6 +234,13 @@ initialize() {
 	if(sim.generation == END)
 	{
 		sim.simulationFinished();
+		Loc = 0.5;
+		for(i in 1:10){
+			x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
+			catn("Num at position "+Loc+ ": " + x + "\n");	
+			Loc = Loc + 1;
+		}
+		catn(p2.individuals.spatialPosition);
 	}
 }
 
@@ -241,13 +261,17 @@ fitness(NULL, p2) {
 }
 
 modifyChild(p1){
+
+	
+
 	if(sourceSubpop != subpop){
 		num = parent1.spatialPosition + rnorm(1,0,0.02);
-		nearestMult = num + H - (num + H) % M;
+		//nearestMult = num + H - (num + H) % M;
+		nearestMult = round(num);
 		if(num < nearestMult){
-			child.setSpatialPosition(nearestMult - H);
+			child.setSpatialPosition(nearestMult - 0.5);
 		}else{
-			child.setSpatialPosition(nearestMult + H);		
+			child.setSpatialPosition(nearestMult + 0.5);		
 		}
 		
 	}else{
