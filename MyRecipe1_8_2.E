@@ -1,14 +1,14 @@
 initialize() {
 
 
-	end = 100;
-	interval = 100;
+	end = 1000;
+	interval = 1000;
 
 	numLakes = 10;	
 
 	IndividualsInOcean = 2000;
 	
-	IndividualsInFresh = 100 * numLakes;	
+	IndividualsInFresh = 200 * numLakes;	
 
 	lengthOfPops = asFloat(numLakes);
 	numPoint = end/interval;
@@ -65,16 +65,19 @@ initialize() {
 		}
 	}
 	
+	catn(p2.individuals.spatialPosition);
+}
+1: early(){
+	i1.evaluate();
+	catn("Generation: " +  sim.generation);	
 	Loc = 0.5;
 	for(i in 1:10){
 		x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
 		catn("Num at position "+Loc+ ": " + x + "\n");	
 		Loc = Loc + 1;
 	}
-	catn(p2.individuals.spatialPosition);
-}
-1: early(){
-	i1.evaluate();
+	
+
 }
 
 1 late() {
@@ -234,12 +237,6 @@ initialize() {
 	if(sim.generation == END)
 	{
 		sim.simulationFinished();
-		Loc = 0.5;
-		for(i in 1:10){
-			x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
-			catn("Num at position "+Loc+ ": " + x + "\n");	
-			Loc = Loc + 1;
-		}
 		catn(p2.individuals.spatialPosition);
 	}
 }
@@ -265,7 +262,8 @@ modifyChild(p1){
 	
 
 	if(sourceSubpop != subpop){
-		num = parent1.spatialPosition + rnorm(1,0,0.02);
+		num = parent1.spatialPosition + rnorm(1,0,2.0);
+		num = p2.pointReflected(num);
 		//nearestMult = num + H - (num + H) % M;
 		nearestMult = round(num);
 		if(num < nearestMult){
@@ -275,14 +273,20 @@ modifyChild(p1){
 		}
 		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,0.02);
+		pos = parent1.spatialPosition + rnorm(1,0,2.0);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
 }
 
 modifyChild(p2){
-	child.setSpatialPosition(parent1.spatialPosition);
+	if(sourceSubpop != subpop){
+		
+		pos = parent1.spatialPosition + rnorm(1,0,2.0);
+		child.setSpatialPosition(p1.pointReflected(pos));	
+	}else{
+		child.setSpatialPosition(parent1.spatialPosition);
+	}
 	return T;
 }
 
