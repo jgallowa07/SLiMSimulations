@@ -44,7 +44,7 @@ initialize() {
 	writeFile("./myOut182_Fr.txt",numPoint+" ",append = F);
 	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
 }
-1 early(){
+1 late(){
 	sim.addSubpop("p1", IIO);
 	sim.addSubpop("p2", IIF);
 	
@@ -70,7 +70,7 @@ initialize() {
 	
 	catn(p2.individuals.spatialPosition);
 }
-1: early(){
+1: late(){
 	i1.evaluate();
 	i2.evaluate();
 	catn("Generation: " +  sim.generation);	
@@ -251,13 +251,13 @@ fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
 	phenotype = asFloat(individual.tag);
 	PhenoFitness =  1.0 + dnorm(10.0 - phenotype, 0.0, 5.0);    // optimum of +10
-	totalStrength = i1.totalOfNeighborStrengths(individual);
+	totalStrength = i2.totalOfNeighborStrengths(individual);
 	return (PhenoFitness + totalStrength)/2;  
 }
 fitness(NULL, p2) {
 	phenotype = asFloat(individual.tag);
 	PhenoFitness =  1.0 + dnorm(- 10.0 - phenotype, 0.0, 5.0);    // optimum of +10
-	totalStrength = i1.totalOfNeighborStrengths(individual);
+	totalStrength = i2.totalOfNeighborStrengths(individual);
 	return (PhenoFitness + totalStrength)/2;  
 }
 
