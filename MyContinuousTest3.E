@@ -72,6 +72,7 @@ initialize() {
 }
 1: early(){
 	i1.evaluate();
+	i2.evaluate();
 	catn("Generation: " +  sim.generation);	
 	Loc = 0.5;
 	for(i in 1:10){

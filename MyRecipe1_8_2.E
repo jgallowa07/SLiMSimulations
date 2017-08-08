@@ -262,7 +262,7 @@ modifyChild(p1){
 	
 
 	if(sourceSubpop != subpop){
-		num = parent1.spatialPosition + rnorm(1,0,2.0);
+		num = parent1.spatialPosition + rnorm(1,0,1.0);
 		num = p2.pointReflected(num);
 		//nearestMult = num + H - (num + H) % M;
 		nearestMult = round(num);
@@ -273,7 +273,7 @@ modifyChild(p1){
 		}
 		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,2.0);
+		pos = parent1.spatialPosition + rnorm(1,0,1.0);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
@@ -282,7 +282,7 @@ modifyChild(p1){
 modifyChild(p2){
 	if(sourceSubpop != subpop){
 		
-		pos = parent1.spatialPosition + rnorm(1,0,2.0);
+		pos = parent1.spatialPosition + rnorm(1,0,1.0);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
 		child.setSpatialPosition(parent1.spatialPosition);
