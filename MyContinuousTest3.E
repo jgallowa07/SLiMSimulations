@@ -252,13 +252,15 @@ fitness(NULL, p1) {
 	phenotype = asFloat(individual.tag);
 	PhenoFitness =  1.0 + dnorm(10.0 - phenotype, 0.0, 5.0);    // optimum of +10
 	totalStrength = i2.totalOfNeighborStrengths(individual);
-	return (PhenoFitness + totalStrength)/2;  
+	StrengthFitness = 1.1 - totalStrength/p1.individualCount;
+	return (PhenoFitness + StrengthFitness)/2;  
 }
 fitness(NULL, p2) {
 	phenotype = asFloat(individual.tag);
 	PhenoFitness =  1.0 + dnorm(- 10.0 - phenotype, 0.0, 5.0);    // optimum of +10
 	totalStrength = i2.totalOfNeighborStrengths(individual);
-	return (PhenoFitness + totalStrength)/2;  
+	StrengthFitness = 1.1 - totalStrength/p2.individualCount;
+	return (PhenoFitness + StrengthFitness)/2;  
 }
 
 1: mateChoice() {
