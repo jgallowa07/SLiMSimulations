@@ -45,14 +45,14 @@ initialize() {
 	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
 }
 
-2: early() {	
-	for (l in 1:NLAKES){
-		locationOfLake = (l - 0.5);
-		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
-		sumOfPhenos = sum(lake_individuals.tagF);
-		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
-	}
-}
+//2: early() {	
+//	for (l in 1:NLAKES){
+//		locationOfLake = (l - 0.5);
+//		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+//		sumOfPhenos = sum(lake_individuals.tagF);
+//		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
+//	}
+//}
 
 1 late(){
 	sim.addSubpop("p1", IIO);
@@ -64,7 +64,7 @@ initialize() {
 	p2.setSpatialBounds(c(0.0, LOP));
 	
 	p1.setMigrationRates(p2,0.0005);
-	p2.setMigrationRates(p1,0.005);
+	p2.setMigrationRates(p1,0.0005);
 	
 	for (ind in p1.individuals){
 		ind.setSpatialPosition(p1.pointUniform());
@@ -140,6 +140,12 @@ initialize() {
 		m1muts = individual.countOfMutationsOfType(m1);
 		m2muts = individual.countOfMutationsOfType(m2);	
 		individual.tagF = substitutionOffset + (m1muts - m2muts);
+	}
+	for (l in 1:NLAKES){
+		locationOfLake = (l - 0.5);
+		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		sumOfPhenos = sum(lake_individuals.tagF);
+		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
 	}
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
