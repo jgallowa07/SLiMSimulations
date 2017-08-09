@@ -141,12 +141,6 @@ initialize() {
 		m2muts = individual.countOfMutationsOfType(m2);	
 		individual.tagF = substitutionOffset + (m1muts - m2muts);
 	}
-	for (l in 1:NLAKES){
-		locationOfLake = (l - 0.5);
-		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
-		sumOfPhenos = sum(lake_individuals.tagF);
-		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
-	}
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
 	{
@@ -256,6 +250,12 @@ initialize() {
 		sim.simulationFinished();
 		catn(p2.individuals.spatialPosition);
 	}
+	for (l in 1:NLAKES){
+		locationOfLake = (l - 0.5);
+		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		sumOfPhenos = sum(lake_individuals.tagF);
+		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
+	}
 }
 
 
@@ -264,10 +264,12 @@ fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
 	phenotype = asFloat(individual.tagF);
 	return 1.0 + dnorm(10.0 - phenotype, 0.0, 10.0);    // optimum of +10
+	
 }
 fitness(NULL, p2) {
-	phenotype = asFloat(individual.tagF);
-	return 1.0 + dnorm(- 10.0 - phenotype, 0.0, 10.0);    // optimum of +10
+	//phenotype = asFloat(individual.tagF);
+	//return 1.0 + dnorm(- 10.0 - phenotype, 0.0, 10.0);    // optimum of +10
+	return individual.tagF;
 }
 
 1: mateChoice() {
@@ -275,8 +277,6 @@ fitness(NULL, p2) {
 }
 
 modifyChild(p1){
-
-	
 
 	if(sourceSubpop != subpop){
 		num = parent1.spatialPosition + rnorm(1,0,0.5);
