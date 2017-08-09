@@ -20,7 +20,7 @@ initialize() {
 	defineConstant("IIO", IndividualsInOcean);
 	defineConstant("IIF", IndividualsInFresh);	
 	defineConstant("LOP", lengthOfPops);
-
+	defineConstant("IPF",IndividualsInFresh/numLakes);
 	initializeSLiMOptions(dimensionality="x");
 
 	initializeMutationRate(1e-5);
@@ -34,27 +34,37 @@ initialize() {
 	initializeRecombinationRate(1e-3);
 	
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
-	//i1.setInteractionFunction("n", 0.5, 0.02);
+	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	initializeInteractionType(2, "x", reciprocal=T, maxDistance=0.3);
-	i2.setInteractionFunction("n",3.0,0.1);
+	//initializeInteractionType(2, "x", reciprocal=T, maxDistance=0.3);
+	//i2.setInteractionFunction("n",1.0,0.1);
 	
 	writeFile("./myOut182_Ph.txt",numPoint+" ",append = F);
 	writeFile("./myOut182_Oc.txt",numPoint+" ",append = F);
 	writeFile("./myOut182_Fr.txt",numPoint+" ",append = F);
 	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
 }
+
+2: early() {	
+	for (l in 1:NLAKES){
+		locationOfLake = (l - 0.5);
+		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		sumOfPhenos = sum(lake_individuals.tagF);
+		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
+	}
+}
+
 1 late(){
 	sim.addSubpop("p1", IIO);
 	sim.addSubpop("p2", IIF);
 	
-	IPF = IIF/NLAKES;
+	//IPF = IIF/NLAKES;
 
 	p1.setSpatialBounds(c(0.0, LOP));
 	p2.setSpatialBounds(c(0.0, LOP));
 	
 	p1.setMigrationRates(p2,0.0005);
-	p2.setMigrationRates(p1,0.0005);
+	p2.setMigrationRates(p1,0.005);
 	
 	for (ind in p1.individuals){
 		ind.setSpatialPosition(p1.pointUniform());
@@ -72,10 +82,9 @@ initialize() {
 }
 1: late(){
 	i1.evaluate();
-	i2.evaluate();
 	catn("Generation: " +  sim.generation);	
 	Loc = 0.5;
-	for(i in 1:10){
+	for(i in 1:NLAKES){
 		x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
 		catn("Num at position "+Loc+ ": " + x + "\n");	
 		Loc = Loc + 1;
@@ -130,7 +139,7 @@ initialize() {
 	{
 		m1muts = individual.countOfMutationsOfType(m1);
 		m2muts = individual.countOfMutationsOfType(m2);	
-		individual.tag = substitutionOffset + (m1muts - m2muts);
+		individual.tagF = substitutionOffset + (m1muts - m2muts);
 	}
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
@@ -139,8 +148,8 @@ initialize() {
 		cat("Output for generation " + sim.generation + ":\n\n");
 		p1_mean_fitness = mean(p1.cachedFitness(NULL));
 		p2_mean_fitness = mean(p2.cachedFitness(NULL));
-		Oceanic_mean_phenotype =  mean(p1.individuals.tag);
-		Freshwater_mean_phenotype = mean(p2.individuals.tag);
+		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
+		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 	
 		writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
@@ -182,8 +191,6 @@ initialize() {
 
 		Oceanic = p1.individuals;
 		Freshwater = p2.individuals;
-//		lastfreshindex = SubPopSize - 1;
-//		Freshwater = 1:lastfreshindex;			
 
 		oceanicMeanNumberOfHighFreqM1 = NULL;
 		oceanicMeanNumberOfLowFreqM1 = NULL;
@@ -249,18 +256,12 @@ initialize() {
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
-	phenotype = asFloat(individual.tag);
-	PhenoFitness =  1.0 + dnorm(10.0 - phenotype, 0.0, 5.0);    // optimum of +10
-	totalStrength = i2.totalOfNeighborStrengths(individual);
-	StrengthFitness = 1.1 - totalStrength/p1.individualCount;
-	return (PhenoFitness + StrengthFitness)/2;  
+	phenotype = asFloat(individual.tagF);
+	return 1.0 + dnorm(10.0 - phenotype, 0.0, 10.0);    // optimum of +10
 }
 fitness(NULL, p2) {
-	phenotype = asFloat(individual.tag);
-	PhenoFitness =  1.0 + dnorm(- 10.0 - phenotype, 0.0, 5.0);    // optimum of +10
-	totalStrength = i2.totalOfNeighborStrengths(individual);
-	StrengthFitness = 1.1 - totalStrength/p2.individualCount;
-	return (PhenoFitness + StrengthFitness)/2;  
+	phenotype = asFloat(individual.tagF);
+	return 1.0 + dnorm(- 10.0 - phenotype, 0.0, 10.0);    // optimum of +10
 }
 
 1: mateChoice() {
@@ -272,7 +273,7 @@ modifyChild(p1){
 	
 
 	if(sourceSubpop != subpop){
-		num = parent1.spatialPosition + rnorm(1,0,1.0);
+		num = parent1.spatialPosition + rnorm(1,0,0.5);
 		num = p2.pointReflected(num);
 		//nearestMult = num + H - (num + H) % M;
 		nearestMult = round(num);
@@ -283,7 +284,7 @@ modifyChild(p1){
 		}
 		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,1.0);
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
@@ -291,8 +292,7 @@ modifyChild(p1){
 
 modifyChild(p2){
 	if(sourceSubpop != subpop){
-		
-		pos = parent1.spatialPosition + rnorm(1,0,1.0);
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
 		child.setSpatialPosition(parent1.spatialPosition);
