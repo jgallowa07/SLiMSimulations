@@ -135,11 +135,16 @@ initialize() {
 	}	
 	substitutionOffset  = m1subs - m2subs;
 
-	for (individual in sim.subpopulations.individuals)
+	for (individual in p1.individuals)
 	{
 		m1muts = individual.countOfMutationsOfType(m1);
 		m2muts = individual.countOfMutationsOfType(m2);	
 		individual.tagF = substitutionOffset + (m1muts - m2muts);
+	}
+	for (individual in p2.individuals){
+		m1muts = individual.countOfMutationsOfType(m1);
+		m2muts = individual.countOfMutationsOfType(m2);	
+		individual.tagF = dnorm(-10.0 - substitutionOffset + (m1muts - m2muts),0.0,10.0);
 	}
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
@@ -264,7 +269,6 @@ fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
 	phenotype = asFloat(individual.tagF);
 	return 1.0 + dnorm(10.0 - phenotype, 0.0, 10.0);    // optimum of +10
-	
 }
 fitness(NULL, p2) {
 	//phenotype = asFloat(individual.tagF);
