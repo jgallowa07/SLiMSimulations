@@ -80,18 +80,18 @@ initialize() {
 	
 	catn(p2.individuals.spatialPosition);
 }
-1: late(){
-	i1.evaluate();
-	catn("Generation: " +  sim.generation);	
-	Loc = 0.5;
-	for(i in 1:NLAKES){
-		x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
-		catn("Num at position "+Loc+ ": " + x + "\n");	
-		Loc = Loc + 1;
-	}
+//1: late(){
+	//i1.evaluate();
+	//catn("Generation: " +  sim.generation);	
+	//Loc = 0.5;
+	//for(i in 1:NLAKES){
+	//	x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
+	//	catn("Num at position "+Loc+ ": " + x + "\n");	
+	//	Loc = Loc + 1;
+	//}
 	
 
-}
+//}
 
 1 late() {
 	// optional: give m1 mutations to everyone, as standing variation
@@ -118,7 +118,7 @@ initialize() {
 
 
 1: late() {
-
+	i1.evaluate();
 	m1subs = 0;
 	m2subs = 0;
 		
@@ -255,12 +255,25 @@ initialize() {
 		sim.simulationFinished();
 		catn(p2.individuals.spatialPosition);
 	}
+	catn("Generation: " +  sim.generation);	
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
 		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 		sumOfPhenos = sum(lake_individuals.tagF);
 		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
+	
+		
+		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
+		x =NULL;
+		if (size(lake_individuals) == 0){
+			x = 0;
+		}else{
+			x = mean(lake_individuals.tagF);
+		}  
+		catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
+		
 	}
+	
 }
 
 
@@ -283,7 +296,7 @@ fitness(NULL, p2) {
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){
-		num = parent1.spatialPosition + rnorm(1,0,0.5);
+		num = parent1.spatialPosition + rnorm(1,0,1.5);
 		num = p2.pointReflected(num);
 		//nearestMult = num + H - (num + H) % M;
 		nearestMult = round(num);
@@ -302,7 +315,7 @@ modifyChild(p1){
 
 modifyChild(p2){
 	if(sourceSubpop != subpop){
-		pos = parent1.spatialPosition + rnorm(1,0,0.5);
+		pos = parent1.spatialPosition + rnorm(1,0,1.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
 		child.setSpatialPosition(parent1.spatialPosition);
