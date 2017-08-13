@@ -6,7 +6,7 @@ initialize() {
 
 	numLakes = 10;	
 
-	IndividualsInOcean = 2000;
+	IndividualsInOcean = 10000;
 	
 	IndividualsInFresh = 200 * numLakes;	
 
@@ -72,13 +72,15 @@ initialize() {
 	
 	lakeIndividuals = p2.individuals;
 
+	//for (j in 0:(IPF-1)){
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
+		//for (i in 0:(NLAKES-1)){
 			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
 		}
 	}
 	
-	catn(p2.individuals.spatialPosition);
+	//catn(p2.individuals.spatialPosition);
 }
 //1: late(){
 	//i1.evaluate();
@@ -255,7 +257,7 @@ initialize() {
 		sim.simulationFinished();
 		catn(p2.individuals.spatialPosition);
 	}
-	catn("Generation: " +  sim.generation);	
+	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
 		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
