@@ -6,7 +6,7 @@ initialize() {
 
 	numLakes = 10;	
 
-	IndividualsInOcean = 10000;
+	IndividualsInOcean = 2000;
 	
 	IndividualsInFresh = 200 * numLakes;	
 
@@ -148,6 +148,8 @@ initialize() {
 		m2muts = individual.countOfMutationsOfType(m2);	
 		individual.tagF = dnorm(-10.0 - substitutionOffset + (m1muts - m2muts),0.0,10.0);
 	}
+
+	//The entire if block below is for sampling data at a given interval, INT	
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
 	{

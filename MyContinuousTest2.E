@@ -46,6 +46,14 @@ initialize()
 		
 		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
 		
+		if(size(lake_individuals) == 0)
+		{
+			catn("DEADLAKE:(");
+			sim.simulationFinished();	
+		}
+
+		
+		
 	}
 }
 1: mateChoice() {
@@ -57,7 +65,7 @@ modifyChild(p1){
 	return T;
 }
 
-10 late ()
+1000 late ()
 {
 
 	sim.simulationFinished();
