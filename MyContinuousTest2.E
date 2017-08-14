@@ -48,7 +48,7 @@ initialize()
 		
 		if(size(lake_individuals) == 0)
 		{
-			catn("DEADLAKE:(");
+			catn("DEADLAKE:'("+ "\n");
 			sim.simulationFinished();	
 		}
 
