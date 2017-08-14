@@ -1,5 +1,5 @@
 // Initial random seed:
-123
+1500733433090
 
 // RunInitializeCallbacks():
 initializeSLiMOptions(dimensionality = 'x');
