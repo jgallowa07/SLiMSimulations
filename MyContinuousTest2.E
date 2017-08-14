@@ -25,6 +25,8 @@ initialize()
 	
 	lakeIndividuals = p1.individuals;
 
+	//Set 200 individuals in each 'freshwater lake'
+
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
 			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
@@ -37,7 +39,9 @@ initialize()
 1:late(){
 
 	i1.evaluate();
-
+		
+	//sample how many individuals are in each lake
+	
 	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
@@ -57,10 +61,16 @@ initialize()
 	}
 }
 1: mateChoice() {
+	
+	//make sure second parent chosen is from the same 'freshwater lake'
+	
 	return i1.strength(individual); 
 }
 
 modifyChild(p1){
+
+	//put child in the same lake as the parents
+	
 	child.setSpatialPosition(parent1.spatialPosition);
 	return T;
 }
