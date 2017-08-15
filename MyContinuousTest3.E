@@ -146,7 +146,7 @@ initialize() {
 	for (individual in p2.individuals){
 		m1muts = individual.countOfMutationsOfType(m1);
 		m2muts = individual.countOfMutationsOfType(m2);	
-		individual.tagF = dnorm(-10.0 - substitutionOffset + (m1muts - m2muts),0.0,10.0);
+		individual.tagF = substitutionOffset + (m1muts - m2muts);
 	}
 
 	//The entire if block below is for sampling data at a given interval, INT	
@@ -260,6 +260,12 @@ initialize() {
 //		catn(p2.individuals.spatialPosition);
 	}
 //	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
+	
+	
+	for (individual in p2.individuals){
+		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,10.0);
+	}
+	
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
 		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
