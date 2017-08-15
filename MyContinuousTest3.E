@@ -64,7 +64,7 @@ initialize() {
 	p2.setSpatialBounds(c(0.0, LOP));
 	
 	p1.setMigrationRates(p2,0.0005);
-	p2.setMigrationRates(p1,0.005);
+	p2.setMigrationRates(p1,0.0005);
 	
 	for (ind in p1.individuals){
 		ind.setSpatialPosition(p1.pointUniform());

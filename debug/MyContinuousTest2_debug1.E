@@ -43,7 +43,7 @@ initialize()
 		
 	//sample how many individuals are in each lake
 	
-	catn("Generation: " +  sim.generation + " total indivs:" + size(p1.individuals) + "----------------------------------------------------------------");	
+	catn("Generation: " +  sim.generation + " total indivs:" + size(p1.individuals) + "----------------------------------------");	
     catn(sort(p1.individuals.spatialPosition));
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
@@ -55,7 +55,7 @@ initialize()
 		if(size(lake_individuals) == 0)
 		{
 			catn("DEADLAKEBUG?  :'("+ "\n");
-            catn("Generation: " +  sim.generation + " total indivs:" + size(p1.individuals) + "----------------------------------------------------------------");	
+            catn("Generation: " +  sim.generation + " total indivs:" + size(p1.individuals) + "------------------------------------");	
             catn(sort(p1.individuals.spatialPosition));
 			sim.simulationFinished();	
 		}

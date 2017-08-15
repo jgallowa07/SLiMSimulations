@@ -65,13 +65,26 @@ initialize()
 	//make sure second parent chosen is from the same 'freshwater lake'
 	
 	return i1.strength(individual); 
+	//neighbors = i1.nearestNeighbors(individual, 3);
+	//mates = rep(0.0, p1.individualCount);
+	//mates[neighbors.index] = 1.0;
+	//return mates;	
 }
 
 modifyChild(p1){
 
 	//put child in the same lake as the parents
-	
+	 
 	child.setSpatialPosition(parent1.spatialPosition);
+
+	if (parent1.spatialPosition != child.spatialPosition | parent2.spatialPosition != child.spatialPosition)
+	{
+		catn("wtf" + "\n");
+		sim.simulationFinished();
+				
+
+	} 
+
 	return T;
 }
 
