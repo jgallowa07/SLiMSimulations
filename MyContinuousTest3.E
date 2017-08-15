@@ -261,10 +261,10 @@ initialize() {
 	}
 	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
 	for (l in 1:NLAKES){
-//		locationOfLake = (l - 0.5);
-//		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		locationOfLake = (l - 0.5);
+		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 //		sumOfPhenos = sum(lake_individuals.tagF);
-//		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
+//		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos);
 	
 		
 		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
