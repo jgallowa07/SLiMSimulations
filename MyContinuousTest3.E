@@ -1,8 +1,8 @@
 initialize() {
 
 
-	end = 20000;
-	interval = 250;
+	end = 1000;
+	interval = 1000;
 
 	numLakes = 10;	
 
