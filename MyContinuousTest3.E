@@ -259,24 +259,24 @@ initialize() {
 		sim.simulationFinished();
 //		catn(p2.individuals.spatialPosition);
 	}
-//	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
-//	for (l in 1:NLAKES){
+	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
+	for (l in 1:NLAKES){
 //		locationOfLake = (l - 0.5);
 //		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 //		sumOfPhenos = sum(lake_individuals.tagF);
 //		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
 	
 		
-//		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
-//		x =NULL;
-//		if (size(lake_individuals) == 0){
-//			x = 0;
-//		}else{
-//			x = mean(lake_individuals.tagF);
-//		}  
-//		catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
+		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
+		x =NULL;
+		if (size(lake_individuals) == 0){
+			x = 0;
+		}else{
+			x = mean(lake_individuals.tagF);
+		}  
+		catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
 		
-//	}
+	}
 	
 }
 
