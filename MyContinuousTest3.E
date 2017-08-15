@@ -36,23 +36,12 @@ initialize() {
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	//initializeInteractionType(2, "x", reciprocal=T, maxDistance=0.3);
-	//i2.setInteractionFunction("n",1.0,0.1);
-	
-	writeFile("./myOut182_Ph.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Oc.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Fr.txt",numPoint+" ",append = F);
-	writeFile("./myOut182_Wh.txt",numPoint+" ",append = F);
+	writeFile("./myOut182_Ph.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Oc.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Fr.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut182_Wh.txt",numPoint+" "+interval,append = F);
 }
 
-//2: early() {	
-//	for (l in 1:NLAKES){
-//		locationOfLake = (l - 0.5);
-//		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
-//		sumOfPhenos = sum(lake_individuals.tagF);
-//		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos + 1);
-//	}
-//}
 
 1 late(){
 	sim.addSubpop("p1", IIO);
@@ -72,28 +61,13 @@ initialize() {
 	
 	lakeIndividuals = p2.individuals;
 
-	//for (j in 0:(IPF-1)){
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
-		//for (i in 0:(NLAKES-1)){
 			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
 		}
 	}
-	
-	//catn(p2.individuals.spatialPosition);
 }
-//1: late(){
-	//i1.evaluate();
-	//catn("Generation: " +  sim.generation);	
-	//Loc = 0.5;
-	//for(i in 1:NLAKES){
-	//	x = sum(abs(p2.individuals.spatialPosition - Loc) < 1e-8);
-	//	catn("Num at position "+Loc+ ": " + x + "\n");	
-	//	Loc = Loc + 1;
-	//}
 	
-
-//}
 
 1 late() {
 	// optional: give m1 mutations to everyone, as standing variation
@@ -252,15 +226,28 @@ initialize() {
 		writeFile("./myOut182_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
 		writeFile("./myOut182_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
 		writeFile("./myOut182_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
+
+		for (l in 1:NLAKES){
+			locationOfLake = (l - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		
+			
+			catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
+			x =NULL;
+			if (size(lake_individuals) == 0){
+				x = 0;
+			}else{
+				x = mean(lake_individuals.tagF);
+			}  
+			catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
+			
+		}
 			
 	}
 	if(sim.generation == END)
 	{
 		sim.simulationFinished();
-//		catn(p2.individuals.spatialPosition);
 	}
-//	catn("Generation: " +  sim.generation + "----------------------------------------------------------------");	
-	
 	
 	for (individual in p2.individuals){
 		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,10.0);
@@ -271,17 +258,6 @@ initialize() {
 		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 		sumOfPhenos = sum(lake_individuals.tagF);
 		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos);
-	
-		
-//		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
-//		x =NULL;
-//		if (size(lake_individuals) == 0){
-//			x = 0;
-//		}else{
-//			x = mean(lake_individuals.tagF);
-//		}  
-//		catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
-		
 	}
 	
 }
