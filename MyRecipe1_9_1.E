@@ -1,7 +1,7 @@
 initialize() {
 
 
-	end = 2000;
+	end = 20000;
 	interval = 50;
 
 	numLakes = 10;	
@@ -119,6 +119,7 @@ initialize() {
 		//p2_mean_fitness = mean(p2.cachedFitness(NULL));
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
+		catn("SubstitutionOffset: "+substitutionOffset);
 		catn("Oceanic Mean Phenotype: "+ Oceanic_mean_phenotype);
 		catn("Freshwater Mean Phenotype: "+ Freshwater_mean_phenotype+"\n");
 		//writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
