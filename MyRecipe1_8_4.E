@@ -225,21 +225,21 @@ initialize() {
 		writeFile("./myOut184_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
 		writeFile("./myOut184_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
 
-		for (l in 1:NLAKES){
-			locationOfLake = (l - 0.5);
-			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+	//	for (l in 1:NLAKES){
+	//		locationOfLake = (l - 0.5);
+	//		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 		
 			
-			catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
-			x =NULL;
-			if (size(lake_individuals) == 0){
-				x = 0;
-			}else{
-				x = mean(lake_individuals.tagF);
-			}  
-			catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
+	//		catn("Num at position "+locationOfLake+ ": " + size(lake_individuals) + "\n");	
+	//		x =NULL;
+	//		if (size(lake_individuals) == 0){
+	//			x = 0;
+	//		}else{
+	//			x = mean(lake_individuals.tagF);
+	//		}  
+	//		catn("Average Phenotype (fitness) at location " + locationOfLake + ":  " + x + "\n");
 			
-		}
+	//	}
 			
 	}
 	if(sim.generation == END)
