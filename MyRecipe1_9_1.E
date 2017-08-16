@@ -36,10 +36,10 @@ initialize() {
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	writeFile("./myOut182_Ph.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Oc.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Fr.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Wh.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut191_Ph.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut191_Oc.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut191_Fr.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut191_Wh.txt",numPoint+" "+interval,append = F);
 }
 
 
@@ -122,7 +122,7 @@ initialize() {
 		catn("SubstitutionOffset: "+substitutionOffset);
 		catn("Oceanic Mean Phenotype: "+ Oceanic_mean_phenotype);
 		catn("Freshwater Mean Phenotype: "+ Freshwater_mean_phenotype+"\n");
-		//writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile("./myOut191_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
@@ -160,6 +160,60 @@ initialize() {
 			}
 		}
 
+		Oceanic = p1.individuals;
+		Freshwater = p2.individuals;
+
+		oceanicMeanNumberOfHighFreqM1 = NULL;
+		oceanicMeanNumberOfLowFreqM1 = NULL;
+		oceanicMeanNumberOfHighFreqM2 = NULL;
+		oceanicMeanNumberOfLowFreqM2 = NULL;
+
+		freshwaterMeanNumberOfHighFreqM1 = NULL;
+		freshwaterMeanNumberOfLowFreqM1 = NULL;
+		freshwaterMeanNumberOfHighFreqM2 = NULL;
+		freshwaterMeanNumberOfLowFreqM2 = NULL;
+	
+
+		for (o_individual in Oceanic){
+			
+			muts = o_individual.genomes.mutations;
+
+			//Oinoh/lm1/2 = "oceanic individual's # of high/low frequency m1/m2"
+			oceanicMeanNumberOfHighFreqM1 = c(oceanicMeanNumberOfHighFreqM1,size(muts[muts.tag == 0]));
+			oceanicMeanNumberOfLowFreqM1 = c(oceanicMeanNumberOfLowFreqM1,size(muts[muts.tag == 1]));
+			oceanicMeanNumberOfHighFreqM2 = c(oceanicMeanNumberOfHighFreqM2,size(muts[muts.tag == 2])); 	
+			oceanicMeanNumberOfLowFreqM2 = c(oceanicMeanNumberOfLowFreqM2,size(muts[muts.tag == 3]));
+		}
+ 
+		for (f_individual in Freshwater){
+
+			mutss = f_individual.genomes.mutations;
+
+			freshwaterMeanNumberOfHighFreqM1 = c(freshwaterMeanNumberOfHighFreqM1,size(mutss[mutss.tag == 0]));
+			freshwaterMeanNumberOfLowFreqM1 = c(freshwaterMeanNumberOfLowFreqM1,size(mutss[mutss.tag == 1]));
+			freshwaterMeanNumberOfHighFreqM2 = c(freshwaterMeanNumberOfHighFreqM2,size(mutss[mutss.tag == 2]));
+			freshwaterMeanNumberOfLowFreqM2 = c(freshwaterMeanNumberOfLowFreqM2,size(mutss[mutss.tag == 3]));
+
+		}
+	
+		omnohfm1 = mean(oceanicMeanNumberOfHighFreqM1);
+                omnolfm1 = mean(oceanicMeanNumberOfLowFreqM1);
+                omnohfm2 = mean(oceanicMeanNumberOfHighFreqM2);
+                omnolfm2 = mean(oceanicMeanNumberOfLowFreqM2);
+
+                fmnohfm1 = mean(freshwaterMeanNumberOfHighFreqM1);
+                fmnolfm1 = mean(freshwaterMeanNumberOfLowFreqM1);
+                fmnohfm2 = mean(freshwaterMeanNumberOfHighFreqM2);
+                fmnolfm2 = mean(freshwaterMeanNumberOfLowFreqM2);
+
+		wmnohfm1 = mean(c(omnohfm1,fmnohfm1));
+		wmnolfm1 = mean(c(omnolfm1,fmnolfm1));
+		wmnohfm2 = mean(c(omnohfm2,fmnohfm2));
+		wmnolfm2 = mean(c(omnolfm2,fmnolfm2));
+
+		writeFile("./myOut191_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
+		writeFile("./myOut191_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
+		writeFile("./myOut191_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
 
 	//	for (l in 1:NLAKES){
 	//		locationOfLake = (l - 0.5);
