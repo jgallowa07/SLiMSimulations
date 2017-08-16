@@ -291,7 +291,7 @@ modifyChild(p1){
 		}
 		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,0.5);
+		pos = parent1.spatialPosition + rnorm(1,0,1.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
