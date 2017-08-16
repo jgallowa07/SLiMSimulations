@@ -36,10 +36,10 @@ initialize() {
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	writeFile("./myOut182_Ph.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Oc.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Fr.txt",numPoint+" "+interval,append = F);
-	writeFile("./myOut182_Wh.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut184_Ph.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut184_Oc.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut184_Fr.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut184_Wh.txt",numPoint+" "+interval,append = F);
 }
 
 
@@ -132,7 +132,7 @@ initialize() {
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 	
-		writeFile("./myOut182_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile("./myOut184_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
@@ -221,9 +221,9 @@ initialize() {
 		wmnohfm2 = mean(c(omnohfm2,fmnohfm2));
 		wmnolfm2 = mean(c(omnolfm2,fmnolfm2));
 
-		writeFile("./myOut182_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
-		writeFile("./myOut182_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
-		writeFile("./myOut182_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
+		writeFile("./myOut184_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
+		writeFile("./myOut184_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
+		writeFile("./myOut184_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
 
 		for (l in 1:NLAKES){
 			locationOfLake = (l - 0.5);

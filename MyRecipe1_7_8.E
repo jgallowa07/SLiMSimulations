@@ -106,6 +106,9 @@ initialize() {
 		}
 		Freshwater_mean_phenotype = mean(mean_fresh);
 	
+		catn("SubstitutionOffset: "+substitutionOffset);
+		catn("Oceanic Mean Phenotype: "+ Oceanic_mean_phenotype);
+		catn("Freshwater Mean Phenotype: "+ Freshwater_mean_phenotype+"\n");
 		writeFile("./myOut178_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
