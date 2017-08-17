@@ -65,7 +65,7 @@ initialize() {
 		}
 	}
 
-	catn(p2.individuals.spatialPosition);
+	//catn(p2.individuals.spatialPosition);
 }
 	
 
