@@ -13,7 +13,7 @@ initialize() {
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 
 	lengthOfPops = asFloat(numberOfLakes);
-	numberOfSamplingPoints = endOfSimulation/samplingInterval;
+	numberOfSamplingPoints = endOfSimulation/samplingInterval + 1;
 		
 	defineConstant("END",endOfSimulation);
 	defineConstant("INT",samplingInterval);
@@ -36,10 +36,10 @@ initialize() {
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
-	//writeFile("./myOut193_Ph.txt",numPoint+" "+interval,append = F);
-	//writeFile("./myOut193_Oc.txt",numPoint+" "+interval,append = F);
-	//writeFile("./myOut193_Fr.txt",numPoint+" "+interval,append = F);
-	//writeFile("./myOut193_Wh.txt",numPoint+" "+interval,append = F);
+	writeFile("./myOut193_Ph.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile("./myOut193_Oc.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile("./myOut193_Fr.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile("./myOut193_Wh.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
 }
 
 
@@ -73,21 +73,21 @@ initialize() {
 
 	//choose 100 locations along the chromosome, give each genome a mutation of type m1 or m2 at that location
  
-	G = sim.subpopulations.genomes;
-	n = size(G);
-	X = 0:999;
-	Mutations = asLogical(rbinom(1000,1,0.1));
-	for (i in X){
-		if(Mutations[i]){
-			for (g in G){	
-				if(runif(1) < 0.5){
-					g.addNewMutation(m1,1.0,i);
-				}else{
-					g.addNewMutation(m2,-1.0,i);
-				}
-			}
-		}
-	}	
+	g = sim.subpopulations.genomes;
+	n = size(g);
+	mutations  = asInteger(round(runif(100,0,999)));
+	mutationSites = sort(mutations);
+
+	for (m in mutationSites)
+	{
+		isPlus = asLogical(rbinom(n, 1, 0.5));
+		g[isPlus].addNewMutation(m1, 1.0, m);
+		g[!isPlus].addNewMutation(m2, -1.0, m);
+	}
+	
+	//catn(sim.mutations.position);		
+	//cat('\n');
+	//catn(unique(sim.mutations.position));
 }
 
 
@@ -122,26 +122,101 @@ initialize() {
 		catn("SubstitutionOffset: "+substitutionOffset);
 		catn("Oceanic Mean Phenotype: "+ Oceanic_mean_phenotype);
 		catn("Freshwater Mean Phenotype: "+ Freshwater_mean_phenotype+"\n");
-		writeFile("./myOut191_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile("./myOut193_Ph.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		
 		Chrom_Pos = 0:999;
 		m1_muts = sim.mutationsOfType(m1);
 		m2_muts = sim.mutationsOfType(m2);
-		polymorphic_sites = NULL;
-		
+		//polymorphic_sites = NULL;
+			
+		//catn(size(sim.mutations));		
 						
-		polymorphic_sites_easy = unique(sim.mutations.position);		
+		polymorphic_sites = unique(sim.mutations.position);		
 
-		for (i in Chrom_Pos){
-			number_of_m1muts_at_i = size(m1_muts[m1_muts.position == i]);
-			number_of_m2muts_at_i = size(m2_muts[m2_muts.position == i]);
-			if (number_of_m1muts_at_i > 0 | number_of_m2muts_at_i > 0) {
-				polymorphic_sites = c(polymorphic_sites,i);
+		//for (i in Chrom_Pos){
+		//	number_of_m1muts_at_i = size(m1_muts[m1_muts.position == i]);
+		//	number_of_m2muts_at_i = size(m2_muts[m2_muts.position == i]);
+		//	if (number_of_m1muts_at_i > 0 | number_of_m2muts_at_i > 0) {
+		//		polymorphic_sites = c(polymorphic_sites,i);
+		//	}
+		//}
+
+		//catn("Hard way: "+size(polymorphic_sites));		
+		//catn("Easy way: "+size(polymorphic_sites_easy));
+		
+		for (q in polymorphic_sites)
+		{
+			qPlus = m1_muts[m1_muts.position == q];
+			qMinus = m2_muts[m2_muts.position == q];
+			pf = sum(sim.mutationFrequencies(NULL, qPlus));
+			mf = sum(sim.mutationFrequencies(NULL, qMinus));
+
+			if (pf > 0.2 & pf < 0.8){ 
+				qPlus.tag = 0;
+			}else{
+				qPlus.tag = 1;
+			}
+			if (mf > 0.2 & mf < 0.8){ 
+				qMinus.tag = 2;						
+			}else{
+				qMinus.tag = 3;
 			}
 		}
-
-		
 					
+		Oceanic = p1.individuals;
+		Freshwater = p2.individuals;
+
+		oceanicMeanNumberOfHighFreqM1 = NULL;
+		oceanicMeanNumberOfLowFreqM1 = NULL;
+		oceanicMeanNumberOfHighFreqM2 = NULL;
+		oceanicMeanNumberOfLowFreqM2 = NULL;
+
+		freshwaterMeanNumberOfHighFreqM1 = NULL;
+		freshwaterMeanNumberOfLowFreqM1 = NULL;
+		freshwaterMeanNumberOfHighFreqM2 = NULL;
+		freshwaterMeanNumberOfLowFreqM2 = NULL;
+	
+
+		for (o_individual in Oceanic){
+			
+			muts = o_individual.genomes.mutations;
+
+			//Oinoh/lm1/2 = "oceanic individual's # of high/low frequency m1/m2"
+			oceanicMeanNumberOfHighFreqM1 = c(oceanicMeanNumberOfHighFreqM1,size(muts[muts.tag == 0]));
+			oceanicMeanNumberOfLowFreqM1 = c(oceanicMeanNumberOfLowFreqM1,size(muts[muts.tag == 1]));
+			oceanicMeanNumberOfHighFreqM2 = c(oceanicMeanNumberOfHighFreqM2,size(muts[muts.tag == 2])); 	
+			oceanicMeanNumberOfLowFreqM2 = c(oceanicMeanNumberOfLowFreqM2,size(muts[muts.tag == 3]));
+		}
+ 
+		for (f_individual in Freshwater){
+
+			mutss = f_individual.genomes.mutations;
+
+			freshwaterMeanNumberOfHighFreqM1 = c(freshwaterMeanNumberOfHighFreqM1,size(mutss[mutss.tag == 0]));
+			freshwaterMeanNumberOfLowFreqM1 = c(freshwaterMeanNumberOfLowFreqM1,size(mutss[mutss.tag == 1]));
+			freshwaterMeanNumberOfHighFreqM2 = c(freshwaterMeanNumberOfHighFreqM2,size(mutss[mutss.tag == 2]));
+			freshwaterMeanNumberOfLowFreqM2 = c(freshwaterMeanNumberOfLowFreqM2,size(mutss[mutss.tag == 3]));
+
+		}
+	
+		omnohfm1 = mean(oceanicMeanNumberOfHighFreqM1);
+                omnolfm1 = mean(oceanicMeanNumberOfLowFreqM1);
+                omnohfm2 = mean(oceanicMeanNumberOfHighFreqM2);
+                omnolfm2 = mean(oceanicMeanNumberOfLowFreqM2);
+
+                fmnohfm1 = mean(freshwaterMeanNumberOfHighFreqM1);
+                fmnolfm1 = mean(freshwaterMeanNumberOfLowFreqM1);
+                fmnohfm2 = mean(freshwaterMeanNumberOfHighFreqM2);
+                fmnolfm2 = mean(freshwaterMeanNumberOfLowFreqM2);
+
+		wmnohfm1 = mean(c(omnohfm1,fmnohfm1));
+		wmnolfm1 = mean(c(omnolfm1,fmnolfm1));
+		wmnohfm2 = mean(c(omnohfm2,fmnohfm2));
+		wmnolfm2 = mean(c(omnolfm2,fmnolfm2));
+
+		writeFile("./myOut193_Wh.txt",wmnohfm1+" "+wmnolfm1+" "+wmnohfm2+" "+wmnolfm2,append = T);
+		writeFile("./myOut193_Oc.txt",omnohfm1+" "+omnolfm1+" "+omnohfm2+" "+omnolfm2,append = T);
+		writeFile("./myOut193_Fr.txt",fmnohfm1+" "+fmnolfm1+" "+fmnohfm2+" "+fmnolfm2,append = T);
 			
 			
 	}
