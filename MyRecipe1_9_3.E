@@ -1,30 +1,30 @@
 initialize() {
 
 
-	end = 200;
-	interval = 50;
+	endOfSimulation = 200;
+	samplingInterval = 50;
 
-	numLakes = 10;	
+	numberOfLakes = 10;	
 
-	IndividualsInOcean = 2000;
+	individualsInOcean = 2000;
 	
-	IndividualsInFresh = 200 * numLakes;	
+	individualsInFresh = 2000;
 
-	lengthOfPops = asFloat(numLakes);
-	numPoint = end/interval;
+	individualsPerFresh = individualsInFresh/numberOfLakes;	
+
+	lengthOfPops = asFloat(numberOfLakes);
+	numberOfSamplingPoints = endOfSimulation/samplingInterval;
 		
-
-	defineConstant("END",end);
-	defineConstant("INT",interval);
-	defineConstant("NLAKES",numLakes);
-	defineConstant("IIO", IndividualsInOcean);
-	defineConstant("IIF", IndividualsInFresh);	
+	defineConstant("END",endOfSimulation);
+	defineConstant("INT",samplingInterval);
+	defineConstant("NLAKES",numberOfLakes);
+	defineConstant("IIO", individualsInOcean);
+	defineConstant("IIF", individualsInFresh);	
 	defineConstant("LOP", lengthOfPops);
-	defineConstant("IPF",IndividualsInFresh/numLakes);
-	initializeSLiMOptions(dimensionality="x");
+	defineConstant("IPF",individualsPerFresh);
 
-	initializeMutationRate(1e-5);
-	
+	initializeSLiMOptions(dimensionality="x");
+	initializeMutationRate(1e-5);	
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);
 	initializeMutationType("m2", 0.5, "g", -0.5, 1.0);
 	initializeGenomicElementType("g1", c(m1,m2), c(1.0,1.0));
@@ -64,12 +64,15 @@ initialize() {
 			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
 		}
 	}
+
+	catn(p2.individuals.spatialPosition);
 }
 	
 
 1 late() {
-	// optional: give m1 mutations to everyone, as standing variation
-	// if this is commented out, QTLs effectively start as 0
+
+	//choose 100 locations along the chromosome, give each genome a mutation of type m1 or m2 at that location
+ 
 	G = sim.subpopulations.genomes;
 	n = size(G);
 	X = 0:999;
@@ -77,9 +80,6 @@ initialize() {
 	for (i in X){
 		if(Mutations[i]){
 			for (g in G){	
-				//a = rexp(1,0.5);
-				//b = rexp(5);
-				//x = a / (a+b);
 				if(runif(1) < 0.5){
 					g.addNewMutation(m1,1.0,i);
 				}else{
@@ -128,7 +128,8 @@ initialize() {
 		m1_muts = sim.mutationsOfType(m1);
 		m2_muts = sim.mutationsOfType(m2);
 		polymorphic_sites = NULL;
-			
+		
+						
 		polymorphic_sites_easy = unique(sim.mutations.position);		
 
 		for (i in Chrom_Pos){
@@ -140,7 +141,7 @@ initialize() {
 		}
 
 		
-			
+					
 			
 			
 	}

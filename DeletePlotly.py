@@ -6,7 +6,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 username = 'jgallowa' # Replace with YOUR USERNAME
-api_key = '5migFKwWRcadU57uie1e' # Replace with YOUR API KEY
+api_key = 'gHuTa2HkLoWgx2TSESSb' # Replace with YOUR API KEY
 
 auth = HTTPBasicAuth(username, api_key)
 headers = {'Plotly-Client-Platform': 'python'}
