@@ -20,13 +20,23 @@ trace1 = go.Scatter(
     x = col2,
     y = col1,
     mode='markers',
+    name = 'Effect',
     marker=dict(
         size='16',
         color = col3, #set color equal to a variable
         colorscale='Viridis',
-        showscale=True
+        showscale=True,
     )
 )
+
+
 data = [trace1]
 
-py.iplot(data, filename='scatter-plot-with-colorscale')
+layout = dict(title = 'Effect and Frequecy by Position',
+              xaxis = dict(title = 'Position'),
+              yaxis = dict(title = 'Frequency'),
+              )
+
+fig = dict(data = data, layout = layout)
+	
+py.iplot(fig, filename='194')
