@@ -1,0 +1,32 @@
+import plotly.graph_objs as go
+import plotly.plotly as py
+
+import sys
+import numpy as np
+
+col1 = []
+col2 = []
+col3 = []
+
+File = open("myOut194_Muts.txt","r")
+first = File.readline()
+for line in File:
+	n1, n2, n3= (float(s) for s in line.split())
+	col1.append(n1)
+	col2.append(n2)
+	col3.append(n3)
+
+trace1 = go.Scatter(
+    x = col2,
+    y = col1,
+    mode='markers',
+    marker=dict(
+        size='16',
+        color = col3, #set color equal to a variable
+        colorscale='Viridis',
+        showscale=True
+    )
+)
+data = [trace1]
+
+py.iplot(data, filename='scatter-plot-with-colorscale')
