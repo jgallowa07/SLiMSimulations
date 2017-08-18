@@ -1,8 +1,8 @@
 initialize() {
 
 
-	endOfSimulation = 1000;
-	samplingInterval = 100;
+	endOfSimulation = 20000;
+	samplingInterval = 20000;
 
 	numberOfLakes = 10;	
 
@@ -30,11 +30,13 @@ initialize() {
 	initializeGenomicElementType("g1", c(m1,m2), c(1.0,1.0));
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
+
 	initializeGenomicElement(g1,0,999);
 	initializeRecombinationRate(1e-3);
 	
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
+
 	
 }
 
@@ -109,21 +111,41 @@ initialize() {
 		cat("Output for generation " + sim.generation + ":\n\n");
 	}
 	if(sim.generation == END)
-	{;
-		
+	{
+		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
+		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
+		catn("Oceanic mean pheno"+Oceanic_mean_phenotype);
+		catn("Freshwater mean pheno"+Freshwater_mean_phenotype);			
 		muts = sim.mutations;
-		num = size(muts);
-		mutfreq = sim.mutationFrequencies(NULL,muts);
-		muteff = muts.selectionCoeff;
-		mutpos = muts.position;
-		writeFile("./myOut194_Muts.txt",num+" ",append = F);
-		for (i in 0:(num-1))
+		p1muts = unique(p1.genomes.mutations);
+		p2muts = unique(p2.genomes.mutations);
+		p1num = size(p1muts);
+		p2num = size(p2muts);
+		catn(p1num);
+		catn(p2num);
+		
+	//	catn(muts.subpopID);
+		cat("\n");
+	
+		catn("p1: "+sum(p1muts.selectionCoeff));
+		catn("p2: "+sum(p2muts.selectionCoeff));
+		
+		mutfreq1 = sim.mutationFrequencies(p1,p1muts);
+		muteff1 = p1muts.selectionCoeff;
+		mutpos1 = p1muts.position;
+		writeFile("./myOut194_1Muts.txt",p1num+" ",append = F);
+		for (i in 0:(p1num-1))
 		{
-			writeFile("./myOut194_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
+			writeFile("./myOut194_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
 		}
-					
-
-
+		mutfreq2 = sim.mutationFrequencies(p2,p2muts);
+		muteff2 = p2muts.selectionCoeff;
+		mutpos2 = p2muts.position;
+		writeFile("./myOut194_2Muts.txt",p2num+" ",append = F);
+		for (i in 0:(p2num-1))
+		{
+			writeFile("./myOut194_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
+		}
 		sim.simulationFinished();
 	}
 
