@@ -52,9 +52,9 @@ initialize() {
 	}
 	
 	defineConstant("Q", q);     // remember our QTL positions
-	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);
-	ends = (repEach(Q + W, 2) + rep(c(0,1), C))[0:(C*2 - 2)];
-	initializeRecombinationRate(rates,ends);	
+//	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);
+//	ends = (repEach(Q + W, 2) + rep(c(0,1), C))[0:(C*2 - 2)];
+	initializeRecombinationRate(1e-3);	
 
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
