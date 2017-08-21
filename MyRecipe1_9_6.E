@@ -33,8 +33,8 @@ initialize() {
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 
-	defineConstant("C", 5);    // number of QTLs
-	defineConstant("W", 500);  // size of neutral buffer on each side
+	defineConstant("C", 2);    // number of QTLs
+	defineConstant("W", 1000);  // size of neutral buffer on each side
 	pos = 0;
 	q = NULL;
 	
@@ -95,8 +95,6 @@ initialize() {
  
 	g = sim.subpopulations.genomes;
 	n = size(g);
-	//mutations  = asInteger(round(runif(10,0,999)));
-	//mutationSites = sort(mutations);
 	
 	for (q in Q)
 	{
@@ -104,14 +102,6 @@ initialize() {
 		g[isPlus].addNewMutation(m1, 1.0, q);
 		g[!isPlus].addNewMutation(m2, -1.0, q);
 	}
-
-	//for (m in mutationSites)
-	//{
-	//	isPlus = asLogical(rbinom(n, 1, 0.5));
-	//	g[isPlus].addNewMutation(m1, 1.0, m);
-	//	g[!isPlus].addNewMutation(m2, -1.0, m);
-	//}
-	
 }
 
 
@@ -158,8 +148,8 @@ initialize() {
 		p2num = size(p2muts);
 
 		catn("whole: "+num);
-		catn("whole: "+p1num);
-		catn("whole: "+p2num);	
+		catn("Oceanic: "+p1num);
+		catn("Freshwater: "+p2num);	
 
 		mutfreq = sim.mutationFrequencies(NULL,muts);
 		muteff = muts.selectionCoeff;
