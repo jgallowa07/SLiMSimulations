@@ -1,8 +1,8 @@
 initialize() {
 
 
-	endOfSimulation = 20000;
-	samplingInterval = 20000;
+	endOfSimulation = 10000;
+	samplingInterval = 100;
 
 	numberOfLakes = 10;	
 
@@ -75,12 +75,12 @@ initialize() {
 	mutations  = asInteger(round(runif(10,0,999)));
 	mutationSites = sort(mutations);
 
-	//for (m in mutationSites)
-	//{
-	//	isPlus = asLogical(rbinom(n, 1, 0.5));
-	//	g[isPlus].addNewMutation(m1, 1.0, m);
-	//	g[!isPlus].addNewMutation(m2, -1.0, m);
-	//}
+	for (m in mutationSites)
+	{
+		isPlus = asLogical(rbinom(n, 1, 0.5));
+		g[isPlus].addNewMutation(m1, 1.0, m);
+		g[!isPlus].addNewMutation(m2, -1.0, m);
+	}
 	
 }
 
@@ -109,13 +109,15 @@ initialize() {
 	{
 		cat("-------------------------------\n");
 		cat("Output for generation " + sim.generation + ":\n\n");
+		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
+		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
+		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
+		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
+	
+		writeFile("./myOut194_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
 	}
 	if(sim.generation == END)
 	{
-		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
-		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-		catn("Oceanic mean pheno"+Oceanic_mean_phenotype);
-		catn("Freshwater mean pheno"+Freshwater_mean_phenotype);			
 
 		muts = sim.mutations;
 		p1muts = unique(p1.genomes.mutations);

@@ -36,12 +36,14 @@ initialize() {
 	initializeGenomicElementType("g2", c(m1,m2), c(1.0,1.0));
 	initializeGenomicElementType("g3", m4, 1.0);
 
+//	initializeGenomicElement(g2,0,999);
+
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 
 	defineConstant("C", 5);    // number of QTLs
 	defineConstant("W", 100);  // size of neutral buffer on each side
-//	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
+	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
 
 	
 	//initialize genomic arch.
@@ -57,15 +59,15 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
 	
-//		initializeGenomicElement(g3, pos, pos + P-1);
-//		pos = pos + P;	
+		initializeGenomicElement(g3, pos, pos + P-1);
+		pos = pos + P;	
 	
 		initializeGenomicElement(g2, pos, pos);
 		q = c(q, pos);
 		pos = pos + 1;
 
-//		initializeGenomicElement(g3, pos, pos + P-1);
-//		pos = pos + P;	
+		initializeGenomicElement(g3, pos, pos + P-1);
+		pos = pos + P;	
 		
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
@@ -118,6 +120,8 @@ initialize() {
  
 	g = sim.subpopulations.genomes;
 	n = size(g);
+	//mutations  = asInteger(round(runif(10,0,999)));
+	//mutationSites = sort(mutations);
 	
 	for (q in Q)
 	{
