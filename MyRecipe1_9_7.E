@@ -40,8 +40,8 @@ initialize() {
 	m2.mutationStackPolicy = "l";
 
 	defineConstant("C", 5);    // number of QTLs
-	defineConstant("W", 1000);  // size of neutral buffer on each side
-	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
+	defineConstant("W", 100);  // size of neutral buffer on each side
+//	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
 
 	
 	//initialize genomic arch.
@@ -57,15 +57,15 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
 	
-		initializeGenomicElement(g3, pos, pos + P-1);
-		pos = pos + P;	
+//		initializeGenomicElement(g3, pos, pos + P-1);
+//		pos = pos + P;	
 	
 		initializeGenomicElement(g2, pos, pos);
 		q = c(q, pos);
 		pos = pos + 1;
 
-		initializeGenomicElement(g3, pos, pos + P-1);
-		pos = pos + P;	
+//		initializeGenomicElement(g3, pos, pos + P-1);
+//		pos = pos + P;	
 		
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
@@ -255,7 +255,6 @@ modifyChild(p1){
 	if(sourceSubpop != subpop){
 		num = parent1.spatialPosition + rnorm(1,0,1.5);
 		num = p2.pointReflected(num);
-		//nearestMult = num + H - (num + H) % M;
 		nearestMult = round(num);
 		if(num < nearestMult){
 			child.setSpatialPosition(nearestMult - 0.5);
