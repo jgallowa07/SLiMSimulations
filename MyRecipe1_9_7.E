@@ -24,7 +24,7 @@ initialize() {
 	defineConstant("IPF",individualsPerFresh);
 
 	initializeSLiMOptions(dimensionality="x");
-	initializeMutationRate(1e-6); 	
+	initializeMutationRate(1e-5); 	
 
 	
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations
@@ -43,7 +43,7 @@ initialize() {
 
 	defineConstant("C", 5);    // number of QTLs
 	defineConstant("W", 100);  // size of neutral buffer on each side
-	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
+//	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
 
 	
 	//initialize genomic arch.
@@ -59,15 +59,15 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
 	
-		initializeGenomicElement(g3, pos, pos + P-1);
-		pos = pos + P;	
+//		initializeGenomicElement(g3, pos, pos + P-1);
+//		pos = pos + P;	
 	
 		initializeGenomicElement(g2, pos, pos);
 		q = c(q, pos);
 		pos = pos + 1;
 
-		initializeGenomicElement(g3, pos, pos + P-1);
-		pos = pos + P;	
+//		initializeGenomicElement(g3, pos, pos + P-1);
+//		pos = pos + P;	
 		
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
