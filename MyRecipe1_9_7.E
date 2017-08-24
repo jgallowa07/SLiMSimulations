@@ -36,19 +36,12 @@ initialize() {
 	initializeGenomicElementType("g2", c(m1,m2), c(1.0,1.0));
 	initializeGenomicElementType("g3", m4, 1.0);
 
-//	initializeGenomicElement(g2,0,999);
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 
 	defineConstant("C", 20);    // number of QTLs
 	defineConstant("W", 25);  // size of neutral buffer on each side
-//	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
-
-	
-	//initialize genomic arch.
-	// |----------Nuetral-----------|-Contributing-|QTL|-Contributing-|----------Nuetral----------|	  Repeat for number of QTL's ...
-
 
 
 	pos = 0;
@@ -59,22 +52,16 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
 	
-//		initializeGenomicElement(g3, pos, pos + P-1);
-//		pos = pos + P;	
-	
 		initializeGenomicElement(g2, pos, pos);
 		q = c(q, pos);
 		pos = pos + 1;
 
-//		initializeGenomicElement(g3, pos, pos + P-1);
-//		pos = pos + P;	
-		
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
 	}
 	
 	defineConstant("Q", q);     // remember our QTL positions
-//	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);
+//	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);  //uncomment for seperate chromosomes. 
 //	ends = (repEach(Q + W, 2) + rep(c(0,1), C))[0:(C*2 - 2)];
 	initializeRecombinationRate(1e-3);	
 
@@ -116,12 +103,10 @@ initialize() {
 
 1 late() {
 
-	//choose 100 locations along the chromosome, give each genome a mutation of type m1 or m2 at that location
+	//initialize each QTL a mutation of either m1 or m2 
  
 	g = sim.subpopulations.genomes;
 	n = size(g);
-	//mutations  = asInteger(round(runif(10,0,999)));
-	//mutationSites = sort(mutations);
 	
 	for (q in Q)
 	{
@@ -161,6 +146,8 @@ initialize() {
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
+
+		//sample avg phenotype
 	
 		writeFile("./myOut197_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
 		
@@ -173,9 +160,9 @@ initialize() {
 		catn("Oceanic mean pheno"+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno"+Freshwater_mean_phenotype);			
 
-		muts = sim.mutations;
-		p1muts = unique(p1.genomes.mutations);
-		p2muts = unique(p2.genomes.mutations);
+		muts = sim.mutations;                   //whole pop mutations
+		p1muts = unique(p1.genomes.mutations);  //Mutations present in Oceanic pop
+		p2muts = unique(p2.genomes.mutations);  //Mutations present in Freshwater pop
 
 		num = size(muts);
 		p1num = size(p1muts);
@@ -184,6 +171,8 @@ initialize() {
 		catn("whole: "+num);
 		catn("Oceanic: "+p1num);
 		catn("Freshwater: "+p2num);	
+
+		//sample mutations present in populations.
 
 		mutfreq = sim.mutationFrequencies(NULL,muts);
 		muteff = muts.selectionCoeff;
@@ -219,10 +208,10 @@ initialize() {
 	//Set tag equal to a value to be returned by fitness callback 
 	
 	for (individual in p2.individuals){
-		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,10.0);
+		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,10.0);  //optimum of -10 for p2 (freshwater)
 	}
 	for (individual in p1.individuals){
-		individual.tagF = dnorm(10 - individual.tagF,0.0,10.0);
+		individual.tagF = dnorm(10 - individual.tagF,0.0,10.0);     //optimum of +10 for p1 (oceanic)
 	}
 
 	//Normalize the fitness in the lakes so an equivelent mean number of parents get chosen from each.
@@ -240,13 +229,9 @@ initialize() {
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
-	//phenotype = asFloat(individual.tagF);
-	//return 1.0 + dnorm(10.0 - phenotype, 0.0, 10.0);    // optimum of +10
 	return 1.0 + individual.tagF;
 }
 fitness(NULL, p2) {
-	//phenotype = asFloat(individual.tagF);
-	//return 1.0 + dnorm(- 10.0 - phenotype, 0.0, 10.0);    // optimum of +10
 	return 1.0 + individual.tagF;
 }
 
@@ -256,7 +241,7 @@ fitness(NULL, p2) {
 
 modifyChild(p1){
 
-	if(sourceSubpop != subpop){
+	if(sourceSubpop != subpop){    //migrant from Ocean -> Freshwater
 		num = parent1.spatialPosition + rnorm(1,0,1.5);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
@@ -274,7 +259,7 @@ modifyChild(p1){
 }
 
 modifyChild(p2){
-	if(sourceSubpop != subpop){
+	if(sourceSubpop != subpop){    //migrant from Freshwater -> Ocean
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
