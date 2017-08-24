@@ -41,8 +41,8 @@ initialize() {
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 
-	defineConstant("C", 5);    // number of QTLs
-	defineConstant("W", 100);  // size of neutral buffer on each side
+	defineConstant("C", 10);    // number of QTLs
+	defineConstant("W", 50);  // size of neutral buffer on each side
 //	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
 
 	

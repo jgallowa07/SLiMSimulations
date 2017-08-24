@@ -265,7 +265,7 @@ fitness(NULL, p2) {
 
 modifyChild(p1){
 
-	if(sourceSubpop != subpop){
+	if(sourceSubpop != subpop){  //migrant from Ocean -> Fresheater
 		num = parent1.spatialPosition + rnorm(1,0,1.5);
 		num = p2.pointReflected(num);
 		//nearestMult = num + H - (num + H) % M;
@@ -284,7 +284,7 @@ modifyChild(p1){
 }
 
 modifyChild(p2){
-	if(sourceSubpop != subpop){
+	if(sourceSubpop != subpop){ //migrant from freshwater -> Ocean
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
