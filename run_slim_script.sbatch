@@ -18,8 +18,8 @@ fi
 SEED=$(printf "%06d" $RANDOM); 
 
 echo "Task ID $SLURM_ARRAY_TASK_ID - seed $SEED"
-ALL_PARAMS="$PARAMS -s $SEED"
-echo "Parameters for SLiM run:
+ALL_PARAMS="-s $SEED $PARAMS"
+echo "Parameters for SLiM run:"
 echo "  $ALL_PARAMS"
 
 /usr/bin/time --format='elapsed: %E / kernel: %S / user: %U / mem: %M' \
