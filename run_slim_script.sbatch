@@ -23,7 +23,7 @@ echo "Parameters for SLiM run:"
 echo "  $ALL_PARAMS"
 
 /usr/bin/time --format='elapsed: %E / kernel: %S / user: %U / mem: %M' \
-     /projects/haldane/SLiM/bin/slim $ALL_PARAMS
+     /projects/haldane/SLiM/bin/slim ./MyRecipes1/$ALL_PARAMS
 
 echo "Done!"
 
