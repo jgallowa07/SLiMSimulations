@@ -81,7 +81,7 @@ initialize() {
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
 	
-	writeFile("..Output/MyRecipe1_9/myOut198_Pheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile("..Output1/MyRecipe1_9/myOut198_Pheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
 	
 }
 
@@ -155,13 +155,13 @@ initialize() {
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
 	{
 		cat("-------------------------------\n");
-		cat("Output for generation " + sim.generation + ":\n\n");
+		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 	
-		writeFile("..Output/MyRecipe1_9/myOut198_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
+		writeFile("..Output1/MyRecipe1_9/myOut198_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
 		
 	}
 	if(sim.generation == END)
@@ -187,28 +187,28 @@ initialize() {
 		mutfreq = sim.mutationFrequencies(NULL,muts);
 		muteff = muts.selectionCoeff;
 		mutpos = muts.position;
-		writeFile("..Output/MyRecipe1_9/myOut198_Muts.txt",num+" ",append = F);
+		writeFile("..Output1/MyRecipe1_9/myOut198_Muts.txt",num+" ",append = F);
 		for (i in 0:(num-1))
 		{
-			writeFile("..Output/MyRecipe1_9/myOut198_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
+			writeFile("..Output1/MyRecipe1_9/myOut198_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
 		}
 
 		mutfreq1 = sim.mutationFrequencies(p1,p1muts);
 		muteff1 = p1muts.selectionCoeff;
 		mutpos1 = p1muts.position;
-		writeFile("..Output/MyRecipe1_9/myOut198_1Muts.txt",p1num+" ",append = F);
+		writeFile("..Output1/MyRecipe1_9/myOut198_1Muts.txt",p1num+" ",append = F);
 		for (i in 0:(p1num-1))
 		{
-			writeFile("..Output/MyRecipe1_9/myOut198_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
+			writeFile("..Output1/MyRecipe1_9/myOut198_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
 		}
 
 		mutfreq2 = sim.mutationFrequencies(p2,p2muts);
 		muteff2 = p2muts.selectionCoeff;
 		mutpos2 = p2muts.position;
-		writeFile("..Output/MyRecipe1_9/myOut198_2Muts.txt",p2num+" ",append = F);
+		writeFile("..Output1/MyRecipe1_9/myOut198_2Muts.txt",p2num+" ",append = F);
 		for (i in 0:(p2num-1))
 		{
-			writeFile("..Output/MyRecipe1_9/myOut198_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
+			writeFile("..Output1/MyRecipe1_9/myOut198_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
 		}
 
 		sim.simulationFinished();
