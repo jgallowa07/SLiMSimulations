@@ -1,0 +1,22 @@
+Task ID  - seed 008281
+Parameters for SLiM run:
+  MyRecipe1_3.E -s 008281
+usage: slim -v[ersion] | -u[sage] | -testEidos | -testSLiM |
+   [-l[ong]] [-s[eed] <seed>] [-t[ime]] [-m[em]] [-M[emhist]] [-x]
+   [-d[efine] <def>] <script file>
+
+   -v[ersion]       : print SLiM's version information
+   -u[sage]         : print command-line usage help
+   -testEidos | -te : run built-in self-diagnostic tests of Eidos
+   -testSLiM | -ts  : run built-in self-diagnostic tests of SLiM
+
+   -l[ong]          : long (i.e.) verbose output (format may change)
+   -s[eed] <seed>   : supply an initial random number seed for SLiM
+   -t[ime]          : print SLiM's total execution time (in user clock time)
+   -m[em]           : print SLiM's peak memory usage
+   -M[emhist]       : print a histogram of SLiM's memory usage
+   -x               : disable SLiM's runtime safety/consistency checks
+   -d[efine] <def>  : define an Eidos constant, such as "mu=1e-7"
+
+elapsed: 0:00.03 / kernel: 0.00 / user: 0.00 / mem: 1468
+Done!
