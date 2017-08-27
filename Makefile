@@ -1,4 +1,2 @@
 run:
-	../SLiM/bin/slim MyRecipe1_8_4.E
-	../SLiM/bin/slim MyRecipe1_9_1.E
-	
+	mkdir -p ${PARAMS%.E}; sbatch -o"./${PARAMS%.E}/slurm-run-%j.out" run_slim_script.sbatch;	
