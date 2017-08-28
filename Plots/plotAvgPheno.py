@@ -10,7 +10,7 @@ col4 = []
 col5 = []
 
 x_axis = []
-File = open("myOut182_Ph.txt","r")
+File = open("../Output1/MyRecipe1_9_8/myOut198_Pheno.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
