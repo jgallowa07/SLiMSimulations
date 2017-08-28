@@ -84,7 +84,7 @@ initialize() {
 	i1.setInteractionFunction("n", 0.5, 0.02);
 	
 	
-	writeFile(PATH+"myOut198_Pheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+//	writeFile(PATH+"myOut198_Pheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
 	
 }
 
@@ -164,7 +164,7 @@ initialize() {
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 	
-		writeFile(PATH+"myOut198_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
+	//	writeFile(PATH+"myOut198_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
 		
 	}
 	if(sim.generation == END)
@@ -190,28 +190,59 @@ initialize() {
 		mutfreq = sim.mutationFrequencies(NULL,muts);
 		muteff = muts.selectionCoeff;
 		mutpos = muts.position;
-		writeFile(PATH+"myOut198_Muts.txt",num+" ",append = F);
+	//	writeFile(PATH+"myOut198_Muts.txt",num+" ",append = F);
 		for (i in 0:(num-1))
 		{
-			writeFile(PATH+"myOut198_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
+	//		writeFile(PATH+"myOut198_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
 		}
 
 		mutfreq1 = sim.mutationFrequencies(p1,p1muts);
 		muteff1 = p1muts.selectionCoeff;
 		mutpos1 = p1muts.position;
-		writeFile(PATH+"myOut198_1Muts.txt",p1num+" ",append = F);
+	//	writeFile(PATH+"myOut198_1Muts.txt",p1num+" ",append = F);
 		for (i in 0:(p1num-1))
 		{
-			writeFile(PATH+"myOut198_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
+	//		writeFile(PATH+"myOut198_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
 		}
 
 		mutfreq2 = sim.mutationFrequencies(p2,p2muts);
 		muteff2 = p2muts.selectionCoeff;
 		mutpos2 = p2muts.position;
-		writeFile(PATH+"myOut198_2Muts.txt",p2num+" ",append = F);
+	//	writeFile(PATH+"myOut198_2Muts.txt",p2num+" ",append = F);
 		for (i in 0:(p2num-1))
 		{
-			writeFile(PATH+"myOut198_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
+	//		writeFile(PATH+"myOut198_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
+		}
+		
+		//sample a single individual from each population.
+		
+		oceanic_ind = sample(p1.individuals,1);
+		lake_ind = sample(p2.individuals,1);
+		
+		oceanic_ind_muts = oceanic_ind.genomes.mutations;
+		num_Oind_muts = size(oceanic_ind_muts);
+			
+		oceanic_ind_mut_freq = sim.mutationFrequencies(p1,oceanic_ind_muts);
+		oceanic_ind_mut_eff = oceanic_ind_muts.selectionCoeff;
+		ocenaic_ind_mut_pos = ocenaic_ind_muts.position;
+
+		lake_ind_muts = lake_ind.genomes.mutations;
+		num_Lind_muts = size(lake_ind_muts);
+					
+		lake_ind_mut_freq = sim.mutationFrequencies(p2,lake_ind_muts);
+		lake_ind_mut_eff = lake_ind_muts.selectionCoeff;
+		lake_ind_mut_pos = lake_ind_muts.position;
+
+		writeFile(PATH+"myOut198_1IndMuts.txt",num_Oind_muts+" ",append = F);
+		for (i in 0:(num_Oind_muts-1))
+		{
+			writeFile(PATH+"myOut198_1IndMuts.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+ocenaic_ind_mut_eff[i],append = T);
+		}
+		
+		writeFile(PATH+"myOut198_2IndMuts.txt",num_Lind_muts+" ",append = F);
+		for (i in 0:(num_Lind_muts-1))
+		{
+			writeFile(PATH+"myOut198_2IndMuts.txt",lake_ind_mut_freq[i]+" "+lake_ind_mut_pos[i]+" "+lake_ind_mut_eff[i],append = T);
 		}
 
 		sim.simulationFinished();
