@@ -224,7 +224,7 @@ initialize() {
 			
 		oceanic_ind_mut_freq = sim.mutationFrequencies(p1,oceanic_ind_muts);
 		oceanic_ind_mut_eff = oceanic_ind_muts.selectionCoeff;
-		ocenaic_ind_mut_pos = ocenaic_ind_muts.position;
+		oceanic_ind_mut_pos = oceanic_ind_muts.position;
 
 		lake_ind_muts = lake_ind.genomes.mutations;
 		num_Lind_muts = size(lake_ind_muts);
@@ -236,7 +236,7 @@ initialize() {
 		writeFile(PATH+"myOut198_1IndMuts.txt",num_Oind_muts+" ",append = F);
 		for (i in 0:(num_Oind_muts-1))
 		{
-			writeFile(PATH+"myOut198_1IndMuts.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+ocenaic_ind_mut_eff[i],append = T);
+			writeFile(PATH+"myOut198_1IndMuts.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+oceanic_ind_mut_eff[i],append = T);
 		}
 		
 		writeFile(PATH+"myOut198_2IndMuts.txt",num_Lind_muts+" ",append = F);
