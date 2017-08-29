@@ -1,7 +1,7 @@
 initialize() {
 
 
-	endOfSimulation = 10000;
+	endOfSimulation = 100;
 
 	samplingInterval = 100;
 
@@ -171,11 +171,28 @@ initialize() {
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 	
-		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
 
 		//TODO: Sample individual lakes!
+		
+		lake_phenos = NULL;		
 
+		for (i in 1:NLAKES)
+		{
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			lake_mean_pheno = mean(lake_individuals.tagF);
+			lake_phenos = c(lake_phenos,lake_mean_pheno);			
+		}
+		
+	
+		lake_phenos_string = "";
+		
+		for (i in 0:(NLAKES-1))
+		{
+			lake_phenos_string = lake_phenos_string+asString(lake_phenos[i])+" ";
+		}
 			
+		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+lake_phenos_string,append = T);
 	
 	}
 	if(sim.generation == END)
