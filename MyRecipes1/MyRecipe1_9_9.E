@@ -28,7 +28,7 @@ initialize() {
 	defineConstant("PATH",pathToOutputFile);
 
 	initializeSLiMOptions(dimensionality="x");
-	initializeMutationRate(1e-6); 	
+	initializeMutationRate(1e-7); 	
 
 	
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations

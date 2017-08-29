@@ -7,7 +7,7 @@ col1 = []
 col2 = []
 col3 = []
 
-File = open("../Output1/MyRecipe1_9_8/myOut198_2IndMuts.txt","r")
+File = open("../Output1/MyRecipe1_9_9/WholeMutations.txt","r")
 first = File.readline()
 for line in File:
 	n1, n2, n3= (float(s) for s in line.split())
@@ -21,7 +21,7 @@ trace1 = go.Scatter(
     mode='markers',
     name = 'Effect',
     marker=dict(
-        size='16',
+        size='14',
         color = col3, #set color equal to a variable
         colorscale='Viridis',
         showscale=True,
@@ -38,4 +38,4 @@ layout = dict(title = 'Effect and Frequecy by Position',
 
 fig = dict(data = data, layout = layout)
 	
-py.iplot(fig, filename='198 Freshwater Individual')
+py.iplot(fig, filename='199 Whole Mutations')
