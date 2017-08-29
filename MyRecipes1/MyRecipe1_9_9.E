@@ -175,16 +175,6 @@ initialize() {
 
 		//TODO: Sample individual lakes!
 
-		//Get Fst between Ocean and Freshwater combined.
-
-		p1_p = sim.mutationFrequencies(p1);
-		p2_p = sim.mutationFrequencies(p2);
-		mean_p = (p1_p + p2_p) / 2.0;
-		pq = p1_p * (1 - p1_p);
-		mean_pq = mean_p * (1 - mean_p);
-		fst = abs((mean_pq - pq) / mean_pq);
-		
-		writeFile(PATH+"OceanFreshwaterFst",asString(fst),append = T);
 			
 	
 	}
@@ -267,6 +257,18 @@ initialize() {
 		}
 			
 		
+		//Get Fst between Ocean and Freshwater combined.
+
+		p1_p = sim.mutationFrequencies(p1); //get frequencies of all mutations in terms of p1
+		p2_p = sim.mutationFrequencies(p2); //get frequencies of all mutations in terms of p2
+		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
+		pq = p1_p * (1 - p1_p);
+		mean_pq = mean_p * (1 - mean_p);
+		fst = abs((mean_pq - pq) / mean_pq);
+		
+		catn("fstsize: "+ size(fst));
+		
+		writeFile(PATH+"OceanFreshwaterFst.txt",asString(fst),append = T);
 		
 		sim.simulationFinished();
 
