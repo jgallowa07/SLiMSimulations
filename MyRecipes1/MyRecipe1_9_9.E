@@ -1,7 +1,7 @@
 initialize() {
 
 
-	endOfSimulation = 10000;
+	endOfSimulation = 100;
 
 	samplingInterval = 100;
 
@@ -16,7 +16,7 @@ initialize() {
 	lengthOfPops = asFloat(numberOfLakes);
 	numberOfSamplingPoints = endOfSimulation/samplingInterval + 1;
 	
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe1_9_8/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe1_9_9/";
 	
 	defineConstant("END",endOfSimulation);
 	defineConstant("INT",samplingInterval);
@@ -42,8 +42,8 @@ initialize() {
 	m2.mutationStackPolicy = "l";
 
 	defineConstant("C", 10);    // number of QTLs
-	defineConstant("W", 40);  // size of neutral buffer on each side
-	defineConstant("P", 10);   //Size of contribution (Padding) Loci 
+	defineConstant("W", 400);  // size of neutral buffer on each side
+	defineConstant("P", 100);   //Size of contribution (Padding) Loci 
 
 	
 	//initialize genomic arch.
@@ -72,20 +72,26 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
 	}
+
+	catn("end of chromosome position: "+pos);
 	
 	defineConstant("Q", q);     // remember our QTL positions
 //	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);
 //	ends = (repEach(Q + W, 2) + rep(c(0,1), C))[0:(C*2 - 2)];
 	initializeRecombinationRate(1e-3);	
 
-	//Interation Function for mateChoice() callback...
+	//Interation Function for Freshwater mateChoice() callback...
 
 	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
 	i1.setInteractionFunction("n", 0.5, 0.02);
 
+	//Interaction Function for Oceanic mateChoice() callback...
+
+	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
+	i2.setInteractionFunction("n", 0.5, 0.5);
 	
-	
-//	writeFile(PATH+"myOut198_Pheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile(PATH+"OceanFreshwaterFst.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
 	
 }
 
@@ -137,7 +143,7 @@ initialize() {
 
 1: late() {
 	i1.evaluate();
-		
+	i2.evaluate();		
 	Oceanic_mean_phenotype = NULL;
 	Freshwater_mean_phenotype = NULL;
 	substitutionOffset  = 0;
@@ -165,8 +171,22 @@ initialize() {
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 	
-	//	writeFile(PATH+"myOut198_Pheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
+		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype + " " + Freshwater_mean_phenotype,append = T);
+
+		//TODO: Sample individual lakes!
+
+		//Get Fst between Ocean and Freshwater combined.
+
+		p1_p = sim.mutationFrequencies(p1);
+		p2_p = sim.mutationFrequencies(p2);
+		mean_p = (p1_p + p2_p) / 2.0;
+		pq = p1_p * (1 - p1_p);
+		mean_pq = mean_p * (1 - mean_p);
+		fst = abs((mean_pq - pq) / mean_pq);
 		
+		writeFile(PATH+"OceanFreshwaterFst",asString(fst),append = T);
+			
+	
 	}
 	if(sim.generation == END)
 	{
@@ -191,28 +211,28 @@ initialize() {
 		mutfreq = sim.mutationFrequencies(NULL,muts);
 		muteff = muts.selectionCoeff;
 		mutpos = muts.position;
-	//	writeFile(PATH+"myOut198_Muts.txt",num+" ",append = F);
+		writeFile(PATH+"WholeMutations.txt",num+" ",append = F);
 		for (i in 0:(num-1))
 		{
-	//		writeFile(PATH+"myOut198_Muts.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
+			writeFile(PATH+"WholeMutations.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
 		}
 
 		mutfreq1 = sim.mutationFrequencies(p1,p1muts);
 		muteff1 = p1muts.selectionCoeff;
 		mutpos1 = p1muts.position;
-	//	writeFile(PATH+"myOut198_1Muts.txt",p1num+" ",append = F);
+		writeFile(PATH+"OceanicMutations.txt",p1num+" ",append = F);
 		for (i in 0:(p1num-1))
 		{
-	//		writeFile(PATH+"myOut198_1Muts.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
+			writeFile(PATH+"OceanicMutations.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
 		}
 
 		mutfreq2 = sim.mutationFrequencies(p2,p2muts);
 		muteff2 = p2muts.selectionCoeff;
 		mutpos2 = p2muts.position;
-	//	writeFile(PATH+"myOut198_2Muts.txt",p2num+" ",append = F);
+		writeFile(PATH+"FreshwaterMutations.txt",p2num+" ",append = F);
 		for (i in 0:(p2num-1))
 		{
-	//		writeFile(PATH+"myOut198_2Muts.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
+			writeFile(PATH+"FreshwaterMutations.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
 		}
 		
 		//sample a single individual from each population.
@@ -234,18 +254,20 @@ initialize() {
 		lake_ind_mut_eff = lake_ind_muts.selectionCoeff;
 		lake_ind_mut_pos = lake_ind_muts.position;
 
-		writeFile(PATH+"myOut198_1IndMuts.txt",num_Oind_muts+" ",append = F);
+		writeFile(PATH+"IndOceanicMutations.txt",num_Oind_muts+" ",append = F);
 		for (i in 0:(num_Oind_muts-1))
 		{
-			writeFile(PATH+"myOut198_1IndMuts.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+oceanic_ind_mut_eff[i],append = T);
+			writeFile(PATH+"IndOceanicMutations.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+oceanic_ind_mut_eff[i],append = T);
 		}
 		
-		writeFile(PATH+"myOut198_2IndMuts.txt",num_Lind_muts+" ",append = F);
+		writeFile(PATH+"IndFreshwaterMutations.txt",num_Lind_muts+" ",append = F);
 		for (i in 0:(num_Lind_muts-1))
 		{
-			writeFile(PATH+"myOut198_2IndMuts.txt",lake_ind_mut_freq[i]+" "+lake_ind_mut_pos[i]+" "+lake_ind_mut_eff[i],append = T);
+			writeFile(PATH+"IndFreshwaterMutations.txt",lake_ind_mut_freq[i]+" "+lake_ind_mut_pos[i]+" "+lake_ind_mut_eff[i],append = T);
 		}
-
+			
+		
+		
 		sim.simulationFinished();
 
 	}
@@ -282,11 +304,14 @@ fitness(NULL, p2) {
 1: mateChoice(p2) {
 	return i1.strength(individual); 
 }
+1: mateChoice(p1){
+	return i2.strength(individual);
+}
 
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
-		num = parent1.spatialPosition + rnorm(1,0,1.5);
+		num = parent1.spatialPosition + rnorm(1,0,0.5);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
 		if(num < nearestMult){
@@ -295,7 +320,7 @@ modifyChild(p1){
 			child.setSpatialPosition(nearestMult + 0.5);		
 		}		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,1.5);
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;

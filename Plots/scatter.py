@@ -7,7 +7,7 @@ col1 = []
 col2 = []
 col3 = []
 
-File = open("../Output1/MyRecipe1_9_8/myOut198_2Muts.txt","r")
+File = open("../Output1/MyRecipe1_9_8/myOut198_2IndMuts.txt","r")
 first = File.readline()
 for line in File:
 	n1, n2, n3= (float(s) for s in line.split())
@@ -38,4 +38,4 @@ layout = dict(title = 'Effect and Frequecy by Position',
 
 fig = dict(data = data, layout = layout)
 	
-py.iplot(fig, filename='198 Freshwater')
+py.iplot(fig, filename='198 Freshwater Individual')
