@@ -1,7 +1,7 @@
 initialize() {
 
 
-	endOfSimulation = 100;
+	endOfSimulation = 10000;
 
 	samplingInterval = 100;
 
