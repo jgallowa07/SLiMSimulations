@@ -1,7 +1,7 @@
 initialize() {
 
 
-	endOfSimulation = 10000;
+	endOfSimulation = 1000;
 
 	samplingInterval = 100;
 
@@ -91,7 +91,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
-//	writeFile(PATH+"OceanFreshwaterFst.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
 	
 }
 
@@ -171,17 +171,33 @@ initialize() {
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 	
+		// for sampling Fst between lakes
 
-		//TODO: Sample individual lakes!
+		freqs = 0;
+		mean_p = 0;
+		mean_het = 0;
+		
+
+
+		// Sample individual lakes!
 		
 		lake_phenos = NULL;		
 
 		for (i in 1:NLAKES)
 		{
+			//Pheno sampling	
+			
 			locationOfLake = (i - 0.5);
 			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 			lake_mean_pheno = mean(lake_individuals.tagF);
 			lake_phenos = c(lake_phenos,lake_mean_pheno);			
+
+			//Fst sampling 
+		
+			//muts = lake_individuals.genomes.mutations
+	
+				
+						
 		}
 		
 	
@@ -193,6 +209,23 @@ initialize() {
 		}
 			
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+lake_phenos_string,append = T);
+
+		// Sample Avg Fst between Ocean/Freshwater at intervals
+
+		p1_p = sim.mutationFrequencies(p1);
+		p2_p = sim.mutationFrequencies(p2);
+		mean_p = (p1_p + p2_p) / 2.0;
+		pq = p1_p * (1 - p1_p);
+		mean_pq = mean_p * (1 - mean_p);
+		fst = abs((mean_pq - pq) / mean_pq);
+		//sim.setValue("FST", sim.getValue("FST") + mean(fst));
+
+		meanOceanFreshFst = mean(fst);
+		catn("mean Ocean/Fresh Fst: "+ meanOceanFreshFst);
+							
+
+		writeFile(PATH+"AverageFst.txt",asString(meanOceanFreshFst),append = T);
+
 	
 	}
 	if(sim.generation == END)
@@ -242,19 +275,19 @@ initialize() {
 			writeFile(PATH+"FreshwaterMutations.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
 		}
 		
-		//sample a single individual from each population.
+		//sample a single individual haplotype from each population.
 		
 		oceanic_ind = sample(p1.individuals,1);
 		lake_ind = sample(p2.individuals,1);
 		
-		oceanic_ind_muts = oceanic_ind.genomes.mutations;
+		oceanic_ind_muts = oceanic_ind.genomes[0].mutations;
 		num_Oind_muts = size(oceanic_ind_muts);
 			
 		oceanic_ind_mut_freq = sim.mutationFrequencies(p1,oceanic_ind_muts);
 		oceanic_ind_mut_eff = oceanic_ind_muts.selectionCoeff;
 		oceanic_ind_mut_pos = oceanic_ind_muts.position;
 
-		lake_ind_muts = lake_ind.genomes.mutations;
+		lake_ind_muts = lake_ind.genomes[0].mutations;
 		num_Lind_muts = size(lake_ind_muts);
 					
 		lake_ind_mut_freq = sim.mutationFrequencies(p2,lake_ind_muts);

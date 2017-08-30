@@ -10,7 +10,7 @@ col4 = []
 col5 = []
 
 x_axis = []
-File = open("../Output1/MyRecipe1_9_9/OceanicFreshwaterFst.txt","r")
+File = open("../Output1/MyRecipe1_9_9/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
