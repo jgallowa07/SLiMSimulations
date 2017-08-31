@@ -14,7 +14,8 @@ File = open("../Output1/MyRecipe1_9_9/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
-	n1 = (float(s) for s in line.split())
+	#n1 = (float(s) for s in line.split())
+	n1 = float(line)
 	col1.append(n1)
 	#col2.append(n2)
 	#col3.append(n3)
@@ -30,7 +31,7 @@ print(x_axis)
 trace0 = go.Scatter(
     x = x_axis,
     y = col1,
-    name = 'Oceanic Average Phenotype',
+    name = 'Average Fst ocean/fresh',
     line = dict(
         color = ('rgb(25, 12, 24)'),
         width = 1)
@@ -82,8 +83,8 @@ data = [trace0]
 # Edit the layout
 layout = dict(title = 'Overall Fst between Oceanic and Freshwater',
               xaxis = dict(title = 'Generations'),
-              yaxis = dict(title = 'Phenotype'),
+              yaxis = dict(title = 'Fst'),
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='199 Overall Fst')
+py.iplot(fig, filename='199 Average F.st')

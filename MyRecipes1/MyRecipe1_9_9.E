@@ -173,9 +173,6 @@ initialize() {
 	
 		// for sampling Fst between lakes
 
-		freqs = 0;
-		mean_p = 0;
-		mean_het = 0;
 		
 
 
@@ -191,13 +188,6 @@ initialize() {
 			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 			lake_mean_pheno = mean(lake_individuals.tagF);
 			lake_phenos = c(lake_phenos,lake_mean_pheno);			
-
-			//Fst sampling 
-		
-			//muts = lake_individuals.genomes.mutations
-	
-				
-						
 		}
 		
 	
@@ -222,9 +212,34 @@ initialize() {
 
 		meanOceanFreshFst = mean(fst);
 		catn("mean Ocean/Fresh Fst: "+ meanOceanFreshFst);
-							
+		muts = sim.mutations;
 
-		writeFile(PATH+"AverageFst.txt",asString(meanOceanFreshFst),append = T);
+		freqs = rep(0,size(muts));
+		mean_p = freqs;
+		mean_het = freqs;;
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs = rep(0, size(muts));
+			
+			for (ind in lake_individuals)
+			{
+				freqs = freqs + asInteger(ind.containsMutations(muts));
+			}
+			freqs = freqs / size(lake_individuals);
+			mean_p = mean_p + freqs;
+			mean_het = mean_het + (freqs * (1-freqs));
+		} 
+		mean_p = mean(mean_p/NLAKES);
+		mean_het = mean(mean_het/NLAKES);
+		
+		
+				
+		between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
+		catn("between lakes Fst: "+ between_fst);							
+		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst,append = T);
 
 	
 	}
