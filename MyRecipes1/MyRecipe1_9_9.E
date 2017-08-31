@@ -232,14 +232,14 @@ initialize() {
 		} 
 		
 		//this works 
-		//mean_p = mean(mean_p/NLAKES);        
-		//mean_het = mean(mean_het/NLAKES);         
-		//between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
+		mean_p = mean(mean_p/NLAKES);        
+		mean_het = mean(mean_het/NLAKES);         
+		between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
 
 		//this doesn't
-		mean_p = mean_p/NLAKES;        
-		mean_het = mean_het/NLAKES;         
-		between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
+		//mean_p = mean_p/NLAKES;        
+		//mean_het = mean_het/NLAKES;         
+		//between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
 				
 		catn("between lakes Fst: "+ between_fst);							
 		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst,append = T);
