@@ -141,7 +141,7 @@ initialize() {
 }
 
 
-1: late() {
+1: late() {  //ALMOST ALL SAMPLING
 	i1.evaluate();
 	i2.evaluate();		
 	Oceanic_mean_phenotype = NULL;
@@ -170,10 +170,6 @@ initialize() {
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
-	
-		// for sampling Fst between lakes
-
-		
 
 
 		// Sample individual lakes!
@@ -205,7 +201,7 @@ initialize() {
 		p1_p = sim.mutationFrequencies(p1);
 		p2_p = sim.mutationFrequencies(p2);
 		mean_p = (p1_p + p2_p) / 2.0;
-		pq = p1_p * (1 - p1_p);
+		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = abs((mean_pq - pq) / mean_pq);
 		//sim.setValue("FST", sim.getValue("FST") + mean(fst));

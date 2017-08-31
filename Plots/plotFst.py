@@ -31,7 +31,7 @@ print(x_axis)
 trace0 = go.Scatter(
     x = x_axis,
     y = col1,
-    name = 'Average Fst ocean/fresh',
+    name = 'Average Fst Marine/fresh',
     line = dict(
         color = ('rgb(25, 12, 24)'),
         width = 1)
@@ -39,7 +39,7 @@ trace0 = go.Scatter(
 trace1 = go.Scatter(
     x = x_axis,
     y = col2,
-    name = 'Freshwater average phenotype',
+    name = 'Average Fst between Lakes',
     line = dict(
         color = ('rgb(225, 96, 167)'),
         width = 1,)
