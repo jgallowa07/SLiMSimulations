@@ -323,7 +323,7 @@ initialize() {
 		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
 		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
-		pq = p1_p * (1 - p1_p);
+		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = abs((mean_pq - pq) / mean_pq);
 
