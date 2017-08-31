@@ -203,7 +203,9 @@ initialize() {
 		mean_p = (p1_p + p2_p) / 2.0;
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
-		fst = abs((mean_pq - pq) / mean_pq);
+		fst = 1 - (pq / mean_pq);
+	
+		//fst = abs((mean_pq - pq) / mean_pq);
 		//sim.setValue("FST", sim.getValue("FST") + mean(fst));
 
 		meanOceanFreshFst = mean(fst);
@@ -212,7 +214,7 @@ initialize() {
 
 		freqs = rep(0,size(muts));
 		mean_p = freqs;
-		mean_het = freqs;;
+		mean_het = freqs;
 		for (i in 1:NLAKES)
 		{	
 			locationOfLake = (i - 0.5);
@@ -228,12 +230,17 @@ initialize() {
 			mean_p = mean_p + freqs;
 			mean_het = mean_het + (freqs * (1-freqs));
 		} 
-		mean_p = mean(mean_p/NLAKES);
-		mean_het = mean(mean_het/NLAKES);
 		
-		
+		//this works 
+		//mean_p = mean(mean_p/NLAKES);        
+		//mean_het = mean(mean_het/NLAKES);         
+		//between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
+
+		//this doesn't
+		mean_p = mean_p/NLAKES;        
+		mean_het = mean_het/NLAKES;         
+		between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
 				
-		between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
 		catn("between lakes Fst: "+ between_fst);							
 		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst,append = T);
 
@@ -325,7 +332,7 @@ initialize() {
 		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
-		fst = abs((mean_pq - pq) / mean_pq);
+		fst = 1 - (pq / mean_pq);
 
 		catn("fstsize: "+ size(fst));
 		
