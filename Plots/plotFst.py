@@ -14,11 +14,11 @@ File = open("../Output1/MyRecipe1_9_9/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
-	n1,n2 = (float(s) for s in line.split())
+	n1,n2,n3 = (float(s) for s in line.split())
 	#n1 = float(line)
 	col1.append(n1)
 	col2.append(n2)
-	#col3.append(n3)
+	col3.append(n3)
 	#col4.append(n4)
 	#trace5.append(n5)
 
@@ -31,7 +31,7 @@ print(x_axis)
 trace0 = go.Scatter(
     x = x_axis,
     y = col1,
-    name = 'Average Fst Marine/fresh',
+    name = 'Average Fst Marine/Freshwater',
     line = dict(
         color = ('rgb(25, 12, 24)'),
         width = 1)
@@ -44,14 +44,14 @@ trace1 = go.Scatter(
         color = ('rgb(225, 96, 167)'),
         width = 1,)
 )
-#trace2 = go.Scatter(
-#    x = x_axis,
-#    y = col3,
-#    name = 'High Frequency m2',
-#    line = dict(
-#	color = ('rgb(5, 125, 24)'),
-#	width = 1) # dash options include 'dash', 'dot', and 'dashdot'
-#)
+trace2 = go.Scatter(
+    x = x_axis,
+    y = col3,
+    name = 'Average Fst between Oceanic pop',
+    line = dict(
+	color = ('rgb(5, 125, 24)'),
+	width = 1) # dash options include 'dash', 'dot', and 'dashdot'
+)
 #trace3 = go.Scatter(
 #    x = x_axis,
 #    y = col4,
@@ -78,10 +78,10 @@ trace1 = go.Scatter(
 #        width = 1,
 #        dash = 'dot')
 #)
-data = [trace0,trace1]
+data = [trace0,trace1,trace2]
 
 # Edit the layout
-layout = dict(title = 'Overall Fst between Oceanic and Freshwater',
+layout = dict(title = 'Average Fst',
               xaxis = dict(title = 'Generations'),
               yaxis = dict(title = 'Fst'),
               )
