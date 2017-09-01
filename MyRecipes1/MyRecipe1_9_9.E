@@ -381,21 +381,7 @@ initialize() {
 		
 		// sample for clustering		
 
-		X = 1 : 500;
-		X = X[X%10 == 0]; 
-		N_X = NULL;
-		for (x in X)
-		{
-			N = 0;
-			samp_inds = sample(sim.individuals,1000);
-			for (ind in samp_ind)
-			{
-				random = 
-			}
-			
 			 		
-		}		
-		
 		
 		sim.simulationFinished();
 

@@ -386,12 +386,12 @@ initialize() {
 		N_X = NULL;
 		for (x in X)
 		{
-			N = 0;
-			samp_inds = sample(sim.individuals,1000);
-			for (ind in samp_ind)
-			{
-				random = 
-			}
+			//N = 0;
+			//samp_inds = sample(sim.individuals,1000);
+			//for (ind in samp_ind)
+			//{
+			//	random = 
+			//}
 			
 			 		
 		}		
