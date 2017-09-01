@@ -224,22 +224,28 @@ initialize() {
 			
 			for (ind in lake_individuals)
 			{
-				freqs = freqs + asInteger(ind.containsMutations(muts));
+				freqs = freqs + asInteger(ind.containsMutations(muts));		
 			}
 			freqs = freqs / size(lake_individuals);
 			mean_p = mean_p + freqs;
 			mean_het = mean_het + (freqs * (1-freqs));
 		} 
 		
+		
+		
 		//this works 
-		mean_p = mean(mean_p/NLAKES);        
-		mean_het = mean(mean_het/NLAKES);         
-		between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
+		//mean_p = mean(mean_p/NLAKES);        
+		//mean_het = mean(mean_het/NLAKES);         
+		//between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
 
 		//this doesn't
-		//mean_p = mean_p/NLAKES;        
-		//mean_het = mean_het/NLAKES;         
-		//between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
+		mean_p = mean_p/NLAKES;        
+		mean_het = mean_het/NLAKES;         
+
+		mean_p = mean_p[mean_p != 0];
+		mean_het = mean_het[mean_het != 0];		
+
+		between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
 				
 		catn("between lakes Fst: "+ between_fst);							
 		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst,append = T);
