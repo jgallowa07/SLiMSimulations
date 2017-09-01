@@ -231,20 +231,13 @@ initialize() {
 			mean_het = mean_het + (freqs * (1-freqs));
 		} 
 		
-		
-		
-		//this works 
-		//mean_p = mean(mean_p/NLAKES);        
-		//mean_het = mean(mean_het/NLAKES);         
-		//between_fst = 1 - mean_het / (mean_p * (1 - mean_p));
-
-		//this doesn't
 		mean_p = mean_p/NLAKES;        
+		temp = mean_p;
 		mean_het = mean_het/NLAKES;         
 
-		mean_p = mean_p[mean_p != 0];
-		mean_het = mean_het[mean_het != 0];		
-
+		mean_p = mean_p[mean_p != 0 & mean_het != 0];
+		mean_het = mean_het[temp != 0 & mean_het != 0];		
+	
 		between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
 				
 		catn("between lakes Fst: "+ between_fst);							
