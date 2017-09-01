@@ -103,8 +103,8 @@ initialize() {
 	p1.setSpatialBounds(c(0.0, LOP));
 	p2.setSpatialBounds(c(0.0, LOP));
 	
-	p1.setMigrationRates(p2,0.0005);
-	p2.setMigrationRates(p1,0.0005);
+//	p1.setMigrationRates(p2,0.0005);
+//	p2.setMigrationRates(p1,0.0005);
 	
 	//unifomily distribute oceanic individuals.
 
