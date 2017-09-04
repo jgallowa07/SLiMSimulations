@@ -417,10 +417,10 @@ fitness(NULL, p2) {
 	return 1.0 + individual.tagF;
 }
 1: mateChoice(p2) {
-	return i1.strength(individual); 
+	return  i1.strength(individual) * weights; 
 }
 1: mateChoice(p1){
-	return i2.strength(individual);
+	return i2.strength(individual) * weights;
 }
 
 modifyChild(p1){
