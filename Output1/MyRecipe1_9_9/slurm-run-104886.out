@@ -1,0 +1,143 @@
+Task ID  - seed 014086
+Parameters for SLiM run:
+  -s 014086 MyRecipe1_9_9.E
+// Initial random seed:
+1504326923140
+
+// RunInitializeCallbacks():
+initializeSLiMOptions(dimensionality = 'x');
+initializeMutationRate(1e-07);
+initializeMutationType(1, 0.5, "g", 0.5, 1);
+initializeMutationType(2, 0.5, "g", -0.5, 1);
+initializeMutationType(3, 0.5, "f", 0);
+initializeGenomicElementType(1, m3, 1);
+initializeGenomicElementType(2, c(m1, m2), c(1, 1));
+initializeGenomicElement(g1, 0, 399);
+initializeGenomicElement(g2, 400, 499);
+initializeGenomicElement(g2, 500, 500);
+initializeGenomicElement(g2, 501, 600);
+initializeGenomicElement(g1, 601, 1000);
+initializeGenomicElement(g1, 1001, 1400);
+initializeGenomicElement(g2, 1401, 1500);
+initializeGenomicElement(g2, 1501, 1501);
+initializeGenomicElement(g2, 1502, 1601);
+initializeGenomicElement(g1, 1602, 2001);
+initializeGenomicElement(g1, 2002, 2401);
+initializeGenomicElement(g2, 2402, 2501);
+initializeGenomicElement(g2, 2502, 2502);
+initializeGenomicElement(g2, 2503, 2602);
+initializeGenomicElement(g1, 2603, 3002);
+initializeGenomicElement(g1, 3003, 3402);
+initializeGenomicElement(g2, 3403, 3502);
+initializeGenomicElement(g2, 3503, 3503);
+initializeGenomicElement(g2, 3504, 3603);
+initializeGenomicElement(g1, 3604, 4003);
+initializeGenomicElement(g1, 4004, 4403);
+initializeGenomicElement(g2, 4404, 4503);
+initializeGenomicElement(g2, 4504, 4504);
+initializeGenomicElement(g2, 4505, 4604);
+initializeGenomicElement(g1, 4605, 5004);
+initializeGenomicElement(g1, 5005, 5404);
+initializeGenomicElement(g2, 5405, 5504);
+initializeGenomicElement(g2, 5505, 5505);
+initializeGenomicElement(g2, 5506, 5605);
+initializeGenomicElement(g1, 5606, 6005);
+initializeGenomicElement(g1, 6006, 6405);
+initializeGenomicElement(g2, 6406, 6505);
+initializeGenomicElement(g2, 6506, 6506);
+initializeGenomicElement(g2, 6507, 6606);
+initializeGenomicElement(g1, 6607, 7006);
+initializeGenomicElement(g1, 7007, 7406);
+initializeGenomicElement(g2, 7407, 7506);
+initializeGenomicElement(g2, 7507, 7507);
+initializeGenomicElement(g2, 7508, 7607);
+initializeGenomicElement(g1, 7608, 8007);
+initializeGenomicElement(g1, 8008, 8407);
+initializeGenomicElement(g2, 8408, 8507);
+initializeGenomicElement(g2, 8508, 8508);
+initializeGenomicElement(g2, 8509, 8608);
+initializeGenomicElement(g1, 8609, 9008);
+initializeGenomicElement(g1, 9009, 9408);
+initializeGenomicElement(g2, 9409, 9508);
+initializeGenomicElement(g2, 9509, 9509);
+initializeGenomicElement(g2, 9510, 9609);
+initializeGenomicElement(g1, 9610, 10009);
+end of chromosome position: 10010
+initializeRecombinationRate(0.001);
+initializeInteractionType(1, "x", reciprocal=T", maxDistance=0.02);
+initializeInteractionType(2, "x", reciprocal=T", maxDistance=1);
+
+// Starting run at generation <start>:
+1 
+
+-------------------------------
+Output1 for generation 1:
+
+Oceanic mean pheno: 0.122
+Freshwater mean pheno: 0.213
+mean Ocean/Fresh Fst: 0.000126339
+between lakes Fst: 0.00454436
+-------------------------------
+Output1 for generation 101:
+
+Oceanic mean pheno: 2.60101
+Freshwater mean pheno: -10.0317
+mean Ocean/Fresh Fst: 0.0289161
+between lakes Fst: 0.112691
+-------------------------------
+Output1 for generation 201:
+
+Oceanic mean pheno: 4.35434
+Freshwater mean pheno: -9.82615
+mean Ocean/Fresh Fst: 0.0339196
+between lakes Fst: 0.159147
+-------------------------------
+Output1 for generation 301:
+
+Oceanic mean pheno: 4.83895
+Freshwater mean pheno: -9.90263
+mean Ocean/Fresh Fst: 0.0355069
+between lakes Fst: 0.224
+-------------------------------
+Output1 for generation 401:
+
+Oceanic mean pheno: 5.37045
+Freshwater mean pheno: -9.35151
+mean Ocean/Fresh Fst: 0.03076
+between lakes Fst: 0.215722
+-------------------------------
+Output1 for generation 501:
+
+Oceanic mean pheno: 5.42121
+Freshwater mean pheno: -9.66067
+mean Ocean/Fresh Fst: 0.0381191
+between lakes Fst: 0.261269
+-------------------------------
+Output1 for generation 601:
+
+Oceanic mean pheno: 5.44596
+Freshwater mean pheno: -9.8034
+mean Ocean/Fresh Fst: 0.0338602
+between lakes Fst: 0.231621
+-------------------------------
+Output1 for generation 701:
+
+Oceanic mean pheno: 6.29514
+Freshwater mean pheno: -9.36505
+mean Ocean/Fresh Fst: 0.035359
+between lakes Fst: 0.269155
+-------------------------------
+Output1 for generation 801:
+
+Oceanic mean pheno: 7.20061
+Freshwater mean pheno: -9.59653
+mean Ocean/Fresh Fst: 0.0437663
+between lakes Fst: 0.312376
+ERROR (EidosInterpreter::Evaluate_Div): the '/' operator requires that either (1) both operands have the same size(), or (2) one operand has size() == 1.
+
+Error on script line 248, character 34:
+
+      between_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
+                                      ^
+elapsed: 1:48.51 / kernel: 0.07 / user: 108.48 / mem: 142104
+Done!
