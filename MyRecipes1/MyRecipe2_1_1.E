@@ -9,14 +9,13 @@ initialize() {
 
 	individualsInOcean = 2000;
 	
-	individualsInFresh = 2000;
+	individualsInFresh = 4000;
+
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_1/";
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
-
 	lengthOfPops = asFloat(numberOfLakes);
-	numberOfSamplingPoints = endOfSimulation/samplingInterval + 1;
-	
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe1_9_9/";
+	numberOfSamplingPoints = endOfSimulation/samplingInterval + 1;	
 	
 	defineConstant("END",endOfSimulation);
 	defineConstant("INT",samplingInterval);
@@ -30,7 +29,6 @@ initialize() {
 	initializeSLiMOptions(dimensionality="x");
 	initializeMutationRate(1e-7); 	
 
-	
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations
 	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Benefictial Mutations
 	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
@@ -97,14 +95,21 @@ initialize() {
 
 
 1 late(){
-	sim.addSubpop("p1", IIO);
-	sim.addSubpop("p2", IIF);
+	sim.addSubpop("p1", IIO);  //Marine 
+	sim.addSubpop("p2", IIF);  //Freshwater
 	
+	//set length of pops equal to 1 unit per lake
+
 	p1.setSpatialBounds(c(0.0, LOP));
 	p2.setSpatialBounds(c(0.0, LOP));
+
+	//set migration to 1 individual per generation from each pop to another 
+
+	migrationRateIntoOcean = asFloat(1/IIF);
+	migrationRateIntoFresh = asFloat(1/IIO);
 	
-	p1.setMigrationRates(p2,0.0005);
-	p2.setMigrationRates(p1,0.0005);
+	p1.setMigrationRates(p2,migrationRateIntoOcean);
+	p2.setMigrationRates(p1,migrationRateIntoFresh);
 	
 	//unifomily distribute oceanic individuals.
 
@@ -127,7 +132,7 @@ initialize() {
 
 1 late() {
 
-	//choose 100 locations along the chromosome, give each genome a mutation of type m1 or m2 at that location
+	//give each genome a mutation of type m1 or m2 at QTL location's
  
 	g = sim.subpopulations.genomes;
 	n = size(g);
@@ -417,10 +422,10 @@ fitness(NULL, p2) {
 	return 1.0 + individual.tagF;
 }
 1: mateChoice(p2) {
-	return  i1.strength(individual); 
+	return  i1.strength(individual) * weights; 
 }
 1: mateChoice(p1){
-	return i2.strength(individual);
+	return i2.strength(individual) * weights;
 }
 
 modifyChild(p1){
