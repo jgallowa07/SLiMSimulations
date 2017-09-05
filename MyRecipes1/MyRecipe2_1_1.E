@@ -1,15 +1,15 @@
 initialize() {
 
 
-	endOfSimulation = 10000;
+	endOfSimulation = 20000;
 
-	samplingInterval = 100;
+	samplingInterval = 50;
 
 	numberOfLakes = 10;	
 
 	individualsInOcean = 2000;
 	
-	individualsInFresh = 4000;
+	individualsInFresh = 2000;
 
 	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_1/";
 
