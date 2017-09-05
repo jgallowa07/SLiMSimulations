@@ -11,7 +11,7 @@ initialize() {
 	
 	individualsInFresh = 2000;
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_1/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_3/";
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
