@@ -2,7 +2,7 @@ initialize() {
 
 	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_1/";
 
-	endOfSimulation = 100;
+	endOfSimulation = 10000;
 
 	samplingInterval = 100;
 
