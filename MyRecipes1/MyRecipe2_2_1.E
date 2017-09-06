@@ -1,17 +1,17 @@
 initialize() {
 
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_1/";
 
-	endOfSimulation = 20000;
+	endOfSimulation = 100;
 
 	samplingInterval = 100;
 
-	numberOfLakes = 20;	
+	numberOfLakes = 10;	
 
 	individualsInOcean = 2000;
 	
 	individualsInFresh = 2000;
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_3/";
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
@@ -32,20 +32,21 @@ initialize() {
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations
 	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Benefictial Mutations
 	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
+	initializeMutationType("m4", 0.5, "f", 0.0);       //deleterious Mutations
 	
-	initializeGenomicElementType("g1", m3, 1.0);
+	initializeGenomicElementType("g1", c(m4,m3), c(10.0,1.0));
 	initializeGenomicElementType("g2", c(m1,m2), c(1.0,1.0));
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 
 	defineConstant("C", 10);    // number of QTLs
-	defineConstant("W", 400);  // size of neutral buffer on each side
-	defineConstant("P", 100);   //Size of contribution (Padding) Loci 
+	defineConstant("W", 490);  // size of neutral buffer on each side
+	defineConstant("P", 20);   //Size of contribution (Padding) Loci 
 
 	
 	//initialize genomic arch.
-	// |----------Nuetral-----------|-Contributing-|QTL|-Contributing-|----------Nuetral----------|	  Repeat for number of QTL's ...
+	// |----------Nuetral-----------|-Contributing-|----------Nuetral----------|	  Repeat for number of QTL's ...
 
 
 
@@ -58,15 +59,10 @@ initialize() {
 		pos = pos + W;
 	
 		initializeGenomicElement(g2, pos, pos + P-1);
+		section = pos:(pos+P-1);
+		q = c(q,section);
 		pos = pos + P;	
-	
-		initializeGenomicElement(g2, pos, pos);
-		q = c(q, pos);
-		pos = pos + 1;
 
-		initializeGenomicElement(g2, pos, pos + P-1);
-		pos = pos + P;	
-		
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
 	}
@@ -74,8 +70,6 @@ initialize() {
 	catn("end of chromosome position: "+pos);
 	
 	defineConstant("Q", q);     // remember our QTL positions
-//	rates = c(rep(c(1e-8, 0.5), C-1), 1e-8);
-//	ends = (repEach(Q + W, 2) + rep(c(0,1), C))[0:(C*2 - 2)];
 	initializeRecombinationRate(1e-3);	
 
 	//Interation Function for Freshwater mateChoice() callback...
@@ -139,9 +133,11 @@ initialize() {
 	
 	for (q in Q)
 	{
+		m1selec = rgamma(1,0.5,1.0);
+		m2selec = rgamma(1,-0.5,1.0);
 		isPlus = asLogical(rbinom(n, 1, 0.5));
-		g[isPlus].addNewMutation(m1, 1.0, q);
-		g[!isPlus].addNewMutation(m2, -1.0, q);
+		g[isPlus].addNewMutation(m1, m1selec, q);
+		g[!isPlus].addNewMutation(m2, m2selec, q);
 	}
 }
 
@@ -155,7 +151,6 @@ initialize() {
 
 	for (fix in sim.substitutions){
 		substitutionOffset = substitutionOffset + fix.selectionCoeff;
-
 	}	
 
 	for (individual in sim.subpopulations.individuals)
@@ -416,9 +411,13 @@ initialize() {
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
-	return 1.0 + individual.tagF;
+	numDeleterious = individual.countOfMutationsOfType(m4);
+	effect = numDeleterious/10.0;
+	return 1.0 + individual.tagF - effect;
 }
 fitness(NULL, p2) {
+	numDeleterious = individual.countOfMutationsOfType(m4);
+	effect = numDeleterious/10.0;
 	return 1.0 + individual.tagF;
 }
 1: mateChoice(p2) {

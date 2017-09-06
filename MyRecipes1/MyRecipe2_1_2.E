@@ -3,7 +3,7 @@ initialize() {
 
 	endOfSimulation = 20000;
 
-	samplingInterval = 50;
+	samplingInterval = 100;
 
 	numberOfLakes = 10;	
 

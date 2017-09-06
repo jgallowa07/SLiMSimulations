@@ -5,14 +5,14 @@ initialize() {
 
 	samplingInterval = 100;
 
-	numberOfLakes = 20;	
+	numberOfLakes = 10;	
 
 	individualsInOcean = 2000;
 	
 	individualsInFresh = 2000;
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_3/";
-
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_1_1/";
+	
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
 	numberOfSamplingPoints = endOfSimulation/samplingInterval + 1;	
@@ -32,7 +32,8 @@ initialize() {
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations
 	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Benefictial Mutations
 	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
-	
+	//initializeMutationType("m4", 0.5, "f", -0.5);      //Deleterious Mutation. 	
+
 	initializeGenomicElementType("g1", m3, 1.0);
 	initializeGenomicElementType("g2", c(m1,m2), c(1.0,1.0));
 

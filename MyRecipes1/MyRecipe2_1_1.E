@@ -3,7 +3,7 @@ initialize() {
 
 	endOfSimulation = 20000;
 
-	samplingInterval = 50;
+	samplingInterval = 100;
 
 	numberOfLakes = 10;	
 
@@ -88,8 +88,8 @@ initialize() {
 	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
-	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
-	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+samplingInterval,append = F);
+	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
+	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
 	
 }
 
