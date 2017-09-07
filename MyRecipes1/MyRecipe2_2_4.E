@@ -1,6 +1,6 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_2/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_4/";
 
 	endOfSimulation = 10000;
 
@@ -136,16 +136,25 @@ initialize() {
 	g = sim.subpopulations.genomes;
 	n = size(g);
 	
-	init = sample(Q,30);	
+	init = sample(Q,15);		
+	init2 = sample(Q,15);
 		
 	for (q in init)
 	{
 		m1selec = rgamma(1,0.5,1.0);
-		m2selec = rgamma(1,-0.5,1.0);
+//		m2selec = rgamma(1,-0.5,1.0);
 		isPlus = asLogical(rbinom(n, 1, 0.5));
 		g[isPlus].addNewMutation(m1, m1selec, q);
-		g[!isPlus].addNewMutation(m2, m2selec, q);
+//		g[!isPlus].addNewMutation(m2, m2selec, q);
 	}
+
+	for (q2 in init2)
+	{
+		m2selec = rgamma(1,-0.5,1.0);
+		isPlus = asLogical(rbinom(n, 1, 0.5));
+		g[isPlus].addNewMutation(m2, m2selec, q2);
+	}
+	
 }
 
 
@@ -211,10 +220,11 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		
 	
 		//fst = abs((mean_pq - pq) / mean_pq);
 		//sim.setValue("FST", sim.getValue("FST") + mean(fst));
-
+		
 		meanOceanFreshFst = mean(fst);
 		catn("mean Ocean/Fresh Fst: "+ meanOceanFreshFst);
 			
@@ -420,7 +430,7 @@ fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
 	numDeleterious = individual.countOfMutationsOfType(m4);
 	effect = numDeleterious/10.0;
-	return 1.0 + individual.tagF - effect;
+	return 1.0 + individual.tagF  -effect;
 }
 fitness(NULL, p2) {
 	numDeleterious = individual.countOfMutationsOfType(m4);

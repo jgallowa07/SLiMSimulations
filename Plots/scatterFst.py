@@ -6,7 +6,7 @@ import sys
 col1 = []
 col2 = []
 
-File = open("../Output1/MyRecipe2_1_3/OceanFreshwaterFst.txt","r")
+File = open("../Output1/MyRecipe2_2_3/OceanFreshwaterFst.txt","r")
 first = File.readline()
 for line in File:
 	n1, n2 = (float(s) for s in line.split())
@@ -33,4 +33,4 @@ layout = dict(title = 'Effect and Frequecy by Position',
 
 fig = dict(data = data, layout = layout)
 	
-py.iplot(fig, filename='2_1_3 Ocean-Freshwater Fst')
+py.iplot(fig, filename='2_2_3 Ocean-Freshwater Fst')
