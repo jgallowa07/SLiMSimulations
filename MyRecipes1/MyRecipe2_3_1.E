@@ -1,6 +1,6 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_3/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_3_1/";
 
 	endOfSimulation = 10000;
 
@@ -142,8 +142,10 @@ initialize() {
 	for (q in init)
 	{
 		m1selec = rgamma(1,0.5,1.0);
+//		m2selec = rgamma(1,-0.5,1.0);
 		isPlus = asLogical(rbinom(n, 1, 0.5));
 		g[isPlus].addNewMutation(m1, m1selec, q);
+//		g[!isPlus].addNewMutation(m2, m2selec, q);
 	}
 
 	for (q2 in init2)
@@ -152,7 +154,6 @@ initialize() {
 		isPlus = asLogical(rbinom(n, 1, 0.5));
 		g[isPlus].addNewMutation(m2, m2selec, q2);
 	}
-	
 	
 }
 

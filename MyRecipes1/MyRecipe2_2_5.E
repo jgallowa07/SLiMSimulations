@@ -1,6 +1,6 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_3/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_5/";
 
 	endOfSimulation = 10000;
 
@@ -16,7 +16,7 @@ initialize() {
 
 	sizeOfEffectRegions = 100;
 
-	sizeOfNonEffectBuffer = 450;
+	sizeOfNonEffectBuffer = 4950;
 	
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
@@ -31,29 +31,28 @@ initialize() {
 	defineConstant("LOP", lengthOfPops);
 	defineConstant("IPF",individualsPerFresh);
 	defineConstant("PATH",pathToOutputFile);
+	defineConstant("MR", 1e-7);
 	defineConstant("C", numberOfEffectRegions);    	// number of Effect Regions;
 	defineConstant("W", sizeOfNonEffectBuffer);  	// size of neutral buffer on each side
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
+	
 
 	initializeSLiMOptions(dimensionality="x");
-	initializeMutationRate(1e-7); 	
+	initializeMutationRate(MR); 	
 
 	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Oceanic Benefitial Mutations
 	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Benefictial Mutations
 	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
 	initializeMutationType("m4", 0.5, "f", 0.0);       //deleterious Mutations
 	
-	initializeGenomicElementType("g1", c(m4,m3), c(2.0,1.0));
-	initializeGenomicElementType("g2", c(m1,m2), c(1.0,1.0));
+	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
+	initializeGenomicElementType("g2", c(m1,m2,m3), c(1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
-
-
 	
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect-|----------NonEffect----------|	  Repeat for number of Effect Regions ...
-
 
 	pos = 0;
 	q = NULL;
@@ -73,8 +72,11 @@ initialize() {
 	}
 
 	catn("end of chromosome position: "+pos);
-	
+	totalNumOfLoci = pos;
+
+	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
+
 	initializeRecombinationRate(1e-3);	
 
 	//Interation Function for Freshwater mateChoice() callback...
@@ -136,23 +138,51 @@ initialize() {
 	g = sim.subpopulations.genomes;
 	n = size(g);
 	
-	init = sample(Q,15);		
-	init2 = sample(Q,15);
+
+	numM1 = rpois(1,40);
+	numM2 = rpois(1,40);
+	numNeutralPoly = rpois(1,(MR*TL*(n/2)));
+	init = sample(Q,numM1);		
+	init2 = sample(Q,numM2);
+	neutralPositions = sample(0:100000,numNeutralPoly);	
 		
 	for (q in init)
 	{
 		m1selec = rgamma(1,0.5,1.0);
-		isPlus = asLogical(rbinom(n, 1, 0.5));
+		
+		x = rgamma(1,0.5,1);
+		y = rgamma(1,1,1);
+		beta = x / (x+y);
+
+		isPlus = asLogical(rbinom(n, 1, beta));
 		g[isPlus].addNewMutation(m1, m1selec, q);
 	}
 
 	for (q2 in init2)
 	{
 		m2selec = rgamma(1,-0.5,1.0);
-		isPlus = asLogical(rbinom(n, 1, 0.5));
+		
+		x = rgamma(1,0.5,1);
+		y = rgamma(1,1,1);
+		beta = x / (x+y);
+
+		isPlus = asLogical(rbinom(n, 1, beta));
 		g[isPlus].addNewMutation(m2, m2selec, q2);
 	}
-	
+
+
+	for (pos in neutralPositions)
+	{
+		
+		x = rgamma(1,0.001,1);
+		y = rgamma(1,1,1);
+		beta = x / (x+y);		
+
+		hasMut = asLogical(rbinom(n,1,beta));
+		g[hasMut].addNewMutation(m3, 0.0, pos);
+
+	}	
+		
 	
 }
 
@@ -298,6 +328,7 @@ initialize() {
 		catn("between Marine Regions Fst: "+ between_marine_fst);						
 			
 		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst + " " + between_marine_fst,append = T);
+	
 	}
 	if(sim.generation == END)
 	{
@@ -406,10 +437,10 @@ initialize() {
 	//Set tag equal to a value to be returned by fitness callback 
 	
 	for (individual in p2.individuals){
-		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,10.0);
+		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
 	}
 	for (individual in p1.individuals){
-		individual.tagF = dnorm(10 - individual.tagF,0.0,10.0);
+		individual.tagF = dnorm(10 - individual.tagF,0.0,15.0);
 	}
 
 	//Normalize the fitness in the lakes so an equivelent mean number of parents get chosen from each.
@@ -427,14 +458,14 @@ initialize() {
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
-	numDeleterious = individual.countOfMutationsOfType(m4);
-	effect = numDeleterious/10.0;
-	return individual.tagF * exp(-effect);
+	//numDeleterious = individual.countOfMutationsOfType(m4);
+	//effect = numDeleterious/10.0;
+	return individual.tagF;
 }
 fitness(NULL, p2) {
-	numDeleterious = individual.countOfMutationsOfType(m4);
-	effect = numDeleterious/10.0;
-	return individual.tagF * exp(-effect);
+	//numDeleterious = individual.countOfMutationsOfType(m4);
+	//effect = numDeleterious/10.0;
+	return individual.tagF;
 }
 1: mateChoice(p2) {
 	return  i1.strength(individual) * weights; 

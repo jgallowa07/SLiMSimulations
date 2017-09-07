@@ -10,7 +10,7 @@ col4 = []
 col5 = []
 
 x_axis = []
-File = open("../Output1/MyRecipe2_2_3/AverageFst.txt","r")
+File = open("../Output1/MyRecipe2_2_4/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
@@ -87,4 +87,4 @@ layout = dict(title = 'Average Fst',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='2_2_3 Average Fst')
+py.iplot(fig, filename='2_2_4 Average Fst')
