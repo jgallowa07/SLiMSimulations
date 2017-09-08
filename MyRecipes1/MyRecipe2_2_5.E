@@ -271,11 +271,11 @@ initialize() {
 			
 			freqs = rep(0, size(muts));
 			
-			for (ind in lake_individuals)
+			for (geno in lake_individuals.genomes)
 			{
-				freqs = freqs + asInteger(ind.containsMutations(muts));		
+				freqs = freqs + asInteger(geno.containsMutations(muts));		
 			}
-			freqs = freqs / size(lake_individuals);
+			freqs = freqs / (2*size(lake_individuals));
 			mean_p = mean_p + freqs;
 			mean_het = mean_het + (freqs * (1-freqs));
 		} 
