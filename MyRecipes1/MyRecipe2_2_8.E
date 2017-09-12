@@ -425,7 +425,7 @@ initialize() {
 				
 		catn("between Marine Regions Fst: "+ between_marine_fst);						
 			
-		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst+" "+between_fst+" "+between_marine_fst+" "+meanOceanFreshFstNeutral+" "+meanOceanFreshFstEffect,append = T);
+		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst+" "+between_fst+" "+between_marine_fst+" "+meanOceanFreshFstNeutral+" "+meanOceanFreshFstEffect+" "+between_fst_n+" "+between_fst_e,append = T);
 	
 	}
 	if(sim.generation == END)
