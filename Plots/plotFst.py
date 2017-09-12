@@ -10,17 +10,17 @@ col4 = []
 col5 = []
 
 x_axis = []
-File = open("../Output1/MyRecipe2_2_5/AverageFst.txt","r")
+File = open("../Output1/MyRecipe2_2_8/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
-	n1,n2,n3 = (float(s) for s in line.split())
+	n1,n2,n3,n4,n5 = (float(s) for s in line.split())
 	#n1 = float(line)
 	col1.append(n1)
 	col2.append(n2)
 	col3.append(n3)
-	#col4.append(n4)
-	#trace5.append(n5)
+	col4.append(n4)
+	col5.append(n5)
 
 print("numAxis: "+str(numAxis))	
 
@@ -52,23 +52,23 @@ trace2 = go.Scatter(
 	color = ('rgb(5, 125, 24)'),
 	width = 1) # dash options include 'dash', 'dot', and 'dashdot'
 )
-#trace3 = go.Scatter(
-#    x = x_axis,
-#    y = col4,
-#    name = 'Low Frequency m2',
-#    line = dict(
-#	color = ('rgb(22, 96, 167)'),
-#	width = 1)
-#)
-#trace4 = go.Scatter(
-#    x = month,
-#    y = high_2000,
-#    name = 'High 2000',
-#    line = dict(
-#        color = ('rgb(205, 12, 24)'),
-#        width = 1,
-#        dash = 'dot')
-#)
+trace3 = go.Scatter(
+    x = x_axis,
+    y = col4,
+    name = 'Average Fst Marine/Freshwater (Neutral Mutations only)',
+    line = dict(
+	color = ('rgb(22, 96, 167)'),
+	width = 1)
+)
+trace4 = go.Scatter(
+    x = x_axis,
+    y = col5,
+    name = 'Average Fst Marine/Freshwater (Effect Mutations only)',
+    line = dict(
+        color = ('rgb(205, 12, 24)'),
+        width = 1,
+        dash = 'dot')
+)
 #trace5 = go.Scatter(
 #    x = month,
 #    y = low_2000,
@@ -78,7 +78,7 @@ trace2 = go.Scatter(
 #        width = 1,
 #        dash = 'dot')
 #)
-data = [trace0,trace1,trace2]
+data = [trace0,trace1,trace2,trace3,trace4]
 
 # Edit the layout
 layout = dict(title = 'Average Fst',
@@ -87,4 +87,4 @@ layout = dict(title = 'Average Fst',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='2_2_5 Average Fst')
+py.iplot(fig, filename='2_2_8 Average Fst')

@@ -292,8 +292,6 @@ initialize() {
 		freqs = rep(0,size(muts));
 		mean_p = freqs;
 		mean_het = freqs;
-
-
 	
 		for (i in 1:NLAKES)
 		{	
@@ -322,6 +320,73 @@ initialize() {
 				
 		catn("between lakes Fst: "+ between_fst);							
 
+
+		//-----------------------Between Lakes Fst Sample (Neutral Mutations)-----------------------------
+
+		
+		freqs_n = rep(0,size(neutralMutations));
+		mean_p_n = freqs_n;
+		mean_het_n = freqs_n;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_n = rep(0, size(neutralMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_n = freqs_n + asInteger(geno.containsMutations(neutralMutations));		
+			}
+			freqs_n = freqs_n / (2*size(lake_individuals));
+			mean_p_n = mean_p_n + freqs_n;
+			mean_het_n = mean_het_n + (freqs_n * (1-freqs_n));
+		} 
+		
+		mean_p_n = mean_p_n/NLAKES;        
+		temp_n = mean_p_n;
+		mean_het_n = mean_het_n/NLAKES;         
+
+		mean_p_n = mean_p_n[mean_p_n != 0 & mean_het_n != 0];
+		mean_het_n = mean_het_n[temp_n != 0 & mean_het_n != 0];		
+	
+		between_fst_n = mean(1 - mean_het_n / (mean_p_n * (1 - mean_p_n)));
+				
+		catn("between lakes Fst (neutral): "+ between_fst_n);							
+
+		//-----------------------Between Lakes Fst Sample (Effect Mutations)-----------------------------
+		
+		freqs_e = rep(0,size(effectMutations));
+		mean_p_e = freqs_e;
+		mean_het_e = freqs_e;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_e = rep(0, size(effectMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_e = freqs_e + asInteger(geno.containsMutations(effectMutations));		
+			}
+			freqs_e = freqs_e / (2*size(lake_individuals));
+			mean_p_e = mean_p_e + freqs_e;
+			mean_het_e = mean_het_e + (freqs_e * (1-freqs_e));
+		} 
+		
+		mean_p_e = mean_p_e/NLAKES;        
+		temp_e = mean_p_e;
+		mean_het_e = mean_het_e/NLAKES;         
+
+		mean_p_e = mean_p_e[mean_p_e != 0 & mean_het_e != 0];
+		mean_het_e = mean_het_e[temp_e != 0 & mean_het_e != 0];		
+	
+		between_fst_e = mean(1 - mean_het_e / (mean_p_e * (1 - mean_p_e)));
+				
+		catn("between lakes Fst (effect): "+ between_fst_e);							
 
 	
 		//-----------------------Between Ocean Fst Sample-----------------------------
