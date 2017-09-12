@@ -1,0 +1,945 @@
+Task ID  - seed 022469
+Parameters for SLiM run:
+  -s 022469 MyRecipe2_2_6.E
+// Initial random seed:
+1505876424835
+
+// RunInitializeCallbacks():
+initializeSLiMOptions(dimensionality = 'x');
+initializeMutationRate(1e-06);
+initializeMutationType(1, 0.5, "g", 0.5, 1);
+initializeMutationType(2, 0.5, "g", -0.5, 1);
+initializeMutationType(3, 0.5, "f", 0);
+initializeMutationType(4, 0.5, "f", 0);
+initializeGenomicElementType(1, m3, 1);
+initializeGenomicElementType(2, c(m1, m2, m3), c(1, 1, 1));
+initializeGenomicElement(g1, 0, 4949);
+initializeGenomicElement(g2, 4950, 5049);
+initializeGenomicElement(g1, 5050, 9999);
+initializeGenomicElement(g1, 10000, 14949);
+initializeGenomicElement(g2, 14950, 15049);
+initializeGenomicElement(g1, 15050, 19999);
+initializeGenomicElement(g1, 20000, 24949);
+initializeGenomicElement(g2, 24950, 25049);
+initializeGenomicElement(g1, 25050, 29999);
+initializeGenomicElement(g1, 30000, 34949);
+initializeGenomicElement(g2, 34950, 35049);
+initializeGenomicElement(g1, 35050, 39999);
+initializeGenomicElement(g1, 40000, 44949);
+initializeGenomicElement(g2, 44950, 45049);
+initializeGenomicElement(g1, 45050, 49999);
+initializeGenomicElement(g1, 50000, 54949);
+initializeGenomicElement(g2, 54950, 55049);
+initializeGenomicElement(g1, 55050, 59999);
+initializeGenomicElement(g1, 60000, 64949);
+initializeGenomicElement(g2, 64950, 65049);
+initializeGenomicElement(g1, 65050, 69999);
+initializeGenomicElement(g1, 70000, 74949);
+initializeGenomicElement(g2, 74950, 75049);
+initializeGenomicElement(g1, 75050, 79999);
+initializeGenomicElement(g1, 80000, 84949);
+initializeGenomicElement(g2, 84950, 85049);
+initializeGenomicElement(g1, 85050, 89999);
+initializeGenomicElement(g1, 90000, 94949);
+initializeGenomicElement(g2, 94950, 95049);
+initializeGenomicElement(g1, 95050, 99999);
+end of chromosome position: 100000
+initializeRecombinationRate(0.001);
+initializeInteractionType(1, "x", reciprocal=T", maxDistance=0.02);
+initializeInteractionType(2, "x", reciprocal=T", maxDistance=1);
+
+// Starting run at generation <start>:
+1 
+
+-------------------------------
+Output1 for generation 1:
+
+Oceanic mean pheno: 7.14594
+Freshwater mean pheno: 7.01971
+mean Ocean/Fresh Fst: 0.000117688
+between lakes Fst: 0.00226192
+between Marine Regions Fst: 0.00225964
+-------------------------------
+Output1 for generation 101:
+
+Oceanic mean pheno: 9.92302
+Freshwater mean pheno: -9.05735
+mean Ocean/Fresh Fst: 0.00235242
+between lakes Fst: 0.0346594
+between Marine Regions Fst: 0.00538261
+-------------------------------
+Output1 for generation 201:
+
+Oceanic mean pheno: 10.0194
+Freshwater mean pheno: -9.86769
+mean Ocean/Fresh Fst: 0.00340949
+between lakes Fst: 0.055044
+between Marine Regions Fst: 0.00625827
+-------------------------------
+Output1 for generation 301:
+
+Oceanic mean pheno: 10.0657
+Freshwater mean pheno: -10.2464
+mean Ocean/Fresh Fst: 0.00446911
+between lakes Fst: 0.075041
+between Marine Regions Fst: 0.0060624
+-------------------------------
+Output1 for generation 401:
+
+Oceanic mean pheno: 9.78861
+Freshwater mean pheno: -10.3509
+mean Ocean/Fresh Fst: 0.00549442
+between lakes Fst: 0.0896732
+between Marine Regions Fst: 0.00676848
+-------------------------------
+Output1 for generation 501:
+
+Oceanic mean pheno: 9.9306
+Freshwater mean pheno: -9.82883
+mean Ocean/Fresh Fst: 0.00612898
+between lakes Fst: 0.0978818
+between Marine Regions Fst: 0.00657426
+-------------------------------
+Output1 for generation 601:
+
+Oceanic mean pheno: 9.425
+Freshwater mean pheno: -9.62933
+mean Ocean/Fresh Fst: 0.00681121
+between lakes Fst: 0.110547
+between Marine Regions Fst: 0.00650832
+-------------------------------
+Output1 for generation 701:
+
+Oceanic mean pheno: 10.1296
+Freshwater mean pheno: -8.96701
+mean Ocean/Fresh Fst: 0.00738783
+between lakes Fst: 0.115061
+between Marine Regions Fst: 0.00679617
+-------------------------------
+Output1 for generation 801:
+
+Oceanic mean pheno: 9.64459
+Freshwater mean pheno: -9.03542
+mean Ocean/Fresh Fst: 0.00817313
+between lakes Fst: 0.128272
+between Marine Regions Fst: 0.00662394
+-------------------------------
+Output1 for generation 901:
+
+Oceanic mean pheno: 9.98883
+Freshwater mean pheno: -9.05405
+mean Ocean/Fresh Fst: 0.00864978
+between lakes Fst: 0.135481
+between Marine Regions Fst: 0.00673925
+-------------------------------
+Output1 for generation 1001:
+
+Oceanic mean pheno: 9.94126
+Freshwater mean pheno: -8.7303
+mean Ocean/Fresh Fst: 0.00936993
+between lakes Fst: 0.143512
+between Marine Regions Fst: 0.00707766
+-------------------------------
+Output1 for generation 1101:
+
+Oceanic mean pheno: 9.79792
+Freshwater mean pheno: -8.84909
+mean Ocean/Fresh Fst: 0.00982864
+between lakes Fst: 0.152502
+between Marine Regions Fst: 0.00696243
+-------------------------------
+Output1 for generation 1201:
+
+Oceanic mean pheno: 9.59854
+Freshwater mean pheno: -8.89933
+mean Ocean/Fresh Fst: 0.0104611
+between lakes Fst: 0.153692
+between Marine Regions Fst: 0.00696486
+-------------------------------
+Output1 for generation 1301:
+
+Oceanic mean pheno: 9.565
+Freshwater mean pheno: -9.04294
+mean Ocean/Fresh Fst: 0.0111592
+between lakes Fst: 0.157395
+between Marine Regions Fst: 0.00736115
+-------------------------------
+Output1 for generation 1401:
+
+Oceanic mean pheno: 9.84698
+Freshwater mean pheno: -8.97798
+mean Ocean/Fresh Fst: 0.0116531
+between lakes Fst: 0.173368
+between Marine Regions Fst: 0.00715449
+-------------------------------
+Output1 for generation 1501:
+
+Oceanic mean pheno: 10.4707
+Freshwater mean pheno: -8.60127
+mean Ocean/Fresh Fst: 0.0119727
+between lakes Fst: 0.176122
+between Marine Regions Fst: 0.00757184
+-------------------------------
+Output1 for generation 1601:
+
+Oceanic mean pheno: 9.76445
+Freshwater mean pheno: -8.64581
+mean Ocean/Fresh Fst: 0.0127397
+between lakes Fst: 0.178365
+between Marine Regions Fst: 0.00758533
+-------------------------------
+Output1 for generation 1701:
+
+Oceanic mean pheno: 10.2224
+Freshwater mean pheno: -8.68717
+mean Ocean/Fresh Fst: 0.0131129
+between lakes Fst: 0.186101
+between Marine Regions Fst: 0.00679207
+-------------------------------
+Output1 for generation 1801:
+
+Oceanic mean pheno: 10.3708
+Freshwater mean pheno: -8.80108
+mean Ocean/Fresh Fst: 0.0136421
+between lakes Fst: 0.188679
+between Marine Regions Fst: 0.0072973
+-------------------------------
+Output1 for generation 1901:
+
+Oceanic mean pheno: 10.2095
+Freshwater mean pheno: -9.1058
+mean Ocean/Fresh Fst: 0.0141654
+between lakes Fst: 0.207739
+between Marine Regions Fst: 0.00760633
+-------------------------------
+Output1 for generation 2001:
+
+Oceanic mean pheno: 10.2687
+Freshwater mean pheno: -9.25103
+mean Ocean/Fresh Fst: 0.0146381
+between lakes Fst: 0.1876
+between Marine Regions Fst: 0.00719354
+-------------------------------
+Output1 for generation 2101:
+
+Oceanic mean pheno: 9.8096
+Freshwater mean pheno: -9.08055
+mean Ocean/Fresh Fst: 0.0149735
+between lakes Fst: 0.210685
+between Marine Regions Fst: 0.00827074
+-------------------------------
+Output1 for generation 2201:
+
+Oceanic mean pheno: 10.4105
+Freshwater mean pheno: -9.06439
+mean Ocean/Fresh Fst: 0.0151492
+between lakes Fst: 0.222391
+between Marine Regions Fst: 0.00815088
+-------------------------------
+Output1 for generation 2301:
+
+Oceanic mean pheno: 10.012
+Freshwater mean pheno: -9.25396
+mean Ocean/Fresh Fst: 0.015932
+between lakes Fst: 0.234419
+between Marine Regions Fst: 0.0073227
+-------------------------------
+Output1 for generation 2401:
+
+Oceanic mean pheno: 9.91765
+Freshwater mean pheno: -9.48428
+mean Ocean/Fresh Fst: 0.0161523
+between lakes Fst: 0.231183
+between Marine Regions Fst: 0.00749678
+-------------------------------
+Output1 for generation 2501:
+
+Oceanic mean pheno: 10.2469
+Freshwater mean pheno: -9.613
+mean Ocean/Fresh Fst: 0.0164601
+between lakes Fst: 0.225483
+between Marine Regions Fst: 0.00751735
+-------------------------------
+Output1 for generation 2601:
+
+Oceanic mean pheno: 10.4003
+Freshwater mean pheno: -9.68374
+mean Ocean/Fresh Fst: 0.0169052
+between lakes Fst: 0.230543
+between Marine Regions Fst: 0.0071214
+-------------------------------
+Output1 for generation 2701:
+
+Oceanic mean pheno: 9.98908
+Freshwater mean pheno: -9.54554
+mean Ocean/Fresh Fst: 0.0172894
+between lakes Fst: 0.247618
+between Marine Regions Fst: 0.00725256
+-------------------------------
+Output1 for generation 2801:
+
+Oceanic mean pheno: 10.3084
+Freshwater mean pheno: -9.34401
+mean Ocean/Fresh Fst: 0.0179054
+between lakes Fst: 0.239513
+between Marine Regions Fst: 0.00764993
+-------------------------------
+Output1 for generation 2901:
+
+Oceanic mean pheno: 10.0551
+Freshwater mean pheno: -9.41717
+mean Ocean/Fresh Fst: 0.0181884
+between lakes Fst: 0.267686
+between Marine Regions Fst: 0.00755285
+-------------------------------
+Output1 for generation 3001:
+
+Oceanic mean pheno: 9.71068
+Freshwater mean pheno: -9.51052
+mean Ocean/Fresh Fst: 0.0185171
+between lakes Fst: 0.275519
+between Marine Regions Fst: 0.00791835
+-------------------------------
+Output1 for generation 3101:
+
+Oceanic mean pheno: 10.0452
+Freshwater mean pheno: -9.42998
+mean Ocean/Fresh Fst: 0.018439
+between lakes Fst: 0.263318
+between Marine Regions Fst: 0.00765635
+-------------------------------
+Output1 for generation 3201:
+
+Oceanic mean pheno: 9.91774
+Freshwater mean pheno: -9.42571
+mean Ocean/Fresh Fst: 0.0187559
+between lakes Fst: 0.268779
+between Marine Regions Fst: 0.00764159
+-------------------------------
+Output1 for generation 3301:
+
+Oceanic mean pheno: 9.9073
+Freshwater mean pheno: -9.43564
+mean Ocean/Fresh Fst: 0.0186907
+between lakes Fst: 0.273358
+between Marine Regions Fst: 0.00776214
+-------------------------------
+Output1 for generation 3401:
+
+Oceanic mean pheno: 9.93955
+Freshwater mean pheno: -9.63014
+mean Ocean/Fresh Fst: 0.0189985
+between lakes Fst: 0.273175
+between Marine Regions Fst: 0.00775544
+-------------------------------
+Output1 for generation 3501:
+
+Oceanic mean pheno: 10.1899
+Freshwater mean pheno: -9.62695
+mean Ocean/Fresh Fst: 0.0194088
+between lakes Fst: 0.288878
+between Marine Regions Fst: 0.00857535
+-------------------------------
+Output1 for generation 3601:
+
+Oceanic mean pheno: 9.67166
+Freshwater mean pheno: -9.5648
+mean Ocean/Fresh Fst: 0.01992
+between lakes Fst: 0.280404
+between Marine Regions Fst: 0.00764408
+-------------------------------
+Output1 for generation 3701:
+
+Oceanic mean pheno: 10.4944
+Freshwater mean pheno: -9.57641
+mean Ocean/Fresh Fst: 0.0205933
+between lakes Fst: 0.292601
+between Marine Regions Fst: 0.00840251
+-------------------------------
+Output1 for generation 3801:
+
+Oceanic mean pheno: 9.6767
+Freshwater mean pheno: -9.39653
+mean Ocean/Fresh Fst: 0.0207945
+between lakes Fst: 0.278857
+between Marine Regions Fst: 0.00792879
+-------------------------------
+Output1 for generation 3901:
+
+Oceanic mean pheno: 10.0136
+Freshwater mean pheno: -9.41387
+mean Ocean/Fresh Fst: 0.0211913
+between lakes Fst: 0.290802
+between Marine Regions Fst: 0.00715312
+-------------------------------
+Output1 for generation 4001:
+
+Oceanic mean pheno: 10.2179
+Freshwater mean pheno: -9.20256
+mean Ocean/Fresh Fst: 0.0209896
+between lakes Fst: 0.300608
+between Marine Regions Fst: 0.00813274
+-------------------------------
+Output1 for generation 4101:
+
+Oceanic mean pheno: 9.50493
+Freshwater mean pheno: -9.21125
+mean Ocean/Fresh Fst: 0.0215309
+between lakes Fst: 0.330736
+between Marine Regions Fst: 0.00798916
+-------------------------------
+Output1 for generation 4201:
+
+Oceanic mean pheno: 9.85159
+Freshwater mean pheno: -9.51907
+mean Ocean/Fresh Fst: 0.0218464
+between lakes Fst: 0.28368
+between Marine Regions Fst: 0.00865955
+-------------------------------
+Output1 for generation 4301:
+
+Oceanic mean pheno: 10.0734
+Freshwater mean pheno: -9.56579
+mean Ocean/Fresh Fst: 0.0222278
+between lakes Fst: 0.315458
+between Marine Regions Fst: 0.0081527
+-------------------------------
+Output1 for generation 4401:
+
+Oceanic mean pheno: 10.0221
+Freshwater mean pheno: -9.60188
+mean Ocean/Fresh Fst: 0.0223131
+between lakes Fst: 0.322844
+between Marine Regions Fst: 0.00778738
+-------------------------------
+Output1 for generation 4501:
+
+Oceanic mean pheno: 10.194
+Freshwater mean pheno: -9.38112
+mean Ocean/Fresh Fst: 0.0229331
+between lakes Fst: 0.323802
+between Marine Regions Fst: 0.00738364
+-------------------------------
+Output1 for generation 4601:
+
+Oceanic mean pheno: 9.69583
+Freshwater mean pheno: -9.29626
+mean Ocean/Fresh Fst: 0.0225597
+between lakes Fst: 0.286308
+between Marine Regions Fst: 0.0084761
+-------------------------------
+Output1 for generation 4701:
+
+Oceanic mean pheno: 10.1678
+Freshwater mean pheno: -9.28487
+mean Ocean/Fresh Fst: 0.0230205
+between lakes Fst: 0.319308
+between Marine Regions Fst: 0.00860665
+-------------------------------
+Output1 for generation 4801:
+
+Oceanic mean pheno: 9.88289
+Freshwater mean pheno: -9.36733
+mean Ocean/Fresh Fst: 0.0234329
+between lakes Fst: 0.339145
+between Marine Regions Fst: 0.00812651
+-------------------------------
+Output1 for generation 4901:
+
+Oceanic mean pheno: 9.89502
+Freshwater mean pheno: -9.30337
+mean Ocean/Fresh Fst: 0.0235895
+between lakes Fst: 0.338093
+between Marine Regions Fst: 0.00818523
+-------------------------------
+Output1 for generation 5001:
+
+Oceanic mean pheno: 10.2457
+Freshwater mean pheno: -9.39445
+mean Ocean/Fresh Fst: 0.0236245
+between lakes Fst: 0.329961
+between Marine Regions Fst: 0.00831017
+-------------------------------
+Output1 for generation 5101:
+
+Oceanic mean pheno: 9.7261
+Freshwater mean pheno: -9.27062
+mean Ocean/Fresh Fst: 0.0239298
+between lakes Fst: 0.338195
+between Marine Regions Fst: 0.00795084
+-------------------------------
+Output1 for generation 5201:
+
+Oceanic mean pheno: 9.96783
+Freshwater mean pheno: -9.47202
+mean Ocean/Fresh Fst: 0.0238055
+between lakes Fst: 0.349883
+between Marine Regions Fst: 0.00789839
+-------------------------------
+Output1 for generation 5301:
+
+Oceanic mean pheno: 9.63083
+Freshwater mean pheno: -9.54525
+mean Ocean/Fresh Fst: 0.0236872
+between lakes Fst: 0.33466
+between Marine Regions Fst: 0.00781979
+-------------------------------
+Output1 for generation 5401:
+
+Oceanic mean pheno: 9.77174
+Freshwater mean pheno: -9.65812
+mean Ocean/Fresh Fst: 0.0237785
+between lakes Fst: 0.347867
+between Marine Regions Fst: 0.00801073
+-------------------------------
+Output1 for generation 5501:
+
+Oceanic mean pheno: 9.70849
+Freshwater mean pheno: -9.64595
+mean Ocean/Fresh Fst: 0.0238926
+between lakes Fst: 0.347536
+between Marine Regions Fst: 0.00834507
+-------------------------------
+Output1 for generation 5601:
+
+Oceanic mean pheno: 9.97656
+Freshwater mean pheno: -10.019
+mean Ocean/Fresh Fst: 0.0241935
+between lakes Fst: 0.344271
+between Marine Regions Fst: 0.00812008
+-------------------------------
+Output1 for generation 5701:
+
+Oceanic mean pheno: 10.0603
+Freshwater mean pheno: -10.1683
+mean Ocean/Fresh Fst: 0.0246441
+between lakes Fst: 0.359811
+between Marine Regions Fst: 0.00768038
+-------------------------------
+Output1 for generation 5801:
+
+Oceanic mean pheno: 9.72561
+Freshwater mean pheno: -10.1035
+mean Ocean/Fresh Fst: 0.0242273
+between lakes Fst: 0.370935
+between Marine Regions Fst: 0.00819858
+-------------------------------
+Output1 for generation 5901:
+
+Oceanic mean pheno: 10.8281
+Freshwater mean pheno: -9.02188
+mean Ocean/Fresh Fst: 0.0247701
+between lakes Fst: 0.36803
+between Marine Regions Fst: 0.00820884
+-------------------------------
+Output1 for generation 6001:
+
+Oceanic mean pheno: 10.0604
+Freshwater mean pheno: -9.40221
+mean Ocean/Fresh Fst: 0.0248718
+between lakes Fst: 0.34115
+between Marine Regions Fst: 0.00789048
+-------------------------------
+Output1 for generation 6101:
+
+Oceanic mean pheno: 9.66977
+Freshwater mean pheno: -9.61358
+mean Ocean/Fresh Fst: 0.0250116
+between lakes Fst: 0.338073
+between Marine Regions Fst: 0.00887959
+-------------------------------
+Output1 for generation 6201:
+
+Oceanic mean pheno: 9.84176
+Freshwater mean pheno: -9.27367
+mean Ocean/Fresh Fst: 0.025078
+between lakes Fst: 0.366964
+between Marine Regions Fst: 0.00761646
+-------------------------------
+Output1 for generation 6301:
+
+Oceanic mean pheno: 9.74896
+Freshwater mean pheno: -9.50785
+mean Ocean/Fresh Fst: 0.0257705
+between lakes Fst: 0.371612
+between Marine Regions Fst: 0.00867667
+-------------------------------
+Output1 for generation 6401:
+
+Oceanic mean pheno: 9.95674
+Freshwater mean pheno: -9.45573
+mean Ocean/Fresh Fst: 0.0265199
+between lakes Fst: 0.361217
+between Marine Regions Fst: 0.0084913
+-------------------------------
+Output1 for generation 6501:
+
+Oceanic mean pheno: 9.73519
+Freshwater mean pheno: -9.29125
+mean Ocean/Fresh Fst: 0.026071
+between lakes Fst: 0.386181
+between Marine Regions Fst: 0.00782437
+-------------------------------
+Output1 for generation 6601:
+
+Oceanic mean pheno: 9.94808
+Freshwater mean pheno: -9.37764
+mean Ocean/Fresh Fst: 0.0259816
+between lakes Fst: 0.397536
+between Marine Regions Fst: 0.00858808
+-------------------------------
+Output1 for generation 6701:
+
+Oceanic mean pheno: 9.86014
+Freshwater mean pheno: -9.35018
+mean Ocean/Fresh Fst: 0.0261074
+between lakes Fst: 0.377028
+between Marine Regions Fst: 0.00852038
+-------------------------------
+Output1 for generation 6801:
+
+Oceanic mean pheno: 9.40979
+Freshwater mean pheno: -9.4678
+mean Ocean/Fresh Fst: 0.0267898
+between lakes Fst: 0.384016
+between Marine Regions Fst: 0.00806909
+-------------------------------
+Output1 for generation 6901:
+
+Oceanic mean pheno: 9.68603
+Freshwater mean pheno: -9.71945
+mean Ocean/Fresh Fst: 0.0268946
+between lakes Fst: 0.370054
+between Marine Regions Fst: 0.00840219
+-------------------------------
+Output1 for generation 7001:
+
+Oceanic mean pheno: 9.45645
+Freshwater mean pheno: -9.48955
+mean Ocean/Fresh Fst: 0.0270927
+between lakes Fst: 0.394189
+between Marine Regions Fst: 0.00792992
+-------------------------------
+Output1 for generation 7101:
+
+Oceanic mean pheno: 9.89991
+Freshwater mean pheno: -9.67949
+mean Ocean/Fresh Fst: 0.0270847
+between lakes Fst: 0.393488
+between Marine Regions Fst: 0.00824482
+-------------------------------
+Output1 for generation 7201:
+
+Oceanic mean pheno: 9.5737
+Freshwater mean pheno: -9.61667
+mean Ocean/Fresh Fst: 0.0273422
+between lakes Fst: 0.387815
+between Marine Regions Fst: 0.00839546
+-------------------------------
+Output1 for generation 7301:
+
+Oceanic mean pheno: 9.86164
+Freshwater mean pheno: -9.78251
+mean Ocean/Fresh Fst: 0.026999
+between lakes Fst: 0.383412
+between Marine Regions Fst: 0.00715803
+-------------------------------
+Output1 for generation 7401:
+
+Oceanic mean pheno: 9.89872
+Freshwater mean pheno: -9.66233
+mean Ocean/Fresh Fst: 0.0271493
+between lakes Fst: 0.3953
+between Marine Regions Fst: 0.00815158
+-------------------------------
+Output1 for generation 7501:
+
+Oceanic mean pheno: 9.65357
+Freshwater mean pheno: -9.49565
+mean Ocean/Fresh Fst: 0.0277779
+between lakes Fst: 0.425897
+between Marine Regions Fst: 0.00775913
+-------------------------------
+Output1 for generation 7601:
+
+Oceanic mean pheno: 9.64192
+Freshwater mean pheno: -9.53671
+mean Ocean/Fresh Fst: 0.027844
+between lakes Fst: 0.397326
+between Marine Regions Fst: 0.00785148
+-------------------------------
+Output1 for generation 7701:
+
+Oceanic mean pheno: 9.76269
+Freshwater mean pheno: -9.51299
+mean Ocean/Fresh Fst: 0.0277388
+between lakes Fst: 0.403204
+between Marine Regions Fst: 0.00885759
+-------------------------------
+Output1 for generation 7801:
+
+Oceanic mean pheno: 9.99111
+Freshwater mean pheno: -9.50375
+mean Ocean/Fresh Fst: 0.0279635
+between lakes Fst: 0.39865
+between Marine Regions Fst: 0.00911252
+-------------------------------
+Output1 for generation 7901:
+
+Oceanic mean pheno: 10.3158
+Freshwater mean pheno: -9.50376
+mean Ocean/Fresh Fst: 0.0284336
+between lakes Fst: 0.397494
+between Marine Regions Fst: 0.0081257
+-------------------------------
+Output1 for generation 8001:
+
+Oceanic mean pheno: 10.2028
+Freshwater mean pheno: -9.44611
+mean Ocean/Fresh Fst: 0.0287429
+between lakes Fst: 0.402173
+between Marine Regions Fst: 0.00798577
+-------------------------------
+Output1 for generation 8101:
+
+Oceanic mean pheno: 10.0329
+Freshwater mean pheno: -9.69702
+mean Ocean/Fresh Fst: 0.0283512
+between lakes Fst: 0.402085
+between Marine Regions Fst: 0.00892988
+-------------------------------
+Output1 for generation 8201:
+
+Oceanic mean pheno: 9.88276
+Freshwater mean pheno: -9.46046
+mean Ocean/Fresh Fst: 0.028145
+between lakes Fst: 0.382279
+between Marine Regions Fst: 0.00845232
+-------------------------------
+Output1 for generation 8301:
+
+Oceanic mean pheno: 9.62912
+Freshwater mean pheno: -9.17425
+mean Ocean/Fresh Fst: 0.0279423
+between lakes Fst: 0.420179
+between Marine Regions Fst: 0.00796307
+-------------------------------
+Output1 for generation 8401:
+
+Oceanic mean pheno: 9.74214
+Freshwater mean pheno: -9.42319
+mean Ocean/Fresh Fst: 0.029058
+between lakes Fst: 0.406891
+between Marine Regions Fst: 0.00890065
+-------------------------------
+Output1 for generation 8501:
+
+Oceanic mean pheno: 10.0501
+Freshwater mean pheno: -9.28139
+mean Ocean/Fresh Fst: 0.0295865
+between lakes Fst: 0.423695
+between Marine Regions Fst: 0.00913615
+-------------------------------
+Output1 for generation 8601:
+
+Oceanic mean pheno: 10.0315
+Freshwater mean pheno: -9.32269
+mean Ocean/Fresh Fst: 0.0304575
+between lakes Fst: 0.409614
+between Marine Regions Fst: 0.00818282
+-------------------------------
+Output1 for generation 8701:
+
+Oceanic mean pheno: 10.2286
+Freshwater mean pheno: -9.5262
+mean Ocean/Fresh Fst: 0.0302106
+between lakes Fst: 0.4165
+between Marine Regions Fst: 0.00885449
+-------------------------------
+Output1 for generation 8801:
+
+Oceanic mean pheno: 10.2561
+Freshwater mean pheno: -9.73364
+mean Ocean/Fresh Fst: 0.0301481
+between lakes Fst: 0.422609
+between Marine Regions Fst: 0.00842634
+-------------------------------
+Output1 for generation 8901:
+
+Oceanic mean pheno: 9.992
+Freshwater mean pheno: -9.70346
+mean Ocean/Fresh Fst: 0.0292004
+between lakes Fst: 0.424729
+between Marine Regions Fst: 0.00829303
+-------------------------------
+Output1 for generation 9001:
+
+Oceanic mean pheno: 9.64959
+Freshwater mean pheno: -9.39035
+mean Ocean/Fresh Fst: 0.0285542
+between lakes Fst: 0.440613
+between Marine Regions Fst: 0.00795563
+-------------------------------
+Output1 for generation 9101:
+
+Oceanic mean pheno: 9.75486
+Freshwater mean pheno: -9.37102
+mean Ocean/Fresh Fst: 0.0292001
+between lakes Fst: 0.418925
+between Marine Regions Fst: 0.00864983
+-------------------------------
+Output1 for generation 9201:
+
+Oceanic mean pheno: 9.69561
+Freshwater mean pheno: -9.23741
+mean Ocean/Fresh Fst: 0.0293626
+between lakes Fst: 0.433108
+between Marine Regions Fst: 0.00823735
+-------------------------------
+Output1 for generation 9301:
+
+Oceanic mean pheno: 9.84751
+Freshwater mean pheno: -9.12735
+mean Ocean/Fresh Fst: 0.0292475
+between lakes Fst: 0.437518
+between Marine Regions Fst: 0.00793226
+-------------------------------
+Output1 for generation 9401:
+
+Oceanic mean pheno: 9.99399
+Freshwater mean pheno: -9.1141
+mean Ocean/Fresh Fst: 0.0298758
+between lakes Fst: 0.445572
+between Marine Regions Fst: 0.0086983
+-------------------------------
+Output1 for generation 9501:
+
+Oceanic mean pheno: 10.2416
+Freshwater mean pheno: -9.34136
+mean Ocean/Fresh Fst: 0.0299148
+between lakes Fst: 0.398746
+between Marine Regions Fst: 0.00830706
+-------------------------------
+Output1 for generation 9601:
+
+Oceanic mean pheno: 10.2354
+Freshwater mean pheno: -9.44499
+mean Ocean/Fresh Fst: 0.0298949
+between lakes Fst: 0.451349
+between Marine Regions Fst: 0.00772082
+-------------------------------
+Output1 for generation 9701:
+
+Oceanic mean pheno: 10.1879
+Freshwater mean pheno: -9.34797
+mean Ocean/Fresh Fst: 0.0300531
+between lakes Fst: 0.454642
+between Marine Regions Fst: 0.00832274
+-------------------------------
+Output1 for generation 9801:
+
+Oceanic mean pheno: 10.4612
+Freshwater mean pheno: -9.24885
+mean Ocean/Fresh Fst: 0.0299838
+between lakes Fst: 0.447485
+between Marine Regions Fst: 0.00850909
+-------------------------------
+Output1 for generation 9901:
+
+Oceanic mean pheno: 10.3941
+Freshwater mean pheno: -9.18855
+mean Ocean/Fresh Fst: 0.0304257
+between lakes Fst: 0.416512
+between Marine Regions Fst: 0.00904146
+-------------------------------
+Output1 for generation 10001:
+
+Oceanic mean pheno: 9.85831
+Freshwater mean pheno: -9.18373
+mean Ocean/Fresh Fst: 0.0312191
+between lakes Fst: 0.41894
+between Marine Regions Fst: 0.00912248
+-------------------------------
+Output1 for generation 10101:
+
+Oceanic mean pheno: 9.83016
+Freshwater mean pheno: -9.19907
+mean Ocean/Fresh Fst: 0.0311074
+between lakes Fst: 0.442292
+between Marine Regions Fst: 0.00793151
+-------------------------------
+Output1 for generation 10201:
+
+Oceanic mean pheno: 10.2328
+Freshwater mean pheno: -9.27858
+mean Ocean/Fresh Fst: 0.0310858
+between lakes Fst: 0.422075
+between Marine Regions Fst: 0.00809589
+-------------------------------
+Output1 for generation 10301:
+
+Oceanic mean pheno: 10.2241
+Freshwater mean pheno: -9.19399
+mean Ocean/Fresh Fst: 0.0315794
+between lakes Fst: 0.440009
+between Marine Regions Fst: 0.00906301
+-------------------------------
+Output1 for generation 10401:
+
+Oceanic mean pheno: 10.2043
+Freshwater mean pheno: -9.27005
+mean Ocean/Fresh Fst: 0.0318262
+between lakes Fst: 0.441653
+between Marine Regions Fst: 0.00786079
+-------------------------------
+Output1 for generation 10501:
+
+Oceanic mean pheno: 9.76636
+Freshwater mean pheno: -9.13704
+mean Ocean/Fresh Fst: 0.0316252
+between lakes Fst: 0.443402
+between Marine Regions Fst: 0.00802874
+-------------------------------
+Output1 for generation 10601:
+
+Oceanic mean pheno: 9.71589
+Freshwater mean pheno: -9.05687
+mean Ocean/Fresh Fst: 0.0315204
+between lakes Fst: 0.447018
+between Marine Regions Fst: 0.00739169
+-------------------------------
+Output1 for generation 10701:
+
+Oceanic mean pheno: 9.50497
+Freshwater mean pheno: -9.19641
+mean Ocean/Fresh Fst: 0.0308057
+between lakes Fst: 0.447833
+between Marine Regions Fst: 0.00801607
+-------------------------------
+Output1 for generation 10801:
+
+Oceanic mean pheno: 9.48524
+Freshwater mean pheno: -9.3368
+mean Ocean/Fresh Fst: 0.0309415
+between lakes Fst: 0.448269
+between Marine Regions Fst: 0.00870041
+-------------------------------
+Output1 for generation 10901:
+
+Oceanic mean pheno: 9.71599
+Freshwater mean pheno: -9.15327
+mean Ocean/Fresh Fst: 0.0312234
+between lakes Fst: 0.459474
+between Marine Regions Fst: 0.00817907
+-------------------------------
+Output1 for generation 11001:
+
+Oceanic mean pheno: 9.7605
+Freshwater mean pheno: -9.33517
+mean Ocean/Fresh Fst: 0.0315963
+between lakes Fst: 0.448038
+between Marine Regions Fst: 0.0083984
+-------------------------------
+Output1 for generation 11101:
+
+Oceanic mean pheno: 10.
