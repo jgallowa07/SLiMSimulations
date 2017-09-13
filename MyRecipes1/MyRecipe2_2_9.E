@@ -2,7 +2,7 @@ initialize() {
 
 	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_9/";
 
-	endOfSimulation = 20000;
+	endOfSimulation = 40000;
 
 	samplingInterval = 100;
 
@@ -575,7 +575,7 @@ fitness(NULL, p2) {
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
-		num = parent1.spatialPosition + rnorm(1,0,0.5);
+		num = parent1.spatialPosition + rnorm(1,0,1.0);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
 		if(num < nearestMult){
@@ -584,7 +584,7 @@ modifyChild(p1){
 			child.setSpatialPosition(nearestMult + 0.5);		
 		}		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,0.5);
+		pos = parent1.spatialPosition + rnorm(1,0,1.0);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
@@ -593,7 +593,7 @@ modifyChild(p1){
 modifyChild(p2){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
-		pos = parent1.spatialPosition + rnorm(1,0,0.5);
+		pos = parent1.spatialPosition + rnorm(1,0,1.0);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
 		child.setSpatialPosition(parent1.spatialPosition);

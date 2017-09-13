@@ -12,7 +12,7 @@ col6 = []
 col7 = []
 
 x_axis = []
-File = open("../Output1/MyRecipe2_2_8/AverageFst.txt","r")
+File = open("../Output1/MyRecipe2_2_9/AverageFst.txt","r")
 first = File.readline()
 numAxis,interval = (int(i) for i in first.split())
 for line in File:
@@ -83,7 +83,7 @@ trace5 = go.Scatter(
         width = 1,
         dash = 'dot')
 )
-trace4 = go.Scatter(
+trace6 = go.Scatter(
     x = x_axis,
     y = col7,
     name = 'Average Fst Between Lakes (Effect Mutations only)',
@@ -92,7 +92,7 @@ trace4 = go.Scatter(
         width = 1,
         dash = 'dot')
 )
-data = [trace0,trace1,trace2,trace3,trace4]
+data = [trace0,trace1,trace2,trace3,trace4,trace5,trace6]
 
 # Edit the layout
 layout = dict(title = 'Average Fst',
@@ -101,4 +101,4 @@ layout = dict(title = 'Average Fst',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='2_2_8 Average Fst')
+py.iplot(fig, filename='2_2_9 Average Fst')
