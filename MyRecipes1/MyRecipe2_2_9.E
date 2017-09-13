@@ -6,11 +6,11 @@ initialize() {
 
 	samplingInterval = 100;
 
-	numberOfLakes = 10;	
+	numberOfLakes = 5;	
 
-	individualsInOcean = 2000;
+	individualsInOcean = 4000;
 	
-	individualsInFresh = 2000;
+	individualsInFresh = 1000;
 
 	numberOfEffectRegions = 10;
 
