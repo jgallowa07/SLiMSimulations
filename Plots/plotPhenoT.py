@@ -64,7 +64,7 @@ for i in range(0,numLakes):
 	lake_traces.append(trace)	
 
 
-data = [trace0, trace1, lake_traces[0], lake_traces[3] , lake_traces[6], lake_traces[9]]
+data = [trace0, trace1, lake_traces[0], lake_traces[3] , lake_traces[4], lake_traces[2]]
 
 # Edit the layout
 layout = dict(title = 'Average Phenotype',
