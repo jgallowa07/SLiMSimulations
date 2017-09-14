@@ -1,6 +1,6 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_7/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_9/";
 
 	endOfSimulation = 20000;
 
@@ -106,11 +106,11 @@ initialize() {
 
 	//set migration to 1 individual per generation from each pop to another 
 
-	migrationRateIntoOcean = asFloat(1/IIF);
+	migrationRateIntoOcean = asFloat(NLAKES/IIF);
 	migrationRateIntoFresh = asFloat(1/IIO);
 	
 	p1.setMigrationRates(p2,migrationRateIntoOcean);
-	p2.setMigrationRates(p1,migrationRateIntoFresh);
+	p2.setMigrationRates(p1,migrationRateIntoOcean);
 	
 	//unifomily distribute oceanic individuals.
 
@@ -209,6 +209,8 @@ initialize() {
 	
 	if(((sim.generation-1) % INT == 0) | (sim.generation == END))
 	{
+		//TODO Number of mutations per individual. 
+	
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -217,7 +219,7 @@ initialize() {
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 
 
-		// Sample individual lakes!
+		//---------------------Sample Average Phenotype----------------------------------------
 		
 		lake_phenos = NULL;		
 
@@ -241,23 +243,52 @@ initialize() {
 			
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+lake_phenos_string,append = T);
 
-		// Sample Avg Fst between Ocean/Freshwater at intervals
+		//-----------------------Between Ocean/Freshwater Fst Sample-----------------------------
 
 		p1_p = sim.mutationFrequencies(p1);
 		p2_p = sim.mutationFrequencies(p2);
 		mean_p = (p1_p + p2_p) / 2.0;
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
-		fst = 1 - (pq / mean_pq);
-		
+		fst = 1 - (pq / mean_pq);		
 	
-		//fst = abs((mean_pq - pq) / mean_pq);
-		//sim.setValue("FST", sim.getValue("FST") + mean(fst));
-		
 		meanOceanFreshFst = mean(fst);
 		catn("mean Ocean/Fresh Fst: "+ meanOceanFreshFst);
-			
-		//sample Fst between lakes. 
+		
+		//-----------------------Between Ocean/Freshwater Fst Sample (Neutral Muts)-----------------------------
+
+		neutralMutations = sim.mutationsOfType(m3);
+
+		p1_n = sim.mutationFrequencies(p1,neutralMutations);
+		p2_n = sim.mutationFrequencies(p2,neutralMutations);
+		mean_n = (p1_n + p2_n) / 2.0;
+		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
+		mean_pqn = mean_n * (1 - mean_n);
+		fst_n = 1 - (pqn / mean_pqn);	
+		
+		meanOceanFreshFstNeutral = mean(fst_n);
+		catn("mean Ocean/Fresh Fst (Neutral mutations only): "+ meanOceanFreshFstNeutral);
+		
+		//-----------------------Between Ocean/Freshwater Fst Sample (Effect Muts)-----------------------------
+		
+		m1mutations = sim.mutationsOfType(m1);
+		m2mutations = sim.mutationsOfType(m2);
+	
+		effectMutations = c(m1mutations,m2mutations);
+
+		p1_e = sim.mutationFrequencies(p1,effectMutations);
+		p2_e = sim.mutationFrequencies(p2,effectMutations);
+		mean_e = (p1_e + p2_e) / 2.0;
+		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
+		mean_pqe = mean_e * (1 - mean_e);
+		fst_e = 1 - (pqe / mean_pqe);	
+		
+		meanOceanFreshFstEffect = mean(fst_e);
+		catn("mean Ocean/Fresh Fst (Effect mutations only): "+ meanOceanFreshFstEffect);
+		
+		
+			 
+		//-----------------------Between Lakes Fst Sample-----------------------------
 		
 		muts = sim.mutations;
 		freqs = rep(0,size(muts));
@@ -291,8 +322,77 @@ initialize() {
 				
 		catn("between lakes Fst: "+ between_fst);							
 
-		//test Fst between units of the Marine population
+
+		//-----------------------Between Lakes Fst Sample (Neutral Mutations)-----------------------------
+
+		
+		freqs_n = rep(0,size(neutralMutations));
+		mean_p_n = freqs_n;
+		mean_het_n = freqs_n;
 	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_n = rep(0, size(neutralMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_n = freqs_n + asInteger(geno.containsMutations(neutralMutations));		
+			}
+			freqs_n = freqs_n / (2*size(lake_individuals));
+			mean_p_n = mean_p_n + freqs_n;
+			mean_het_n = mean_het_n + (freqs_n * (1-freqs_n));
+		} 
+		
+		mean_p_n = mean_p_n/NLAKES;        
+		temp_n = mean_p_n;
+		mean_het_n = mean_het_n/NLAKES;         
+
+		mean_p_n = mean_p_n[mean_p_n != 0 & mean_het_n != 0];
+		mean_het_n = mean_het_n[temp_n != 0 & mean_het_n != 0];		
+	
+		between_fst_n = mean(1 - mean_het_n / (mean_p_n * (1 - mean_p_n)));
+				
+		catn("between lakes Fst (neutral): "+ between_fst_n);							
+
+		//-----------------------Between Lakes Fst Sample (Effect Mutations)-----------------------------
+		
+		freqs_e = rep(0,size(effectMutations));
+		mean_p_e = freqs_e;
+		mean_het_e = freqs_e;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_e = rep(0, size(effectMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_e = freqs_e + asInteger(geno.containsMutations(effectMutations));		
+			}
+			freqs_e = freqs_e / (2*size(lake_individuals));
+			mean_p_e = mean_p_e + freqs_e;
+			mean_het_e = mean_het_e + (freqs_e * (1-freqs_e));
+		} 
+		
+		mean_p_e = mean_p_e/NLAKES;        
+		temp_e = mean_p_e;
+		mean_het_e = mean_het_e/NLAKES;         
+
+		mean_p_e = mean_p_e[mean_p_e != 0 & mean_het_e != 0];
+		mean_het_e = mean_het_e[temp_e != 0 & mean_het_e != 0];		
+	
+		between_fst_e = mean(1 - mean_het_e / (mean_p_e * (1 - mean_p_e)));
+				
+		catn("between lakes Fst (effect): "+ between_fst_e);							
+
+	
+		//-----------------------Between Ocean Fst Sample-----------------------------
+
 		//muts = sim.mutations;
 		freqs = rep(0,size(muts));
 		mean_p = freqs;
@@ -327,7 +427,7 @@ initialize() {
 				
 		catn("between Marine Regions Fst: "+ between_marine_fst);						
 			
-		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst + " " + between_fst + " " + between_marine_fst,append = T);
+		writeFile(PATH+"AverageFst.txt",meanOceanFreshFst+" "+between_fst+" "+between_marine_fst+" "+meanOceanFreshFstNeutral+" "+meanOceanFreshFstEffect+" "+between_fst_n+" "+between_fst_e,append = T);
 	
 	}
 	if(sim.generation == END)
@@ -477,7 +577,7 @@ fitness(NULL, p2) {
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
-		num = parent1.spatialPosition + rnorm(1,0,1.5);
+		num = parent1.spatialPosition + rnorm(1,0,0.5);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
 		if(num < nearestMult){
@@ -486,7 +586,7 @@ modifyChild(p1){
 			child.setSpatialPosition(nearestMult + 0.5);		
 		}		
 	}else{
-		pos = parent1.spatialPosition + rnorm(1,0,1.5);
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}
 	return T;
@@ -495,7 +595,7 @@ modifyChild(p1){
 modifyChild(p2){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
-		pos = parent1.spatialPosition + rnorm(1,0,1.5);
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
 		child.setSpatialPosition(p1.pointReflected(pos));	
 	}else{
 		child.setSpatialPosition(parent1.spatialPosition);

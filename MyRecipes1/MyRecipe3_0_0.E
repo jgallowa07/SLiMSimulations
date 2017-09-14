@@ -2,7 +2,7 @@ initialize() {
 
 	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_9/";
 
-	endOfSimulation = 40000;
+	endOfSimulation = 10;
 
 	samplingInterval = 100;
 
@@ -202,6 +202,16 @@ initialize() {
 	{
 		EffectMuts = c(individual.genomes.mutationsOfType(m1),individual.genomes.mutationsOfType(m2));
 		individual.tagF = substitutionOffset + sum(EffectMuts.selectionCoeff);		
+	}
+	
+	if((sim.generation == END/2) | (sim.generation == END))
+	{
+			
+		//TODO: GET LOGICAL VECTOR REPRESENTING EACH LOCI AND HOW MANY INDIVDUALS HAVE A MUTATION THERE
+		
+			
+			
+
 	}
 	
 
@@ -433,103 +443,11 @@ initialize() {
 	if(sim.generation == END)
 	{
 		
-		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
-		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-		catn("Oceanic mean pheno"+Oceanic_mean_phenotype);
-		catn("Freshwater mean pheno"+Freshwater_mean_phenotype);			
+		//flip_these = (sim.mutationFrequencies(p1, muts) > 0.5);	
+	
+		//catn("size: "+size(flip_these));
+		//catn(flip_these);
 
-		muts = sim.mutations;
-		p1muts = unique(p1.genomes.mutations);
-		p2muts = unique(p2.genomes.mutations);
-
-		num = size(muts);
-		p1num = size(p1muts);
-		p2num = size(p2muts);
-
-		catn("whole: "+num);
-		catn("Oceanic: "+p1num);
-		catn("Freshwater: "+p2num);	
-
-		mutfreq = sim.mutationFrequencies(NULL,muts);
-		muteff = muts.selectionCoeff;
-		mutpos = muts.position;
-		writeFile(PATH+"WholeMutations.txt",num+" ",append = F);
-		for (i in 0:(num-1))
-		{
-			writeFile(PATH+"WholeMutations.txt",mutfreq[i]+" "+mutpos[i]+" "+muteff[i],append = T);
-		}
-
-		mutfreq1 = sim.mutationFrequencies(p1,p1muts);
-		muteff1 = p1muts.selectionCoeff;
-		mutpos1 = p1muts.position;
-		writeFile(PATH+"OceanicMutations.txt",p1num+" ",append = F);
-		for (i in 0:(p1num-1))
-		{
-			writeFile(PATH+"OceanicMutations.txt",mutfreq1[i]+" "+mutpos1[i]+" "+muteff1[i],append = T);
-		}
-
-		mutfreq2 = sim.mutationFrequencies(p2,p2muts);
-		muteff2 = p2muts.selectionCoeff;
-		mutpos2 = p2muts.position;
-		writeFile(PATH+"FreshwaterMutations.txt",p2num+" ",append = F);
-		for (i in 0:(p2num-1))
-		{
-			writeFile(PATH+"FreshwaterMutations.txt",mutfreq2[i]+" "+mutpos2[i]+" "+muteff2[i],append = T);
-		}
-		
-		//sample a single individual haplotype from each population.
-		
-		oceanic_ind = sample(p1.individuals,1);
-		lake_ind = sample(p2.individuals,1);
-		
-		oceanic_ind_muts = oceanic_ind.genomes[0].mutations;
-		num_Oind_muts = size(oceanic_ind_muts);
-			
-		oceanic_ind_mut_freq = sim.mutationFrequencies(p1,oceanic_ind_muts);
-		oceanic_ind_mut_eff = oceanic_ind_muts.selectionCoeff;
-		oceanic_ind_mut_pos = oceanic_ind_muts.position;
-
-		lake_ind_muts = lake_ind.genomes[0].mutations;
-		num_Lind_muts = size(lake_ind_muts);
-					
-		lake_ind_mut_freq = sim.mutationFrequencies(p2,lake_ind_muts);
-		lake_ind_mut_eff = lake_ind_muts.selectionCoeff;
-		lake_ind_mut_pos = lake_ind_muts.position;
-
-		writeFile(PATH+"IndOceanicMutations.txt",num_Oind_muts+" ",append = F);
-		for (i in 0:(num_Oind_muts-1))
-		{
-			writeFile(PATH+"IndOceanicMutations.txt",oceanic_ind_mut_freq[i]+" "+oceanic_ind_mut_pos[i]+" "+oceanic_ind_mut_eff[i],append = T);
-		}
-		
-		writeFile(PATH+"IndFreshwaterMutations.txt",num_Lind_muts+" ",append = F);
-		for (i in 0:(num_Lind_muts-1))
-		{
-			writeFile(PATH+"IndFreshwaterMutations.txt",lake_ind_mut_freq[i]+" "+lake_ind_mut_pos[i]+" "+lake_ind_mut_eff[i],append = T);
-		}
-			
-		
-		//Sample Fst between Ocean and Freshwater combined.
-		
-		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
-		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
-		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
-		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
-		mean_pq = mean_p * (1 - mean_p);
-		fst = 1 - (pq / mean_pq);
-
-		catn("fstsize: "+ size(fst));
-		
-		writeFile(PATH+"OceanFreshwaterFst.txt",asString(size(fst)),append = F);
-		for (i in 0:(num-1))
-		{
-			writeFile(PATH+"OceanFreshwaterFst.txt",fst[i]+" "+mutpos[i] ,append = T);
-		}
-		
-		// sample for clustering		
-
-			 		
-		
 		sim.simulationFinished();
 
 	}
