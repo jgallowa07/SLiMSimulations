@@ -1,6 +1,7 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe2_2_9/";
+	//pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_0/";
+	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_0Local/";
 
 	endOfSimulation = 10;
 
@@ -91,6 +92,7 @@ initialize() {
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
+	writeFile(PATH+"MatrixAlleles.txt",100+" "+TL,append = F);
 	
 }
 
@@ -207,10 +209,7 @@ initialize() {
 	if((sim.generation == END/2) | (sim.generation == END))
 	{
 			
-		//TODO: GET LOGICAL VECTOR REPRESENTING EACH LOCI AND HOW MANY INDIVDUALS HAVE A MUTATION THERE
-		
-			
-			
+		//TODO: PUT MATRIX CALC HERE FOR MULIPLE SAMPLING TIMES THROUGH SIMUALTION
 
 	}
 	
@@ -443,9 +442,47 @@ initialize() {
 	if(sim.generation == END)
 	{
 		
-		//flip_these = (sim.mutationFrequencies(p1, muts) > 0.5);	
+		muts = sim.mutations;
+		mutPositions = muts.position;		
+		flip_these = (sim.mutationFrequencies(p1, muts) > 0.5);
 	
-		//catn("size: "+size(flip_these));
+		//catn("sizes: "+ size(muts) + " "+ size(mutPositions) + " " + size(flip_these) );
+		
+		sampleGenomes = sample(p1.individuals.genomes,10);
+		for (i in 1:NLAKES)
+		{
+			
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		
+			sam = sample(lake_individuals.genomes,10);
+			sampleGenomes = c(sampleGenomes,sam);	
+					
+		}
+		
+		count = 1;		
+	
+		for (samp in sampleGenomes)
+		{
+			contains = samp.containsMutations(muts);
+			flip = (flip_these | contains) & (!(flip_these & contains));	//FLIP_THESE XOR CONTAINS	
+			locationsToMark = mutPositions[flip];
+	
+			for (l in locationsToMark)
+			{
+			//	stringToFile = stringToFile + asString(l) + " ";			
+				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l),append = T);
+			}			
+			
+			//writeFile(PATH+"MatrixAlleles.txt",stringToFile,append = T);
+			
+			count = count + 1;	
+	
+		}	
+	
+		//catn("size: "+size(flip_these[flip_these == T]));
+		
+		
 		//catn(flip_these);
 
 		sim.simulationFinished();
