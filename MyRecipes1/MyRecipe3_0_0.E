@@ -1,9 +1,9 @@
 initialize() {
 
-	//pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_0/";
-	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_0Local/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_0/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_0Local/";
 
-	endOfSimulation = 10;
+	endOfSimulation = 20000;
 
 	samplingInterval = 100;
 
