@@ -465,7 +465,7 @@ initialize() {
 		for (samp in sampleGenomes)
 		{
 			contains = samp.containsMutations(muts);
-			flip = (flip_these | contains) & (!(flip_these & contains));	//FLIP_THESE XOR CONTAINS	
+			flip = (flip_these | contains) & (!(flip_these & contains));	// P XOR Q == (P | Q) & (!(P & Q))
 			locationsToMark = mutPositions[flip];
 	
 			for (l in locationsToMark)
