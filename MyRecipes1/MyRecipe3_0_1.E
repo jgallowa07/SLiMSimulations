@@ -3,6 +3,8 @@ initialize() {
 	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_1/";
 	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_1Local/";
 
+	//KNOBS//
+
 	endOfSimulation = 20000;
 
 	samplingInterval = 100;
@@ -93,6 +95,7 @@ initialize() {
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
 	writeFile(PATH+"MatrixAlleles.txt",100+" "+TL,append = F);
+	writeFile(PATH+"MatrixAllelesAll.txt",100+" "+TL,append = F);
 	
 }
 
@@ -556,6 +559,14 @@ initialize() {
 		for (samp in sampleGenomes)
 		{
 			contains = samp.containsMutations(muts);
+	
+			AllMuts = mutPositions[contains];
+		
+			for (a in AllMuts)
+			{
+				writeFile(PATH+"MatrixAllelesAll.txt",count + " " + asString(a), append = T);
+			}	
+	
 			//flip = (marineCommon | contains) & (!(marineCommon & contains));	// P XOR Q == (P | Q) & (!(P & Q))
 			
 			flip1 = marineCommon & !contains;

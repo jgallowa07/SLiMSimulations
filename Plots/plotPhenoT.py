@@ -10,7 +10,7 @@ import sys
 data = []
 x_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe2_2_7/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe3_0_1/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,numLakes = (int(i) for i in first.split())
 
@@ -73,4 +73,4 @@ layout = dict(title = 'Average Phenotype',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='2_2_7 Average Phenotype')
+py.iplot(fig, filename='3_0_1 Average Phenotype')
