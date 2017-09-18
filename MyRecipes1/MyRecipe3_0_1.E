@@ -130,11 +130,6 @@ initialize() {
 		}
 	}
 
-}
-	
-
-1 late() {
-
 	//give each genome a mutation of type m1 or m2 at QTL location's
  
 	g = sim.subpopulations.genomes;
@@ -514,15 +509,35 @@ initialize() {
 		{
 			writeFile(PATH+"IndFreshwaterMutations.txt",lake_ind_mut_freq[i]+" "+lake_ind_mut_pos[i]+" "+lake_ind_mut_eff[i],append = T);
 		}
+		//-----------------------------------------Fst by Mutation------------------------------------------------
+
+
+		//Sample Fst between Ocean and Freshwater combined.
 		
+		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
+		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
+		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
+		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
+		mean_pq = mean_p * (1 - mean_p);
+		fst = 1 - (pq / mean_pq);
+
+		catn("fstsize: "+ size(fst));
+		
+		writeFile(PATH+"OceanFreshwaterFst.txt",asString(size(fst)),append = F);
+		for (i in 0:(num-1))
+		{
+			writeFile(PATH+"OceanFreshwaterFst.txt",fst[i]+" "+mutpos[i] ,append = T);
+		}
+		
+	
 		//-----------------------------------------Matrix-Alleles-------------------------------------------------
 
 	
 		muts = sim.mutations;
 		mutPositions = muts.position;		
-		flip_these = (sim.mutationFrequencies(p1, muts) > 0.5);
+		marineCommon = (sim.mutationFrequencies(p1, muts) > 0.5);
 	
-		//catn("sizes: "+ size(muts) + " "+ size(mutPositions) + " " + size(flip_these) );
+		//catn("sizes: "+ size(muts) + " "+ size(mutPositions) + " " + size(marineCommon) );
 		
 		sampleGenomes = sample(p1.individuals.genomes,10);
 		for (i in 1:NLAKES)
@@ -541,13 +556,21 @@ initialize() {
 		for (samp in sampleGenomes)
 		{
 			contains = samp.containsMutations(muts);
-			flip = (flip_these | contains) & (!(flip_these & contains));	// P XOR Q == (P | Q) & (!(P & Q))
-			locationsToMark = mutPositions[flip];
+			//flip = (marineCommon | contains) & (!(marineCommon & contains));	// P XOR Q == (P | Q) & (!(P & Q))
+			
+			flip1 = marineCommon & !contains;
+			flip2 = !marineCommon & contains;
+			locationsToMark1 = mutPositions[flip1];
+			locationsToMark2 = mutPositions[flip2];
 	
-			for (l in locationsToMark)
+			for (l in locationsToMark1)
 			{
 			//	stringToFile = stringToFile + asString(l) + " ";			
-				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l),append = T);
+				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l) + " " + asString(0), append = T);
+			}
+			for (l2 in locationsToMark2)
+			{
+				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l2) + " " + asString(1), append = T);
 			}			
 			
 			//writeFile(PATH+"MatrixAlleles.txt",stringToFile,append = T);
@@ -556,10 +579,10 @@ initialize() {
 	
 		}	
 	
-		//catn("size: "+size(flip_these[flip_these == T]));
+		//catn("size: "+size(marineCommon[flip_these == T]));
 		
 		
-		//catn(flip_these);
+		//catn(marineCommon);
 
 		sim.simulationFinished();
 
