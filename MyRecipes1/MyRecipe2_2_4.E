@@ -104,11 +104,11 @@ initialize() {
 
 	//set migration to 1 individual per generation from each pop to another 
 
-	migrationRateIntoOcean = asFloat(1/IIF);
+	migrationRateIntoOcean = asFloat(NLAKES/IIF);
 	migrationRateIntoFresh = asFloat(1/IIO);
 	
 	p1.setMigrationRates(p2,migrationRateIntoOcean);
-	p2.setMigrationRates(p1,migrationRateIntoFresh);
+	p2.setMigrationRates(p1,migrationRateIntoOcean);
 	
 	//unifomily distribute oceanic individuals.
 
