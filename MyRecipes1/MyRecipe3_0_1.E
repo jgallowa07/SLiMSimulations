@@ -5,9 +5,9 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 10;
+	endOfSimulation = 20000;
 
-	samplingInterval = 10;
+	samplingInterval = 100;
 
 	numberOfLakes = 10;	
 
