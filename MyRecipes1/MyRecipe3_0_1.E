@@ -1,13 +1,13 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_1Local/";
+	//pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_1/";
+	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_1Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 10;
 
-	samplingInterval = 100;
+	samplingInterval = 10;
 
 	numberOfLakes = 10;	
 
@@ -20,6 +20,10 @@ initialize() {
 	sizeOfEffectRegions = 100;
 
 	sizeOfNonEffectBuffer = 4950;
+	
+	mutationRate = 1e-7;
+		
+	recombinationRate = 1e-3;
 	
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
@@ -34,7 +38,7 @@ initialize() {
 	defineConstant("LOP", lengthOfPops);
 	defineConstant("IPF",individualsPerFresh);
 	defineConstant("PATH",pathToOutputFile);
-	defineConstant("MR", 1e-7);
+	defineConstant("MR", mutationRate);
 	defineConstant("C", numberOfEffectRegions);    	// number of Effect Regions;
 	defineConstant("W", sizeOfNonEffectBuffer);  	// size of neutral buffer on each side
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
@@ -80,7 +84,7 @@ initialize() {
 	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
 
-	initializeRecombinationRate(1e-3);	
+	initializeRecombinationRate(recombinationRate);	
 
 	//Interation Function for Freshwater mateChoice() callback...
 
@@ -486,7 +490,7 @@ initialize() {
 		oceanic_geno = sample(p1.individuals.genomes,1);
 		lake_geno = sample(p2.individuals.genomes,1);
 		
-		oceanic_ind_muts = oceanic_geno.mutations;
+		oceanic_ind_muts = c(oceanic_geno.mutationsOfType(m1),oceanic_geno.mutationsOfType(m2));
 		num_Oind_muts = size(oceanic_ind_muts);
 			
 		oceanic_ind_mut_freq = sim.mutationFrequencies(p1,oceanic_ind_muts);
@@ -494,7 +498,7 @@ initialize() {
 		oceanic_ind_mut_pos = oceanic_ind_muts.position;
 	
 
-		lake_ind_muts = lake_geno.mutations;
+		lake_ind_muts = c(lake_geno.mutationsOfType(m1),lake_geno.mutationsOfType(m2));
 		num_Lind_muts = size(lake_ind_muts);
 					
 		lake_ind_mut_freq = sim.mutationFrequencies(p2,lake_ind_muts);
