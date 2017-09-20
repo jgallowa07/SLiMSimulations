@@ -98,8 +98,8 @@ initialize() {
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
-	writeFile(PATH+"MatrixAlleles.txt",100+" "+TL,append = F);
 	writeFile(PATH+"MatrixAllelesAll.txt",100+" "+TL,append = F);
+	writeFile(PATH+"PhenoDist.txt",100+" "+TL,append = F);
 	
 }
 
@@ -539,65 +539,69 @@ initialize() {
 	
 		//-----------------------------------------Matrix-Alleles-------------------------------------------------
 
-	
-		muts = sim.mutations;
-		mutPositions = muts.position;		
-		marineCommon = (sim.mutationFrequencies(p1, muts) > 0.8);
+		effectPos = effectMutations.position;
+		neutralPos = neutralMutations.position;		
+		
 	
 		//catn("sizes: "+ size(muts) + " "+ size(mutPositions) + " " + size(marineCommon) );
-		
-		sampleGenomes = sample(p1.individuals.genomes,10);
+	
+		sampleGenomes = NULL;
+	
 		for (i in 1:NLAKES)
-		{
-			
+		{	
+			leftBound = (i - 1);
+			rightBound = i;
+
+			region_individuals = p1.individuals[p1.individuals.x >= leftBound & p1.individuals.x < rightBound];
+
+			sam = sample(region_individuals.genomes,10);
+	
+			sampleGenomes = c(sampleGenomes,sam);
+		}	
+	
+		for (i in 1:NLAKES)
+		{		
 			locationOfLake = (i - 0.5);
 			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 		
 			sam = sample(lake_individuals.genomes,10);
-			sampleGenomes = c(sampleGenomes,sam);	
-					
+			sampleGenomes = c(sampleGenomes,sam);				
 		}
 		
 		count = 1;		
 	
 		for (samp in sampleGenomes)
 		{
-			contains = samp.containsMutations(muts);
+			containsEffect = samp.containsMutations(effectMutations);
+			containsNeutral = samp.containsMutations(neutralMutations);
 	
-			AllMuts = mutPositions[contains];
+			sampEffPos = effectPos[containsEffect];
+			sampNeuPos = neutralPos[containsNeutral];	
 		
-			for (a in AllMuts)
+			for (a in sampEffPos)
 			{
-				writeFile(PATH+"MatrixAllelesAll.txt",count + " " + asString(a), append = T);
-			}	
-	
-			//flip = (marineCommon | contains) & (!(marineCommon & contains));	// P XOR Q == (P | Q) & (!(P & Q))
-			
-			flip1 = marineCommon & !contains;
-			flip2 = !marineCommon & contains;
-			locationsToMark1 = mutPositions[flip1];
-			locationsToMark2 = mutPositions[flip2];
-	
-			for (l in locationsToMark1)
-			{
-			//	stringToFile = stringToFile + asString(l) + " ";			
-				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l) + " " + asString(0), append = T);
+				writeFile(PATH+"MatrixAllelesAll.txt",count + " " + asString(a) + " " + asString(-1), append = T);
 			}
-			for (l2 in locationsToMark2)
+			
+			for (b in sampNeuPos)
 			{
-				writeFile(PATH+"MatrixAlleles.txt",count + " " + asString(l2) + " " + asString(1), append = T);
-			}			
-			
-			//writeFile(PATH+"MatrixAlleles.txt",stringToFile,append = T);
-			
+				writeFile(PATH+"MatrixAllelesAll.txt",count + " " + asString(b) + " " + asString(1), append = T);
+			}
+	
+		
 			count = count + 1;	
 	
 		}	
 	
-		//catn("size: "+size(marineCommon[flip_these == T]));
+	
+		//----------------------------------- Phenotype Histogram -------------------------------------------
+
+		for(ind in sim.subpopulations.individuals)
+		{
+			writeFile(PATH+"PhenoDist.txt",asString(ind.tagF),append = T);
+		}
 		
-		
-		//catn(marineCommon);
+		//----------------------------------- Simulation Finished -------------------------------------------
 
 		sim.simulationFinished();
 

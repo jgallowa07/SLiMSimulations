@@ -7,7 +7,7 @@ col1 = []
 col2 = []
 col3 = []
 
-File = open("../Output1/MyRecipe3_0_1/OceanicMutations.txt","r")
+File = open("../Output1/MyRecipe3_0_2/IndOceanicMutations.txt","r")
 first = File.readline()
 for line in File:
 	n1, n2, n3= (float(s) for s in line.split())
@@ -31,11 +31,11 @@ trace1 = go.Scatter(
 
 data = [trace1]
 
-layout = dict(title = 'Effect and Frequecy by Position',
+layout = dict(title = 'Effect and Frequecy by Position (Oceanic)',
               xaxis = dict(title = 'Position'),
               yaxis = dict(title = 'Frequency'),
               )
 
 fig = dict(data = data, layout = layout)
 	
-py.iplot(fig, filename='3_0_1 Oceanic Mutations')
+py.iplot(fig, filename='3_0_2 Individual Oceanic Mutations')

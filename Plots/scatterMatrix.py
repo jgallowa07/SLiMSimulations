@@ -7,7 +7,7 @@ col1 = []
 col2 = []
 col3 = []
 
-File = open("../Output1/MyRecipe3_0_1/MatrixAlleles.txt","r")
+File = open("../Output1/MyRecipe3_0_2Local/MatrixAllelesAll.txt","r")
 first = File.readline()
 for line in File:
 	n1, n2, n3 = (float(s) for s in line.split())
@@ -23,7 +23,6 @@ trace1 = go.Scatter(
         size='3',
         color = col3,
         colorscale='Viridis',
-        showscale=True
     )
 )
 
@@ -37,4 +36,4 @@ layout = dict(title = 'Sample Haplotypes',
 
 fig = dict(data = data, layout = layout)
 	
-py.iplot(fig, filename='3_0_1 Matrix Alelles')
+py.iplot(fig, filename='3_0_2Local Matrix Alelles')
