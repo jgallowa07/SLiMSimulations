@@ -1,7 +1,7 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_2/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_2Local/";
+	//pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe3_0_2/";
+	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe3_0_2Local/";
 
 	//KNOBS//
 
