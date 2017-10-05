@@ -152,13 +152,17 @@ initialize() {
 	
 	lakeIndividuals2 = p3.individuals;
 	
+	migrationRateIntoOcean = asFloat(NLAKES/IIF);
+	//migrationRateIntoFresh = asFloat(1/IIO);
+	
+	p1.setMigrationRates(p3,migrationRateIntoOcean);
+	p3.setMigrationRates(p1,migrationRateIntoOcean);
+
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
 			lakeIndividuals2[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
 		}
 	}
-	
-
 }
 
 
