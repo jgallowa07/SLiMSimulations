@@ -25,11 +25,9 @@ for line in File:
 		
 print("numAxis: "+str(numAxis))	
 
-for i in range(0,numAxis + 1):
+for i in range(1,numAxis + 1):
 	x_axis.append(i*interval)
 print(x_axis)	
-
-
 
 trace0 = go.Scatter(
     x = x_axis,

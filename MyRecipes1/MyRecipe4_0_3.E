@@ -243,8 +243,6 @@ initialize() {
 		EffectMuts = c(individual.genomes.mutationsOfType(m1),individual.genomes.mutationsOfType(m2));
 		individual.tagF = substitutionOffset + sum(EffectMuts.selectionCoeff);		
 	}
-	
-
 
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
@@ -259,14 +257,13 @@ initialize() {
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);	
 		catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
 
-		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,+" "+newFreshwater_mean_phenotype,append = T);
 
 		//---------------------Sample Average Phenotype----------------------------------------
 	}
 
 	if(sim.generation == END)
 	{
-	
 		sam = sample(p1.individuals,2);
 	
 		for (s in sam){ 			
@@ -290,9 +287,6 @@ initialize() {
 		}
 
 		sim.simulationFinished();
-
-						
-		
 
 	}
 	for (individual in p3.individuals){

@@ -1,7 +1,7 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe4_0_3/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe4_0_3Local/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe4_0_4/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe4_0_4Local/";
 
 	//KNOBS//
 
@@ -10,6 +10,10 @@ initialize() {
 	samplingInterval = 100;
 
 	numberOfLakes = 10;	
+	
+	optimumPhenoMarine = 10;
+	
+	optimumPhenoFresh = -10;
 
 	individualsInOcean = 2000;
 	
@@ -263,7 +267,7 @@ initialize() {
 		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);	
 		catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
 
-		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,+" "+newFreshwater_mean_phenotype,append = T);
 
 		//---------------------Sample Average Phenotype----------------------------------------
 	}
@@ -326,13 +330,9 @@ initialize() {
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(NULL, p1) {
-	//numDeleterious = individual.countOfMutationsOfType(m4);
-	//effect = numDeleterious/10.0;
 	return individual.tagF;
 }
 fitness(NULL, p2) {
-	//numDeleterious = individual.countOfMutationsOfType(m4);
-	//effect = numDeleterious/10.0;
 	return individual.tagF;
 }
 20000: fitness(NULL, p3){
