@@ -275,12 +275,16 @@ initialize() {
 
 	if(sim.generation == END)
 	{
-	
-		marineSam = sample(p1.individuals,1000);
-		freshSam = sample(c(p1.individuals,p3.individuals),1000);
+		BIGSAMPLE = 1000;
+		SMALLSAMPLE = 100;
+		
+		marineSam = sample(p1.individuals,BIGSAMPLE);
+		freshSam = sample(c(p1.individuals,p3.individuals),BIGSAMPLE);
 		Id = 0;	
-		for (s in marineSam){ 			
-			
+
+		spatialPos = rep(0.0,BIGSAMPLE);
+		count = 0;
+		for (s in marineSam){ 				
 			
 			Pheno = s.tagF;
 
@@ -298,9 +302,14 @@ initialize() {
 				
 			writeFile(PATH+"marine1K.ped", "FAM001"+" "+Id+" "+0+" "+0+" "+0+" "+Pheno+" "+Genotype ,append = T);
 			
+			spatialPos[count] = s.spatialPosition;
+			count = count + 1;
 			Id = Id + 1;
 		}
-	
+		writeFile(PATH+"marine1K_pos.txt",paste(spatialPos," "),append = F);
+		
+		spatialPos = rep(0.0,BIGSAMPLE);
+		count = 0;
 		for (s0 in freshSam){
 			
 			Pheno = s0.tagF;
@@ -319,16 +328,22 @@ initialize() {
 				
 			writeFile(PATH+"fresh1K.ped", "FAM002"+" "+Id+" "+0+" "+0+" "+0+" "+Pheno+" "+Genotype ,append = T);
 			
+			spatialPos[count] = s0.spatialPosition;
+			count = count + 1;
 			Id = Id + 1;	
 		}
+		writeFile(PATH+"fresh1K_pos.txt",paste(spatialPos," "),append = F);
+		
+		spatialPos = rep(0.0,SMALLSAMPLE);
+		count = 0;
 		
 		locationOfLake = 0.5;
 
 		oldlake1Individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
 		newlake1Individuals = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
 
-		oldLakeSam = sample(oldlake1Individuals,100);
-		newLakeSam = sample(newlake1Individuals,100);
+		oldLakeSam = sample(oldlake1Individuals,SMALLSAMPLE);
+		newLakeSam = sample(newlake1Individuals,SMALLSAMPLE);
 
 		for (s1 in oldLakeSam){
 
@@ -347,10 +362,17 @@ initialize() {
 			Genotype = paste(whole+" ");
 				
 			writeFile(PATH+"oldlake100.ped", "FAM003"+" "+Id+" "+0+" "+0+" "+0+" "+Pheno+" "+Genotype ,append = T);
+
+			spatialPos[count] = s1.spatialPosition;
+			count = count + 1;
 			
 			Id = Id + 1;		
 	
 		}		
+		writeFile(PATH+"oldlake100_pos.txt",paste(spatialPos," "),append = F);
+		
+		spatialPos = rep(0.0,SMALLSAMPLE);
+		count = 0;
 		for (s2 in newLakeSam){
 
 			Pheno = s2.tagF;
@@ -369,10 +391,28 @@ initialize() {
 				
 			writeFile(PATH+"newlake100.ped", "FAM003"+" "+Id+" "+0+" "+0+" "+0+" "+Pheno+" "+Genotype ,append = T);
 			
+			spatialPos[count] = s2.spatialPosition;
+			count = count + 1;
+
 			Id = Id + 1;		
 	
 		}		
+		writeFile(PATH+"newlake100_pos.txt",paste(spatialPos," "),append = F);	
+		
+		Chrom_Pos = 0:99999;
+		effectSizes = rep(0.0,100000);	
+		muts = sim.mutations;
+		for (i in Chrom_Pos){
+			effectSize = 0;
+			muts_at_i = muts[muts.position == i];
+			if (size(muts_at_i) != 0){
+				effectSize = mean(muts_at_i.selectionCoeff);
+			}
+			effectSizes[i] = effectSize;
+		}
 
+		writeFile(PATH+"effectSizes.txt",paste(effectSizes," "),append = F);
+				
 		
 
 		sim.simulationFinished();
