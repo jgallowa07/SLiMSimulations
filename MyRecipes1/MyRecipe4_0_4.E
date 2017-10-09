@@ -27,7 +27,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-3;
+	recombinationRate = 1e-2;
 
 	introduce = 20000;
 	
@@ -274,34 +274,7 @@ initialize() {
 
 	if(sim.generation == END)
 	{
-	
-		sam = sample(p1.individuals,2);
-	
-		for (s in sam){ 			
-			
-			Id = s.pedigreeID;
-			Pheno = s.tagF;
-
-			genome1_vector = rep("A",100000);
-			genome2_vector = rep("A",100000);
-		
-			genome1_positions = s.genomes[0].mutations.position;
-			genome2_positions = s.genomes[1].mutations.position;
-			
-			genome1_vector[genome1_positions] = "T";
-			genome2_vector[genome2_positions] = "T";
-
-			whole = genome1_vector + genome2_vector;
-			Genotype = paste(whole+" ");
-				
-			writeFile(PATH+"myData.ped", "FAM001"+" "+Id+" "+0+" "+0+" "+0+" "+Pheno+" "+Genotype ,append = T);
-		}
-
 		sim.simulationFinished();
-
-						
-		
-
 	}
 	for (individual in p3.individuals){
 		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
