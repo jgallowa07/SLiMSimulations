@@ -27,7 +27,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-2;
+	recombinationRate = 1e-7;
 
 	introduce = 20000;
 	
