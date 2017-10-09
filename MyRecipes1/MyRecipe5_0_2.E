@@ -1,17 +1,17 @@
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe5_0_0/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe5_0_0Local/";
+	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe5_0_2/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe5_0_2Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 40000; 	//Number of Generations the simulation will run
+	endOfSimulation = 40000;
 
-	samplingInterval = 100;  	//Interval at which to sample data
+	samplingInterval = 100;
 
-	numberOfLakes = 10;		//Number of discrete freshwater lake/ponds
+	numberOfLakes = 10;	
 	
-	optimumPhenoMarine = 10;	//Optimum Phenotype 
+	optimumPhenoMarine = 10;
 	
 	optimumPhenoFresh = -10;
 
@@ -27,7 +27,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-7;
+	recombinationRate = 1e-3;
 
 	introduce = 20000;
 	
