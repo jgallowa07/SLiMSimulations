@@ -1,0 +1,11 @@
+Task ID  - seed 013153
+Parameters for SLiM run:
+  -s 013153 MyRecipe5_0_4.E
+ERROR (EidosScript::Tokenize): illegal newline in string literal ''.
+
+Error on script line 128, character 50:
+
+   migrationRateIntoOcean = asFloat(NLAKES/IIF)/2.0;'
+                                                    ^
+elapsed: 0:00.01 / kernel: 0.00 / user: 0.00 / mem: 3056
+Done!
