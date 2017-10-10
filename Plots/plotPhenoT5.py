@@ -13,7 +13,7 @@ data = []
 x_axis = []
 x2_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe5_0_3/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe5_0_2/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,newLakesIntroduced = (int(i) for i in first.split())
 

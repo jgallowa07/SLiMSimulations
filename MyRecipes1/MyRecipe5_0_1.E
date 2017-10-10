@@ -148,49 +148,6 @@ initialize() {
 	}
 
 }
-19990 late(){
-
-	for(ind in p1.individuals)
-	{
-		writeFile(PATH+"PhenoDist.txt",asString(ind.tagF),append = T);
-	}
-
-	
-	muts = sim.mutations;
-	freqs = rep(0,size(muts));
-	mean_p = freqs;
-	mean_het = freqs;
-
-	for (i in 1:NLAKES)
-	{	
-		leftBound = (i - 1);
-		rightBound = i;
-
-		region_individuals = p1.individuals[p1.individuals.x >= leftBound & p1.individuals.x < rightBound];
-					
-		freqs = rep(0, size(muts));
-		
-		for (geno in region_individuals.genomes)
-		{
-			freqs = freqs + asInteger(geno.containsMutations(muts));		
-		}
-		freqs = freqs / (2*size(region_individuals));
-		mean_p = mean_p + freqs;
-		mean_het = mean_het + (freqs * (1-freqs));
-	} 
-	
-	mean_p = mean_p/NLAKES;        
-	temp = mean_p;
-	mean_het = mean_het/NLAKES;         
-
-	mean_p = mean_p[mean_p != 0 & mean_het != 0];
-	mean_het = mean_het[temp != 0 & mean_het != 0];	
-
-	between_marine_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
-	
-	writeFile(PATH+"Fstbeforelakeintroduction",asString(between_marine_fst),append = F);
-
-}
 
 20000 late(){
 
@@ -237,6 +194,50 @@ initialize() {
 
 	}
 	
+	if(sim.generation == 19990){
+
+		
+		for(ind in p1.individuals)
+		{
+			writeFile(PATH+"PhenoDist.txt",asString(ind.tagF),append = T);
+		}
+
+		
+		muts = sim.mutations;
+		freqs = rep(0,size(muts));
+		mean_p = freqs;
+		mean_het = freqs;
+
+		for (i in 1:NLAKES)
+		{	
+			leftBound = (i - 1);
+			rightBound = i;
+
+			region_individuals = p1.individuals[p1.individuals.x >= leftBound & p1.individuals.x < rightBound];
+						
+			freqs = rep(0, size(muts));
+			
+			for (geno in region_individuals.genomes)
+			{
+				freqs = freqs + asInteger(geno.containsMutations(muts));		
+			}
+			freqs = freqs / (2*size(region_individuals));
+			mean_p = mean_p + freqs;
+			mean_het = mean_het + (freqs * (1-freqs));
+		} 
+		
+		mean_p = mean_p/NLAKES;        
+		temp = mean_p;
+		mean_het = mean_het/NLAKES;         
+
+		mean_p = mean_p[mean_p != 0 & mean_het != 0];
+		mean_het = mean_het[temp != 0 & mean_het != 0];	
+
+		between_marine_fst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
+		
+		writeFile(PATH+"Fstbeforelakeintroduction",asString(between_marine_fst),append = F);
+			
+	}	
 
 	//The entire if{} block below is for sampling data at a given interval, INT	
 	

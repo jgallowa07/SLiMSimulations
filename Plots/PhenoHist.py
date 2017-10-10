@@ -1,4 +1,5 @@
 import plotly.plotly as py
+import plotly
 import plotly.graph_objs as go
 
 import numpy as np
@@ -6,8 +7,8 @@ import numpy as np
 col1 = []
 
 
-File = open("../Output1/MyRecipe3_0_2Local/PhenoDist.txt","r")
-First = File.readline()	
+File = open("../Output1/MyRecipe5_0_1/PhenoDist.txt","r")
+#First = File.readline()	
 	
 for line in File:
 	col1.append(float(line))
@@ -34,9 +35,10 @@ layout = go.Layout(
     bargroupgap=3.2
 )
 fig = go.Figure(data=data, layout=layout)
-py.iplot(fig, filename='3_0_2 Phenotype Distribution')
+#py.iplot(fig, filename='5_0_1 Phenotype Distribution')
 
 
 #x = np.random.randn(500)
+plotly.offline.plot(fig, filename='5_0_3 Average Phenotype')
 #data = [go.Histogram(x=col1)]
 #py.iplot(data, fisizeame='basic histogram')
