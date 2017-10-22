@@ -13,7 +13,7 @@ data = []
 x_axis = []
 x2_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe5_0_2/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe5_0_4/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,newLakesIntroduced = (int(i) for i in first.split())
 
@@ -78,7 +78,7 @@ layout = dict(title = 'Average Phenotype',
               )
 
 fig = dict(data=data, layout=layout)
-plotly.offline.plot(fig, filename='5_0_3 Average Phenotype')
+plotly.offline.plot(fig, filename='5_0_4 Average Phenotype')
 
 #py.image.save_as(fig, filename='a-simple-plot.png')
 

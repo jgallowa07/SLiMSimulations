@@ -39,6 +39,6 @@ fig = go.Figure(data=data, layout=layout)
 
 
 #x = np.random.randn(500)
-plotly.offline.plot(fig, filename='5_0_3 Average Phenotype')
+plotly.offline.plot(fig, filename='5_0_1 Average Phenotype')
 #data = [go.Histogram(x=col1)]
 #py.iplot(data, fisizeame='basic histogram')
