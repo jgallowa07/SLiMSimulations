@@ -1,0 +1,52 @@
+Abstract: (What did I do in a NutShell?)
+
+	-Rapid and Parallel adaptation to freshwater environments has been a common theme among the stickleback evolutionary history. 
+	-To understand the evolutionary forces involved, We modeled the population dynamics using simulations. 
+	-For this paper we will focus on the contibution of introgression and dominance.  ??
+	-We want to explain the results of the model, make connection between results and real data collected from stickleback
+
+
+Introduction: (What is the problem?)
+
+	-Recap of middleton story
+	-What evolutionary forces contributed to this adaptation?
+	-Something about Potential vs Realized Architecture
+		**Potential Architecture: The Parameters we define in our simulation 
+		**Realized Architecture: The results that arrise as a product of evolutionary forces from parameters
+	-Which Parameters are we going to look at 
+		**migration rates, dominance of alleles, population size, #discrete populations)
+	-explain the simulation in more evolutionary terms
+
+Materials and Methods: (How did I solve the problem?)
+	
+	-SLiM, and evolutionary framework.
+		**Ficher-Wright Model with geography and genomic architecture
+	-Explain the simulaation we set up from a technical perspective 
+		**All parameters involved 
+	-Potential architecture
+
+Results: (What did I find out?)
+
+	-Realized Architecture ()
+	-Introgression Allows for rapid adaptation.
+
+Discussion: (What does it mean?)
+
+	-How can this be more realistic
+	-What might this imply about the stickleback evolution 
+
+Acknowledgments: (Who helped me out?)
+
+	-Peter Ralph
+	-Bill Cresko 
+	-Susan Bassham
+	-Thom Nelson
+	-Mark Currey
+	-Kristin Alligood
+
+Literature Cited: (Whos work did I refer to?)
+	
+	-Thom Nelson's Paper
+	-Kristin Alligood's Paper 
+
+Appendices: (Extra Information)
