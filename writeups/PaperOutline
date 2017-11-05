@@ -1,3 +1,9 @@
+This is an outline of the paper I will write, mainly brainstrorming. The listed content for each section of the paper is not 
+neccissarily how we want to order in it the actual paper
+
+
+Title: ?????????
+
 Abstract: (What did I do in a NutShell?)
 
 	-Rapid and Parallel adaptation to freshwater environments has been a common theme among the stickleback evolutionary history. 
@@ -10,30 +16,43 @@ Introduction: (What is the problem?)
 
 	-Recap of middleton story
 	-What evolutionary forces contributed to this adaptation?
+		**history of introgression. 
 	-Something about Potential vs Realized Architecture
 		**Potential Architecture: The Parameters we define in our simulation 
 		**Realized Architecture: The results that arrise as a product of evolutionary forces from parameters
 	-Which Parameters are we going to look at 
 		**migration rates, dominance of alleles, population size, #discrete populations)
 	-explain the simulation in more evolutionary terms
+		**explain the connections we made between our model, and the stickleback history specific to middleton. (Our model is slightly more generic)
 
 Materials and Methods: (How did I solve the problem?)
 	
-	-SLiM, and evolutionary framework.
-		**Ficher-Wright Model with geography and genomic architecture
-	-Explain the simulaation we set up from a technical perspective 
-		**All parameters involved 
-	-Potential architecture
+	-SLiM, and evolutionary framework. (Concise explanation)
+		**Ficher-Wright Model with geography (sub-pops & migration), population structure (matechoice & fitness), and genomic architecture (the chromosome) 
+	-Why is this approach original and insightful?
+		**Why do models help us draw conclutions
+		**how can we rely on the results we find
+	-Explain the simulaation we set up from a technical perspective (POTENTIAL ARCHITECTURE) 
+		**All parameters put into SLiM
+		**Explain what SLiM does with input. (aka how it makes choices)
+	-WHAT and HOW Data was sampled from the simulation
+		**Fst
+		**Average Phenotype
 
 Results: (What did I find out?)
 
-	-Realized Architecture ()
+	-Which evolutionary forces did we see in our results (REALIZED ARCHITECTURE)
+		**genetic drift
+		**benefit of introgression on 
 	-Introgression Allows for rapid adaptation.
 
 Discussion: (What does it mean?)
 
+	-how are the results seen 
 	-How can this be more realistic
 	-What might this imply about the stickleback evolution 
+	-What other parameter might be more closely examined 
+		**Geographic/Population parameter
 
 Acknowledgments: (Who helped me out?)
 

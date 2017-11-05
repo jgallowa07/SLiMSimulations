@@ -199,7 +199,7 @@ initialize() {
 	}
 	
 	
-	if(sim.generation == 19000){
+	if(sim.generation == 19999){
 
 	//get the standard deviation HERE	
 	
