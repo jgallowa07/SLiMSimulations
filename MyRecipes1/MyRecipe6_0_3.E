@@ -1,7 +1,7 @@
 //this model is the same as 6_0_1. but there is no dominance.
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe6_0_3/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_0_3/";
 	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_3Local/";
 
 	//KNOBS//

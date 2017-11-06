@@ -4,8 +4,8 @@
 
 initialize() {
 
-//	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe6_0_1/";
-	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_0_1/";
+//	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_1Local/";
 
 	//KNOBS//
 
@@ -204,7 +204,7 @@ initialize() {
 	}
 	
 	
-	if(sim.generation == 19000){
+	if(sim.generation == 19999){
 
 	//get the standard deviation HERE	
 	
