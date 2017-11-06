@@ -1,7 +1,11 @@
+//this model has all marine mutations acting as fully dominant and all freshwater mutation as fully recessive. 
+//mig rate = 10/generation
+
+
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe6_0_0/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_0Local/";
+//	pathToOutputFile = "/projects/haldane/SLiMSimulations/Output1/MyRecipe6_0_0/";
+	pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_0Local/";
 
 	//KNOBS//
 

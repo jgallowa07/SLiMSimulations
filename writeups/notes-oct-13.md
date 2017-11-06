@@ -12,7 +12,6 @@ Notes after lab meeting on 10/12/17:
     and compare usage of the two 
     (hypothesis: the underdominant freshwater alleles will be used more)
 	"FOR THIS: create four mutation types. Use Eidos Script to determine wildtypes"
-	"GET FURTHER EXPLAIN"
 	
 
 
