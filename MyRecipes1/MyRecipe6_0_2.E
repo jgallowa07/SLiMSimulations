@@ -66,8 +66,7 @@ initialize() {
 	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); //Freshwater Recessive
 
 	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g2", c(m1,m5,m3), c(1.0,1.0,1.0)); 	//Effect Genomic Element
-	initializeGenomicElementType("g3", c(m2,m4,m3), c(1.0,1.0,1.0));
+	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5), c(1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
@@ -82,11 +81,7 @@ initialize() {
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
 
-		if(i % 2 == 0){
-			initializeGenomicElement(g2, pos, pos + P-1);
-		}else{
-			initializeGenomicElement(g3, pos, pos + P-1);
-		}	
+		initializeGenomicElement(g2, pos, pos + P-1);
 		section = pos:(pos+P-1);
 		q = c(q,section);
 		pos = pos + P;	
@@ -209,7 +204,35 @@ initialize() {
 	
 		individual.tagF = dominantMarine + dominantFreshwater + recessiveMarine + recessiveFreshwater;		
 	}
-	
+
+	if(sim.generation == 10000){
+		
+
+		catn("Sampling Geno + Pheno here");
+		
+		sam = sample(sim.subpopulations.individuals,1);
+		
+		marineDom = sam.genomes.mutationsOfType(m1);
+		FreshwaterDom = sam.genomes.mutationsOfType(m2);
+		marineRec = sam.genomes.mutationsOfType(m4);
+		FreshwaterRec = sam.genomes.mutationsOfType(m5);
+		
+		for (i in marineDom){
+			catn("Marine Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
+		}
+		for (i in FreshwaterDom){
+			catn("Freshwater Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
+		}
+		for (i in marineRec){
+			catn("Marine Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
+		}
+		for (i in FreshwaterRec){
+			catn("Freshwater Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
+		}
+		
+		catn("Phenotype = "+sam.tagF);		
+
+	}	
 	
 	if(sim.generation == 19999){
 
