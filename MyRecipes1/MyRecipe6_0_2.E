@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 400;
 
 	samplingInterval = 100;
 
@@ -31,7 +31,7 @@ initialize() {
 		
 	recombinationRate = 1e-3;
 
-	introduce = 20000;
+	introduce = 200;
 
 	migrationRate = 0.005;
 		
@@ -65,26 +65,28 @@ initialize() {
 	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  //Marine Recessive
 	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); //Freshwater Recessive
 
-	
-	
 	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5), c(1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
+	initializeGenomicElementType("g2", c(m1,m5,m3), c(1.0,1.0,1.0)); 	//Effect Genomic Element
+	initializeGenomicElementType("g3", c(m2,m4,m3), c(1.0,1.0,1.0));
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
 	
 	//initialize genomic arch.
-	// |----------NonEffect-----------|-Effect-|----------NonEffect----------|	  Repeat for number of Effect Regions ...
+	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|-Effect(g2)-|--- X C
 
 	pos = 0;
 	q = NULL;
-	
 	for (i in 1:C)
 	{
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
-	
-		initializeGenomicElement(g2, pos, pos + P-1);
+
+		if(i % 2 == 0){
+			initializeGenomicElement(g2, pos, pos + P-1);
+		}else{
+			initializeGenomicElement(g3, pos, pos + P-1);
+		}	
 		section = pos:(pos+P-1);
 		q = c(q,section);
 		pos = pos + P;	
@@ -157,14 +159,14 @@ initialize() {
 
 }
 
-15000 late(){
+//15000 late(){
 
-	p2.setMigrationRates(p1,0.0);
-	p1.setMigrationRates(p2,0.0);
+//	p2.setMigrationRates(p1,0.0);
+//	p1.setMigrationRates(p2,0.0);
 
-}
+//}
 
-20000 late(){
+200 late(){
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p1.setSpatialBounds(c(0.0, LOP));
@@ -174,8 +176,8 @@ initialize() {
 	migrationRateIntoOcean = asFloat(NLAKES/IIF)/2.0;
 	//migrationRateIntoFresh = asFloat(1/IIO);
 	
-	//p1.setMigrationRates(p3,MGR);
-	//p3.setMigrationRates(p1,MGR);
+	p1.setMigrationRates(p3,MGR);
+	p3.setMigrationRates(p1,MGR);
 
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
@@ -185,7 +187,7 @@ initialize() {
 }
 
 
-1:19999 late() {  //ALMOST ALL SAMPLING
+1:199 late() {  //ALMOST ALL SAMPLING
 	i1.evaluate();
 	i2.evaluate();		
 	Oceanic_mean_phenotype = NULL;
@@ -209,7 +211,7 @@ initialize() {
 	}
 	
 	
-	if(sim.generation == 19999){
+	if(sim.generation == 199){
 
 	//get the standard deviation HERE	
 	
@@ -266,7 +268,7 @@ initialize() {
 }
 
 
-20000: late(){
+200: late(){
 
 	i1.evaluate();
 	i2.evaluate();		
@@ -344,7 +346,7 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
-20000: fitness(NULL, p3){
+200: fitness(NULL, p3){
 	return individual.tagF;
 }
 1: mateChoice(p2) {
@@ -353,7 +355,7 @@ fitness(NULL, p2) {
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
 }
-20000: mateChoice(p3){
+200: mateChoice(p3){
 	return i1.strength(individual) * weights;
 }
 
@@ -385,7 +387,7 @@ modifyChild(p2){
 	}
 	return T;
 }
-20000: modifyChild(p3){
+200: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);

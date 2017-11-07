@@ -8,8 +8,13 @@ Abstract: (What did I do in a NutShell?)
 
 	-Rapid and Parallel adaptation to freshwater environments has been a common theme among the stickleback evolutionary history. 
 	-To understand the evolutionary forces involved, We modeled the population dynamics using simulations. 
-	-For this paper we will focus on the contibution of introgression and dominance.  ??
-	-We want to explain the results of the model, make connection between results and real data collected from stickleback
+	
+	-(IMPORTANT) We want to explain the results of A MODEL, clearly. Show we understand what is happening with a controled (fixed) parameter space
+		**This is a good way for people to believe our results are not so 'hand-wavy'.  
+		**If we can fully understand and explain the 'control' model, then it gives integrity to the results we show when a a single parameter is changed. 
+			
+	-Explain what happens when we turn a parameter knob. 
+	-Make connection between results and real data collected from stickleback
 
 
 Introduction: (What is the problem?)
