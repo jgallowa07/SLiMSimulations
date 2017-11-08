@@ -211,7 +211,7 @@ initialize() {
 		}
 		standard_deviation = sd(phenotypes);
 	
-		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
+		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","6_0_3: SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//writeFile("~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/SD.txt","SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//catn(standard_deviation);
 			
