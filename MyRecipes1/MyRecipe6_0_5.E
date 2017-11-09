@@ -69,7 +69,7 @@ initialize() {
 	initializeGenomicElementType("g2", c(m1,m3,m5), c(1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
-	m2.mutationStackPolicy = "l";
+	m5.mutationStackPolicy = "l";
 	
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|-Effect(g2)-|--- X C
