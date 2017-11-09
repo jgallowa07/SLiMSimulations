@@ -13,18 +13,17 @@ Abstract: (What did I do in a NutShell?)
 		**This is a good way for people to believe our results are not so 'hand-wavy'.  
 		**If we can fully understand and explain the 'control' model, then it gives integrity to the results we show when a a single parameter is changed. 
 			
-	-Explain what happens when we turn a parameter knob. 
 	-Make connection between results and real data collected from stickleback
 
 
 Introduction: (What is the problem?)
 
-	-Recap of middleton story
+	-Recap of middleton story, why do we care
 	-What evolutionary forces contributed to parallel/rapid adaptation?
 		**history of introgression. 
 	-Something about Potential vs Realized Architecture
-		**Potential Architecture: The Parameters we define in our simulation 
-		**Realized Architecture: The results that arrise as a product of evolutionary forces from parameters
+		**Potential Architecture: The Parameters we define in our simulation. 
+		**Realized Architecture: The results that arrise as a product of evolutionary forces.
 	-Which Parameters are we going to look at 
 		**migration rates, dominance of alleles, population size, #discrete populations)
 	-explain the simulation in more evolutionary terms
@@ -42,7 +41,7 @@ Materials and Methods: (How did I solve the problem?)
 		**Explain what SLiM does with input. (aka how it makes choices)
 	-WHAT and HOW Data was sampled from the simulation
 		**Fst
-		**Average Phenotype
+		**Phenotype Distribution
 
 Results: (What did I find out?)
 
