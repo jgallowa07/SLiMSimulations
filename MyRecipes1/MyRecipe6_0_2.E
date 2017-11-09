@@ -202,7 +202,7 @@ initialize() {
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
 	
-		individual.tagF = recessiveMarine + recessiveFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater;		
 	}
 
 	if(sim.generation == 10000){
@@ -312,7 +312,8 @@ initialize() {
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
 	
-		individual.tagF = recessiveMarine + recessiveFreshwater;		
+		//individual.tagF = recessiveMarine + recessiveFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater;		
 	}
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
