@@ -59,17 +59,24 @@ initialize() {
 	initializeSLiMOptions(dimensionality="x");
 	initializeMutationRate(MR); 	
 
-	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Marine Dominant 
-	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Dominant
-	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
-	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  //Marine Recessive
-	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); //Freshwater Recessive
+	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  	//Marine Dominant 
+	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); 	//Freshwater Dominant
+	initializeMutationType("m3", 0.5, "f", 0.0);       	//Nuetral Benefitial Mutations
+	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  	//Marine Recessive
+	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); 	//Freshwater Recessive
+	initializeMutationType("m6", 0.5, "g", 0.6, 1.0); 	//Marine Additive
+	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); 	//Freshwater Additive
+	
 
 	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5), c(1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
+	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
+	m4.mutationStackPolicy = "l";
+	m5.mutationStackPolicy = "l";
+	m6.mutationStackPolicy = "l";
+	m7.mutationStackPolicy = "l";
 	
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|-Effect(g2)-|--- X C

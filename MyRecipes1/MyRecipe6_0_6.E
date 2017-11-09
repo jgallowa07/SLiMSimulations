@@ -70,6 +70,7 @@ initialize() {
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
+	m3.mutationStackPolicy = "l";
 	m4.mutationStackPolicy = "l";
 	m5.mutationStackPolicy = "l";
 	
@@ -365,6 +366,9 @@ initialize() {
 
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
+fitness(m3) {return 1.0;}
+fitness(m4) {return 1.0;}
+fitness(m5) {return 1.0;}
 fitness(NULL, p1) {
 	return individual.tagF;
 }
