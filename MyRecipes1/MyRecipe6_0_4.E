@@ -54,7 +54,6 @@ initialize() {
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
 	defineConstant("INP", introduce);
 	defineConstant("MGR", migrationRate);
-	
 
 	initializeSLiMOptions(dimensionality="x");
 	initializeMutationRate(MR); 	
@@ -64,15 +63,22 @@ initialize() {
 	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
 	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  //Marine Recessive
 	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); //Freshwater Recessive
+	initializeMutationType("m6", 0.5, "g", 0.6, 1.0);  //Marine Additive
+	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); //Freshwater Additive
 
 	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5), c(1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
+	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
+	m3.mutationStackPolicy = "l";
+	m4.mutationStackPolicy = "l";
+	m5.mutationStackPolicy = "l";
+	m6.mutationStackPolicy = "l";
+	m7.mutationStackPolicy = "l";
 	
 	//initialize genomic arch.
-	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|-Effect(g2)-|--- X C
+	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|
 
 	pos = 0;
 	q = NULL;
@@ -109,6 +115,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
+	writeFile(PATH+"NumMutations.txt",numberOfSamplingPoints+" ",append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
 	//writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
@@ -154,12 +161,6 @@ initialize() {
 
 }
 
-//15000 late(){
-
-//	p2.setMigrationRates(p1,0.0);
-//	p1.setMigrationRates(p2,0.0);
-
-//}
 
 20000 late(){
 
@@ -201,39 +202,13 @@ initialize() {
 
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
+
+		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
+		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		individual.tagF = recessiveMarine + dominantFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	}
 
-	if(sim.generation == 10000){
-		
-
-		catn("Sampling Geno + Pheno here");
-		
-		sam = sample(sim.subpopulations.individuals,1);
-		
-		marineDom = sam.genomes.mutationsOfType(m1);
-		FreshwaterDom = sam.genomes.mutationsOfType(m2);
-		marineRec = sam.genomes.mutationsOfType(m4);
-		FreshwaterRec = sam.genomes.mutationsOfType(m5);
-		
-		for (i in marineDom){
-			catn("Marine Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in FreshwaterDom){
-			catn("Freshwater Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in marineRec){
-			catn("Marine Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in FreshwaterRec){
-			catn("Freshwater Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		
-		catn("Phenotype = "+sam.tagF);		
-
-	}	
-	
 	if(sim.generation == 19999){
 
 	//get the standard deviation HERE	
@@ -256,8 +231,8 @@ initialize() {
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
-		//TODO Number of mutations per individual. 
 	
+		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -267,7 +242,15 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 
-		//---------------------Sample Average Phenotype----------------------------------------
+		numM1 = sim.countOfMutationsOfType(m1);		
+		numM2 = sim.countOfMutationsOfType(m2);		
+		numM4 = sim.countOfMutationsOfType(m4);		
+		numM5 = sim.countOfMutationsOfType(m5);		
+		numM6 = sim.countOfMutationsOfType(m6);		
+		numM7 = sim.countOfMutationsOfType(m7);
+		
+		writeFile(PATH+"NumMutations.txt",numM1+" "+numM2+" "+numM4+" "+numM5+" "+numM6+" "+numM7,append = T);	
+				
 	}
 
 	//Set tag equal to a value to be returned by fitness callback 
@@ -311,10 +294,12 @@ initialize() {
 
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
+
+		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
+		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		//individual.tagF = recessiveMarine + recessiveFreshwater;		
-		//individual.tagF = dominantMarine + recessiveFreshwater;		
-		individual.tagF = recessiveMarine + dominantFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
+	
 	}
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
@@ -365,6 +350,10 @@ initialize() {
 
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
+fitness(m4) {return 1.0;}
+fitness(m5) {return 1.0;}
+fitness(m6) {return 1.0;}
+fitness(m7) {return 1.0;}
 fitness(NULL, p1) {
 	return individual.tagF;
 }

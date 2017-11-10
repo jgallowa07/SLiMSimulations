@@ -16,26 +16,33 @@ Abstract: (What did I do in a NutShell?)
 	-Make connection between results and real data collected from stickleback
 
 
-Introduction: (What is the problem?)
+Introduction: (What is the problem?) (context of all work, other studies that tie into)
 
-	-Recap of middleton story, why do we care
-	-What evolutionary forces contributed to parallel/rapid adaptation?
+	-Recap of middleton story, why do we care (not start)
+	-there hasn't been something as specific as SLiM before. 
+	-Why is this approach original and insightful? (Assumption)
+		**Why do models help us draw conclutions
+		**how can we rely on the results we find
+	-What evolutionary forces contributed to parallel/rapid adaptation? (been settled)
+		**We know the forces, what we want to know is the a patterns across the genome. (age of alleles, pattern) 
+		**Why don't we know this
+		**theory guids subsiquent work
+		**have a model allows us to make predictions, what do 
 		**history of introgression. 
 	-Something about Potential vs Realized Architecture
+		**processes instead of forces 
 		**Potential Architecture: The Parameters we define in our simulation. 
 		**Realized Architecture: The results that arrise as a product of evolutionary forces.
-	-Which Parameters are we going to look at 
+	-Which Parameters are we going to look at
+		**be humble about the parameter we choose, explain the results clearly, and show the change as we turn a parameter knob  
 		**migration rates, dominance of alleles, population size, #discrete populations)
-	-explain the simulation in more evolutionary terms
-		**explain the connections we made between our model, and the stickleback history specific to middleton. (Our model is slightly more generic)
+	//-explain the simulation in more evolutionary terms
+	//	**explain the connections we made between our model, and the stickleback history specific to middleton. (Our model is slightly more generic)
 
 Materials and Methods: (How did I solve the problem?)
 	
 	-SLiM, and evolutionary framework. (Concise explanation)
 		**Ficher-Wright Model with geography (sub-pops & migration), population structure (matechoice & fitness), and genomic architecture (the chromosome) 
-	-Why is this approach original and insightful?
-		**Why do models help us draw conclutions
-		**how can we rely on the results we find
 	-Explain the simulaation we set up from a technical perspective (POTENTIAL ARCHITECTURE) 
 		**All parameters put into SLiM
 		**Explain what SLiM does with input. (aka how it makes choices)
@@ -49,6 +56,9 @@ Results: (What did I find out?)
 		**genetic drift
 		**benefit of introgression on 
 	-Introgression Allows for rapid adaptation.
+	-something about clustering, something about age. 
+	-tweaking parameter and watching how these two things change. 
+	-test against poisson. 
 
 Discussion: (What does it mean?)
 
@@ -57,6 +67,7 @@ Discussion: (What does it mean?)
 	-What might this imply about the stickleback evolution 
 	-What other parameter might be more closely examined 
 		**Geographic/Population parameter
+	-Connect to real. 
 
 Acknowledgments: (Who helped me out?)
 
