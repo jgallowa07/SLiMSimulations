@@ -54,32 +54,31 @@ initialize() {
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
 	defineConstant("INP", introduce);
 	defineConstant("MGR", migrationRate);
-	
 
 	initializeSLiMOptions(dimensionality="x");
 	initializeMutationRate(MR); 	
 
-	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  	//Marine Dominant 
-	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); 	//Freshwater Dominant
-	initializeMutationType("m3", 0.5, "f", 0.0);       	//Nuetral Benefitial Mutations
-	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  	//Marine Recessive
-	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); 	//Freshwater Recessive
-	initializeMutationType("m6", 0.5, "g", 0.6, 1.0); 	//Marine Additive
-	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); 	//Freshwater Additive
-	
+	initializeMutationType("m1", 0.5, "g", 0.5, 1.0);  //Marine Dominant 
+	initializeMutationType("m2", 0.5, "g", -0.5, 1.0); //Freshwater Dominant
+	initializeMutationType("m3", 0.5, "f", 0.0);       //Nuetral Benefitial Mutations
+	initializeMutationType("m4", 0.5, "g", 0.5, 1.0);  //Marine Recessive
+	initializeMutationType("m5", 0.5, "g", -0.5, 1.0); //Freshwater Recessive
+	initializeMutationType("m6", 0.5, "g", 0.6, 1.0);  //Marine Additive
+	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); //Freshwater Additive
 
 	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
 	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
+	m3.mutationStackPolicy = "l";
 	m4.mutationStackPolicy = "l";
 	m5.mutationStackPolicy = "l";
 	m6.mutationStackPolicy = "l";
 	m7.mutationStackPolicy = "l";
 	
 	//initialize genomic arch.
-	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|-Effect(g2)-|--- X C
+	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|
 
 	pos = 0;
 	q = NULL;
@@ -208,8 +207,11 @@ initialize() {
 
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
+
+		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
+		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		individual.tagF = dominantMarine + recessiveFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	}
 
 	if(sim.generation == 10000){
@@ -318,9 +320,12 @@ initialize() {
 
 		recessiveMarine = (2 * aM) - dM; 
 		recessiveFreshwater = (2 * aF) - dF;
+
+		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
+		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		//individual.tagF = recessiveMarine + recessiveFreshwater;		
-		individual.tagF = dominantMarine + recessiveFreshwater;		
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
+	
 	}
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
@@ -371,6 +376,10 @@ initialize() {
 
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
+fitness(m4) {return 1.0;}
+fitness(m5) {return 1.0;}
+fitness(m6) {return 1.0;}
+fitness(m7) {return 1.0;}
 fitness(NULL, p1) {
 	return individual.tagF;
 }
