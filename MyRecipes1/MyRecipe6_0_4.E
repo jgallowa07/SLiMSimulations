@@ -224,7 +224,22 @@ initialize() {
 		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","6_0_4: SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//writeFile("~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/SD.txt","SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//catn(standard_deviation);
+
+		sam = sample(sim.subpopulations.individuals.genomes,100)
+	
+		for(genome in sam){
+		
+			numM1 = genome.countOfMutationsOfType(m1);		
+			numM2 = genome.countOfMutationsOfType(m2);		
+			numM4 = genome.countOfMutationsOfType(m4);		
+			numM5 = genome.countOfMutationsOfType(m5);		
+			numM6 = genome.countOfMutationsOfType(m6);		
+			numM7 = genome.countOfMutationsOfType(m7);
 			
+			mean = (numM1+numM2+numM4+numM5+numM6+numM7)/10;
+	
+		}	
+	
 	}	
 
 	//The entire if{} block below is for sampling data at a given interval, INT	
@@ -301,6 +316,8 @@ initialize() {
 		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	
 	}
+
+	
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
