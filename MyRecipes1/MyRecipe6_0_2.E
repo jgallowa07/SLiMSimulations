@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 400;
 
 	samplingInterval = 100;
 
@@ -31,7 +31,7 @@ initialize() {
 		
 	recombinationRate = 1e-3;
 
-	introduce = 20000;
+	introduce = 200;
 
 	migrationRate = 0.005;
 		
@@ -88,8 +88,9 @@ initialize() {
 		pos = pos + W;
 
 		initializeGenomicElement(g2, pos, pos + P-1);
-		section = pos:(pos+P-1);
-		q = c(q,section);
+		//section = pos:(pos+P-1);
+		//q = c(q,section);
+		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
 
 		initializeGenomicElement(g1, pos, pos + W-1);
@@ -101,6 +102,9 @@ initialize() {
 
 	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
+		
+	catn(Q);	
+	catn(TL);
 
 	initializeRecombinationRate(recombinationRate);	
 
@@ -161,7 +165,7 @@ initialize() {
 }
 
 
-20000 late(){
+200 late(){
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p1.setSpatialBounds(c(0.0, LOP));
@@ -182,7 +186,7 @@ initialize() {
 }
 
 
-1:19999 late() {  //ALMOST ALL SAMPLING
+1:199 late() {  //ALMOST ALL SAMPLING
 	i1.evaluate();
 	i2.evaluate();		
 	Oceanic_mean_phenotype = NULL;
@@ -208,36 +212,8 @@ initialize() {
 		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	}
 
-	if(sim.generation == 10000){
-		
-
-		catn("Sampling Geno + Pheno here");
-		
-		sam = sample(sim.subpopulations.individuals,1);
-		
-		marineDom = sam.genomes.mutationsOfType(m1);
-		FreshwaterDom = sam.genomes.mutationsOfType(m2);
-		marineRec = sam.genomes.mutationsOfType(m4);
-		FreshwaterRec = sam.genomes.mutationsOfType(m5);
-		
-		for (i in marineDom){
-			catn("Marine Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in FreshwaterDom){
-			catn("Freshwater Dom, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in marineRec){
-			catn("Marine Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		for (i in FreshwaterRec){
-			catn("Freshwater Rec, Position: " +i.position +" Selection Coeff: "+i.selectionCoeff);
-		}
-		
-		catn("Phenotype = "+sam.tagF);		
-
-	}	
 	
-	if(sim.generation == 19999){
+	if(sim.generation == 199){
 
 	//get the standard deviation HERE	
 	
@@ -270,6 +246,17 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 
+		numM1 = sim.countOfMutationsOfType(m1);		
+		numM2 = sim.countOfMutationsOfType(m2);		
+		numM4 = sim.countOfMutationsOfType(m4);		
+		numM5 = sim.countOfMutationsOfType(m5);		
+		numM6 = sim.countOfMutationsOfType(m6);		
+		numM7 = sim.countOfMutationsOfType(m7);
+		
+		totalEM = numM1+numM2+numM4+numM5+numM6+numM7;
+		
+		catn("Total Effect Muts: "+totalEM);
+
 		//---------------------Sample Average Phenotype----------------------------------------
 	}
 
@@ -294,7 +281,7 @@ initialize() {
 }
 
 
-20000: late(){
+200: late(){
 
 	i1.evaluate();
 	i2.evaluate();		
@@ -321,11 +308,13 @@ initialize() {
 		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	
 	}
+
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
+		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -337,11 +326,62 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
 
-		//---------------------Sample Average Phenotype----------------------------------------
+
 	}
 
 	if(sim.generation == END)
 	{
+		//---- Cluster Sampling ----
+
+//		m1s = sim.mutationsOfType(m1);			
+//		m2s = sim.mutationsOfType(m2);			
+//		m4s = sim.mutationsOfType(m4);			
+//		m5s = sim.mutationsOfType(m5);			
+//		m6s = sim.mutationsOfType(m6);			
+//		m7s = sim.mutationsOfType(m7);			
+
+//		allEffectMuts = c(m1s,m2s,m4s,m5s,m6s,m7s);
+
+		allMuts = sim.mutations;
+	
+		numCells = 1000;
+		cellSize = TL/numCells;
+		lociPositions = 0:(TL-1);
+		cellCounts = rep(0,numCells);
+		breakPoints = lociPositions[lociPositions % cellSize == 0];
+		index = 0;
+		totalNumIndividuals = (IIO) + (2*IIF);
+
+		for (i in breakPoints){
+
+			mutsInCell = allMuts[(allMuts.position >= i) & (allMuts.position < (i+cellSize))];
+			cellCounts[index] = size(mutsInCell);
+
+		//  --number of muts across population--
+		//	mutFreqs = sim.mutationFrequencies(NULL,mutsInCell);
+		//	totalNumMuts = sum(mutFreqs * totalNumIndividuals);
+		//	cellCounts[index] = asInteger(totalNumMuts);
+
+			index = index + 1;
+
+		}
+
+		catn(asString(cellCounts));				
+
+		x = sum(cellCounts)/1000;
+		catn("Online mean: " + asString(x));
+
+		y = mean(cellCounts);
+		catn("SLiM mean: " + asString(y));
+	
+		z = sd(cellCounts);	
+		z = z*z;
+		catn("Supposed Varience: " + asString(z));
+		
+			
+		//---- End Cluster Sampling ----
+
+
 		sim.simulationFinished();
 	}
 	for (individual in p3.individuals){
@@ -380,7 +420,7 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
-20000: fitness(NULL, p3){
+200: fitness(NULL, p3){
 	return individual.tagF;
 }
 1: mateChoice(p2) {
@@ -389,7 +429,7 @@ fitness(NULL, p2) {
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
 }
-20000: mateChoice(p3){
+200: mateChoice(p3){
 	return i1.strength(individual) * weights;
 }
 
@@ -421,7 +461,7 @@ modifyChild(p2){
 	}
 	return T;
 }
-20000: modifyChild(p3){
+200: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
