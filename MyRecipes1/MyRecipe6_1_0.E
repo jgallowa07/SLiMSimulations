@@ -247,7 +247,7 @@ initialize() {
 		
 		allMuts = sim.mutations;
 	
-		numCells = 1000;
+		numCells = 500;
 		cellSize = TL/numCells;
 		lociPositions = 0:(TL-1);
 		cellCounts = rep(0,numCells);
@@ -349,7 +349,7 @@ initialize() {
 		//---------------------Sample Average Phenotype----------------------------------------
 		allMuts = sim.mutations;
 	
-		numCells = 1000;
+		numCells = 500;
 		cellSize = TL/numCells;
 		lociPositions = 0:(TL-1);
 		cellCounts = rep(0,numCells);

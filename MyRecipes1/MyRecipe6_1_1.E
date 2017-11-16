@@ -2,8 +2,8 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_0_3/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_3Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_1_1/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_1_1Local/";
 
 	//KNOBS//
 
@@ -21,11 +21,11 @@ initialize() {
 	
 	individualsInFresh = 2000;
 
-	numberOfEffectRegions = 10;
+//	numberOfEffectRegions = 10;
 
-	sizeOfEffectRegions = 100;
+//	sizeOfEffectRegions = 100;
 
-	sizeOfNonEffectBuffer = 4950;
+//	sizeOfNonEffectBuffer = 4950;
 	
 	mutationRate = 1e-7;
 		
@@ -49,9 +49,9 @@ initialize() {
 	defineConstant("IPF",individualsPerFresh);
 	defineConstant("PATH",pathToOutputFile);
 	defineConstant("MR", mutationRate);
-	defineConstant("C", numberOfEffectRegions);    	// number of Effect Regions;
-	defineConstant("W", sizeOfNonEffectBuffer);  	// size of neutral buffer on each side
-	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
+//	defineConstant("C", numberOfEffectRegions);    	// number of Effect Regions;
+//	defineConstant("W", sizeOfNonEffectBuffer);  	// size of neutral buffer on each side
+//	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
 	defineConstant("INP", introduce);
 	defineConstant("MGR", migrationRate);
 
@@ -66,8 +66,8 @@ initialize() {
 	initializeMutationType("m6", 0.5, "g", 0.6, 1.0);  //Marine Additive
 	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); //Freshwater Additive
 
-	initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g2", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,1.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
+	//initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
+	initializeGenomicElementType("g1", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,600.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
@@ -80,31 +80,27 @@ initialize() {
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|
 
-	pos = 0;
-	q = NULL;
-	for (i in 1:C)
-	{
-		initializeGenomicElement(g1, pos, pos + W-1);    
-		pos = pos + W;
+	//pos = 0;
+	//q = NULL;
+	//for (i in 1:C)
+	//{
+	//	initializeGenomicElement(g1, pos, pos + W-1);    
+	//	pos = pos + W;
 
-		initializeGenomicElement(g2, pos, pos + P-1);
-		//section = pos:(pos+P-1);
-		//q = c(q,section);
-		q = c(q,c(pos,pos+P-1));
-		pos = pos + P;	
+	initializeGenomicElement(g1,0,99999);
+	//	section = pos:(pos+P-1);
+	//	q = c(q,section);
+	//	pos = pos + P;	
 
-		initializeGenomicElement(g1, pos, pos + W-1);
-		pos = pos + W;
-	}
+	//	initializeGenomicElement(g1, pos, pos + W-1);
+	//	pos = pos + W;
+	//}
 
-	catn("end of chromosome position: "+pos);
-	totalNumOfLoci = pos;
+	//catn("end of chromosome position: "+pos);
+	//totalNumOfLoci = pos;
 
-	defineConstant("TL", totalNumOfLoci);
-	defineConstant("Q", q);     // remember our QTL positions
-		
-	catn(Q);	
-	catn(TL);
+	defineConstant("TL", 100000);
+	//defineConstant("Q", q);     // remember our QTL positions
 
 	initializeRecombinationRate(recombinationRate);	
 
@@ -226,7 +222,7 @@ initialize() {
 		}
 		standard_deviation = sd(phenotypes);
 	
-		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","6_0_3: SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
+		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","6_1_1: SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//writeFile("~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/SD.txt","SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//catn(standard_deviation);
 			
@@ -247,6 +243,8 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 
+		//---------------------Sample Average Phenotype----------------------------------------
+		
 		allMuts = sim.mutations;
 	
 		numCells = 1000;
@@ -332,13 +330,11 @@ initialize() {
 		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	
 	}
-
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
-		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -350,6 +346,7 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
 
+		//---------------------Sample Average Phenotype----------------------------------------
 		allMuts = sim.mutations;
 	
 		numCells = 1000;
@@ -384,25 +381,11 @@ initialize() {
 		catn("Varience: " + asString(Varience));
 
 		writeFile(PATH+"MeanVarience.txt",Mean+" "+Varience,append = T);
-		
-
 
 	}
 
 	if(sim.generation == END)
 	{
-
-//		m1s = sim.mutationsOfType(m1);			
-//		m2s = sim.mutationsOfType(m2);			
-//		m4s = sim.mutationsOfType(m4);			
-//		m5s = sim.mutationsOfType(m5);			
-//		m6s = sim.mutationsOfType(m6);			
-//		m7s = sim.mutationsOfType(m7);			
-
-//		allEffectMuts = c(m1s,m2s,m4s,m5s,m6s,m7s);
-
-
-
 		sim.simulationFinished();
 	}
 	for (individual in p3.individuals){

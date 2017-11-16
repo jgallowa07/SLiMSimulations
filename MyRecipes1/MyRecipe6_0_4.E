@@ -29,7 +29,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-3;
+	recombinationRate = 1e-1;
 
 	introduce = 20000;
 
@@ -88,8 +88,9 @@ initialize() {
 		pos = pos + W;
 
 		initializeGenomicElement(g2, pos, pos + P-1);
-		section = pos:(pos+P-1);
-		q = c(q,section);
+		//section = pos:(pos+P-1);
+		//q = c(q,section);
+		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
 
 		initializeGenomicElement(g1, pos, pos + W-1);
@@ -101,6 +102,9 @@ initialize() {
 
 	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
+		
+	catn(Q);	
+	catn(TL);
 
 	initializeRecombinationRate(recombinationRate);	
 
@@ -115,7 +119,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
-	writeFile(PATH+"NumMutations.txt",numberOfSamplingPoints+" "+INT,append = F);
+	writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
 	//writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
@@ -209,6 +213,7 @@ initialize() {
 		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
 	}
 
+	
 	if(sim.generation == 19999){
 
 	//get the standard deviation HERE	
@@ -224,30 +229,15 @@ initialize() {
 		writeFile("/projects/haldane/shared/SLiMSimulations/Output1/SD.txt","6_0_4: SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//writeFile("~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/SD.txt","SD with MiGRate "+MGR+" is: "+standard_deviation,append = T);
 		//catn(standard_deviation);
-
-		sam = sample(sim.subpopulations.individuals.genomes,100)
-	
-		for(genome in sam){
-		
-			numM1 = genome.countOfMutationsOfType(m1);		
-			numM2 = genome.countOfMutationsOfType(m2);		
-			numM4 = genome.countOfMutationsOfType(m4);		
-			numM5 = genome.countOfMutationsOfType(m5);		
-			numM6 = genome.countOfMutationsOfType(m6);		
-			numM7 = genome.countOfMutationsOfType(m7);
 			
-			mean = (numM1+numM2+numM4+numM5+numM6+numM7)/10;
-	
-		}	
-	
 	}	
 
 	//The entire if{} block below is for sampling data at a given interval, INT	
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
+		//TODO Number of mutations per individual. 
 	
-		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -257,15 +247,41 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 
-		numM1 = sim.countOfMutationsOfType(m1);		
-		numM2 = sim.countOfMutationsOfType(m2);		
-		numM4 = sim.countOfMutationsOfType(m4);		
-		numM5 = sim.countOfMutationsOfType(m5);		
-		numM6 = sim.countOfMutationsOfType(m6);		
-		numM7 = sim.countOfMutationsOfType(m7);
-		
-		writeFile(PATH+"NumMutations.txt",numM1+" "+numM2+" "+numM4+" "+numM5+" "+numM6+" "+numM7,append = T);	
-				
+		allMuts = sim.mutations;
+	
+		numCells = 1000;
+		cellSize = TL/numCells;
+		lociPositions = 0:(TL-1);
+		cellCounts = rep(0,numCells);
+		breakPoints = lociPositions[lociPositions % cellSize == 0];
+		index = 0;
+		totalNumIndividuals = (IIO) + (2*IIF);
+
+		for (i in breakPoints){
+
+			mutsInCell = allMuts[(allMuts.position >= i) & (allMuts.position < (i+cellSize))];
+			cellCounts[index] = size(mutsInCell);
+
+		//  --number of muts across population--
+		//	mutFreqs = sim.mutationFrequencies(NULL,mutsInCell);
+		//	totalNumMuts = sum(mutFreqs * totalNumIndividuals);
+		//	cellCounts[index] = asInteger(totalNumMuts);
+
+			index = index + 1;
+
+		}
+
+		catn(asString(cellCounts));				
+
+		Mean = mean(cellCounts);
+		catn("Mean: " + asString(Mean));
+	
+		z = sd(cellCounts);	
+		Varience = z*z;
+		catn("Varience: " + asString(Varience));
+
+		writeFile(PATH+"MeanVarience.txt",Mean+" "+Varience,append = T);
+
 	}
 
 	//Set tag equal to a value to be returned by fitness callback 
@@ -318,11 +334,11 @@ initialize() {
 	}
 
 	
-	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
+		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -334,11 +350,59 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
 
-		//---------------------Sample Average Phenotype----------------------------------------
+		allMuts = sim.mutations;
+	
+		numCells = 1000;
+		cellSize = TL/numCells;
+		lociPositions = 0:(TL-1);
+		cellCounts = rep(0,numCells);
+		breakPoints = lociPositions[lociPositions % cellSize == 0];
+		index = 0;
+		totalNumIndividuals = (IIO) + (2*IIF);
+
+		for (i in breakPoints){
+
+			mutsInCell = allMuts[(allMuts.position >= i) & (allMuts.position < (i+cellSize))];
+			cellCounts[index] = size(mutsInCell);
+
+		//  --number of muts across population--
+		//	mutFreqs = sim.mutationFrequencies(NULL,mutsInCell);
+		//	totalNumMuts = sum(mutFreqs * totalNumIndividuals);
+		//	cellCounts[index] = asInteger(totalNumMuts);
+
+			index = index + 1;
+
+		}
+
+		catn(asString(cellCounts));				
+
+		Mean = mean(cellCounts);
+		catn("Mean: " + asString(Mean));
+	
+		z = sd(cellCounts);	
+		Varience = z*z;
+		catn("Varience: " + asString(Varience));
+
+		writeFile(PATH+"MeanVarience.txt",Mean+" "+Varience,append = T);
+		
+
+
 	}
 
 	if(sim.generation == END)
 	{
+
+//		m1s = sim.mutationsOfType(m1);			
+//		m2s = sim.mutationsOfType(m2);			
+//		m4s = sim.mutationsOfType(m4);			
+//		m5s = sim.mutationsOfType(m5);			
+//		m6s = sim.mutationsOfType(m6);			
+//		m7s = sim.mutationsOfType(m7);			
+
+//		allEffectMuts = c(m1s,m2s,m4s,m5s,m6s,m7s);
+
+
+
 		sim.simulationFinished();
 	}
 	for (individual in p3.individuals){
