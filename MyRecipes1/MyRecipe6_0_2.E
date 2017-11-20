@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 160000;
 
 	samplingInterval = 100;
 
@@ -29,7 +29,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-3;
+	recombinationRate = 1e-6;
 
 	introduce = 20000;
 
@@ -495,4 +495,4 @@ modifyChild(p2){
 
 
 
-40001 late() {sim.simulationFinished();}
+160001 late() {sim.simulationFinished();}
