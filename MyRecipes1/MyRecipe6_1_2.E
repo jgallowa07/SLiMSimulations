@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 120000;
 
 	samplingInterval = 100;
 
@@ -478,4 +478,4 @@ modifyChild(p2){
 
 
 
-40001 late() {sim.simulationFinished();}
+120001 late() {sim.simulationFinished();}

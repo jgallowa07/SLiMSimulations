@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 120000;
 
 	samplingInterval = 100;
 
@@ -247,7 +247,7 @@ initialize() {
 		
 		allMuts = sim.mutations;
 	
-		numCells = 500;
+		numCells = 1000;
 		cellSize = TL/numCells;
 		lociPositions = 0:(TL-1);
 		cellCounts = rep(0,numCells);
@@ -349,7 +349,7 @@ initialize() {
 		//---------------------Sample Average Phenotype----------------------------------------
 		allMuts = sim.mutations;
 	
-		numCells = 500;
+		numCells = 1000;
 		cellSize = TL/numCells;
 		lociPositions = 0:(TL-1);
 		cellCounts = rep(0,numCells);
@@ -478,4 +478,4 @@ modifyChild(p2){
 
 
 
-40001 late() {sim.simulationFinished();}
+120001 late() {sim.simulationFinished();}
