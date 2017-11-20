@@ -269,7 +269,7 @@ initialize() {
 
 		}
 
-		catn(asString(cellCounts));				
+//		catn(asString(cellCounts));				
 
 		Mean = mean(cellCounts);
 		catn("Mean: " + asString(Mean));
@@ -371,7 +371,7 @@ initialize() {
 
 		}
 
-		catn(asString(cellCounts));				
+//		catn(asString(cellCounts));				
 
 		Mean = mean(cellCounts);
 		catn("Mean: " + asString(Mean));
