@@ -2,8 +2,8 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_2_2/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_2_2Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_2_3/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_2_3Local/";
 
 	//KNOBS//
 
@@ -21,7 +21,7 @@ initialize() {
 	
 	individualsInFresh = 2000;
 
-	mutationRate = 1e-7;
+	mutationRate = 1e-6;
 		
 	recombinationRate = 1e-6;
 
@@ -55,7 +55,7 @@ initialize() {
 	initializeMutationType("m7", 0.5, "g", -0.6, 1.0); //Freshwater Additive
 
 	//initializeGenomicElementType("g1", m3, 1.0);                       	//NonEffect Genomic Element
-	initializeGenomicElementType("g1", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,300.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
+	initializeGenomicElementType("g1", c(m1,m2,m3,m4,m5,m6,m7), c(1.0,1.0,600.0,1.0,1.0,1.0,1.0)); 	//Effect Genomic Element
 
 	m1.mutationStackPolicy = "l";
 	m2.mutationStackPolicy = "l";
