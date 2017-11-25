@@ -10,7 +10,7 @@ import sys
 data = []
 x_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe3_0_1/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe6_4_0/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,numLakes = (int(i) for i in first.split())
 
@@ -62,7 +62,8 @@ for i in range(0,numLakes):
 	lake_traces.append(trace)	
 
 
-data = [trace0, trace1, lake_traces[0], lake_traces[3] , lake_traces[4], lake_traces[2]]
+#data = [trace0, trace1, lake_traces[0], lake_traces[3] , lake_traces[4], lake_traces[2]]
+data = [trace0,trace1]
 
 # Edit the layout
 layout = dict(title = 'Average Phenotype',
@@ -71,4 +72,5 @@ layout = dict(title = 'Average Phenotype',
               )
 
 fig = dict(data=data, layout=layout)
-py.iplot(fig, filename='3_0_1 Average Phenotype')
+#py.iplot(fig, filename='3_0_1 Average Phenotype')
+plotly.offline.plot(fig, filename='6_4_0.html')

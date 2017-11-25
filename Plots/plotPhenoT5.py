@@ -13,7 +13,7 @@ data = []
 x_axis = []
 x2_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe6_0_2/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe6_3_3/AveragePheno1.txt","r")
 first = File.readline()
 numAxis,interval,newLakesIntroduced = (int(i) for i in first.split())
 
@@ -78,7 +78,7 @@ layout = dict(title = 'Average Phenotype, Rec/Dom/Add mutations for Fresh & Mari
               )
 
 fig = dict(data=data, layout=layout)
-plotly.offline.plot(fig, filename='6_1_0.html')
+plotly.offline.plot(fig, filename='6_3_3.html')
 
 #py.image.save_as(fig, filename='a-simple-plot.png')
 

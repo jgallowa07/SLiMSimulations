@@ -7,7 +7,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 160000;
+	endOfSimulation = 40000;
 
 	samplingInterval = 100;
 
@@ -165,6 +165,10 @@ initialize() {
 
 }
 
+19990 late(){
+	p2.setMigrationRates(p1,0.0);
+	p1.setMigrationRates(p2,0.0);
+}
 
 20000 late(){
 
@@ -173,11 +177,11 @@ initialize() {
 	
 	lakeIndividuals2 = p3.individuals;
 	
-	migrationRateIntoOcean = asFloat(NLAKES/IIF)/2.0;
+	//migrationRateIntoOcean = asFloat(NLAKES/IIF)/2.0;
 	//migrationRateIntoFresh = asFloat(1/IIO);
 	
-	p1.setMigrationRates(p3,MGR);
-	p3.setMigrationRates(p1,MGR);
+	//p1.setMigrationRates(p3,MGR);
+	//p3.setMigrationRates(p1,MGR);
 
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){

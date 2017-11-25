@@ -157,10 +157,8 @@ initialize() {
 }
 
 //15000 late(){
-
 //	p2.setMigrationRates(p1,0.0);
 //	p1.setMigrationRates(p2,0.0);
-
 //}
 
 20000 late(){
