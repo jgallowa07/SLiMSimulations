@@ -9,7 +9,7 @@ initialize() {
 
 	endOfSimulation = 40000;
 
-	samplingInterval = 100;
+	samplingInterval = 5;
 
 	numberOfLakes = 10;	
 	
@@ -116,7 +116,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
-	writeFile(PATH+"sgv.txt","FirstLine",append = F);
+	writeFile(PATH+"sgv.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
@@ -201,19 +201,11 @@ initialize() {
 	{
 		//TODO Number of mutations per individual. 
 	
-		cat("-------------------------------\n");
-		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
-		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);			
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 
-	}
-	
-	if((sim.generation >= 20000) & (sim.generation % 5 == 0)){
-	
 		//MEASURE SGV IN OCEAN (P1) AS VARIATION DROPS OFF
 
 		//(OPTION 1) FST
