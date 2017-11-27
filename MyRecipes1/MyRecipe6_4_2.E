@@ -186,6 +186,10 @@ initialize() {
 	Oceanic_mean_phenotype = NULL;
 	Freshwater_mean_phenotype = NULL;
 	substitutionOffset  = 0;
+	
+	for (fix in sim.substitutions){
+		substitutionOffset = substitutionOffset + (2 * fix.selectionCoeff);
+	}	
 
 	for (individual in sim.subpopulations.individuals) //Calculate fitness (.tagF) 
 	{
@@ -203,7 +207,7 @@ initialize() {
 		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
 		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater;		
+		individual.tagF = dominantMarine+recessiveFreshwater+dominantFreshwater+recessiveMarine+additiveMarine+additiveFreshwater+substitutionOffset;		
 	}
 
 	//The entire if{} block below is for sampling data at a given interval, INT	
