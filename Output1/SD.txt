@@ -26,3 +26,9 @@ SD with MiGRate 0.005 is: 1.41815
 6_0_2: SD with MiGRate 0.005 is: 2.64163
 6_0_4: SD with MiGRate 0.005 is: 2.51727
 6_0_2: SD with MiGRate 0.005 is: 3.01295
+6_1_2: SD with MiGRate 0.005 is: 2.16664
+6_1_0: SD with MiGRate 0.005 is: 2.63027
+6_3_3: SD with MiGRate 0.005 is: 1.13975
+6_3_2: SD with MiGRate 0.005 is: 2.08165
+6_3_1: SD with MiGRate 0.005 is: 1.77948
+6_3_0: SD with MiGRate 0.005 is: 2.22989
