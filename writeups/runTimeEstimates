@@ -1,0 +1,128 @@
+For run time estimates I'm going to use Model 6_4_0 as the control
+and measure 3 different runTime effects of the parameters:
+
+ -#Generations (my guess is this is linear)
+
+ -#Loci 
+
+ -#Individuals 
+
+to estimate times I'll run 7 models. a control model, then two additional models for each parameter change.
+(possibly run three more models to look at the interaction between parameters)
+
+
+		6_6_0		6_6_1		6_6_2		6_6_3		6_6_4		6_6_5		6_6_6
+		
+#gens:		10,000  	20,000		--		--		100,000		--		--
+		
+		
+#Loci:		10,000		--		20,000		--		--		100,000		--
+		
+		
+#Indv:		1,000		--		--		2,000		--		--		10,000
+		
+			
+----------------------------------------------------------------------------------------------------------------------
+		
+runtime(hrs):	2:49.60		5:40.24		2:24.33		7:19.17		28:58.52	5:09.00		3:06:14
+
+----------------------------------------------------------------------------------------------------------------------
+
+estimated 
+effect on 
+runtime: 
+	
+# of Generations: points (0,0) (10,2.8166) (20,5.66) (100,29)  ~ y = .28x
+# of Loci: points (0,0) (10,2.8166) (20,2.44) (100,5.2) not a huge effect  
+# of Individual: (0,0) (1,2.8166) (2,7.3) (10,186) huge effect. 
+
+
+
+
+------------------------------------FINAL PARAMS----------------------------------
+THINGS WE WANT TO KNOW :
+
+	1: What range of population genetics parameters allow the 
+
+	* transportation of freshwater alleles in marine populations
+	* the maintinance of SGV
+	* Age of SGV (ancient?) 
+
+		-Migration Rates
+		-Dominance
+		-Recombination Rates
+		-selection coeff ?
+
+	2: What amount of SGV is needed for rapid / parallel adaptation.
+	
+	3: What genomic architectures lead to clustering of the genome 
+		-how long does it take? 
+		-how important is clustering in rapid / parallel adaptation
+
+
+THINGS WE'VE CONCLUDED :
+
+	1: SGV is very important in Rapid Adaptation (have not quatified this yet.) 
+	2: Gene flow / introgression / hybridization is very important in maintining SGV
+
+	3: RR
+		-high recombination across genome = 
+			longest maintenance of SGV after loss of migration
+		-low recombination across genome = 
+			VERY low SGV, low maintenance after loss of mig 
+			but leads to clustering after about 40K gens
+			slows local adaptation way down
+		-recombination low in effect but high in neutral regions = 
+			Highest SGV in population, 
+			slightly less maintenance after  	
+
+
+MODELS :
+
+	All models below are phenotypic based fitness and the traits are quantitative
+	selection coeff for 
+
+	Evolutionary and Geographic models
+	1: (INTROGRESSION/SPECIATION) Marine pop evolving side - by - side with smaller Freshwater pops.
+	2: (GENEFLOW) migration cut-off (or reduced/increased) (or re-established) between populations
+	3: (ADAPTATION) model 1 but with the introduction of new fresh populations.
+	
+	Genomic Structure models 
+	1: (Dominance) Additive/CompDominant/CompRecessive | +/- effect mutations, any combination 	
+	2: (Genomic Structure) N 'Effect regions' across the genome. (other regions are neutral with 
+		respect to phenotype==fitness)
+	3: (RR) Recombination Hot/Cold Spots - effect regions having higher or lower rates or recombination.
+	4: inversions. so far we've only tried having one inversion. 
+
+
+
+PARAMETERS
+
+	1: # of individuals in populations
+	2: # of freshwater lakes <-> spatial size of the continuous populations
+	3: # of generations
+	4: # of loci
+	5: # of effect regions
+	6: % of genome that is 'effect'
+	7: optimum phenotypes in marine/freshwater
+	8: Mutation Rate
+	9: Recombination Rates
+	10: Migrations Rates
+
+SAMPLING  
+
+	1: Average Phenotype
+	2: SGV
+	3: Mean - Varience (clustering)
+	4: ped files
+	5: Fst samples 
+	6: Matrix Alleles
+	7: Phenotype Distribution ()
+	8: mutation/mutation frequency distributions
+	9: Number of invertions
+	
+	
+
+
+
+
