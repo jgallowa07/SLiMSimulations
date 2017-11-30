@@ -36,6 +36,24 @@ runtime:
 # of Loci: points (0,0) (10,2.8166) (20,2.44) (100,5.2) not a huge effect  
 # of Individual: (0,0) (1,2.8166) (2,7.3) (10,186) huge effect. 
 
+structure(list(gens = c(10000, 20000, 10000, 10000, 1e+05, 10000, 
+10000), loci = c(10000, 10000, 20000, 10000, 10000, 1e+05, 10000
+), indiv = c(1000, 1000, 1000, 2000, 1000, 1000, 10000), time = structure(c(0, 
+0, 0, 0, 0, 0, 0), year = c(0, 0, 0, 0, 0, 0, 0), month = c(0, 
+0, 0, 0, 0, 0, 0), day = c(0, 0, 0, 0, 0, 0, 0), hour = c(2, 
+5, 2, 7, 28, 5, 3), minute = c(49, 40, 24, 19, 58, 9, 6), class = structure("Period", package = "lubridate"))), .Names = c("gens", 
+"loci", "indiv", "time"), row.names = c(NA, -7L), class = "data.frame")
+
+
+gens    loci    indiv   time
+1e4 1e4 1e3 2:49
+2e4 1e4 1e3 5:40
+1e4 2e4 1e3 2:24
+1e4 1e4 2e3 7:19
+1e5 1e4 1e3 28:58
+1e4 1e5 1e3 5:09
+1e4 1e4 1e4 3:06
+
 
 
 
@@ -98,16 +116,20 @@ MODELS :
 
 PARAMETERS
 
-	1: # of individuals in populations
-	2: # of freshwater lakes <-> spatial size of the continuous populations
-	3: # of generations
-	4: # of loci
-	5: # of effect regions
-	6: % of genome that is 'effect'
-	7: optimum phenotypes in marine/freshwater
-	8: Mutation Rate
-	9: Recombination Rates
-	10: Migrations Rates
+	1: # of individuals in populations                                        1e4
+	2: # of freshwater lakes <-> spatial size of the continuous populations   10
+	3: # of generations                                                       2e5
+	4: # of loci                                                              1e6
+	5: # of effect regions                                                    10
+	6: % of genome that is 'effect'                                           1%
+	7: optimum phenotypes in marine/freshwater                                +/- 10
+	8: Mutation Rate                                                          1e-7 per locus
+	9: Recombination Rates                                                    4e-6 per locus
+	10: Migrations Rates     
+
+Typical chromosome is 1e8 bp, so here one locus is 100 bp;
+typical mutation rates are 1e-8 per bp, which would be 1e-6 per locus;
+here we have 1/10th of that. (This seems OK.)
 
 SAMPLING  
 
