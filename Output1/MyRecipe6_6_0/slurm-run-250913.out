@@ -1,0 +1,60 @@
+Task ID  - seed 024687
+Parameters for SLiM run:
+  -s 024687 MyRecipe6_6_0.E
+// Initial random seed:
+1510926499408
+
+// RunInitializeCallbacks():
+initializeSLiMOptions(dimensionality = 'x');
+initializeMutationRate(1e-07);
+initializeMutationType(1, 0.5, "g", 0.5, 1);
+initializeMutationType(2, 0.5, "g", -0.5, 1);
+initializeMutationType(3, 0.5, "f", 0);
+initializeMutationType(4, 0.5, "g", 0.5, 1);
+initializeMutationType(5, 0.5, "g", -0.5, 1);
+initializeMutationType(6, 0.5, "g", 0.6, 1);
+initializeMutationType(7, 0.5, "g", -0.6, 1);
+initializeGenomicElementType(1, m3, 1);
+initializeGenomicElementType(2, c(m1, m2, m3, m4, m5, m6, m7), c(1, 1, 1, 1, 1, 1, 1));
+initializeGenomicElement(g1, 0, 494);
+initializeGenomicElement(g2, 495, 504);
+initializeGenomicElement(g1, 505, 999);
+initializeGenomicElement(g1, 1000, 1494);
+initializeGenomicElement(g2, 1495, 1504);
+initializeGenomicElement(g1, 1505, 1999);
+initializeGenomicElement(g1, 2000, 2494);
+initializeGenomicElement(g2, 2495, 2504);
+initializeGenomicElement(g1, 2505, 2999);
+initializeGenomicElement(g1, 3000, 3494);
+initializeGenomicElement(g2, 3495, 3504);
+initializeGenomicElement(g1, 3505, 3999);
+initializeGenomicElement(g1, 4000, 4494);
+initializeGenomicElement(g2, 4495, 4504);
+initializeGenomicElement(g1, 4505, 4999);
+initializeGenomicElement(g1, 5000, 5494);
+initializeGenomicElement(g2, 5495, 5504);
+initializeGenomicElement(g1, 5505, 5999);
+initializeGenomicElement(g1, 6000, 6494);
+initializeGenomicElement(g2, 6495, 6504);
+initializeGenomicElement(g1, 6505, 6999);
+initializeGenomicElement(g1, 7000, 7494);
+initializeGenomicElement(g2, 7495, 7504);
+initializeGenomicElement(g1, 7505, 7999);
+initializeGenomicElement(g1, 8000, 8494);
+initializeGenomicElement(g2, 8495, 8504);
+initializeGenomicElement(g1, 8505, 8999);
+initializeGenomicElement(g1, 9000, 9494);
+initializeGenomicElement(g2, 9495, 9504);
+initializeGenomicElement(g1, 9505, 9999);
+end of chromosome position: 10000
+495 504 1495 1504 2495 2504 3495 3504 4495 4504 5495 5504 6495 6504 7495 7504 8495 8504 9495 9504
+10000
+initializeRecombinationRate(1e-05);
+initializeInteractionType(1, "x", reciprocal=T", maxDistance=0.02);
+initializeInteractionType(2, "x", reciprocal=T", maxDistance=1);
+
+// Starting run at generation <start>:
+1 
+
+elapsed: 2:49.60 / kernel: 0.32 / user: 169.32 / mem: 13772
+Done!
