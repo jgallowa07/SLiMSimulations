@@ -2,12 +2,12 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_0_2/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_0_2Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 40000;
 
 	samplingInterval = 5;
 
@@ -17,19 +17,23 @@ initialize() {
 	
 	optimumPhenoFresh = -10;
 
-	individualsInOcean = 500;
+	individualsInOcean = 2000;
 	
-	individualsInFresh = 500;
+	individualsInFresh = 2000;
 
 	numberOfEffectRegions = 10;
 
-	sizeOfEffectRegions = 10;
+	sizeOfEffectRegions = 100;
 
-	sizeOfNonEffectBuffer = 495;
+	sizeOfNonEffectBuffer = 4950;
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-3;
+	//recombinationRate = 1e-6;
+	rrEffect = 1e-3;
+	rrNeut = 1e-3;
+
+	introduce = 20000;
 
 	migrationRate = 0.005;
 		
@@ -50,6 +54,7 @@ initialize() {
 	defineConstant("C", numberOfEffectRegions);    	// number of Effect Regions;
 	defineConstant("W", sizeOfNonEffectBuffer);  	// size of neutral buffer on each side
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
+	defineConstant("INP", introduce);
 	defineConstant("MGR", migrationRate);
 
 	initializeSLiMOptions(dimensionality="x");
@@ -77,21 +82,29 @@ initialize() {
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|
 
+	recombVector = NULL;
+	lociVector = NULL;
 	pos = 0;
 	q = NULL;
 	for (i in 1:C)
 	{
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
+		recombVector = c(recombVector,rrNeut);
+		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g2, pos, pos + P-1);
 		//section = pos:(pos+P-1);
 		//q = c(q,section);
 		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
+		recombVector = c(recombVector,rrEffect);
+		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
+		recombVector = c(recombVector,rrNeut);
+		lociVector = c(lociVector,pos-1);
 	}
 
 	catn("end of chromosome position: "+pos);
@@ -103,7 +116,7 @@ initialize() {
 	catn(Q);	
 	catn(TL);
 
-	initializeRecombinationRate(recombinationRate);	
+	initializeRecombinationRate(recombVector,lociVector);	
 
 	//Interation Function for Freshwater mateChoice() callback...
 
@@ -115,7 +128,7 @@ initialize() {
 	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
-	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
+	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
 	writeFile(PATH+"sgv.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
@@ -163,14 +176,38 @@ initialize() {
 
 }
 
+//19000 late(){
+//	p2.setMigrationRates(p1,0.0);
+//	p1.setMigrationRates(p2,0.0);
+//}
 
-1: late() {  //ALMOST ALL SAMPLING
+20000 late(){
+
+	sim.addSubpopSplit("p3",IIF,p1);
+	p1.setSpatialBounds(c(0.0, LOP));
+	
+	lakeIndividuals2 = p3.individuals;
+	
+	//migrationRateIntoOcean = asFloat(NLAKES/IIF)/2.0;
+	//migrationRateIntoFresh = asFloat(1/IIO);
+	
+	//p1.setMigrationRates(p3,MGR);
+	//p3.setMigrationRates(p1,MGR);
+
+	for (i in 0:(NLAKES-1)){
+		for (j in 0:(IPF-1)){
+			lakeIndividuals2[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
+		}
+	}
+}
+
+
+1:19999 late() {  //ALMOST ALL SAMPLING
 	i1.evaluate();
 	i2.evaluate();		
 	Oceanic_mean_phenotype = NULL;
 	Freshwater_mean_phenotype = NULL;
 	substitutionOffset  = 0;
-
 	for (fix in sim.substitutions){
 		substitutionOffset = substitutionOffset + (2 * fix.selectionCoeff);
 	}	
@@ -191,8 +228,10 @@ initialize() {
 		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
 		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
 	
-		individual.tagF = dominantMarine+recessiveFreshwater+dominantFreshwater+recessiveMarine+additiveMarine+additiveFreshwater+substitutionOffset;		
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater + substitutionOffset;		
 	}
+
+	
 
 	//The entire if{} block below is for sampling data at a given interval, INT	
 	
@@ -204,13 +243,38 @@ initialize() {
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+
+
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+
+		allEffectMuts = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		numEffMuts = size(allEffectMuts);
+		total = 0;
+		
+		for (ef in allEffectMuts){
+		
+			s = ef.selectionCoeff;
+			p = sim.mutationFrequencies(p1,ef);
+			additiveGeneticVariance = (s*s)*(p)*(1-p);
+			total = total + additiveGeneticVariance;
+
+		}
 	
+		sgv = total/numEffMuts;
+	
+		//catn(sgv);
+		
+		writeFile(PATH+"sgv.txt",sgv+" ",append = T);
+	
+
+
 	}
 
-	if(sim.generation == END)
-	{
-		sim.simulationFinished();
-	}
 	//Set tag equal to a value to be returned by fitness callback 
 	
 	for (individual in p2.individuals){
@@ -231,6 +295,106 @@ initialize() {
 	
 }
 
+
+20000: late(){
+
+	i1.evaluate();
+	i2.evaluate();		
+	Oceanic_mean_phenotype = NULL;
+	Freshwater_mean_phenotype = NULL;
+	substitutionOffset  = 0;
+	for (fix in sim.substitutions){
+		substitutionOffset = substitutionOffset + (2 * fix.selectionCoeff);
+	}	
+
+	for (individual in sim.subpopulations.individuals) //Calculate fitness (.tagF) 
+	{
+		dominantMarine = 2 * sum(individual.uniqueMutationsOfType(m1).selectionCoeff);
+		dominantFreshwater = 2 * sum(individual.uniqueMutationsOfType(m2).selectionCoeff);
+
+		aM = sum(individual.genomes.mutationsOfType(m4).selectionCoeff);
+		aF = sum(individual.genomes.mutationsOfType(m5).selectionCoeff);
+		dM = 2 * sum(individual.uniqueMutationsOfType(m4).selectionCoeff);
+		dF = 2 * sum(individual.uniqueMutationsOfType(m5).selectionCoeff);
+
+		recessiveMarine = (2 * aM) - dM; 
+		recessiveFreshwater = (2 * aF) - dF;
+
+		additiveMarine = sum(individual.genomes.mutationsOfType(m6).selectionCoeff);
+		additiveFreshwater = sum(individual.genomes.mutationsOfType(m7).selectionCoeff);
+	
+		individual.tagF = dominantMarine + recessiveFreshwater + dominantFreshwater + recessiveMarine + additiveMarine + additiveFreshwater + substitutionOffset;		
+	
+	}
+
+	
+	if((sim.generation % INT == 0) | (sim.generation == END))
+	{
+		//TODO Number of mutations per individual. 
+	
+		//---------------------Sample Average Phenotype----------------------------------------
+		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
+		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
+		newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
+
+		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
+
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+
+		allEffectMuts = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		numEffMuts = size(allEffectMuts);
+		total = 0;
+		
+		for (ef in allEffectMuts){
+		
+			s = ef.selectionCoeff;
+			p = sim.mutationFrequencies(p1,ef);
+			additiveGeneticVariance = (s*s)*(p)*(1-p);
+			total = total + additiveGeneticVariance;
+
+		}
+	
+		sgv = total/numEffMuts;
+	
+		//catn(sgv);
+		
+		writeFile(PATH+"sgv.txt",sgv+" ",append = T);
+
+	}
+
+	if(sim.generation == END)
+	{
+		sim.simulationFinished();
+	}
+	for (individual in p3.individuals){
+		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
+	}
+	for (individual in p2.individuals){
+		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
+	}
+	for (individual in p1.individuals){
+		individual.tagF = dnorm(10 - individual.tagF,0.0,15.0);
+	}
+
+	//Normalize the fitness in the lakes so an equivelent mean number of parents get chosen from each.
+ 
+	for (l in 1:NLAKES){
+		locationOfLake = (l - 0.5);
+		lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+		sumOfPhenos = sum(lake_individuals.tagF);
+		lake_individuals.tagF =(lake_individuals.tagF*IPF)/(sumOfPhenos);
+		lake_individuals2 = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
+		sumOfPhenos2 = sum(lake_individuals2.tagF);
+		lake_individuals2.tagF =(lake_individuals2.tagF*IPF)/(sumOfPhenos2);
+	}
+
+}
+
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
 fitness(m4) {return 1.0;}
@@ -243,11 +407,17 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
+20000: fitness(NULL, p3){
+	return individual.tagF;
+}
 1: mateChoice(p2) {
 	return  i1.strength(individual) * weights; 
 }
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
+}
+20000: mateChoice(p3){
+	return i1.strength(individual) * weights;
 }
 
 modifyChild(p1){
@@ -269,6 +439,16 @@ modifyChild(p1){
 }
 
 modifyChild(p2){
+
+	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
+		pos = parent1.spatialPosition + rnorm(1,0,0.5);
+		child.setSpatialPosition(p1.pointReflected(pos));	
+	}else{
+		child.setSpatialPosition(parent1.spatialPosition);
+	}
+	return T;
+}
+20000: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);

@@ -29,7 +29,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-5;
+	recombinationRate = 1e-3;
 
 	migrationRate = 0.005;
 		
@@ -116,7 +116,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
-	writeFile(PATH+"sgv.txt",numberOfSamplingPoints+" "+INT,append = F);
+	//writeFile(PATH+"sgv.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
@@ -163,10 +163,6 @@ initialize() {
 
 }
 
-20000 late(){
-	p2.setMigrationRates(p1,0.0);
-	p1.setMigrationRates(p2,0.0);
-}
 
 
 1: late() {  //ALMOST ALL SAMPLING

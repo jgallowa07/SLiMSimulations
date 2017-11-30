@@ -2,12 +2,12 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_5/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_5Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 10000;
 
 	samplingInterval = 5;
 
@@ -23,9 +23,9 @@ initialize() {
 
 	numberOfEffectRegions = 10;
 
-	sizeOfEffectRegions = 10;
+	sizeOfEffectRegions = 100;
 
-	sizeOfNonEffectBuffer = 495;
+	sizeOfNonEffectBuffer = 4950;
 	
 	mutationRate = 1e-7;
 		
@@ -162,6 +162,7 @@ initialize() {
 	}
 
 }
+
 
 
 1: late() {  //ALMOST ALL SAMPLING

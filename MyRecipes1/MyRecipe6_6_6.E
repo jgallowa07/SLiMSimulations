@@ -2,12 +2,12 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_6/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_6Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 10000;
 
 	samplingInterval = 5;
 
@@ -17,9 +17,9 @@ initialize() {
 	
 	optimumPhenoFresh = -10;
 
-	individualsInOcean = 500;
+	individualsInOcean = 5000;
 	
-	individualsInFresh = 500;
+	individualsInFresh = 5000;
 
 	numberOfEffectRegions = 10;
 

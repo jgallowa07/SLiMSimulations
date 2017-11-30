@@ -2,12 +2,12 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_4/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_4Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 100000;
 
 	samplingInterval = 5;
 
@@ -162,6 +162,7 @@ initialize() {
 	}
 
 }
+
 
 
 1: late() {  //ALMOST ALL SAMPLING

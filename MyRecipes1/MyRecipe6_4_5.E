@@ -2,12 +2,12 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_6_1/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_6_1Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe6_4_5/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe6_4_5Local/";
 
 	//KNOBS//
 
-	endOfSimulation = 20000;
+	endOfSimulation = 10000;
 
 	samplingInterval = 5;
 
@@ -17,15 +17,15 @@ initialize() {
 	
 	optimumPhenoFresh = -10;
 
-	individualsInOcean = 500;
+	individualsInOcean = 2000;
 	
-	individualsInFresh = 500;
+	individualsInFresh = 2000;
 
 	numberOfEffectRegions = 10;
 
-	sizeOfEffectRegions = 10;
+	sizeOfEffectRegions = 100;
 
-	sizeOfNonEffectBuffer = 495;
+	sizeOfNonEffectBuffer = 4950;
 	
 	mutationRate = 1e-7;
 		
@@ -116,7 +116,6 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
-	writeFile(PATH+"sgv.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
@@ -164,6 +163,7 @@ initialize() {
 }
 
 
+
 1: late() {  //ALMOST ALL SAMPLING
 	i1.evaluate();
 	i2.evaluate();		
@@ -205,6 +205,7 @@ initialize() {
 
 		writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 	
+
 	}
 
 	if(sim.generation == END)
