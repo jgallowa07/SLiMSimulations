@@ -83,8 +83,8 @@ MODELS :
 	selection coeff for 
 
 	Evolutionary and Geographic models
-	1: (INTROGRESSION/SPECIATION) Marine pop evolving side - by - side with smaller Freshwater pops.
-	2: (GENEFLOW) migration cut-off (or reduced/increased) (or re-established) between populations
+	1: (INTROGRESSION/SPECIATION) Marine pop evolving side - by - side with smaller Freshwater pops. 
+	2: (GENEFLOW) migration cut-off (or reduced/increased) (or re-established) between populations 
 	3: (ADAPTATION) model 1 but with the introduction of new fresh populations.
 	
 	Genomic Structure models 
@@ -92,8 +92,14 @@ MODELS :
 	2: (Genomic Structure) N 'Effect regions' across the genome. (other regions are neutral with 
 		respect to phenotype==fitness)
 	3: (RR) Recombination Hot/Cold Spots - effect regions having higher or lower rates or recombination.
-	4: inversions. so far we've only tried having one inversion. 
+	4: inversions. so far we've only tried having one inversion.
 
+
+	1, 10, 100 - effect region - another 10 with zero recombination between them. 
+	
+	each of these with the three geographic models. 
+	
+	12 Simulations Total. 
 
 
 PARAMETERS
@@ -121,8 +127,15 @@ SAMPLING
 	8: mutation/mutation frequency distributions
 	9: Number of invertions
 	
-	
+	THTOUGHOUT
+	1: everything ( data memeber ) about the effect mutations	
+	2: compute the Fst as we go along (all pops)
+	3: frequencies amoung populations of each mutation
+	4: SD and Mean Phenotype in each pop (each lake)
 
+	AT THE END:
+	2: PED file
+	3: One file with everyone's phenotype. 
 
 
 
