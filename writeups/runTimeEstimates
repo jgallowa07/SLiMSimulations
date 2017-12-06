@@ -41,7 +41,8 @@ structure(list(gens = c(10000, 20000, 10000, 10000, 1e+05, 10000,
 ), indiv = c(1000, 1000, 1000, 2000, 1000, 1000, 10000), time = structure(c(0, 
 0, 0, 0, 0, 0, 0), year = c(0, 0, 0, 0, 0, 0, 0), month = c(0, 
 0, 0, 0, 0, 0, 0), day = c(0, 0, 0, 0, 0, 0, 0), hour = c(2, 
-5, 2, 7, 28, 5, 3), minute = c(49, 40, 24, 19, 58, 9, 6), class = structure("Period", package = "lubridate"))), .Names = c("gens", 
+5, 2, 7, 28, 5, 3), minute = c(49, 40, 24, 19, 58, 9, 6), class
+ = structure("Period", package = "lubridate"))), .Names = c("gens", 
 "loci", "indiv", "time"), row.names = c(NA, -7L), class = "data.frame")
 
 
@@ -89,8 +90,7 @@ THINGS WE'VE CONCLUDED :
 		-low recombination across genome = 
 			VERY low SGV, low maintenance after loss of mig 
 			but leads to clustering after about 40K gens
-			slows local adaptation way down
-		-recombination low in effect but high in neutral regions = 
+			slows local adaptation way dowHRR	-recombination low in effect but high in neutral regions = 
 			Highest SGV in population, 
 			slightly less maintenance after  	
 
@@ -149,7 +149,7 @@ SAMPLING
 	8: mutation/mutation frequency distributions
 	9: Number of invertions
 	
-	THTOUGHOUT
+	THROUGHOUT
 	1: everything ( data memeber ) about the effect mutations	
 	2: compute the Fst as we go along (all pops)
 	3: frequencies amoung populations of each mutation
