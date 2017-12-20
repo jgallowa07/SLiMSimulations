@@ -29,7 +29,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-6;
+	recombinationRate = 1e-3;
 
 	introduce = 40000;
 
@@ -286,14 +286,15 @@ initialize() {
 		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
 
-		p1_p = p1_p[mean_p != 0];
-		p2_p = p2_p[mean_p != 0];
-		mutpos = mutpos[mean_p != 0];
-		mean_p = mean_p[mean_p != 0]; 
+		//p1_p = p1_p[mean_p != 0];
+		//p2_p = p2_p[mean_p != 0];
+		//mutpos = mutpos[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0]; 
 
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst),append = T);
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutpos),append = T);
@@ -306,14 +307,15 @@ initialize() {
 		p3_p = sim.mutationFrequencies(p3,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p1_p + p3_p) / 2.0;       //average the frequencies. 
 
-		p1_p = p1_p[mean_p != 0];
-		p3_p = p3_p[mean_p != 0];
-		mutpos = mutpos[mean_p != 0];
-		mean_p = mean_p[mean_p != 0]; 
+		//p1_p = p1_p[mean_p != 0];
+		//p3_p = p3_p[mean_p != 0];
+		//mutpos = mutpos[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0]; 
 
 		pq = (p1_p * (1 - p1_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst),append = T);
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutpos),append = T);
@@ -326,14 +328,15 @@ initialize() {
 		p3_p = sim.mutationFrequencies(p3,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p2_p + p3_p) / 2.0;       //average the frequencies. 
 
-		p2_p = p2_p[mean_p != 0];
-		p3_p = p3_p[mean_p != 0];
-		mutpos = mutpos[mean_p != 0];
-		mean_p = mean_p[mean_p != 0]; 
+		//p2_p = p2_p[mean_p != 0];
+		//p3_p = p3_p[mean_p != 0];
+		//mutpos = mutpos[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0]; 
 
 		pq = (p2_p * (1 - p2_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst),append = T);
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutpos),append = T);
@@ -369,23 +372,25 @@ initialize() {
 		p2_p = sim.mutationFrequencies(p2);
 		mean_p = (p1_p + p2_p) / 2.0;
 
-		p1_p = p1_p[mean_p != 0];
-		p2_p = p2_p[mean_p != 0];
-		mean_p = mean_p[mean_p != 0];	
+		//p1_p = p1_p[mean_p != 0];
+		//p2_p = p2_p[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0];	
 
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
+		
+		//pq = pq[mean_pq != 0];
+		//mean_pq = mean_pq[mean_pq != 0];
+		
 		fst = 1 - (pq / mean_pq);		
-	
+		fst = fst[!isNAN(fst)];
 		meanOceanFreshFst = mean(fst);
 		if (isNULL(meanOceanFreshFst)){
 			meanOceanFreshFst = 0; 
 		}
 		
 		AverageFsts = c(AverageFsts,meanOceanFreshFst);
-		//cat("mean Ocean/Fresh Fst: ");
-		//catn(meanOceanFreshFst);
-		
+
 		//-----------------------Between Ocean/Freshwater Fst Sample (Neutral Muts)-----------------------------
 
 		neutralMutations = sim.mutationsOfType(m3);
@@ -394,23 +399,21 @@ initialize() {
 		p2_n = sim.mutationFrequencies(p2,neutralMutations);
 		mean_n = (p1_n + p2_n) / 2.0;
 		
-		p1_n = p1_n[mean_n != 0];
-		p2_n = p2_n[mean_n != 0];
-		mean_n = mean_n[mean_n != 0];	
+		//p1_n = p1_n[mean_n != 0];
+		//p2_n = p2_n[mean_n != 0];
+		//mean_n = mean_n[mean_n != 0];	
 
 		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
 		mean_pqn = mean_n * (1 - mean_n);
 		fst_n = 1 - (pqn / mean_pqn);	
-		
+		fst_n = fst_n[!isNAN(fst_n)];
+				
 		meanOceanFreshFstNeutral = mean(fst_n);
 		if (isNULL(meanOceanFreshFstNeutral)){
 			meanOceanFreshFstNeutral = 0; 
 		}
 
 		AverageFsts = c(AverageFsts,meanOceanFreshFstNeutral);
-
-		//cat("mean Ocean/Fresh Fst (Neutral mutations only): ");
-		//catn(meanOceanFreshFstNeutral);
 		
 		//-----------------------Between Ocean/Freshwater Fst Sample (Effect Muts)-----------------------------
 		
@@ -420,14 +423,15 @@ initialize() {
 		p2_e = sim.mutationFrequencies(p2,effectMutations);
 		mean_e = (p1_e + p2_e) / 2.0;
 		
-		p1_e = p1_e[mean_e != 0];
-		p2_e = p2_e[mean_e != 0];
-		mean_e = mean_e[mean_e != 0];	
+		//p1_e = p1_e[mean_e != 0];
+		//p2_e = p2_e[mean_e != 0];
+		//mean_e = mean_e[mean_e != 0];	
 
 		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
 		mean_pqe = mean_e * (1 - mean_e);
 		fst_e = 1 - (pqe / mean_pqe);	
-		
+		fst_e = fst_e[!isNAN(fst_e)];
+
 		meanOceanFreshFstEffect = mean(fst_e);
 		if (isNULL(meanOceanFreshFstEffect)){
 			meanOceanFreshFstEffect = 0; 
@@ -468,7 +472,7 @@ initialize() {
 
 		mean_p = mean_p[mean_p != 0 & mean_het != 0];
 		mean_het = mean_het[temp != 0 & mean_het != 0];		
-	
+		
 		betweenFirstLakesFst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
 		if (isNULL(betweenFirstLakesFst)){
 			betweenFirstLakesFst = 0; 
@@ -624,13 +628,14 @@ initialize() {
 		p2_p = sim.mutationFrequencies(p3);
 		mean_p = (p1_p + p2_p) / 2.0;
 		
-		p1_p = p1_p[mean_p != 0];
-		p2_p = p2_p[mean_p != 0];
-		mean_p = mean_p[mean_p != 0];	
+		//p1_p = p1_p[mean_p != 0];
+		//p2_p = p2_p[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0];	
 	
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);		
+		fst = fst[!isNAN(fst)];
 	
 		meanOceanFresh2Fst = mean(fst);
 		if (isNULL(meanOceanFresh2Fst)){
@@ -650,13 +655,14 @@ initialize() {
 		p2_n = sim.mutationFrequencies(p3,neutralMutations);
 		mean_n = (p1_n + p2_n) / 2.0;
 		
-		p1_n = p1_n[mean_n != 0];
-		p2_n = p2_n[mean_n != 0];
-		mean_n = mean_n[mean_n != 0];	
+		//p1_n = p1_n[mean_n != 0];
+		//p2_n = p2_n[mean_n != 0];
+		//mean_n = mean_n[mean_n != 0];	
 
 		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
 		mean_pqn = mean_n * (1 - mean_n);
 		fst_n = 1 - (pqn / mean_pqn);	
+		fst_n = fst_n[!isNAN(fst_n)];
 		
 		meanOceanFresh2FstNeutral = mean(fst_n);
 		if (isNULL(meanOceanFresh2FstNeutral)){
@@ -676,13 +682,14 @@ initialize() {
 		p2_e = sim.mutationFrequencies(p3,effectMutations);
 		mean_e = (p1_e + p2_e) / 2.0;
 		
-		p1_e = p1_e[mean_e != 0];
-		p2_e = p2_e[mean_e != 0];
-		mean_e = mean_e[mean_e != 0];	
+		//p1_e = p1_e[mean_e != 0];
+		//p2_e = p2_e[mean_e != 0];
+		//mean_e = mean_e[mean_e != 0];	
 
 		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
 		mean_pqe = mean_e * (1 - mean_e);
 		fst_e = 1 - (pqe / mean_pqe);	
+		fst_e = fst_e[!isNAN(fst_e)];
 		
 		meanOceanFresh2FstEffect = mean(fst_e);
 		if (isNULL(meanOceanFresh2FstEffect)){
@@ -818,13 +825,14 @@ initialize() {
 		p2_p = sim.mutationFrequencies(p3);
 		mean_p = (p1_p + p2_p) / 2.0;
 		
-		p1_p = p1_p[mean_p != 0];
-		p2_p = p2_p[mean_p != 0];
-		mean_p = mean_p[mean_p != 0];	
+		//p1_p = p1_p[mean_p != 0];
+		//p2_p = p2_p[mean_p != 0];
+		//mean_p = mean_p[mean_p != 0];	
 
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);		
+		fst = fst[!isNAN(fst)];
 	
 		meanFreshFresh2Fst = mean(fst);
 		if (isNULL(meanFreshFresh2Fst)){
@@ -841,13 +849,14 @@ initialize() {
 		p2_n = sim.mutationFrequencies(p3,neutralMutations);
 		mean_n = (p1_n + p2_n) / 2.0;
 		
-		p1_n = p1_n[mean_n != 0];
-		p2_n = p2_n[mean_n != 0];
-		mean_n = mean_n[mean_n != 0];	
+		//p1_n = p1_n[mean_n != 0];
+		//p2_n = p2_n[mean_n != 0];
+		//mean_n = mean_n[mean_n != 0];	
 	
 		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
 		mean_pqn = mean_n * (1 - mean_n);
 		fst_n = 1 - (pqn / mean_pqn);	
+		fst_n = fst_n[!isNAN(fst_n)];
 		
 		meanFreshFresh2FstNeutral = mean(fst_n);
 		if (isNULL(meanFreshFresh2FstNeutral)){
@@ -865,13 +874,14 @@ initialize() {
 		p2_e = sim.mutationFrequencies(p3,effectMutations);
 		mean_e = (p1_e + p2_e) / 2.0;
 		
-		p1_e = p1_e[mean_e != 0];
-		p2_e = p2_e[mean_e != 0];
-		mean_e = mean_e[mean_e != 0];	
+		//p1_e = p1_e[mean_e != 0];
+		//p2_e = p2_e[mean_e != 0];
+		//mean_e = mean_e[mean_e != 0];	
 
 		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
 		mean_pqe = mean_e * (1 - mean_e);
 		fst_e = 1 - (pqe / mean_pqe);	
+		fst_e = fst_e[!isNAN(fst_e)];
 		
 		meanOceanFresh2FstEffect = mean(fst_e);
 		if (isNULL(meanOceanFresh2FstEffect)){
