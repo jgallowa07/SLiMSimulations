@@ -294,6 +294,7 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst),append = T);
@@ -315,7 +316,9 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
+		
 
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst),append = T);
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutpos),append = T);
@@ -336,6 +339,7 @@ initialize() {
 		pq = (p2_p * (1 - p2_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst),append = T);

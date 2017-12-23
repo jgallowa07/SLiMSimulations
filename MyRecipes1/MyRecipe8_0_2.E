@@ -29,7 +29,9 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	recombinationRate = 1e-6;
+//	recombinationRate = 1e-6;
+	rrEffect = 1e-6;
+	rrNeut = 1e-3;
 
 	introduce = 40000;
 
@@ -80,21 +82,30 @@ initialize() {
 	//initialize genomic arch.
 	// |----------NonEffect-----------|-Effect(g3)-|----------NonEffect----------|
 
+	recombVector = NULL;
+	lociVector = NULL;
+
 	pos = 0;
 	q = NULL;
 	for (i in 1:C)
 	{
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
+		recombVector = c(recombVector,rrNeut);
+		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g2, pos, pos + P-1);
 		//section = pos:(pos+P-1);
 		//q = c(q,section);
 		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
+		recombVector = c(recombVector,rrEffect);
+		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
+		recombVector = c(recombVector,rrNeut);
+		lociVector = c(lociVector,pos-1);
 	}
 
 	catn("end of chromosome position: "+pos);
@@ -106,7 +117,8 @@ initialize() {
 	catn(Q);	
 	catn(TL);
 
-	initializeRecombinationRate(recombinationRate);	
+	//initializeRecombinationRate(recombinationRate);	
+	initializeRecombinationRate(recombVector,lociVector);	
 
 	//Interation Function for Freshwater mateChoice() callback...
 
@@ -294,6 +306,7 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst),append = T);
@@ -315,6 +328,7 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst),append = T);
@@ -336,6 +350,7 @@ initialize() {
 		pq = (p2_p * (1 - p2_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
 
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst),append = T);
