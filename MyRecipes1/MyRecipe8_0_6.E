@@ -198,13 +198,8 @@ initialize() {
 1: late() {  
 	i1.evaluate();
 	i2.evaluate();		
-	Oceanic_mean_phenotype = NULL;
-	Freshwater_mean_phenotype = NULL;
-	substitutionOffset  = 0;
-
-	for (fix in sim.substitutions){
-		substitutionOffset = substitutionOffset + (2 * fix.selectionCoeff);
-	}	
+	
+	substitutionOffset = 2 * sum(sim.substitutions.selectionCoeff);
 
 	for (individual in sim.subpopulations.individuals) //Calculate fitness (.tagF) 
 	{
@@ -366,7 +361,7 @@ function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
 	{	
 		locationOfLake = (i - 0.5);
 			
-		lake_individuals = p2.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
 		
 		freqs = rep(0, size(mutations));
 		
@@ -383,7 +378,11 @@ function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
 	mean_het = mean_het/NLAKES;         
 	
 	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
-	fst = fst[!isNAN(fst)];
+	fst = mean(fst[!isNAN(fst)]);
+	
+	if(isNULL(fst)){
+		fst = 0.0;
+	}	
 	
 	return mean(fst);
 }
@@ -416,9 +415,13 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 	mean_het = mean_het/NLAKES;         
 
 	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
-	fst = fst[!isNAN(fst)];
+	fst = mean(fst[!isNAN(fst)]);
 	
-	return mean(fst);
+	if(isNULL(fst)){
+		fst = 0.0;
+	}	
+
+	return fst;
 }
 
 1: late(){		//FST SAMPLING P1 & P2
@@ -553,7 +556,7 @@ fitness(NULL, p2) {
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
-		num = parent1.spatialPosition + rnorm(1,0,6.5);
+		num = parent1.spatialPosition + rnorm(1,0,0.5);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
 		if(num < nearestMult){
