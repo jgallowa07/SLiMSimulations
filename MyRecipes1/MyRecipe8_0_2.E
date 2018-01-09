@@ -135,7 +135,7 @@ initialize() {
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
 	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
-	writeFile(PATH+"AverageFst2.txt",numberOfSamplingPoints+" "+INT,append = F);
+	writeFile(PATH+"AverageFst2.txt",numberOfSamplingPoints+" "+INT+" "+INP,append = F);
 	writeFile(PATH+"OceanFreshwaterFst.txt"," ",append = F);
 	writeFile(PATH+"OceanFreshwater2Fst.txt"," ",append = F);
 	writeFile(PATH+"FreshwaterFreshwater2Fst.txt"," ",append = F);
@@ -616,7 +616,7 @@ initialize() {
 		AverageFsts = c(AverageFsts,betweenMarineFst);
 
 		//catn("between Marine Regions Fst: "+ betweenMarineFst);						
-//		catn(AverageFsts);			
+		catn(AverageFsts);			
 		writeFile(PATH+"AverageFst.txt",paste(AverageFsts),append = T);
 	}			
 }

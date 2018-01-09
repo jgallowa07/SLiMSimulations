@@ -176,6 +176,7 @@ initialize() {
 
 }
 
+//--INTRODUCE NEW FRESH POPULATION--
 
 40000 late(){
 
@@ -196,9 +197,14 @@ initialize() {
 	
 
 1: late() {  
+
+	//--EVALUATE SPATIAL INTERALCTION FUNCTIONS--
+	
 	i1.evaluate();
 	i2.evaluate();		
 	
+	//--CALCULATE PHENOTYPE--
+		
 	substitutionOffset = 2 * sum(sim.substitutions.selectionCoeff);
 
 	for (individual in sim.subpopulations.individuals) //Calculate fitness (.tagF) 
@@ -220,12 +226,12 @@ initialize() {
 		individual.tagF = dominantMarine+recessiveFreshwater+dominantFreshwater+recessiveMarine+additiveMarine+additiveFreshwater+substitutionOffset;		
 	}
 
-
+	//--SAMPLE PHENOTYPE--
+	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
-		//---------------------Sample Average Phenotype----------------------------------------
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
@@ -245,7 +251,7 @@ initialize() {
 
 	}
 
-	//Set tag equal to a value to be returned by fitness callback 
+	//--CALCULATE FITNESS BASED UPON PHENOTYPE--
 	
 	for (individual in p2.individuals){
 		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
@@ -259,7 +265,7 @@ initialize() {
 		}
 	}
 
-	//Normalize the fitness in the lakes so an equivelent mean number of parents get chosen from each.
+	//--NORMALIZE FITNESS IN LAKES SO PROPOTIONAL AMOUNT GET CHOSEN IN THE NEXT GEN--
  
 	for (l in 1:NLAKES){
 		locationOfLake = (l - 0.5);
@@ -276,6 +282,8 @@ initialize() {
 			lake_individuals2.tagF =(lake_individuals2.tagF*IPF)/(sumOfPhenos2);
 		}
 	}
+
+	//--SAMPLE FST ACROSS THE GENOME AT THE END BETWEEN ALL PAIRS OF SUBPOPS--
 
 	if(sim.generation == END)
 	{
@@ -337,6 +345,8 @@ initialize() {
 	}
 }
 
+//--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
+
 function (f$)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
 {
 	p1_p = sim.mutationFrequencies(subpop1,mutations);
@@ -350,6 +360,8 @@ function (f$)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mut
 	
 	return mean(fst);
 }
+
+//--HELPER TO CALCULATE FST BETWEEN LAKES--
 
 function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
 {
@@ -387,6 +399,8 @@ function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
 	return mean(fst);
 }
 
+//--HELPER TO CALCULATE FST WITHIN MARINE--
+
 function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 {
 	freqs = rep(0,size(mutations));
@@ -423,6 +437,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 
 	return fst;
 }
+
+//--FST SAMPLING
 
 1: late(){		//FST SAMPLING P1 & P2
 
@@ -476,6 +492,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 	}			
 }
 
+//--MORE FST SAMPLING--
+
 40000: late(){
 
 	if((sim.generation % INT == 0) | (sim.generation == END))
@@ -526,7 +544,7 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 	
 }
 
-
+//--TO OVERRIDE SLIM'S DEFAULT DISTRIBUTION OF FITNESS EFFECTS--
 
 fitness(m1) {return 1.0;}
 fitness(m2) {return 1.0;}
@@ -534,6 +552,9 @@ fitness(m4) {return 1.0;}
 fitness(m5) {return 1.0;}
 fitness(m6) {return 1.0;}
 fitness(m7) {return 1.0;}
+
+//--FITNESS == 
+
 fitness(NULL, p1) {
 	return individual.tagF;
 }
@@ -543,6 +564,9 @@ fitness(NULL, p2) {
 40000: fitness(NULL, p3){
 	return individual.tagF;
 }
+
+//--CHOOSE MATES BASED UPON FITNESS & SPATIAL LOCATION--
+
 1: mateChoice(p2) {
 	return  i1.strength(individual) * weights; 
 }
@@ -553,6 +577,11 @@ fitness(NULL, p2) {
 	return i1.strength(individual) * weights;
 }
 
+//--IF (THE OFFSPRING IS A MIGRANT FROM THE OCEAN) 
+       	//FIND THE CLOSEST LAKE TO MIGRATE TO
+//--ELSE 
+	//MIGRATION FROM PARENT PULLED FROM NORMAL DISTRIBUTION
+ 
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
@@ -570,6 +599,11 @@ modifyChild(p1){
 	}
 	return T;
 }
+
+//--IF(THE OFFSPRING IS MIGRANT FROM THE LAKE)
+	//MIGRATION FROM PARENT'S LAKE PULLED FROM NORMAL DIASTRIBUTION
+//--ELSE
+	//OFFSPRING IS PLACED IN EXACTLY THE SAME LAKE (POSITION) AS PARENT
 
 modifyChild(p2){
 
