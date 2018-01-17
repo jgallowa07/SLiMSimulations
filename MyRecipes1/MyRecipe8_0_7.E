@@ -352,6 +352,7 @@ initialize() {
 		
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 		positions = effectMutations.position;
+		origin = effectMutations.subpopID;
 		age = (rep(sim.generation,size(effectMutations))) - (effectMutations.originGeneration);
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
@@ -370,6 +371,7 @@ initialize() {
 		
 		writeFile(PATH+"EffectMutations.txt",paste(positions),append = F);
 		writeFile(PATH+"EffectMutations.txt",paste(age),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(origin),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(freq2),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(freq3),append = T);
