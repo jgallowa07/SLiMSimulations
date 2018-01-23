@@ -357,6 +357,7 @@ initialize() {
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
 		freq3 = sim.mutationFrequencies(p3,effectMutations);
+		freq4 = sim.mutationFrequencies(NULL,effectMutations);
 		type = effectMutations.mutationType;
 		newType = rep("",size(type));
 
@@ -375,6 +376,7 @@ initialize() {
 		writeFile(PATH+"EffectMutations.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(freq2),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(freq3),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(freq4),append = T);
 		writeFile(PATH+"EffectMutations.txt",paste(newType),append = T);
 	
 		//-------------------Simulation Over---------------------
