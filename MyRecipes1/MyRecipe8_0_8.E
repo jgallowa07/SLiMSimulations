@@ -481,26 +481,6 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 	return fst;
 }
 
-function (f$)writeEffectMutation(o<Mutation> effectMutations)
-{
-		id = effectMutations.id;
-		newType = rep("",size(type));
-
-		for (i in 0:(size(type)-1)){
-			if (type[i] == m1){newType[i] = "DM";}		
-			else if (type[i] == m2){newType[i] = "DF";}		
-			else if (type[i] == m4){newType[i] = "RM";}		
-			else if (type[i] == m5){newType[i] = "RF";}		
-			else if (type[i] == m6){newType[i] = "AM";}		
-			else {newType[i] = "AF";}		
-		}
-		
-		writeFile(PATH+"EffectMutationsThrough.txt",paste(id),append = T);
-		writeFile(PATH+"EffectMutationsThrough.txt",paste(newType),append = T);
-	
-		return 1.0;
-}
-
 
 //--FST SAMPLING
 
@@ -553,8 +533,9 @@ function (f$)writeEffectMutation(o<Mutation> effectMutations)
 
 		catn(AverageFsts);			
 		writeFile(PATH+"AverageFst.txt",paste(AverageFsts),append = T);
-		
-		writeEffectMutation(effectMutations);
+	
+		Ids = effectMutations.id;
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(Ids),append = T);	
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
