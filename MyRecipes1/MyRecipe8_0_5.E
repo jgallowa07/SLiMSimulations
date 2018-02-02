@@ -29,8 +29,9 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	rrEffect = 1e-6;
-	rrNeut = 1e-3;
+	recombinationRateinEffectRegions = 1e-6;
+
+	recombinationRateinNeutralReigions = 1e-3;
 
 	introduce = 40000;
 
@@ -89,18 +90,18 @@ initialize() {
 	{
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
-		recombVector = c(recombVector,rrNeut);
+		recombVector = c(recombVector,recombinationRateinNeutralReigions);
 		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g2, pos, pos + P-1);
 		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
-		recombVector = c(recombVector,rrEffect);
+		recombVector = c(recombVector,recombinationRateinEffectRegions);
 		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
-		recombVector = c(recombVector,rrNeut);
+		recombVector = c(recombVector,recombinationRateinNeutralReigions);
 		lociVector = c(lociVector,pos-1);
 	}
 
@@ -140,6 +141,7 @@ initialize() {
 	
 }
 
+//--INTRODUCE MARINE AND FRESHWATER POPULATION--
 
 1 late(){
 	sim.addSubpop("p1", IIO);  //Marine 

@@ -556,7 +556,7 @@ fitness(NULL, p2) {
 modifyChild(p1){
 
 	if(sourceSubpop != subpop){  //mirant from the Ocean -> Lake 
-		num = parent1.spatialPosition + rnorm(1,0,0.5);
+		num = parent1.spatialPosition + rnorm(1,0,6.5);
 		num = p2.pointReflected(num);
 		nearestMult = round(num);
 		if(num < nearestMult){

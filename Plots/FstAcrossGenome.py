@@ -4,7 +4,7 @@ import plotly.graph_objs as go
 import plotly.plotly as py
 import sys
 
-RecipeNum = "8_0_4"
+RecipeNum = sys.argv[1]
 data = []
 
 def plotThis(Fi,pop1,pop2,rgb):

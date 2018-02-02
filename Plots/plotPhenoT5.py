@@ -13,7 +13,7 @@ data = []
 x_axis = []
 x2_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe6_3_3/AveragePheno1.txt","r")
+File = open("../Output1/MyRecipe8_0_5/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,newLakesIntroduced = (int(i) for i in first.split())
 
@@ -37,7 +37,7 @@ print("numAxis: "+str(numAxis))
 
 for i in range(1,numAxis + 1):
 	x_axis.append(i*interval)
-print(x_axis)	
+#print(x_axis)	
 
 add = [None] * newLakesIntroduced
 
@@ -72,13 +72,13 @@ trace2 = go.Scatter(
 data = [trace0, trace1, trace2]
 
 # Edit the layout
-layout = dict(title = 'Average Phenotype, Rec/Dom/Add mutations for Fresh & Marine',
+layout = dict(title = 'Average Phenotype',
               xaxis = dict(title = 'Generations'),
               yaxis = dict(title = 'Phenotype'),
               )
 
 fig = dict(data=data, layout=layout)
-plotly.offline.plot(fig, filename='6_3_3.html')
+plotly.offline.plot(fig, filename='8_0_5.html')
 
 #py.image.save_as(fig, filename='a-simple-plot.png')
 

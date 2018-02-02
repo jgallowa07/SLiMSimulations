@@ -14,8 +14,8 @@ xAxis = []
 xAxis2 = []
 Traces = []
 
-File = open("../Output1/MyRecipe8_0_5/AverageFst.txt","r")
-File2 = open("../Output1/MyRecipe8_0_5/AverageFst2.txt","r")
+File = open("../Output1/MyRecipe8_0_6/AverageFst.txt","r")
+File2 = open("../Output1/MyRecipe8_0_6/AverageFst2.txt","r")
 first = File.readline()
 first2 = File2.readline()
 numAxis,interval = (int(i) for i in first.split())
@@ -175,4 +175,4 @@ layout = dict(title = 'Average Fst',
 
 fig = dict(data=data, layout=layout)
 #py.iplot(fig, filename='3_0_1 Average Fst')
-plotly.offline.plot(fig, filename='8_0_5Fst.html')
+plotly.offline.plot(fig, filename='8_0_6Fst.html')

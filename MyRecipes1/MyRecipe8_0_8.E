@@ -2,8 +2,8 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_0_7/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_0_7Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_0_8/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_0_8Local/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
@@ -127,6 +127,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
+	writeFile(PATH+"EffectMutationsThrough.txt",numberOfSamplingPoints+" ",append=F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
@@ -353,7 +354,7 @@ initialize() {
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 		positions = effectMutations.position;
 		origin = effectMutations.subpopID;
-		selectCoeff = effectMutations.selectionCoeff
+		selectCoeff = effectMutations.selectionCoeff;
 		age = (rep(sim.generation,size(effectMutations))) - (effectMutations.originGeneration);
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
@@ -480,6 +481,28 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 	return fst;
 }
 
+function (f$)writeEffectMutation(o<Mutation> effectMutations)
+{
+		positions = effectMutations.position;
+		type = effectMutations.mutationType;
+		newType = rep("",size(type));
+
+		for (i in 0:(size(type)-1)){
+			if (type[i] == m1){newType[i] = "DM";}		
+			else if (type[i] == m2){newType[i] = "DF";}		
+			else if (type[i] == m4){newType[i] = "RM";}		
+			else if (type[i] == m5){newType[i] = "RF";}		
+			else if (type[i] == m6){newType[i] = "AM";}		
+			else {newType[i] = "AF";}		
+		}
+		
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(positions),append = T);
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(newType),append = T);
+	
+		return 1.0;
+}
+
+
 //--FST SAMPLING
 
 1: late(){		//FST SAMPLING P1 & P2
@@ -531,6 +554,13 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 
 		catn(AverageFsts);			
 		writeFile(PATH+"AverageFst.txt",paste(AverageFsts),append = T);
+		
+		writeEffectMutation(effectMutations);
+		freq1 = sim.mutationFrequencies(p1,effectMutations);
+		freq2 = sim.mutationFrequencies(p2,effectMutations);
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
+
 	}			
 }
 
@@ -582,6 +612,10 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		AverageFsts = c(AverageFsts,freshIntroFstEffect);
 
 		writeFile(PATH+"AverageFst2.txt",paste(AverageFsts),append = T);
+
+		freq3 = sim.mutationFrequencies(p3,effectMutations);
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
+
 	}	
 	
 }
