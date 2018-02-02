@@ -127,7 +127,7 @@ initialize() {
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
 	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
-	writeFile(PATH+"EffectMutationsThrough.txt",numberOfSamplingPoints+" ",append=F);
+	writeFile(PATH+"EffectMutationsThrough.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
 	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
 	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
 	//writeFile(PATH+"myData.ped"," ",append = F);
@@ -483,8 +483,7 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 
 function (f$)writeEffectMutation(o<Mutation> effectMutations)
 {
-		positions = effectMutations.position;
-		type = effectMutations.mutationType;
+		id = effectMutations.id;
 		newType = rep("",size(type));
 
 		for (i in 0:(size(type)-1)){
@@ -496,7 +495,7 @@ function (f$)writeEffectMutation(o<Mutation> effectMutations)
 			else {newType[i] = "AF";}		
 		}
 		
-		writeFile(PATH+"EffectMutationsThrough.txt",paste(positions),append = T);
+		writeFile(PATH+"EffectMutationsThrough.txt",paste(id),append = T);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(newType),append = T);
 	
 		return 1.0;
