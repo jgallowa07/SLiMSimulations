@@ -295,6 +295,7 @@ initialize() {
 
 		muts = sim.mutations;
 		mutpos = muts.position;
+		ids = muts.id;
 		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
 		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
@@ -302,8 +303,12 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		ids = ids[!isNAN(fst)];
 		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
+
+		top_mutations = ids[fst > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = " + paste(top_mutations));
 
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst),append = T);
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutpos),append = T);
@@ -312,6 +317,7 @@ initialize() {
 
 		muts = sim.mutations;
 		mutpos = muts.position;
+		ids = muts.id;
 		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
 		p3_p = sim.mutationFrequencies(p3,muts); //get frequencies of all mutations in terms of p2
 		mean_p = (p1_p + p3_p) / 2.0;       //average the frequencies. 
@@ -319,8 +325,12 @@ initialize() {
 		pq = (p1_p * (1 - p1_p) + p3_p * (1 - p3_p))/2.0;
 		mean_pq = mean_p * (1 - mean_p);
 		fst = 1 - (pq / mean_pq);
+		ids = ids[!isNAN(fst)];
 		mutpos = mutpos[!isNAN(fst)];
 		fst = fst[!isNAN(fst)];
+
+		top_mutations = ids[fst > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Introduced) > 0.5 } = " + paste(top_mutations));
 
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst),append = T);
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutpos),append = T);
@@ -350,7 +360,8 @@ initialize() {
 		m5s = sim.mutationsOfType(m5);			
 		m6s = sim.mutationsOfType(m6);			
 		m7s = sim.mutationsOfType(m7);			
-		
+
+				
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 		positions = effectMutations.position;
 		origin = effectMutations.subpopID;
@@ -371,6 +382,8 @@ initialize() {
 			else if (type[i] == m6){newType[i] = "AM";}		
 			else {newType[i] = "AF";}		
 		}
+
+		
 		
 		writeFile(PATH+"EffectMutations.txt",paste(positions),append = F);
 		writeFile(PATH+"EffectMutations.txt",paste(age),append = T);
