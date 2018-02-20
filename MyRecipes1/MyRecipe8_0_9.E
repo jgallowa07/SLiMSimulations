@@ -4,7 +4,7 @@ initialize() {
 
 	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_0_9/";
 	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_0_9Local/";
-	//pathToOutputFile = "~/Desktop/";
+	pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
 
@@ -177,6 +177,17 @@ initialize() {
 		}
 	}
 
+}
+
+//--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
+39998 late(){
+	p1.setMigrationRates(p2,0.0);
+	p2.setMigrationRates(p1,0.0);
+}
+//--BRING MIGRATION BACK AFTER
+40001 late(){
+	p1.setMigrationRates(p2,MGR);
+	p2.setMigrationRates(p1,MGR);
 }
 
 //--INTRODUCE NEW FRESH POPULATION--
@@ -401,6 +412,39 @@ initialize() {
 	}
 }
 
+/*
+function (numeric $)cov(numeric x, numeric y){
+	
+	
+	numSamples = size(x);
+	meanx = mean(x);
+	meany = mean(y);
+	summ = 0;
+	
+	for i in 0:(numSamples-1){	
+		xi = x[i] - meanx;
+		yi = y[i] - meany;
+		summ = summ + (xi * yi)/numSamples;		
+	}
+
+	return summ;
+
+}
+
+function (numeric $)cor(numeric x,numeric y){
+
+	
+	if(size(x) != size(y)){
+		catn("Sizes are not the same for cov calc");
+		sim.simulationFinished();
+	}
+	
+	ret = cov(x,y) / sqrt(cov(x,x) * cov(y,y));
+	
+
+}
+*/
+
 //--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
 
 function (f$)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
@@ -547,13 +591,17 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		catn(AverageFsts);			
 		writeFile(PATH+"AverageFst.txt",paste(AverageFsts),append = T);
 	
+
+		if(sim.generation == 40000){
+			writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
+		}
+
 		Ids = effectMutations.id;
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(Ids),append = T);	
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
-		writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
 		
 
 	}			
@@ -562,6 +610,7 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 //--MORE FST SAMPLING--
 
 40000: late(){
+
 
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
@@ -610,6 +659,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 
 		freq3 = sim.mutationFrequencies(p3,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
+		
+				
 
 	}	
 	
