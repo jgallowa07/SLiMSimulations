@@ -8,7 +8,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 400;
+	endOfSimulation = 40000;
 
 	samplingInterval = 50;
 
