@@ -8,7 +8,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 80000;
+	endOfSimulation = 40000;
 
 	samplingInterval = 50;
 
@@ -33,9 +33,9 @@ initialize() {
 	rrEffect = 1e-3;
 	rrNeut = 1e-3;
 
-	introduce = 40000;
+	introduce = 20000;
 
-	migrationRate = 0.0025;
+	migrationRate = 0.005;
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
@@ -111,8 +111,8 @@ initialize() {
 	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
 		
-	catn(Q);	
-	catn(TL);
+//	catn(Q);	
+//	catn(TL);
 
 	initializeRecombinationRate(recombVector,lociVector);	
 
@@ -126,19 +126,13 @@ initialize() {
 	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
 	i2.setInteractionFunction("n", 0.5, 0.5);
 	
-	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
+//	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
 	writeFile(PATH+"EffectMutationsThrough.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
-	//writeFile(PATH+"MeanVarience.txt",numberOfSamplingPoints+" "+INT,append = F);
-	//writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+NLAKES,append = F);
-	//writeFile(PATH+"myData.ped"," ",append = F);
-	writeFile(PATH+"AverageFst.txt",numberOfSamplingPoints+" "+INT,append = F);
-	writeFile(PATH+"AverageFst2.txt",numberOfSamplingPoints+" "+INT+" "+INP,append = F);
+	writeFile(PATH+"sharedAlleles.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
+	writeFile(PATH+"freshAlleleFreqInMarine.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
 	writeFile(PATH+"OceanFreshwaterFst.txt"," ",append = F);
 	writeFile(PATH+"OceanFreshwater2Fst.txt"," ",append = F);
 	writeFile(PATH+"FreshwaterFreshwater2Fst.txt"," ",append = F);
-	//writeFile(PATH+"MatrixAllelesAll.txt",100+" "+TL,append = F);
-	//writeFile(PATH+"PhenoDist.txt",100+" "+TL,append = F);
-	//writeFile(PATH+"Correlations.txt",asString(TL),append = F);
 	
 }
 
@@ -178,10 +172,21 @@ initialize() {
 	}
 
 }
-
+/*
+//--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
+388 late(){
+	p1.setMigrationRates(p2,0.0);
+	p2.setMigrationRates(p1,0.0);
+}
+//--BRING MIGRATION BACK AFTER
+401 late(){
+	p1.setMigrationRates(p2,MGR);
+	p2.setMigrationRates(p1,MGR);
+}
+*/
 //--INTRODUCE NEW FRESH POPULATION--
 
-40000 late(){
+20000 late(){
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));
@@ -246,9 +251,9 @@ initialize() {
 		if (sim.generation >= INP){
 			newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
 			catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
-			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
+//			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
 		}else{
-			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
+//			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
 		}
 
 
@@ -290,120 +295,72 @@ initialize() {
 
 	if(sim.generation == END)
 	{
+
+		muts = sim.mutations;
+		mutpos = muts.position;
+		ids = muts.id;
 		
 		//FST PER MUTATION ----------------------------- OceanFreshwater ----------------------
 
-		muts = sim.mutations;
-		mutpos = muts.position;
-		ids = muts.id;
-		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
-		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p2
-		mean_p = (p1_p + p2_p) / 2.0;       //average the frequencies. 
 
-		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
-		mean_pq = mean_p * (1 - mean_p);
-		fst = 1 - (pq / mean_pq);
-		ids = ids[!isNAN(fst)];
-		mutpos = mutpos[!isNAN(fst)];
-		fst = fst[!isNAN(fst)];
+		fst1 = calcFST(p1,p2,muts);
 
-		top_mutations = ids[fst > 0.5];
-		catn("{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = " + paste(top_mutations));
+		ids1 = ids[!isNAN(fst1)];
+		mutPosMatch1 = mutpos[!isNAN(fst1)];
+		fst1 = fst1[!isNAN(fst1)];
 
-		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst),append = T);
-		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutpos),append = T);
+		top_mutations1 = ids1[fst1 > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = " + paste(top_mutations1));
+
+		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst1),append = T);
+		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutPosMatch1),append = T);
 
 		//FST PER MUTATION ----------------------------- OceanFreshwater2 ----------------------
 
-		muts = sim.mutations;
-		mutpos = muts.position;
-		ids = muts.id;
-		p1_p = sim.mutationFrequencies(p1,muts); //get frequencies of all mutations in terms of p1
-		p3_p = sim.mutationFrequencies(p3,muts); //get frequencies of all mutations in terms of p2
-		mean_p = (p1_p + p3_p) / 2.0;       //average the frequencies. 
+		fst2 = calcFST(p1,p3,muts);
 
-		pq = (p1_p * (1 - p1_p) + p3_p * (1 - p3_p))/2.0;
-		mean_pq = mean_p * (1 - mean_p);
-		fst = 1 - (pq / mean_pq);
-		ids = ids[!isNAN(fst)];
-		mutpos = mutpos[!isNAN(fst)];
-		fst = fst[!isNAN(fst)];
+		ids2 = ids[!isNAN(fst2)];
+		mutPosMatch2 = mutpos[!isNAN(fst2)];
+		fst2 = fst2[!isNAN(fst2)];
 
-		top_mutations = ids[fst > 0.5];
-		catn("{ Effect Mutations | fst(Ocean,Introduced) > 0.5 } = " + paste(top_mutations));
+		top_mutations2 = ids2[fst2 > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Introduced) > 0.5 } = " + paste(top_mutations2));
 
-		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst),append = T);
-		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutpos),append = T);
+		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst2),append = T);
+		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutPosMatch2),append = T);
 
 		//FST PER MUTATION ----------------------------- FreshwaterFreshwater2 ----------------------
+		
+		fst3 = calcFST(p2,p3,muts);
 
-		muts = sim.mutations;
-		mutpos = muts.position;
-		p2_p = sim.mutationFrequencies(p2,muts); //get frequencies of all mutations in terms of p1
-		p3_p = sim.mutationFrequencies(p3,muts); //get frequencies of all mutations in terms of p2
-		mean_p = (p2_p + p3_p) / 2.0;       //average the frequencies. 
+		mutPosMatch3 = mutpos[!isNAN(fst3)];
+		fst3 = fst3[!isNAN(fst3)];
 
-		pq = (p2_p * (1 - p2_p) + p3_p * (1 - p3_p))/2.0;
-		mean_pq = mean_p * (1 - mean_p);
-		fst = 1 - (pq / mean_pq);
-		mutpos = mutpos[!isNAN(fst)];
-		fst = fst[!isNAN(fst)];
-
-		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst),append = T);
-		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutpos),append = T);
+		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst3),append = T);
+		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutPosMatch3),append = T);
 	
 		//------------------Effect Mutation Sampling-------------
 		
-		m1s = sim.mutationsOfType(m1);			
-		m2s = sim.mutationsOfType(m2);			
-		m4s = sim.mutationsOfType(m4);			
-		m5s = sim.mutationsOfType(m5);			
-		m6s = sim.mutationsOfType(m6);			
-		m7s = sim.mutationsOfType(m7);			
-
-				
-		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
-		positions = effectMutations.position;
-		origin = effectMutations.subpopID;
-		selectCoeff = effectMutations.selectionCoeff;
-		age = (rep(sim.generation,size(effectMutations))) - (effectMutations.originGeneration);
-		freq1 = sim.mutationFrequencies(p1,effectMutations);
-		freq2 = sim.mutationFrequencies(p2,effectMutations);
-		freq3 = sim.mutationFrequencies(p3,effectMutations);
-		freq4 = sim.mutationFrequencies(NULL,effectMutations);
-		type = effectMutations.mutationType;
-		newType = rep("",size(type));
-
-		for (i in 0:(size(type)-1)){
-			if (type[i] == m1){newType[i] = "DM";}		
-			else if (type[i] == m2){newType[i] = "DF";}		
-			else if (type[i] == m4){newType[i] = "RM";}		
-			else if (type[i] == m5){newType[i] = "RF";}		
-			else if (type[i] == m6){newType[i] = "AM";}		
-			else {newType[i] = "AF";}		
-		}
-
-		
-		
-		writeFile(PATH+"EffectMutations.txt",paste(positions),append = F);
-		writeFile(PATH+"EffectMutations.txt",paste(age),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(origin),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(selectCoeff),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(freq1),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(freq2),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(freq3),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(freq4),append = T);
-		writeFile(PATH+"EffectMutations.txt",paste(newType),append = T);
-	
-		//-------------------Simulation Over---------------------
-	
 		sim.simulationFinished();
 	}
 }
 
+
+function (f)mutFreq(o<Mutation> mutations, o<Individual> individuals)
+{
+	freqs = rep(0,size(mutations));
+	for (geno in individuals.genomes)
+	{
+		freqs = freqs + asInteger(geno.containsMutations(mutations));		
+	}
+	freqs = freqs / (2 * size(individuals));
+	
+	return freqs;
+}
+
 //--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
 
-function (f$)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
+function (f)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
 {
 	p1_p = sim.mutationFrequencies(subpop1,mutations);
 	p2_p = sim.mutationFrequencies(subpop2,mutations);
@@ -412,92 +369,30 @@ function (f$)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mut
 	pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
 	mean_pq = mean_p * (1 - mean_p);
 	fst = 1 - (pq / mean_pq);		
-	fst = fst[!isNAN(fst)];
 	
-	return mean(fst);
-}
-
-//--HELPER TO CALCULATE FST BETWEEN LAKES--
-
-function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
-{
-	freqs = rep(0,size(mutations));
-	mean_p = freqs;
-	mean_het = freqs;
-
-	for (i in 1:NLAKES)
-	{	
-		locationOfLake = (i - 0.5);
-			
-		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
-		
-		freqs = rep(0, size(mutations));
-		
-		for (geno in lake_individuals.genomes)
-		{
-			freqs = freqs + asInteger(geno.containsMutations(mutations));		
-		}
-		freqs = freqs / (2*size(lake_individuals));
-		mean_p = mean_p + freqs;
-		mean_het = mean_het + (freqs * (1-freqs));
-	} 
-	
-	mean_p = mean_p/NLAKES;        
-	mean_het = mean_het/NLAKES;         
-	
-	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
-	fst = mean(fst[!isNAN(fst)]);
-	
-	if(isNULL(fst)){
-		fst = 0.0;
-	}	
-	
-	return mean(fst);
-}
-
-//--HELPER TO CALCULATE FST WITHIN MARINE--
-
-function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
-{
-	freqs = rep(0,size(mutations));
-	mean_p = freqs;
-	mean_het = freqs;
-
-	for (i in 1:NLAKES)
-	{	
-		leftBound = (i - 1);
-		rightBound = i;
-
-		region_individuals = p1.individuals[p1.individuals.x >= leftBound & p1.individuals.x < rightBound];
-					
-		freqs = rep(0, size(mutations));
-		
-		for (geno in region_individuals.genomes)
-		{
-			freqs = freqs + asInteger(geno.containsMutations(mutations));		
-		}
-		freqs = freqs / (2*size(region_individuals));
-		mean_p = mean_p + freqs;
-		mean_het = mean_het + (freqs * (1-freqs));
-	} 
-	
-	mean_p = mean_p/NLAKES;        
-	mean_het = mean_het/NLAKES;         
-
-	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
-	fst = mean(fst[!isNAN(fst)]);
-	
-	if(isNULL(fst)){
-		fst = 0.0;
-	}	
-
 	return fst;
 }
 
+function (o<Mutation>)getHighFreqFreshAlleles(o<Subpopulation>$ subpop, o<Mutation> mutations)
+{
+	ret = NULL;	
+	for (i in 1:NLAKES){
 
-//--FST SAMPLING
+		locationOfLake = (i - 0.5);
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		freq = mutFreq(mutations,lake_individuals);
+		Ki = mutations[freq > 0.5];
+		ret = c(ret,Ki);		
 
-1: late(){		//FST SAMPLING P1 & P2
+	}	
+	
+	return ret;
+			
+}
+
+//--SAMPLING--
+
+1: late(){		
 
 
 	if((sim.generation % INT == 0) | (sim.generation == END))
@@ -505,6 +400,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		//GET MUTATIONS THAT ONLY EXIST IN WANTED POPULATIONS FOR SAMPLING.
 		
 		AverageFsts = NULL;
+		highFreqAllelesInp2 = NULL;
+		highFreqAllelesInp3 = NULL;
 
 		m1s = sim.mutationsOfType(m1);			
 		m2s = sim.mutationsOfType(m2);			
@@ -517,103 +414,58 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 		neutralMutations = sim.mutationsOfType(m3);
 		
-		OceanFreshFst = calcFST(p1,p2,allMutations);
-		AverageFsts = c(AverageFsts,OceanFreshFst);
+		if(sim.generation == INP){
+			writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
+		}
 
-		OceanFreshFstNeutral = calcFST(p1,p2,neutralMutations);
-		AverageFsts = c(AverageFsts,OceanFreshFstNeutral);
-		
-		OceanFreshFstEffect = calcFST(p1,p2,effectMutations);
-		AverageFsts = c(AverageFsts,OceanFreshFstEffect);
-			 
-		betweenLakesFst = calcFSTbetween(p2,allMutations);
-		AverageFsts = c(AverageFsts,betweenLakesFst);
-
-		betweenLakesFstNeutral = calcFSTbetween(p2,neutralMutations);	
-		AverageFsts = c(AverageFsts,betweenLakesFstNeutral);
-
-		betweenLakesFstEffect = calcFSTbetween(p2,effectMutations);	
-		AverageFsts = c(AverageFsts,betweenLakesFstEffect);
-
-		betweenMarineFst = calcFSTbetweenMarine(allMutations);	
-		AverageFsts = c(AverageFsts,betweenMarineFst);
-
-		betweenMarineFstNeutral = calcFSTbetweenMarine(neutralMutations);	
-		AverageFsts = c(AverageFsts,betweenMarineFstNeutral);
-	
-		betweenMarineFstEffect = calcFSTbetweenMarine(effectMutations);	
-		AverageFsts = c(AverageFsts,betweenMarineFstEffect);
-
-		catn(AverageFsts);			
-		writeFile(PATH+"AverageFst.txt",paste(AverageFsts),append = T);
-	
 		Ids = effectMutations.id;
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(Ids),append = T);	
 		freq1 = sim.mutationFrequencies(p1,effectMutations);
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
-		writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
-		
 
+		if(sim.generation >= INP){
+
+			freq3 = sim.mutationFrequencies(p3,effectMutations);
+			writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
+
+			highFreqAllelesInp3 = getHighFreqFreshAlleles(p3,effectMutations);			
+
+		}
+
+		highFreqAllelesInp2 = getHighFreqFreshAlleles(p2,effectMutations);
+		highFreqAlleles = c(highFreqAllelesInp2,highFreqAllelesInp3);
+
+		freshHaplo = unique(highFreqAlleles);
+
+		sharedAlleles = size(highFreqAlleles) - size(freshHaplo);
+
+		freqInMarine = sim.mutationFrequencies(p1,freshHaplo);	
+//		freqInFresh = sim.mutationFrequencies(p2,freshHaplo);
+		freshAlleleFreqInMarine = sum(freqInMarine);
+/*
+		cat("highFreqAllelesInp2: ");
+		catn(highFreqAllelesInp2);
+		cat("highFreqAllelesInp3: ");
+		catn(highFreqAllelesInp3);
+		cat("freshHaplo: ");
+		catn(freshHaplo);
+		cat("sharedAlleles: ");
+		catn(sharedAlleles);
+		cat("freqInMarine: ");
+		catn(freqInMarine);
+		cat("freqInFresh: ");
+		catn(freqInFresh);
+		cat("Sum of freqInMarine: ");
+		catn(freshAlleleFreqInMarine);
+*/
+		writeFile(PATH+"sharedAlleles.txt",asString(sharedAlleles),append = T);
+		writeFile(PATH+"freshAlleleFreqInMarine.txt",asString(freshAlleleFreqInMarine),append = T);
+		
 	}			
 }
 
-//--MORE FST SAMPLING--
-
-40000: late(){
-
-	if((sim.generation % INT == 0) | (sim.generation == END))
-	{
-
-		AverageFsts = NULL;
-
-		m1s = sim.mutationsOfType(m1);			
-		m2s = sim.mutationsOfType(m2);			
-		m4s = sim.mutationsOfType(m4);			
-		m5s = sim.mutationsOfType(m5);			
-		m6s = sim.mutationsOfType(m6);			
-		m7s = sim.mutationsOfType(m7);			
-
-		allMutations = sim.mutations;
-		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
-		neutralMutations = sim.mutationsOfType(m3);
-	
-		MarineIntroFst = calcFST(p1,p3,allMutations);	
-		AverageFsts = c(AverageFsts,MarineIntroFst);
-		
-		MarineIntroFstNeutral = calcFST(p1,p3,neutralMutations);
-		AverageFsts = c(AverageFsts,MarineIntroFstNeutral);
-	
-		MarineIntroFstEffect = calcFST(p1,p3,effectMutations);
-		AverageFsts = c(AverageFsts,MarineIntroFstEffect);
-
-		betweenIntroFst = calcFSTbetween(p3,allMutations);
-		AverageFsts = c(AverageFsts,betweenIntroFst); 	
-
-		betweenIntroFstNeutral = calcFSTbetween(p3,neutralMutations);
-		AverageFsts = c(AverageFsts,betweenIntroFstNeutral); 	
-
-		betweenIntroFstEffect = calcFSTbetween(p3,effectMutations);
-		AverageFsts = c(AverageFsts,betweenIntroFstEffect); 	
-
-		freshIntroFst = calcFST(p2,p3,allMutations);
-		AverageFsts = c(AverageFsts,freshIntroFst);
-		
-		freshIntroFstNeutral = calcFST(p2,p3,neutralMutations);
-		AverageFsts = c(AverageFsts,freshIntroFstNeutral);
-
-		freshIntroFstEffect = calcFST(p2,p3,effectMutations);
-		AverageFsts = c(AverageFsts,freshIntroFstEffect);
-
-		writeFile(PATH+"AverageFst2.txt",paste(AverageFsts),append = T);
-
-		freq3 = sim.mutationFrequencies(p3,effectMutations);
-		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
-
-	}	
-	
-}
 
 //--TO OVERRIDE SLIM'S DEFAULT DISTRIBUTION OF FITNESS EFFECTS--
 
@@ -625,6 +477,7 @@ fitness(m6) {return 1.0;}
 fitness(m7) {return 1.0;}
 
 //--FITNESS == 
+//--WE DEFINE FITNESS TO BE DIRECTLY CORRELATED TO THIER PHENOTYPE--
 
 fitness(NULL, p1) {
 	return individual.tagF;
@@ -632,7 +485,7 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
-40000: fitness(NULL, p3){
+20000: fitness(NULL, p3){
 	return individual.tagF;
 }
 
@@ -644,7 +497,7 @@ fitness(NULL, p2) {
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
 }
-40000: mateChoice(p3){
+20000: mateChoice(p3){
 	return i1.strength(individual) * weights;
 }
 
@@ -687,7 +540,7 @@ modifyChild(p2){
 	return T;
 }
 
-40000: modifyChild(p3){
+20000: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
