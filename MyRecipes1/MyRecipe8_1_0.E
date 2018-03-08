@@ -8,7 +8,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 40000;
+	endOfSimulation = 400;
 
 	samplingInterval = 50;
 
@@ -33,7 +33,7 @@ initialize() {
 	rrEffect = 1e-3;
 	rrNeut = 1e-3;
 
-	introduce = 20000;
+	introduce = 80000;
 
 	migrationRate = 0.005;
 
@@ -186,7 +186,7 @@ initialize() {
 */
 //--INTRODUCE NEW FRESH POPULATION--
 
-20000 late(){
+80000 late(){
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));
@@ -316,7 +316,7 @@ initialize() {
 		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutPosMatch1),append = T);
 
 		//FST PER MUTATION ----------------------------- OceanFreshwater2 ----------------------
-
+/*
 		fst2 = calcFST(p1,p3,muts);
 
 		ids2 = ids[!isNAN(fst2)];
@@ -328,9 +328,9 @@ initialize() {
 
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst2),append = T);
 		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutPosMatch2),append = T);
-
+*/
 		//FST PER MUTATION ----------------------------- FreshwaterFreshwater2 ----------------------
-		
+/*		
 		fst3 = calcFST(p2,p3,muts);
 
 		mutPosMatch3 = mutpos[!isNAN(fst3)];
@@ -338,7 +338,7 @@ initialize() {
 
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst3),append = T);
 		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutPosMatch3),append = T);
-	
+*/	
 		//------------------Effect Mutation Sampling-------------
 		
 		sim.simulationFinished();
@@ -485,7 +485,7 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
-20000: fitness(NULL, p3){
+80000: fitness(NULL, p3){
 	return individual.tagF;
 }
 
@@ -497,7 +497,7 @@ fitness(NULL, p2) {
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
 }
-20000: mateChoice(p3){
+80000: mateChoice(p3){
 	return i1.strength(individual) * weights;
 }
 
@@ -540,7 +540,7 @@ modifyChild(p2){
 	return T;
 }
 
-20000: modifyChild(p3){
+80000: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
