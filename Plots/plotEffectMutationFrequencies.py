@@ -77,10 +77,11 @@ for line in File:
 	
 	intervalCount += 1
 
+file2 = open
 			
-disDict1 = {k:MutationFrequenciesp1[k] for k in (2312765,7286,36974,419858,10933,22680,1553296,2327910,4638175)}
-disDict2 = {k:MutationFrequenciesp2[k] for k in (2312765,7286,36974,419858,10933,22680,1553296,2327910,4638175)}
-disDict3 = {k:MutationFrequenciesp3[k] for k in (2312765,7286,36974,419858,10933,22680,1553296,2327910,4638175)}
+disDict1 = {k:MutationFrequenciesp1[k] for k in (178833,1796380,7251872)}
+disDict2 = {k:MutationFrequenciesp2[k] for k in (178833,1796380,7251872)}
+disDict3 = {k:MutationFrequenciesp3[k] for k in (178833,1796380,7251872)}
 
 Traces = []
 
@@ -152,5 +153,5 @@ layout = dict(title = 'Effect Mutation Frequency Trajectory',
 
 fig = dict(data=data, layout=layout)
 #py.iplot(fig, filename='3_0_1 Average Fst')
-plotly.offline.plot(fig, filename='8_0_8EffectMutationFrequencyTrajectory_FstAbove50.html')
+plotly.offline.plot(fig, filename=recipeNumber + 'EffectMutationFrequencyTrajectory_FstAbove50.html')
 

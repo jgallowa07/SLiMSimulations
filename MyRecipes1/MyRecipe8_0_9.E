@@ -471,8 +471,7 @@ function (f$)calcFSTbetween(o<Subpopulation>$ subpop, o<Mutation> mutations)
 
 	for (i in 1:NLAKES)
 	{	
-		locationOfLake = (i - 0.5);
-			
+		locationOfLake = (i - 0.5);		
 		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
 		
 		freqs = rep(0, size(mutations));

@@ -8,12 +8,13 @@ col1 = []
 col2 = []
 col3 = []
 
+Recipe = sys.argv[1]
 
 data = []
 x_axis = []
 x2_axis = []
 lake_traces = []
-File = open("../Output1/MyRecipe8_0_5/AveragePheno.txt","r")
+File = open("../Output1/MyRecipe"+Recipe+"/AveragePheno.txt","r")
 first = File.readline()
 numAxis,interval,newLakesIntroduced = (int(i) for i in first.split())
 

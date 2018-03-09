@@ -553,6 +553,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		freq2 = sim.mutationFrequencies(p2,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
+		writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
+		
 
 	}			
 }
