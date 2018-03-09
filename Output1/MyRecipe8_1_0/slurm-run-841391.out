@@ -1,0 +1,4059 @@
+Task ID  - seed 007992
+Parameters for SLiM run:
+  -s 007992 MyRecipe8_1_0.E
+// Initial random seed:
+1522358033873
+
+// RunInitializeCallbacks():
+initializeSLiMOptions(dimensionality = 'x');
+initializeMutationRate(1e-07);
+initializeMutationType(1, 0.5, "g", 0.5, 1);
+initializeMutationType(2, 0.5, "g", -0.5, 1);
+initializeMutationType(3, 0.5, "f", 0);
+initializeMutationType(4, 0.5, "g", 0.5, 1);
+initializeMutationType(5, 0.5, "g", -0.5, 1);
+initializeMutationType(6, 0.5, "g", 0.6, 1);
+initializeMutationType(7, 0.5, "g", -0.6, 1);
+initializeGenomicElementType(1, m3, 1);
+initializeGenomicElementType(2, c(m1, m2, m3, m4, m5, m6, m7), c(1, 1, 1, 1, 1, 1, 1));
+initializeGenomicElement(g1, 0, 4949);
+initializeGenomicElement(g2, 4950, 5049);
+initializeGenomicElement(g1, 5050, 9999);
+initializeGenomicElement(g1, 10000, 14949);
+initializeGenomicElement(g2, 14950, 15049);
+initializeGenomicElement(g1, 15050, 19999);
+initializeGenomicElement(g1, 20000, 24949);
+initializeGenomicElement(g2, 24950, 25049);
+initializeGenomicElement(g1, 25050, 29999);
+initializeGenomicElement(g1, 30000, 34949);
+initializeGenomicElement(g2, 34950, 35049);
+initializeGenomicElement(g1, 35050, 39999);
+initializeGenomicElement(g1, 40000, 44949);
+initializeGenomicElement(g2, 44950, 45049);
+initializeGenomicElement(g1, 45050, 49999);
+initializeGenomicElement(g1, 50000, 54949);
+initializeGenomicElement(g2, 54950, 55049);
+initializeGenomicElement(g1, 55050, 59999);
+initializeGenomicElement(g1, 60000, 64949);
+initializeGenomicElement(g2, 64950, 65049);
+initializeGenomicElement(g1, 65050, 69999);
+initializeGenomicElement(g1, 70000, 74949);
+initializeGenomicElement(g2, 74950, 75049);
+initializeGenomicElement(g1, 75050, 79999);
+initializeGenomicElement(g1, 80000, 84949);
+initializeGenomicElement(g2, 84950, 85049);
+initializeGenomicElement(g1, 85050, 89999);
+initializeGenomicElement(g1, 90000, 94949);
+initializeGenomicElement(g2, 94950, 95049);
+initializeGenomicElement(g1, 95050, 99999);
+end of chromosome position: 100000
+initializeRecombinationRate(c(0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001), c(4949, 5049, 9999, 14949, 15049, 19999, 24949, 25049, 29999, 34949, 35049, 39999, 44949, 45049, 49999, 54949, 55049, 59999, 64949, 65049, 69999, 74949, 75049, 79999, 84949, 85049, 89999, 94949, 95049, 99999));
+initializeInteractionType(1, "x", reciprocal=T", maxDistance=0.02);
+initializeInteractionType(2, "x", reciprocal=T", maxDistance=1);
+
+// Starting run at generation <start>:
+1 
+
+-------------------------------
+Output1 for generation 50:
+
+Oceanic mean pheno: -0.000568231
+Freshwater mean pheno: -0.000307111
+-------------------------------
+Output1 for generation 100:
+
+Oceanic mean pheno: 0.00583797
+Freshwater mean pheno: -0.0031329
+-------------------------------
+Output1 for generation 150:
+
+Oceanic mean pheno: 1.49772e-05
+Freshwater mean pheno: -0.0301991
+-------------------------------
+Output1 for generation 200:
+
+Oceanic mean pheno: 0.00673733
+Freshwater mean pheno: -0.0575078
+-------------------------------
+Output1 for generation 250:
+
+Oceanic mean pheno: 0.358669
+Freshwater mean pheno: -0.0280945
+-------------------------------
+Output1 for generation 300:
+
+Oceanic mean pheno: 0.842031
+Freshwater mean pheno: -0.00605289
+-------------------------------
+Output1 for generation 350:
+
+Oceanic mean pheno: 1.32669
+Freshwater mean pheno: 0.00886307
+-------------------------------
+Output1 for generation 400:
+
+Oceanic mean pheno: 4.55509
+Freshwater mean pheno: 0.144605
+-------------------------------
+Output1 for generation 450:
+
+Oceanic mean pheno: 6.04127
+Freshwater mean pheno: -0.0689279
+-------------------------------
+Output1 for generation 500:
+
+Oceanic mean pheno: 6.1116
+Freshwater mean pheno: -0.376055
+-------------------------------
+Output1 for generation 550:
+
+Oceanic mean pheno: 6.06681
+Freshwater mean pheno: -0.896304
+-------------------------------
+Output1 for generation 600:
+
+Oceanic mean pheno: 6.09232
+Freshwater mean pheno: -1.26106
+-------------------------------
+Output1 for generation 650:
+
+Oceanic mean pheno: 5.84793
+Freshwater mean pheno: -1.63771
+-------------------------------
+Output1 for generation 700:
+
+Oceanic mean pheno: 6.10399
+Freshwater mean pheno: -2.01616
+-------------------------------
+Output1 for generation 750:
+
+Oceanic mean pheno: 6.18688
+Freshwater mean pheno: -2.67547
+-------------------------------
+Output1 for generation 800:
+
+Oceanic mean pheno: 5.95408
+Freshwater mean pheno: -3.189
+-------------------------------
+Output1 for generation 850:
+
+Oceanic mean pheno: 6.04775
+Freshwater mean pheno: -3.39956
+-------------------------------
+Output1 for generation 900:
+
+Oceanic mean pheno: 5.85431
+Freshwater mean pheno: -3.65302
+-------------------------------
+Output1 for generation 950:
+
+Oceanic mean pheno: 5.9309
+Freshwater mean pheno: -4.13624
+-------------------------------
+Output1 for generation 1000:
+
+Oceanic mean pheno: 5.85285
+Freshwater mean pheno: -4.86354
+-------------------------------
+Output1 for generation 1050:
+
+Oceanic mean pheno: 5.89299
+Freshwater mean pheno: -5.40215
+-------------------------------
+Output1 for generation 1100:
+
+Oceanic mean pheno: 6.00437
+Freshwater mean pheno: -5.40792
+-------------------------------
+Output1 for generation 1150:
+
+Oceanic mean pheno: 5.91402
+Freshwater mean pheno: -5.63328
+-------------------------------
+Output1 for generation 1200:
+
+Oceanic mean pheno: 5.96006
+Freshwater mean pheno: -6.44667
+-------------------------------
+Output1 for generation 1250:
+
+Oceanic mean pheno: 5.9616
+Freshwater mean pheno: -6.39795
+-------------------------------
+Output1 for generation 1300:
+
+Oceanic mean pheno: 5.98075
+Freshwater mean pheno: -6.41078
+-------------------------------
+Output1 for generation 1350:
+
+Oceanic mean pheno: 6.12218
+Freshwater mean pheno: -6.53977
+-------------------------------
+Output1 for generation 1400:
+
+Oceanic mean pheno: 6.03078
+Freshwater mean pheno: -6.67246
+-------------------------------
+Output1 for generation 1450:
+
+Oceanic mean pheno: 6.46167
+Freshwater mean pheno: -6.69294
+-------------------------------
+Output1 for generation 1500:
+
+Oceanic mean pheno: 7.78413
+Freshwater mean pheno: -6.91261
+-------------------------------
+Output1 for generation 1550:
+
+Oceanic mean pheno: 8.78692
+Freshwater mean pheno: -7.24435
+-------------------------------
+Output1 for generation 1600:
+
+Oceanic mean pheno: 9.04273
+Freshwater mean pheno: -7.34256
+-------------------------------
+Output1 for generation 1650:
+
+Oceanic mean pheno: 9.2491
+Freshwater mean pheno: -7.46957
+-------------------------------
+Output1 for generation 1700:
+
+Oceanic mean pheno: 9.20036
+Freshwater mean pheno: -7.44334
+-------------------------------
+Output1 for generation 1750:
+
+Oceanic mean pheno: 9.22895
+Freshwater mean pheno: -7.61584
+-------------------------------
+Output1 for generation 1800:
+
+Oceanic mean pheno: 9.55527
+Freshwater mean pheno: -8.06931
+-------------------------------
+Output1 for generation 1850:
+
+Oceanic mean pheno: 9.51152
+Freshwater mean pheno: -7.88303
+-------------------------------
+Output1 for generation 1900:
+
+Oceanic mean pheno: 9.65702
+Freshwater mean pheno: -7.87325
+-------------------------------
+Output1 for generation 1950:
+
+Oceanic mean pheno: 9.60516
+Freshwater mean pheno: -7.86101
+-------------------------------
+Output1 for generation 2000:
+
+Oceanic mean pheno: 9.72752
+Freshwater mean pheno: -7.89792
+-------------------------------
+Output1 for generation 2050:
+
+Oceanic mean pheno: 9.78933
+Freshwater mean pheno: -8.18275
+-------------------------------
+Output1 for generation 2100:
+
+Oceanic mean pheno: 9.57069
+Freshwater mean pheno: -8.48851
+-------------------------------
+Output1 for generation 2150:
+
+Oceanic mean pheno: 9.74469
+Freshwater mean pheno: -8.60737
+-------------------------------
+Output1 for generation 2200:
+
+Oceanic mean pheno: 9.7067
+Freshwater mean pheno: -8.66299
+-------------------------------
+Output1 for generation 2250:
+
+Oceanic mean pheno: 9.49928
+Freshwater mean pheno: -8.5362
+-------------------------------
+Output1 for generation 2300:
+
+Oceanic mean pheno: 9.32309
+Freshwater mean pheno: -8.4635
+-------------------------------
+Output1 for generation 2350:
+
+Oceanic mean pheno: 9.36474
+Freshwater mean pheno: -8.22299
+-------------------------------
+Output1 for generation 2400:
+
+Oceanic mean pheno: 9.7361
+Freshwater mean pheno: -8.39443
+-------------------------------
+Output1 for generation 2450:
+
+Oceanic mean pheno: 9.16079
+Freshwater mean pheno: -8.22876
+-------------------------------
+Output1 for generation 2500:
+
+Oceanic mean pheno: 9.20395
+Freshwater mean pheno: -8.50112
+-------------------------------
+Output1 for generation 2550:
+
+Oceanic mean pheno: 9.41785
+Freshwater mean pheno: -8.45803
+-------------------------------
+Output1 for generation 2600:
+
+Oceanic mean pheno: 9.29491
+Freshwater mean pheno: -8.7648
+-------------------------------
+Output1 for generation 2650:
+
+Oceanic mean pheno: 9.21601
+Freshwater mean pheno: -8.95654
+-------------------------------
+Output1 for generation 2700:
+
+Oceanic mean pheno: 8.80271
+Freshwater mean pheno: -8.77005
+-------------------------------
+Output1 for generation 2750:
+
+Oceanic mean pheno: 9.01435
+Freshwater mean pheno: -8.70546
+-------------------------------
+Output1 for generation 2800:
+
+Oceanic mean pheno: 9.17948
+Freshwater mean pheno: -8.83945
+-------------------------------
+Output1 for generation 2850:
+
+Oceanic mean pheno: 9.10195
+Freshwater mean pheno: -8.51631
+-------------------------------
+Output1 for generation 2900:
+
+Oceanic mean pheno: 8.96444
+Freshwater mean pheno: -8.13173
+-------------------------------
+Output1 for generation 2950:
+
+Oceanic mean pheno: 9.22964
+Freshwater mean pheno: -8.85795
+-------------------------------
+Output1 for generation 3000:
+
+Oceanic mean pheno: 9.11823
+Freshwater mean pheno: -8.69344
+-------------------------------
+Output1 for generation 3050:
+
+Oceanic mean pheno: 9.14598
+Freshwater mean pheno: -8.748
+-------------------------------
+Output1 for generation 3100:
+
+Oceanic mean pheno: 9.01174
+Freshwater mean pheno: -8.87446
+-------------------------------
+Output1 for generation 3150:
+
+Oceanic mean pheno: 9.02882
+Freshwater mean pheno: -9.00424
+-------------------------------
+Output1 for generation 3200:
+
+Oceanic mean pheno: 9.28696
+Freshwater mean pheno: -8.80719
+-------------------------------
+Output1 for generation 3250:
+
+Oceanic mean pheno: 9.10336
+Freshwater mean pheno: -8.67627
+-------------------------------
+Output1 for generation 3300:
+
+Oceanic mean pheno: 9.26217
+Freshwater mean pheno: -9.06781
+-------------------------------
+Output1 for generation 3350:
+
+Oceanic mean pheno: 9.14479
+Freshwater mean pheno: -9.38046
+-------------------------------
+Output1 for generation 3400:
+
+Oceanic mean pheno: 9.3104
+Freshwater mean pheno: -8.76639
+-------------------------------
+Output1 for generation 3450:
+
+Oceanic mean pheno: 9.30776
+Freshwater mean pheno: -8.95047
+-------------------------------
+Output1 for generation 3500:
+
+Oceanic mean pheno: 9.1841
+Freshwater mean pheno: -8.95951
+-------------------------------
+Output1 for generation 3550:
+
+Oceanic mean pheno: 9.36016
+Freshwater mean pheno: -8.82539
+-------------------------------
+Output1 for generation 3600:
+
+Oceanic mean pheno: 9.32573
+Freshwater mean pheno: -8.83018
+-------------------------------
+Output1 for generation 3650:
+
+Oceanic mean pheno: 8.99054
+Freshwater mean pheno: -8.78145
+-------------------------------
+Output1 for generation 3700:
+
+Oceanic mean pheno: 9.57253
+Freshwater mean pheno: -8.99621
+-------------------------------
+Output1 for generation 3750:
+
+Oceanic mean pheno: 9.32377
+Freshwater mean pheno: -9.0771
+-------------------------------
+Output1 for generation 3800:
+
+Oceanic mean pheno: 9.39287
+Freshwater mean pheno: -8.74592
+-------------------------------
+Output1 for generation 3850:
+
+Oceanic mean pheno: 9.39195
+Freshwater mean pheno: -8.78769
+-------------------------------
+Output1 for generation 3900:
+
+Oceanic mean pheno: 9.45381
+Freshwater mean pheno: -8.93638
+-------------------------------
+Output1 for generation 3950:
+
+Oceanic mean pheno: 9.67569
+Freshwater mean pheno: -8.94743
+-------------------------------
+Output1 for generation 4000:
+
+Oceanic mean pheno: 9.30663
+Freshwater mean pheno: -8.8329
+-------------------------------
+Output1 for generation 4050:
+
+Oceanic mean pheno: 9.42304
+Freshwater mean pheno: -8.7721
+-------------------------------
+Output1 for generation 4100:
+
+Oceanic mean pheno: 9.29856
+Freshwater mean pheno: -9.11281
+-------------------------------
+Output1 for generation 4150:
+
+Oceanic mean pheno: 9.40389
+Freshwater mean pheno: -8.93056
+-------------------------------
+Output1 for generation 4200:
+
+Oceanic mean pheno: 9.5838
+Freshwater mean pheno: -8.91364
+-------------------------------
+Output1 for generation 4250:
+
+Oceanic mean pheno: 9.3827
+Freshwater mean pheno: -9.15353
+-------------------------------
+Output1 for generation 4300:
+
+Oceanic mean pheno: 9.17562
+Freshwater mean pheno: -9.30674
+-------------------------------
+Output1 for generation 4350:
+
+Oceanic mean pheno: 8.83803
+Freshwater mean pheno: -9.00399
+-------------------------------
+Output1 for generation 4400:
+
+Oceanic mean pheno: 8.98204
+Freshwater mean pheno: -9.1727
+-------------------------------
+Output1 for generation 4450:
+
+Oceanic mean pheno: 9.18234
+Freshwater mean pheno: -9.23502
+-------------------------------
+Output1 for generation 4500:
+
+Oceanic mean pheno: 9.6237
+Freshwater mean pheno: -9.34128
+-------------------------------
+Output1 for generation 4550:
+
+Oceanic mean pheno: 9.12055
+Freshwater mean pheno: -9.57101
+-------------------------------
+Output1 for generation 4600:
+
+Oceanic mean pheno: 8.93747
+Freshwater mean pheno: -9.21747
+-------------------------------
+Output1 for generation 4650:
+
+Oceanic mean pheno: 8.8783
+Freshwater mean pheno: -8.98919
+-------------------------------
+Output1 for generation 4700:
+
+Oceanic mean pheno: 8.92339
+Freshwater mean pheno: -9.09467
+-------------------------------
+Output1 for generation 4750:
+
+Oceanic mean pheno: 8.98255
+Freshwater mean pheno: -8.82365
+-------------------------------
+Output1 for generation 4800:
+
+Oceanic mean pheno: 9.19222
+Freshwater mean pheno: -9.21498
+-------------------------------
+Output1 for generation 4850:
+
+Oceanic mean pheno: 9.24769
+Freshwater mean pheno: -9.06952
+-------------------------------
+Output1 for generation 4900:
+
+Oceanic mean pheno: 9.04621
+Freshwater mean pheno: -9.00749
+-------------------------------
+Output1 for generation 4950:
+
+Oceanic mean pheno: 9.00338
+Freshwater mean pheno: -9.06489
+-------------------------------
+Output1 for generation 5000:
+
+Oceanic mean pheno: 9.1071
+Freshwater mean pheno: -8.77147
+-------------------------------
+Output1 for generation 5050:
+
+Oceanic mean pheno: 8.75627
+Freshwater mean pheno: -9.28726
+-------------------------------
+Output1 for generation 5100:
+
+Oceanic mean pheno: 9.16947
+Freshwater mean pheno: -8.97754
+-------------------------------
+Output1 for generation 5150:
+
+Oceanic mean pheno: 8.96051
+Freshwater mean pheno: -9.08214
+-------------------------------
+Output1 for generation 5200:
+
+Oceanic mean pheno: 9.29087
+Freshwater mean pheno: -8.98198
+-------------------------------
+Output1 for generation 5250:
+
+Oceanic mean pheno: 9.15396
+Freshwater mean pheno: -8.97531
+-------------------------------
+Output1 for generation 5300:
+
+Oceanic mean pheno: 8.92435
+Freshwater mean pheno: -8.74242
+-------------------------------
+Output1 for generation 5350:
+
+Oceanic mean pheno: 9.17785
+Freshwater mean pheno: -8.88315
+-------------------------------
+Output1 for generation 5400:
+
+Oceanic mean pheno: 9.49591
+Freshwater mean pheno: -8.90306
+-------------------------------
+Output1 for generation 5450:
+
+Oceanic mean pheno: 9.06834
+Freshwater mean pheno: -8.7169
+-------------------------------
+Output1 for generation 5500:
+
+Oceanic mean pheno: 9.03168
+Freshwater mean pheno: -8.85805
+-------------------------------
+Output1 for generation 5550:
+
+Oceanic mean pheno: 8.87039
+Freshwater mean pheno: -8.71373
+-------------------------------
+Output1 for generation 5600:
+
+Oceanic mean pheno: 9.21174
+Freshwater mean pheno: -8.86914
+-------------------------------
+Output1 for generation 5650:
+
+Oceanic mean pheno: 9.41039
+Freshwater mean pheno: -9.0992
+-------------------------------
+Output1 for generation 5700:
+
+Oceanic mean pheno: 9.24977
+Freshwater mean pheno: -9.18291
+-------------------------------
+Output1 for generation 5750:
+
+Oceanic mean pheno: 8.98542
+Freshwater mean pheno: -8.982
+-------------------------------
+Output1 for generation 5800:
+
+Oceanic mean pheno: 9.3048
+Freshwater mean pheno: -8.92232
+-------------------------------
+Output1 for generation 5850:
+
+Oceanic mean pheno: 9.33087
+Freshwater mean pheno: -8.89102
+-------------------------------
+Output1 for generation 5900:
+
+Oceanic mean pheno: 8.87275
+Freshwater mean pheno: -9.02518
+-------------------------------
+Output1 for generation 5950:
+
+Oceanic mean pheno: 9.14773
+Freshwater mean pheno: -9.07487
+-------------------------------
+Output1 for generation 6000:
+
+Oceanic mean pheno: 9.34573
+Freshwater mean pheno: -9.13801
+-------------------------------
+Output1 for generation 6050:
+
+Oceanic mean pheno: 9.12272
+Freshwater mean pheno: -8.67616
+-------------------------------
+Output1 for generation 6100:
+
+Oceanic mean pheno: 9.06085
+Freshwater mean pheno: -9.10396
+-------------------------------
+Output1 for generation 6150:
+
+Oceanic mean pheno: 9.22889
+Freshwater mean pheno: -9.07115
+-------------------------------
+Output1 for generation 6200:
+
+Oceanic mean pheno: 9.03363
+Freshwater mean pheno: -8.77756
+-------------------------------
+Output1 for generation 6250:
+
+Oceanic mean pheno: 9.37516
+Freshwater mean pheno: -8.76864
+-------------------------------
+Output1 for generation 6300:
+
+Oceanic mean pheno: 9.40658
+Freshwater mean pheno: -8.70762
+-------------------------------
+Output1 for generation 6350:
+
+Oceanic mean pheno: 9.4482
+Freshwater mean pheno: -8.76539
+-------------------------------
+Output1 for generation 6400:
+
+Oceanic mean pheno: 9.37346
+Freshwater mean pheno: -8.83269
+-------------------------------
+Output1 for generation 6450:
+
+Oceanic mean pheno: 9.3313
+Freshwater mean pheno: -8.86647
+-------------------------------
+Output1 for generation 6500:
+
+Oceanic mean pheno: 9.49024
+Freshwater mean pheno: -9.43115
+-------------------------------
+Output1 for generation 6550:
+
+Oceanic mean pheno: 9.18444
+Freshwater mean pheno: -9.22134
+-------------------------------
+Output1 for generation 6600:
+
+Oceanic mean pheno: 9.08571
+Freshwater mean pheno: -9.15585
+-------------------------------
+Output1 for generation 6650:
+
+Oceanic mean pheno: 9.24287
+Freshwater mean pheno: -8.95263
+-------------------------------
+Output1 for generation 6700:
+
+Oceanic mean pheno: 9.2116
+Freshwater mean pheno: -9.05887
+-------------------------------
+Output1 for generation 6750:
+
+Oceanic mean pheno: 9.35478
+Freshwater mean pheno: -9.11518
+-------------------------------
+Output1 for generation 6800:
+
+Oceanic mean pheno: 9.26312
+Freshwater mean pheno: -9.25321
+-------------------------------
+Output1 for generation 6850:
+
+Oceanic mean pheno: 9.28169
+Freshwater mean pheno: -9.75329
+-------------------------------
+Output1 for generation 6900:
+
+Oceanic mean pheno: 8.77187
+Freshwater mean pheno: -9.44547
+-------------------------------
+Output1 for generation 6950:
+
+Oceanic mean pheno: 8.90916
+Freshwater mean pheno: -9.48999
+-------------------------------
+Output1 for generation 7000:
+
+Oceanic mean pheno: 9.21281
+Freshwater mean pheno: -9.45482
+-------------------------------
+Output1 for generation 7050:
+
+Oceanic mean pheno: 9.17055
+Freshwater mean pheno: -9.0678
+-------------------------------
+Output1 for generation 7100:
+
+Oceanic mean pheno: 9.23386
+Freshwater mean pheno: -9.02373
+-------------------------------
+Output1 for generation 7150:
+
+Oceanic mean pheno: 9.35294
+Freshwater mean pheno: -9.66228
+-------------------------------
+Output1 for generation 7200:
+
+Oceanic mean pheno: 9.26365
+Freshwater mean pheno: -9.60934
+-------------------------------
+Output1 for generation 7250:
+
+Oceanic mean pheno: 9.2238
+Freshwater mean pheno: -9.14353
+-------------------------------
+Output1 for generation 7300:
+
+Oceanic mean pheno: 9.27158
+Freshwater mean pheno: -9.56238
+-------------------------------
+Output1 for generation 7350:
+
+Oceanic mean pheno: 9.21762
+Freshwater mean pheno: -9.57257
+-------------------------------
+Output1 for generation 7400:
+
+Oceanic mean pheno: 9.30103
+Freshwater mean pheno: -9.36048
+-------------------------------
+Output1 for generation 7450:
+
+Oceanic mean pheno: 9.24411
+Freshwater mean pheno: -9.08329
+-------------------------------
+Output1 for generation 7500:
+
+Oceanic mean pheno: 9.428
+Freshwater mean pheno: -9.50121
+-------------------------------
+Output1 for generation 7550:
+
+Oceanic mean pheno: 9.17376
+Freshwater mean pheno: -9.54611
+-------------------------------
+Output1 for generation 7600:
+
+Oceanic mean pheno: 9.05395
+Freshwater mean pheno: -9.27625
+-------------------------------
+Output1 for generation 7650:
+
+Oceanic mean pheno: 9.20052
+Freshwater mean pheno: -9.39156
+-------------------------------
+Output1 for generation 7700:
+
+Oceanic mean pheno: 9.06024
+Freshwater mean pheno: -9.59682
+-------------------------------
+Output1 for generation 7750:
+
+Oceanic mean pheno: 9.10197
+Freshwater mean pheno: -9.14579
+-------------------------------
+Output1 for generation 7800:
+
+Oceanic mean pheno: 9.02505
+Freshwater mean pheno: -9.17406
+-------------------------------
+Output1 for generation 7850:
+
+Oceanic mean pheno: 8.80814
+Freshwater mean pheno: -9.1916
+-------------------------------
+Output1 for generation 7900:
+
+Oceanic mean pheno: 8.90789
+Freshwater mean pheno: -9.10155
+-------------------------------
+Output1 for generation 7950:
+
+Oceanic mean pheno: 8.91808
+Freshwater mean pheno: -9.15671
+-------------------------------
+Output1 for generation 8000:
+
+Oceanic mean pheno: 9.00117
+Freshwater mean pheno: -9.33184
+-------------------------------
+Output1 for generation 8050:
+
+Oceanic mean pheno: 8.71519
+Freshwater mean pheno: -8.90465
+-------------------------------
+Output1 for generation 8100:
+
+Oceanic mean pheno: 8.82855
+Freshwater mean pheno: -9.11518
+-------------------------------
+Output1 for generation 8150:
+
+Oceanic mean pheno: 9.27029
+Freshwater mean pheno: -9.22148
+-------------------------------
+Output1 for generation 8200:
+
+Oceanic mean pheno: 9.00234
+Freshwater mean pheno: -9.11636
+-------------------------------
+Output1 for generation 8250:
+
+Oceanic mean pheno: 8.99535
+Freshwater mean pheno: -9.0068
+-------------------------------
+Output1 for generation 8300:
+
+Oceanic mean pheno: 9.03274
+Freshwater mean pheno: -8.92032
+-------------------------------
+Output1 for generation 8350:
+
+Oceanic mean pheno: 9.01676
+Freshwater mean pheno: -8.94121
+-------------------------------
+Output1 for generation 8400:
+
+Oceanic mean pheno: 8.97016
+Freshwater mean pheno: -9.37139
+-------------------------------
+Output1 for generation 8450:
+
+Oceanic mean pheno: 9.03399
+Freshwater mean pheno: -9.17496
+-------------------------------
+Output1 for generation 8500:
+
+Oceanic mean pheno: 9.0914
+Freshwater mean pheno: -9.11857
+-------------------------------
+Output1 for generation 8550:
+
+Oceanic mean pheno: 9.30402
+Freshwater mean pheno: -8.93791
+-------------------------------
+Output1 for generation 8600:
+
+Oceanic mean pheno: 9.54316
+Freshwater mean pheno: -9.26317
+-------------------------------
+Output1 for generation 8650:
+
+Oceanic mean pheno: 9.53893
+Freshwater mean pheno: -9.20754
+-------------------------------
+Output1 for generation 8700:
+
+Oceanic mean pheno: 9.52923
+Freshwater mean pheno: -9.22403
+-------------------------------
+Output1 for generation 8750:
+
+Oceanic mean pheno: 9.25102
+Freshwater mean pheno: -9.0221
+-------------------------------
+Output1 for generation 8800:
+
+Oceanic mean pheno: 9.55405
+Freshwater mean pheno: -9.04217
+-------------------------------
+Output1 for generation 8850:
+
+Oceanic mean pheno: 9.13719
+Freshwater mean pheno: -9.08678
+-------------------------------
+Output1 for generation 8900:
+
+Oceanic mean pheno: 9.19096
+Freshwater mean pheno: -9.19277
+-------------------------------
+Output1 for generation 8950:
+
+Oceanic mean pheno: 9.23636
+Freshwater mean pheno: -9.13949
+-------------------------------
+Output1 for generation 9000:
+
+Oceanic mean pheno: 9.67447
+Freshwater mean pheno: -8.83931
+-------------------------------
+Output1 for generation 9050:
+
+Oceanic mean pheno: 9.60795
+Freshwater mean pheno: -8.90746
+-------------------------------
+Output1 for generation 9100:
+
+Oceanic mean pheno: 9.11684
+Freshwater mean pheno: -9.01574
+-------------------------------
+Output1 for generation 9150:
+
+Oceanic mean pheno: 9.21597
+Freshwater mean pheno: -9.18706
+-------------------------------
+Output1 for generation 9200:
+
+Oceanic mean pheno: 9.2129
+Freshwater mean pheno: -8.81885
+-------------------------------
+Output1 for generation 9250:
+
+Oceanic mean pheno: 9.28009
+Freshwater mean pheno: -9.35874
+-------------------------------
+Output1 for generation 9300:
+
+Oceanic mean pheno: 9.28231
+Freshwater mean pheno: -8.99604
+-------------------------------
+Output1 for generation 9350:
+
+Oceanic mean pheno: 9.16378
+Freshwater mean pheno: -9.24352
+-------------------------------
+Output1 for generation 9400:
+
+Oceanic mean pheno: 9.21309
+Freshwater mean pheno: -9.32078
+-------------------------------
+Output1 for generation 9450:
+
+Oceanic mean pheno: 9.23761
+Freshwater mean pheno: -9.39689
+-------------------------------
+Output1 for generation 9500:
+
+Oceanic mean pheno: 9.13605
+Freshwater mean pheno: -9.32543
+-------------------------------
+Output1 for generation 9550:
+
+Oceanic mean pheno: 9.27682
+Freshwater mean pheno: -8.9667
+-------------------------------
+Output1 for generation 9600:
+
+Oceanic mean pheno: 9.43106
+Freshwater mean pheno: -9.38792
+-------------------------------
+Output1 for generation 9650:
+
+Oceanic mean pheno: 9.12161
+Freshwater mean pheno: -9.30057
+-------------------------------
+Output1 for generation 9700:
+
+Oceanic mean pheno: 8.94688
+Freshwater mean pheno: -9.17577
+-------------------------------
+Output1 for generation 9750:
+
+Oceanic mean pheno: 9.26184
+Freshwater mean pheno: -9.16869
+-------------------------------
+Output1 for generation 9800:
+
+Oceanic mean pheno: 9.42386
+Freshwater mean pheno: -9.25916
+-------------------------------
+Output1 for generation 9850:
+
+Oceanic mean pheno: 9.41522
+Freshwater mean pheno: -9.3769
+-------------------------------
+Output1 for generation 9900:
+
+Oceanic mean pheno: 9.35163
+Freshwater mean pheno: -9.5159
+-------------------------------
+Output1 for generation 9950:
+
+Oceanic mean pheno: 9.34019
+Freshwater mean pheno: -9.14583
+-------------------------------
+Output1 for generation 10000:
+
+Oceanic mean pheno: 9.20898
+Freshwater mean pheno: -9.33243
+-------------------------------
+Output1 for generation 10050:
+
+Oceanic mean pheno: 9.04073
+Freshwater mean pheno: -8.95164
+-------------------------------
+Output1 for generation 10100:
+
+Oceanic mean pheno: 9.36808
+Freshwater mean pheno: -9.07423
+-------------------------------
+Output1 for generation 10150:
+
+Oceanic mean pheno: 9.29228
+Freshwater mean pheno: -9.0176
+-------------------------------
+Output1 for generation 10200:
+
+Oceanic mean pheno: 9.12904
+Freshwater mean pheno: -9.00305
+-------------------------------
+Output1 for generation 10250:
+
+Oceanic mean pheno: 9.19595
+Freshwater mean pheno: -9.12255
+-------------------------------
+Output1 for generation 10300:
+
+Oceanic mean pheno: 9.10015
+Freshwater mean pheno: -9.05752
+-------------------------------
+Output1 for generation 10350:
+
+Oceanic mean pheno: 9.31805
+Freshwater mean pheno: -8.98171
+-------------------------------
+Output1 for generation 10400:
+
+Oceanic mean pheno: 9.29212
+Freshwater mean pheno: -8.52511
+-------------------------------
+Output1 for generation 10450:
+
+Oceanic mean pheno: 8.95546
+Freshwater mean pheno: -9.10347
+-------------------------------
+Output1 for generation 10500:
+
+Oceanic mean pheno: 9.04971
+Freshwater mean pheno: -9.07559
+-------------------------------
+Output1 for generation 10550:
+
+Oceanic mean pheno: 8.93643
+Freshwater mean pheno: -9.6594
+-------------------------------
+Output1 for generation 10600:
+
+Oceanic mean pheno: 9.54816
+Freshwater mean pheno: -9.23407
+-------------------------------
+Output1 for generation 10650:
+
+Oceanic mean pheno: 9.67061
+Freshwater mean pheno: -9.23369
+-------------------------------
+Output1 for generation 10700:
+
+Oceanic mean pheno: 9.51654
+Freshwater mean pheno: -9.32021
+-------------------------------
+Output1 for generation 10750:
+
+Oceanic mean pheno: 9.37996
+Freshwater mean pheno: -9.21515
+-------------------------------
+Output1 for generation 10800:
+
+Oceanic mean pheno: 9.55883
+Freshwater mean pheno: -9.36524
+-------------------------------
+Output1 for generation 10850:
+
+Oceanic mean pheno: 9.35353
+Freshwater mean pheno: -9.30833
+-------------------------------
+Output1 for generation 10900:
+
+Oceanic mean pheno: 9.41751
+Freshwater mean pheno: -9.40525
+-------------------------------
+Output1 for generation 10950:
+
+Oceanic mean pheno: 9.40108
+Freshwater mean pheno: -8.7336
+-------------------------------
+Output1 for generation 11000:
+
+Oceanic mean pheno: 9.10762
+Freshwater mean pheno: -9.18994
+-------------------------------
+Output1 for generation 11050:
+
+Oceanic mean pheno: 9.17003
+Freshwater mean pheno: -9.15103
+-------------------------------
+Output1 for generation 11100:
+
+Oceanic mean pheno: 9.14791
+Freshwater mean pheno: -8.90018
+-------------------------------
+Output1 for generation 11150:
+
+Oceanic mean pheno: 9.16388
+Freshwater mean pheno: -9.33451
+-------------------------------
+Output1 for generation 11200:
+
+Oceanic mean pheno: 9.09455
+Freshwater mean pheno: -9.15475
+-------------------------------
+Output1 for generation 11250:
+
+Oceanic mean pheno: 9.47081
+Freshwater mean pheno: -9.37999
+-------------------------------
+Output1 for generation 11300:
+
+Oceanic mean pheno: 9.47528
+Freshwater mean pheno: -9.43553
+-------------------------------
+Output1 for generation 11350:
+
+Oceanic mean pheno: 9.34148
+Freshwater mean pheno: -9.26285
+-------------------------------
+Output1 for generation 11400:
+
+Oceanic mean pheno: 9.25517
+Freshwater mean pheno: -8.75046
+-------------------------------
+Output1 for generation 11450:
+
+Oceanic mean pheno: 8.95045
+Freshwater mean pheno: -9.14275
+-------------------------------
+Output1 for generation 11500:
+
+Oceanic mean pheno: 9.24372
+Freshwater mean pheno: -9.10053
+-------------------------------
+Output1 for generation 11550:
+
+Oceanic mean pheno: 9.2635
+Freshwater mean pheno: -9.27006
+-------------------------------
+Output1 for generation 11600:
+
+Oceanic mean pheno: 9.23306
+Freshwater mean pheno: -9.18869
+-------------------------------
+Output1 for generation 11650:
+
+Oceanic mean pheno: 9.33696
+Freshwater mean pheno: -9.0655
+-------------------------------
+Output1 for generation 11700:
+
+Oceanic mean pheno: 8.89891
+Freshwater mean pheno: -9.49491
+-------------------------------
+Output1 for generation 11750:
+
+Oceanic mean pheno: 9.02183
+Freshwater mean pheno: -9.40968
+-------------------------------
+Output1 for generation 11800:
+
+Oceanic mean pheno: 9.11369
+Freshwater mean pheno: -8.82455
+-------------------------------
+Output1 for generation 11850:
+
+Oceanic mean pheno: 9.16325
+Freshwater mean pheno: -9.01005
+-------------------------------
+Output1 for generation 11900:
+
+Oceanic mean pheno: 9.23415
+Freshwater mean pheno: -9.16258
+-------------------------------
+Output1 for generation 11950:
+
+Oceanic mean pheno: 9.2249
+Freshwater mean pheno: -9.1314
+-------------------------------
+Output1 for generation 12000:
+
+Oceanic mean pheno: 9.47277
+Freshwater mean pheno: -9.22254
+-------------------------------
+Output1 for generation 12050:
+
+Oceanic mean pheno: 9.11273
+Freshwater mean pheno: -9.52413
+-------------------------------
+Output1 for generation 12100:
+
+Oceanic mean pheno: 9.3782
+Freshwater mean pheno: -9.37827
+-------------------------------
+Output1 for generation 12150:
+
+Oceanic mean pheno: 9.12314
+Freshwater mean pheno: -9.2051
+-------------------------------
+Output1 for generation 12200:
+
+Oceanic mean pheno: 9.0138
+Freshwater mean pheno: -9.17918
+-------------------------------
+Output1 for generation 12250:
+
+Oceanic mean pheno: 9.24405
+Freshwater mean pheno: -9.06048
+-------------------------------
+Output1 for generation 12300:
+
+Oceanic mean pheno: 9.33681
+Freshwater mean pheno: -9.5246
+-------------------------------
+Output1 for generation 12350:
+
+Oceanic mean pheno: 9.32379
+Freshwater mean pheno: -9.26124
+-------------------------------
+Output1 for generation 12400:
+
+Oceanic mean pheno: 9.40013
+Freshwater mean pheno: -9.41551
+-------------------------------
+Output1 for generation 12450:
+
+Oceanic mean pheno: 9.00148
+Freshwater mean pheno: -8.92069
+-------------------------------
+Output1 for generation 12500:
+
+Oceanic mean pheno: 8.87261
+Freshwater mean pheno: -9.49721
+-------------------------------
+Output1 for generation 12550:
+
+Oceanic mean pheno: 8.869
+Freshwater mean pheno: -9.06155
+-------------------------------
+Output1 for generation 12600:
+
+Oceanic mean pheno: 9.10885
+Freshwater mean pheno: -9.14707
+-------------------------------
+Output1 for generation 12650:
+
+Oceanic mean pheno: 9.19291
+Freshwater mean pheno: -9.57875
+-------------------------------
+Output1 for generation 12700:
+
+Oceanic mean pheno: 9.24075
+Freshwater mean pheno: -9.64096
+-------------------------------
+Output1 for generation 12750:
+
+Oceanic mean pheno: 9.33035
+Freshwater mean pheno: -9.45582
+-------------------------------
+Output1 for generation 12800:
+
+Oceanic mean pheno: 9.36912
+Freshwater mean pheno: -9.0922
+-------------------------------
+Output1 for generation 12850:
+
+Oceanic mean pheno: 8.86579
+Freshwater mean pheno: -9.4923
+-------------------------------
+Output1 for generation 12900:
+
+Oceanic mean pheno: 9.56953
+Freshwater mean pheno: -9.27285
+-------------------------------
+Output1 for generation 12950:
+
+Oceanic mean pheno: 9.07706
+Freshwater mean pheno: -9.45448
+-------------------------------
+Output1 for generation 13000:
+
+Oceanic mean pheno: 9.31761
+Freshwater mean pheno: -9.29832
+-------------------------------
+Output1 for generation 13050:
+
+Oceanic mean pheno: 9.1755
+Freshwater mean pheno: -9.14563
+-------------------------------
+Output1 for generation 13100:
+
+Oceanic mean pheno: 9.17661
+Freshwater mean pheno: -8.99222
+-------------------------------
+Output1 for generation 13150:
+
+Oceanic mean pheno: 8.96119
+Freshwater mean pheno: -9.28125
+-------------------------------
+Output1 for generation 13200:
+
+Oceanic mean pheno: 9.0798
+Freshwater mean pheno: -9.16374
+-------------------------------
+Output1 for generation 13250:
+
+Oceanic mean pheno: 9.07217
+Freshwater mean pheno: -9.45813
+-------------------------------
+Output1 for generation 13300:
+
+Oceanic mean pheno: 9.42449
+Freshwater mean pheno: -9.71636
+-------------------------------
+Output1 for generation 13350:
+
+Oceanic mean pheno: 9.10505
+Freshwater mean pheno: -9.40136
+-------------------------------
+Output1 for generation 13400:
+
+Oceanic mean pheno: 8.76839
+Freshwater mean pheno: -9.6228
+-------------------------------
+Output1 for generation 13450:
+
+Oceanic mean pheno: 8.93135
+Freshwater mean pheno: -9.30689
+-------------------------------
+Output1 for generation 13500:
+
+Oceanic mean pheno: 9.03333
+Freshwater mean pheno: -9.33532
+-------------------------------
+Output1 for generation 13550:
+
+Oceanic mean pheno: 9.27324
+Freshwater mean pheno: -9.60125
+-------------------------------
+Output1 for generation 13600:
+
+Oceanic mean pheno: 9.17528
+Freshwater mean pheno: -9.48718
+-------------------------------
+Output1 for generation 13650:
+
+Oceanic mean pheno: 9.122
+Freshwater mean pheno: -9.51494
+-------------------------------
+Output1 for generation 13700:
+
+Oceanic mean pheno: 9.55736
+Freshwater mean pheno: -9.60193
+-------------------------------
+Output1 for generation 13750:
+
+Oceanic mean pheno: 9.47918
+Freshwater mean pheno: -9.42408
+-------------------------------
+Output1 for generation 13800:
+
+Oceanic mean pheno: 9.60998
+Freshwater mean pheno: -9.31334
+-------------------------------
+Output1 for generation 13850:
+
+Oceanic mean pheno: 9.47106
+Freshwater mean pheno: -9.67115
+-------------------------------
+Output1 for generation 13900:
+
+Oceanic mean pheno: 9.57869
+Freshwater mean pheno: -9.29678
+-------------------------------
+Output1 for generation 13950:
+
+Oceanic mean pheno: 9.58225
+Freshwater mean pheno: -9.43915
+-------------------------------
+Output1 for generation 14000:
+
+Oceanic mean pheno: 9.83902
+Freshwater mean pheno: -9.66183
+-------------------------------
+Output1 for generation 14050:
+
+Oceanic mean pheno: 9.62466
+Freshwater mean pheno: -9.38017
+-------------------------------
+Output1 for generation 14100:
+
+Oceanic mean pheno: 9.36652
+Freshwater mean pheno: -9.43423
+-------------------------------
+Output1 for generation 14150:
+
+Oceanic mean pheno: 9.59821
+Freshwater mean pheno: -9.81
+-------------------------------
+Output1 for generation 14200:
+
+Oceanic mean pheno: 9.39815
+Freshwater mean pheno: -9.35415
+-------------------------------
+Output1 for generation 14250:
+
+Oceanic mean pheno: 9.46822
+Freshwater mean pheno: -9.28798
+-------------------------------
+Output1 for generation 14300:
+
+Oceanic mean pheno: 9.35449
+Freshwater mean pheno: -9.63275
+-------------------------------
+Output1 for generation 14350:
+
+Oceanic mean pheno: 9.68099
+Freshwater mean pheno: -10.1783
+-------------------------------
+Output1 for generation 14400:
+
+Oceanic mean pheno: 9.70934
+Freshwater mean pheno: -9.61363
+-------------------------------
+Output1 for generation 14450:
+
+Oceanic mean pheno: 9.45306
+Freshwater mean pheno: -9.43989
+-------------------------------
+Output1 for generation 14500:
+
+Oceanic mean pheno: 9.27129
+Freshwater mean pheno: -9.7303
+-------------------------------
+Output1 for generation 14550:
+
+Oceanic mean pheno: 9.35671
+Freshwater mean pheno: -9.35049
+-------------------------------
+Output1 for generation 14600:
+
+Oceanic mean pheno: 9.57952
+Freshwater mean pheno: -9.42152
+-------------------------------
+Output1 for generation 14650:
+
+Oceanic mean pheno: 9.57565
+Freshwater mean pheno: -9.34677
+-------------------------------
+Output1 for generation 14700:
+
+Oceanic mean pheno: 9.48427
+Freshwater mean pheno: -9.44471
+-------------------------------
+Output1 for generation 14750:
+
+Oceanic mean pheno: 9.34823
+Freshwater mean pheno: -9.51519
+-------------------------------
+Output1 for generation 14800:
+
+Oceanic mean pheno: 9.37516
+Freshwater mean pheno: -9.42096
+-------------------------------
+Output1 for generation 14850:
+
+Oceanic mean pheno: 9.52064
+Freshwater mean pheno: -9.02558
+-------------------------------
+Output1 for generation 14900:
+
+Oceanic mean pheno: 9.65825
+Freshwater mean pheno: -9.46135
+-------------------------------
+Output1 for generation 14950:
+
+Oceanic mean pheno: 9.38526
+Freshwater mean pheno: -9.55029
+-------------------------------
+Output1 for generation 15000:
+
+Oceanic mean pheno: 9.48811
+Freshwater mean pheno: -9.71589
+-------------------------------
+Output1 for generation 15050:
+
+Oceanic mean pheno: 9.59939
+Freshwater mean pheno: -9.99289
+-------------------------------
+Output1 for generation 15100:
+
+Oceanic mean pheno: 9.52942
+Freshwater mean pheno: -9.45859
+-------------------------------
+Output1 for generation 15150:
+
+Oceanic mean pheno: 9.40151
+Freshwater mean pheno: -9.5566
+-------------------------------
+Output1 for generation 15200:
+
+Oceanic mean pheno: 9.4425
+Freshwater mean pheno: -9.50229
+-------------------------------
+Output1 for generation 15250:
+
+Oceanic mean pheno: 9.66297
+Freshwater mean pheno: -9.58583
+-------------------------------
+Output1 for generation 15300:
+
+Oceanic mean pheno: 9.22304
+Freshwater mean pheno: -9.56942
+-------------------------------
+Output1 for generation 15350:
+
+Oceanic mean pheno: 9.43174
+Freshwater mean pheno: -9.46814
+-------------------------------
+Output1 for generation 15400:
+
+Oceanic mean pheno: 9.37339
+Freshwater mean pheno: -9.5924
+-------------------------------
+Output1 for generation 15450:
+
+Oceanic mean pheno: 9.48684
+Freshwater mean pheno: -9.75894
+-------------------------------
+Output1 for generation 15500:
+
+Oceanic mean pheno: 9.38379
+Freshwater mean pheno: -9.42366
+-------------------------------
+Output1 for generation 15550:
+
+Oceanic mean pheno: 9.41679
+Freshwater mean pheno: -9.4371
+-------------------------------
+Output1 for generation 15600:
+
+Oceanic mean pheno: 9.57873
+Freshwater mean pheno: -9.53861
+-------------------------------
+Output1 for generation 15650:
+
+Oceanic mean pheno: 9.25029
+Freshwater mean pheno: -9.62671
+-------------------------------
+Output1 for generation 15700:
+
+Oceanic mean pheno: 9.20094
+Freshwater mean pheno: -9.60024
+-------------------------------
+Output1 for generation 15750:
+
+Oceanic mean pheno: 9.3635
+Freshwater mean pheno: -9.58523
+-------------------------------
+Output1 for generation 15800:
+
+Oceanic mean pheno: 9.49021
+Freshwater mean pheno: -9.92309
+-------------------------------
+Output1 for generation 15850:
+
+Oceanic mean pheno: 9.30762
+Freshwater mean pheno: -9.62834
+-------------------------------
+Output1 for generation 15900:
+
+Oceanic mean pheno: 9.31103
+Freshwater mean pheno: -9.62121
+-------------------------------
+Output1 for generation 15950:
+
+Oceanic mean pheno: 9.27783
+Freshwater mean pheno: -9.72521
+-------------------------------
+Output1 for generation 16000:
+
+Oceanic mean pheno: 9.60699
+Freshwater mean pheno: -9.70156
+-------------------------------
+Output1 for generation 16050:
+
+Oceanic mean pheno: 9.31987
+Freshwater mean pheno: -9.83299
+-------------------------------
+Output1 for generation 16100:
+
+Oceanic mean pheno: 9.46767
+Freshwater mean pheno: -9.41532
+-------------------------------
+Output1 for generation 16150:
+
+Oceanic mean pheno: 9.71083
+Freshwater mean pheno: -9.68897
+-------------------------------
+Output1 for generation 16200:
+
+Oceanic mean pheno: 9.36738
+Freshwater mean pheno: -9.8953
+-------------------------------
+Output1 for generation 16250:
+
+Oceanic mean pheno: 9.32906
+Freshwater mean pheno: -9.92735
+-------------------------------
+Output1 for generation 16300:
+
+Oceanic mean pheno: 9.64828
+Freshwater mean pheno: -9.87565
+-------------------------------
+Output1 for generation 16350:
+
+Oceanic mean pheno: 9.39379
+Freshwater mean pheno: -9.68824
+-------------------------------
+Output1 for generation 16400:
+
+Oceanic mean pheno: 9.47651
+Freshwater mean pheno: -10.0446
+-------------------------------
+Output1 for generation 16450:
+
+Oceanic mean pheno: 9.58604
+Freshwater mean pheno: -10.0265
+-------------------------------
+Output1 for generation 16500:
+
+Oceanic mean pheno: 9.65693
+Freshwater mean pheno: -9.74518
+-------------------------------
+Output1 for generation 16550:
+
+Oceanic mean pheno: 9.45323
+Freshwater mean pheno: -9.35315
+-------------------------------
+Output1 for generation 16600:
+
+Oceanic mean pheno: 9.87193
+Freshwater mean pheno: -9.41083
+-------------------------------
+Output1 for generation 16650:
+
+Oceanic mean pheno: 9.67233
+Freshwater mean pheno: -10.1902
+-------------------------------
+Output1 for generation 16700:
+
+Oceanic mean pheno: 9.68623
+Freshwater mean pheno: -9.5227
+-------------------------------
+Output1 for generation 16750:
+
+Oceanic mean pheno: 9.66663
+Freshwater mean pheno: -9.67186
+-------------------------------
+Output1 for generation 16800:
+
+Oceanic mean pheno: 9.40121
+Freshwater mean pheno: -9.83069
+-------------------------------
+Output1 for generation 16850:
+
+Oceanic mean pheno: 9.59586
+Freshwater mean pheno: -10.0151
+-------------------------------
+Output1 for generation 16900:
+
+Oceanic mean pheno: 9.32739
+Freshwater mean pheno: -9.96016
+-------------------------------
+Output1 for generation 16950:
+
+Oceanic mean pheno: 9.57373
+Freshwater mean pheno: -9.69541
+-------------------------------
+Output1 for generation 17000:
+
+Oceanic mean pheno: 9.44579
+Freshwater mean pheno: -9.87003
+-------------------------------
+Output1 for generation 17050:
+
+Oceanic mean pheno: 9.33596
+Freshwater mean pheno: -9.75522
+-------------------------------
+Output1 for generation 17100:
+
+Oceanic mean pheno: 9.3846
+Freshwater mean pheno: -9.71167
+-------------------------------
+Output1 for generation 17150:
+
+Oceanic mean pheno: 9.54468
+Freshwater mean pheno: -9.68056
+-------------------------------
+Output1 for generation 17200:
+
+Oceanic mean pheno: 9.53399
+Freshwater mean pheno: -9.91067
+-------------------------------
+Output1 for generation 17250:
+
+Oceanic mean pheno: 9.4674
+Freshwater mean pheno: -9.96369
+-------------------------------
+Output1 for generation 17300:
+
+Oceanic mean pheno: 9.59219
+Freshwater mean pheno: -9.89823
+-------------------------------
+Output1 for generation 17350:
+
+Oceanic mean pheno: 9.47966
+Freshwater mean pheno: -9.7992
+-------------------------------
+Output1 for generation 17400:
+
+Oceanic mean pheno: 9.68925
+Freshwater mean pheno: -10.0198
+-------------------------------
+Output1 for generation 17450:
+
+Oceanic mean pheno: 9.43528
+Freshwater mean pheno: -9.88693
+-------------------------------
+Output1 for generation 17500:
+
+Oceanic mean pheno: 9.36278
+Freshwater mean pheno: -9.75999
+-------------------------------
+Output1 for generation 17550:
+
+Oceanic mean pheno: 9.91736
+Freshwater mean pheno: -9.58729
+-------------------------------
+Output1 for generation 17600:
+
+Oceanic mean pheno: 9.44481
+Freshwater mean pheno: -9.65413
+-------------------------------
+Output1 for generation 17650:
+
+Oceanic mean pheno: 9.30832
+Freshwater mean pheno: -9.847
+-------------------------------
+Output1 for generation 17700:
+
+Oceanic mean pheno: 9.0178
+Freshwater mean pheno: -9.42604
+-------------------------------
+Output1 for generation 17750:
+
+Oceanic mean pheno: 9.59639
+Freshwater mean pheno: -9.60067
+-------------------------------
+Output1 for generation 17800:
+
+Oceanic mean pheno: 9.76481
+Freshwater mean pheno: -9.72401
+-------------------------------
+Output1 for generation 17850:
+
+Oceanic mean pheno: 9.48931
+Freshwater mean pheno: -9.62707
+-------------------------------
+Output1 for generation 17900:
+
+Oceanic mean pheno: 9.52622
+Freshwater mean pheno: -9.78365
+-------------------------------
+Output1 for generation 17950:
+
+Oceanic mean pheno: 9.88176
+Freshwater mean pheno: -9.87664
+-------------------------------
+Output1 for generation 18000:
+
+Oceanic mean pheno: 9.61753
+Freshwater mean pheno: -9.8908
+-------------------------------
+Output1 for generation 18050:
+
+Oceanic mean pheno: 9.6868
+Freshwater mean pheno: -9.71533
+-------------------------------
+Output1 for generation 18100:
+
+Oceanic mean pheno: 10.113
+Freshwater mean pheno: -9.64634
+-------------------------------
+Output1 for generation 18150:
+
+Oceanic mean pheno: 9.81231
+Freshwater mean pheno: -9.33152
+-------------------------------
+Output1 for generation 18200:
+
+Oceanic mean pheno: 9.76818
+Freshwater mean pheno: -9.66182
+-------------------------------
+Output1 for generation 18250:
+
+Oceanic mean pheno: 9.68224
+Freshwater mean pheno: -9.68444
+-------------------------------
+Output1 for generation 18300:
+
+Oceanic mean pheno: 9.57147
+Freshwater mean pheno: -9.88009
+-------------------------------
+Output1 for generation 18350:
+
+Oceanic mean pheno: 9.46397
+Freshwater mean pheno: -9.81022
+-------------------------------
+Output1 for generation 18400:
+
+Oceanic mean pheno: 9.32064
+Freshwater mean pheno: -9.8024
+-------------------------------
+Output1 for generation 18450:
+
+Oceanic mean pheno: 9.54097
+Freshwater mean pheno: -9.66431
+-------------------------------
+Output1 for generation 18500:
+
+Oceanic mean pheno: 9.59587
+Freshwater mean pheno: -9.78205
+-------------------------------
+Output1 for generation 18550:
+
+Oceanic mean pheno: 9.2471
+Freshwater mean pheno: -9.78463
+-------------------------------
+Output1 for generation 18600:
+
+Oceanic mean pheno: 9.39996
+Freshwater mean pheno: -9.20126
+-------------------------------
+Output1 for generation 18650:
+
+Oceanic mean pheno: 9.38276
+Freshwater mean pheno: -9.57852
+-------------------------------
+Output1 for generation 18700:
+
+Oceanic mean pheno: 9.66156
+Freshwater mean pheno: -9.883
+-------------------------------
+Output1 for generation 18750:
+
+Oceanic mean pheno: 9.75376
+Freshwater mean pheno: -9.81899
+-------------------------------
+Output1 for generation 18800:
+
+Oceanic mean pheno: 9.59103
+Freshwater mean pheno: -9.68793
+-------------------------------
+Output1 for generation 18850:
+
+Oceanic mean pheno: 9.471
+Freshwater mean pheno: -9.56947
+-------------------------------
+Output1 for generation 18900:
+
+Oceanic mean pheno: 9.35803
+Freshwater mean pheno: -9.93679
+-------------------------------
+Output1 for generation 18950:
+
+Oceanic mean pheno: 9.66122
+Freshwater mean pheno: -9.74331
+-------------------------------
+Output1 for generation 19000:
+
+Oceanic mean pheno: 9.51903
+Freshwater mean pheno: -9.74929
+-------------------------------
+Output1 for generation 19050:
+
+Oceanic mean pheno: 9.54162
+Freshwater mean pheno: -9.84594
+-------------------------------
+Output1 for generation 19100:
+
+Oceanic mean pheno: 9.69083
+Freshwater mean pheno: -9.91896
+-------------------------------
+Output1 for generation 19150:
+
+Oceanic mean pheno: 9.33022
+Freshwater mean pheno: -9.79593
+-------------------------------
+Output1 for generation 19200:
+
+Oceanic mean pheno: 9.46344
+Freshwater mean pheno: -9.49075
+-------------------------------
+Output1 for generation 19250:
+
+Oceanic mean pheno: 9.68611
+Freshwater mean pheno: -9.36267
+-------------------------------
+Output1 for generation 19300:
+
+Oceanic mean pheno: 9.2488
+Freshwater mean pheno: -10.0896
+-------------------------------
+Output1 for generation 19350:
+
+Oceanic mean pheno: 9.60588
+Freshwater mean pheno: -10.0785
+-------------------------------
+Output1 for generation 19400:
+
+Oceanic mean pheno: 9.60779
+Freshwater mean pheno: -9.79975
+-------------------------------
+Output1 for generation 19450:
+
+Oceanic mean pheno: 9.34681
+Freshwater mean pheno: -9.53622
+-------------------------------
+Output1 for generation 19500:
+
+Oceanic mean pheno: 9.73379
+Freshwater mean pheno: -9.50422
+-------------------------------
+Output1 for generation 19550:
+
+Oceanic mean pheno: 9.48827
+Freshwater mean pheno: -9.81415
+-------------------------------
+Output1 for generation 19600:
+
+Oceanic mean pheno: 9.41013
+Freshwater mean pheno: -9.63074
+-------------------------------
+Output1 for generation 19650:
+
+Oceanic mean pheno: 9.73837
+Freshwater mean pheno: -9.97502
+-------------------------------
+Output1 for generation 19700:
+
+Oceanic mean pheno: 9.5479
+Freshwater mean pheno: -9.48177
+-------------------------------
+Output1 for generation 19750:
+
+Oceanic mean pheno: 9.44007
+Freshwater mean pheno: -9.48398
+-------------------------------
+Output1 for generation 19800:
+
+Oceanic mean pheno: 9.63009
+Freshwater mean pheno: -9.67834
+-------------------------------
+Output1 for generation 19850:
+
+Oceanic mean pheno: 9.63404
+Freshwater mean pheno: -9.72963
+-------------------------------
+Output1 for generation 19900:
+
+Oceanic mean pheno: 9.68142
+Freshwater mean pheno: -9.69445
+-------------------------------
+Output1 for generation 19950:
+
+Oceanic mean pheno: 9.34552
+Freshwater mean pheno: -9.65962
+-------------------------------
+Output1 for generation 20000:
+
+Oceanic mean pheno: 9.45733
+Freshwater mean pheno: -9.90385
+-------------------------------
+Output1 for generation 20050:
+
+Oceanic mean pheno: 9.39457
+Freshwater mean pheno: -10.0029
+-------------------------------
+Output1 for generation 20100:
+
+Oceanic mean pheno: 9.56602
+Freshwater mean pheno: -9.78161
+-------------------------------
+Output1 for generation 20150:
+
+Oceanic mean pheno: 9.32109
+Freshwater mean pheno: -9.45219
+-------------------------------
+Output1 for generation 20200:
+
+Oceanic mean pheno: 9.28698
+Freshwater mean pheno: -9.57877
+-------------------------------
+Output1 for generation 20250:
+
+Oceanic mean pheno: 9.1153
+Freshwater mean pheno: -9.41278
+-------------------------------
+Output1 for generation 20300:
+
+Oceanic mean pheno: 9.06875
+Freshwater mean pheno: -9.38263
+-------------------------------
+Output1 for generation 20350:
+
+Oceanic mean pheno: 9.57522
+Freshwater mean pheno: -9.82127
+-------------------------------
+Output1 for generation 20400:
+
+Oceanic mean pheno: 9.46244
+Freshwater mean pheno: -9.92822
+-------------------------------
+Output1 for generation 20450:
+
+Oceanic mean pheno: 9.95885
+Freshwater mean pheno: -10.0115
+-------------------------------
+Output1 for generation 20500:
+
+Oceanic mean pheno: 9.48754
+Freshwater mean pheno: -9.61206
+-------------------------------
+Output1 for generation 20550:
+
+Oceanic mean pheno: 9.66298
+Freshwater mean pheno: -9.70516
+-------------------------------
+Output1 for generation 20600:
+
+Oceanic mean pheno: 9.48365
+Freshwater mean pheno: -9.53398
+-------------------------------
+Output1 for generation 20650:
+
+Oceanic mean pheno: 9.7944
+Freshwater mean pheno: -9.41951
+-------------------------------
+Output1 for generation 20700:
+
+Oceanic mean pheno: 9.72383
+Freshwater mean pheno: -9.85487
+-------------------------------
+Output1 for generation 20750:
+
+Oceanic mean pheno: 9.46805
+Freshwater mean pheno: -9.71315
+-------------------------------
+Output1 for generation 20800:
+
+Oceanic mean pheno: 9.48086
+Freshwater mean pheno: -9.5502
+-------------------------------
+Output1 for generation 20850:
+
+Oceanic mean pheno: 8.91888
+Freshwater mean pheno: -9.29832
+-------------------------------
+Output1 for generation 20900:
+
+Oceanic mean pheno: 9.41726
+Freshwater mean pheno: -9.35145
+-------------------------------
+Output1 for generation 20950:
+
+Oceanic mean pheno: 9.50814
+Freshwater mean pheno: -9.21401
+-------------------------------
+Output1 for generation 21000:
+
+Oceanic mean pheno: 9.40616
+Freshwater mean pheno: -9.44063
+-------------------------------
+Output1 for generation 21050:
+
+Oceanic mean pheno: 9.61173
+Freshwater mean pheno: -9.35123
+-------------------------------
+Output1 for generation 21100:
+
+Oceanic mean pheno: 9.71161
+Freshwater mean pheno: -9.85713
+-------------------------------
+Output1 for generation 21150:
+
+Oceanic mean pheno: 9.69364
+Freshwater mean pheno: -9.56393
+-------------------------------
+Output1 for generation 21200:
+
+Oceanic mean pheno: 9.63834
+Freshwater mean pheno: -9.45824
+-------------------------------
+Output1 for generation 21250:
+
+Oceanic mean pheno: 9.43243
+Freshwater mean pheno: -9.8668
+-------------------------------
+Output1 for generation 21300:
+
+Oceanic mean pheno: 9.37781
+Freshwater mean pheno: -10.0251
+-------------------------------
+Output1 for generation 21350:
+
+Oceanic mean pheno: 9.19255
+Freshwater mean pheno: -9.8435
+-------------------------------
+Output1 for generation 21400:
+
+Oceanic mean pheno: 9.61772
+Freshwater mean pheno: -9.77196
+-------------------------------
+Output1 for generation 21450:
+
+Oceanic mean pheno: 9.39238
+Freshwater mean pheno: -10.0764
+-------------------------------
+Output1 for generation 21500:
+
+Oceanic mean pheno: 9.84223
+Freshwater mean pheno: -9.69903
+-------------------------------
+Output1 for generation 21550:
+
+Oceanic mean pheno: 9.46631
+Freshwater mean pheno: -9.77552
+-------------------------------
+Output1 for generation 21600:
+
+Oceanic mean pheno: 9.62499
+Freshwater mean pheno: -9.40085
+-------------------------------
+Output1 for generation 21650:
+
+Oceanic mean pheno: 9.2882
+Freshwater mean pheno: -9.4378
+-------------------------------
+Output1 for generation 21700:
+
+Oceanic mean pheno: 9.42408
+Freshwater mean pheno: -9.67848
+-------------------------------
+Output1 for generation 21750:
+
+Oceanic mean pheno: 9.02049
+Freshwater mean pheno: -9.7275
+-------------------------------
+Output1 for generation 21800:
+
+Oceanic mean pheno: 9.60983
+Freshwater mean pheno: -9.46677
+-------------------------------
+Output1 for generation 21850:
+
+Oceanic mean pheno: 9.69222
+Freshwater mean pheno: -9.67708
+-------------------------------
+Output1 for generation 21900:
+
+Oceanic mean pheno: 9.30846
+Freshwater mean pheno: -9.35346
+-------------------------------
+Output1 for generation 21950:
+
+Oceanic mean pheno: 9.65703
+Freshwater mean pheno: -9.56798
+-------------------------------
+Output1 for generation 22000:
+
+Oceanic mean pheno: 9.62117
+Freshwater mean pheno: -9.66904
+-------------------------------
+Output1 for generation 22050:
+
+Oceanic mean pheno: 9.47754
+Freshwater mean pheno: -9.53533
+-------------------------------
+Output1 for generation 22100:
+
+Oceanic mean pheno: 9.36647
+Freshwater mean pheno: -9.66212
+-------------------------------
+Output1 for generation 22150:
+
+Oceanic mean pheno: 9.17936
+Freshwater mean pheno: -9.52802
+-------------------------------
+Output1 for generation 22200:
+
+Oceanic mean pheno: 9.21807
+Freshwater mean pheno: -9.53294
+-------------------------------
+Output1 for generation 22250:
+
+Oceanic mean pheno: 9.63917
+Freshwater mean pheno: -9.81778
+-------------------------------
+Output1 for generation 22300:
+
+Oceanic mean pheno: 9.47886
+Freshwater mean pheno: -9.52677
+-------------------------------
+Output1 for generation 22350:
+
+Oceanic mean pheno: 9.35263
+Freshwater mean pheno: -9.7157
+-------------------------------
+Output1 for generation 22400:
+
+Oceanic mean pheno: 9.06006
+Freshwater mean pheno: -9.85411
+-------------------------------
+Output1 for generation 22450:
+
+Oceanic mean pheno: 9.30327
+Freshwater mean pheno: -9.51786
+-------------------------------
+Output1 for generation 22500:
+
+Oceanic mean pheno: 9.52857
+Freshwater mean pheno: -10.0076
+-------------------------------
+Output1 for generation 22550:
+
+Oceanic mean pheno: 9.36215
+Freshwater mean pheno: -9.4717
+-------------------------------
+Output1 for generation 22600:
+
+Oceanic mean pheno: 9.4216
+Freshwater mean pheno: -9.38229
+-------------------------------
+Output1 for generation 22650:
+
+Oceanic mean pheno: 9.19916
+Freshwater mean pheno: -9.28638
+-------------------------------
+Output1 for generation 22700:
+
+Oceanic mean pheno: 9.30069
+Freshwater mean pheno: -9.62926
+-------------------------------
+Output1 for generation 22750:
+
+Oceanic mean pheno: 9.53118
+Freshwater mean pheno: -9.84662
+-------------------------------
+Output1 for generation 22800:
+
+Oceanic mean pheno: 9.23758
+Freshwater mean pheno: -9.51181
+-------------------------------
+Output1 for generation 22850:
+
+Oceanic mean pheno: 9.36955
+Freshwater mean pheno: -9.65951
+-------------------------------
+Output1 for generation 22900:
+
+Oceanic mean pheno: 9.31183
+Freshwater mean pheno: -9.74496
+-------------------------------
+Output1 for generation 22950:
+
+Oceanic mean pheno: 9.06366
+Freshwater mean pheno: -9.65882
+-------------------------------
+Output1 for generation 23000:
+
+Oceanic mean pheno: 9.44383
+Freshwater mean pheno: -9.80869
+-------------------------------
+Output1 for generation 23050:
+
+Oceanic mean pheno: 9.40939
+Freshwater mean pheno: -9.72702
+-------------------------------
+Output1 for generation 23100:
+
+Oceanic mean pheno: 9.59759
+Freshwater mean pheno: -9.80766
+-------------------------------
+Output1 for generation 23150:
+
+Oceanic mean pheno: 9.51154
+Freshwater mean pheno: -9.81348
+-------------------------------
+Output1 for generation 23200:
+
+Oceanic mean pheno: 9.27778
+Freshwater mean pheno: -10.0423
+-------------------------------
+Output1 for generation 23250:
+
+Oceanic mean pheno: 9.33701
+Freshwater mean pheno: -9.39736
+-------------------------------
+Output1 for generation 23300:
+
+Oceanic mean pheno: 9.21878
+Freshwater mean pheno: -9.59162
+-------------------------------
+Output1 for generation 23350:
+
+Oceanic mean pheno: 9.54936
+Freshwater mean pheno: -10.198
+-------------------------------
+Output1 for generation 23400:
+
+Oceanic mean pheno: 8.83215
+Freshwater mean pheno: -10.0594
+-------------------------------
+Output1 for generation 23450:
+
+Oceanic mean pheno: 9.28098
+Freshwater mean pheno: -9.91332
+-------------------------------
+Output1 for generation 23500:
+
+Oceanic mean pheno: 9.41579
+Freshwater mean pheno: -9.99859
+-------------------------------
+Output1 for generation 23550:
+
+Oceanic mean pheno: 9.46398
+Freshwater mean pheno: -9.50461
+-------------------------------
+Output1 for generation 23600:
+
+Oceanic mean pheno: 9.58209
+Freshwater mean pheno: -9.58899
+-------------------------------
+Output1 for generation 23650:
+
+Oceanic mean pheno: 9.64472
+Freshwater mean pheno: -9.6076
+-------------------------------
+Output1 for generation 23700:
+
+Oceanic mean pheno: 9.7396
+Freshwater mean pheno: -9.90496
+-------------------------------
+Output1 for generation 23750:
+
+Oceanic mean pheno: 9.57779
+Freshwater mean pheno: -9.54576
+-------------------------------
+Output1 for generation 23800:
+
+Oceanic mean pheno: 9.73259
+Freshwater mean pheno: -9.51632
+-------------------------------
+Output1 for generation 23850:
+
+Oceanic mean pheno: 9.40354
+Freshwater mean pheno: -9.55322
+-------------------------------
+Output1 for generation 23900:
+
+Oceanic mean pheno: 9.31592
+Freshwater mean pheno: -9.46525
+-------------------------------
+Output1 for generation 23950:
+
+Oceanic mean pheno: 9.46105
+Freshwater mean pheno: -9.79108
+-------------------------------
+Output1 for generation 24000:
+
+Oceanic mean pheno: 9.64329
+Freshwater mean pheno: -9.78102
+-------------------------------
+Output1 for generation 24050:
+
+Oceanic mean pheno: 9.6934
+Freshwater mean pheno: -9.85641
+-------------------------------
+Output1 for generation 24100:
+
+Oceanic mean pheno: 9.46495
+Freshwater mean pheno: -10.1242
+-------------------------------
+Output1 for generation 24150:
+
+Oceanic mean pheno: 9.32946
+Freshwater mean pheno: -9.75425
+-------------------------------
+Output1 for generation 24200:
+
+Oceanic mean pheno: 9.47986
+Freshwater mean pheno: -9.73908
+-------------------------------
+Output1 for generation 24250:
+
+Oceanic mean pheno: 9.68323
+Freshwater mean pheno: -9.4206
+-------------------------------
+Output1 for generation 24300:
+
+Oceanic mean pheno: 9.37504
+Freshwater mean pheno: -9.75911
+-------------------------------
+Output1 for generation 24350:
+
+Oceanic mean pheno: 9.57281
+Freshwater mean pheno: -9.98468
+-------------------------------
+Output1 for generation 24400:
+
+Oceanic mean pheno: 9.31594
+Freshwater mean pheno: -9.54308
+-------------------------------
+Output1 for generation 24450:
+
+Oceanic mean pheno: 9.22619
+Freshwater mean pheno: -9.74606
+-------------------------------
+Output1 for generation 24500:
+
+Oceanic mean pheno: 9.1698
+Freshwater mean pheno: -9.11069
+-------------------------------
+Output1 for generation 24550:
+
+Oceanic mean pheno: 9.49409
+Freshwater mean pheno: -9.15771
+-------------------------------
+Output1 for generation 24600:
+
+Oceanic mean pheno: 9.41342
+Freshwater mean pheno: -9.67002
+-------------------------------
+Output1 for generation 24650:
+
+Oceanic mean pheno: 9.35666
+Freshwater mean pheno: -9.59911
+-------------------------------
+Output1 for generation 24700:
+
+Oceanic mean pheno: 9.4784
+Freshwater mean pheno: -9.36802
+-------------------------------
+Output1 for generation 24750:
+
+Oceanic mean pheno: 9.39352
+Freshwater mean pheno: -9.74961
+-------------------------------
+Output1 for generation 24800:
+
+Oceanic mean pheno: 9.56712
+Freshwater mean pheno: -10.0584
+-------------------------------
+Output1 for generation 24850:
+
+Oceanic mean pheno: 9.19921
+Freshwater mean pheno: -9.7229
+-------------------------------
+Output1 for generation 24900:
+
+Oceanic mean pheno: 9.27978
+Freshwater mean pheno: -9.59557
+-------------------------------
+Output1 for generation 24950:
+
+Oceanic mean pheno: 9.68424
+Freshwater mean pheno: -9.79769
+-------------------------------
+Output1 for generation 25000:
+
+Oceanic mean pheno: 9.26241
+Freshwater mean pheno: -9.95648
+-------------------------------
+Output1 for generation 25050:
+
+Oceanic mean pheno: 9.25717
+Freshwater mean pheno: -9.83256
+-------------------------------
+Output1 for generation 25100:
+
+Oceanic mean pheno: 9.42769
+Freshwater mean pheno: -10.081
+-------------------------------
+Output1 for generation 25150:
+
+Oceanic mean pheno: 9.23351
+Freshwater mean pheno: -9.88587
+-------------------------------
+Output1 for generation 25200:
+
+Oceanic mean pheno: 9.34245
+Freshwater mean pheno: -9.72131
+-------------------------------
+Output1 for generation 25250:
+
+Oceanic mean pheno: 9.51333
+Freshwater mean pheno: -10.0381
+-------------------------------
+Output1 for generation 25300:
+
+Oceanic mean pheno: 9.44938
+Freshwater mean pheno: -9.60334
+-------------------------------
+Output1 for generation 25350:
+
+Oceanic mean pheno: 9.45698
+Freshwater mean pheno: -9.41846
+-------------------------------
+Output1 for generation 25400:
+
+Oceanic mean pheno: 9.67092
+Freshwater mean pheno: -9.612
+-------------------------------
+Output1 for generation 25450:
+
+Oceanic mean pheno: 9.73537
+Freshwater mean pheno: -9.93532
+-------------------------------
+Output1 for generation 25500:
+
+Oceanic mean pheno: 9.61383
+Freshwater mean pheno: -9.60036
+-------------------------------
+Output1 for generation 25550:
+
+Oceanic mean pheno: 9.46219
+Freshwater mean pheno: -9.37388
+-------------------------------
+Output1 for generation 25600:
+
+Oceanic mean pheno: 9.39957
+Freshwater mean pheno: -9.94064
+-------------------------------
+Output1 for generation 25650:
+
+Oceanic mean pheno: 9.20491
+Freshwater mean pheno: -9.7337
+-------------------------------
+Output1 for generation 25700:
+
+Oceanic mean pheno: 9.49268
+Freshwater mean pheno: -9.60682
+-------------------------------
+Output1 for generation 25750:
+
+Oceanic mean pheno: 9.48423
+Freshwater mean pheno: -9.34251
+-------------------------------
+Output1 for generation 25800:
+
+Oceanic mean pheno: 9.59963
+Freshwater mean pheno: -9.6348
+-------------------------------
+Output1 for generation 25850:
+
+Oceanic mean pheno: 9.32489
+Freshwater mean pheno: -9.92437
+-------------------------------
+Output1 for generation 25900:
+
+Oceanic mean pheno: 9.64953
+Freshwater mean pheno: -10.134
+-------------------------------
+Output1 for generation 25950:
+
+Oceanic mean pheno: 9.81011
+Freshwater mean pheno: -10.2329
+-------------------------------
+Output1 for generation 26000:
+
+Oceanic mean pheno: 9.47462
+Freshwater mean pheno: -9.56421
+-------------------------------
+Output1 for generation 26050:
+
+Oceanic mean pheno: 9.79224
+Freshwater mean pheno: -9.81356
+-------------------------------
+Output1 for generation 26100:
+
+Oceanic mean pheno: 9.59003
+Freshwater mean pheno: -10.259
+-------------------------------
+Output1 for generation 26150:
+
+Oceanic mean pheno: 9.5395
+Freshwater mean pheno: -9.71301
+-------------------------------
+Output1 for generation 26200:
+
+Oceanic mean pheno: 9.52767
+Freshwater mean pheno: -9.71292
+-------------------------------
+Output1 for generation 26250:
+
+Oceanic mean pheno: 9.64928
+Freshwater mean pheno: -9.35335
+-------------------------------
+Output1 for generation 26300:
+
+Oceanic mean pheno: 9.53344
+Freshwater mean pheno: -9.47448
+-------------------------------
+Output1 for generation 26350:
+
+Oceanic mean pheno: 9.4385
+Freshwater mean pheno: -9.62508
+-------------------------------
+Output1 for generation 26400:
+
+Oceanic mean pheno: 9.42039
+Freshwater mean pheno: -9.79966
+-------------------------------
+Output1 for generation 26450:
+
+Oceanic mean pheno: 9.67077
+Freshwater mean pheno: -9.76208
+-------------------------------
+Output1 for generation 26500:
+
+Oceanic mean pheno: 9.47585
+Freshwater mean pheno: -9.66801
+-------------------------------
+Output1 for generation 26550:
+
+Oceanic mean pheno: 9.63215
+Freshwater mean pheno: -9.32727
+-------------------------------
+Output1 for generation 26600:
+
+Oceanic mean pheno: 9.8103
+Freshwater mean pheno: -9.78988
+-------------------------------
+Output1 for generation 26650:
+
+Oceanic mean pheno: 9.86399
+Freshwater mean pheno: -9.64756
+-------------------------------
+Output1 for generation 26700:
+
+Oceanic mean pheno: 9.58117
+Freshwater mean pheno: -9.74427
+-------------------------------
+Output1 for generation 26750:
+
+Oceanic mean pheno: 9.52532
+Freshwater mean pheno: -9.91001
+-------------------------------
+Output1 for generation 26800:
+
+Oceanic mean pheno: 9.17385
+Freshwater mean pheno: -9.91159
+-------------------------------
+Output1 for generation 26850:
+
+Oceanic mean pheno: 9.45389
+Freshwater mean pheno: -9.93468
+-------------------------------
+Output1 for generation 26900:
+
+Oceanic mean pheno: 9.81495
+Freshwater mean pheno: -9.72004
+-------------------------------
+Output1 for generation 26950:
+
+Oceanic mean pheno: 9.98511
+Freshwater mean pheno: -9.59462
+-------------------------------
+Output1 for generation 27000:
+
+Oceanic mean pheno: 9.53196
+Freshwater mean pheno: -9.63123
+-------------------------------
+Output1 for generation 27050:
+
+Oceanic mean pheno: 9.69157
+Freshwater mean pheno: -9.74765
+-------------------------------
+Output1 for generation 27100:
+
+Oceanic mean pheno: 9.71306
+Freshwater mean pheno: -9.9025
+-------------------------------
+Output1 for generation 27150:
+
+Oceanic mean pheno: 9.62877
+Freshwater mean pheno: -10.0769
+-------------------------------
+Output1 for generation 27200:
+
+Oceanic mean pheno: 9.64627
+Freshwater mean pheno: -10.1124
+-------------------------------
+Output1 for generation 27250:
+
+Oceanic mean pheno: 9.3554
+Freshwater mean pheno: -10.1218
+-------------------------------
+Output1 for generation 27300:
+
+Oceanic mean pheno: 9.54183
+Freshwater mean pheno: -10.3766
+-------------------------------
+Output1 for generation 27350:
+
+Oceanic mean pheno: 9.32591
+Freshwater mean pheno: -10.1859
+-------------------------------
+Output1 for generation 27400:
+
+Oceanic mean pheno: 9.56426
+Freshwater mean pheno: -9.98244
+-------------------------------
+Output1 for generation 27450:
+
+Oceanic mean pheno: 9.68933
+Freshwater mean pheno: -9.65268
+-------------------------------
+Output1 for generation 27500:
+
+Oceanic mean pheno: 9.24152
+Freshwater mean pheno: -9.68936
+-------------------------------
+Output1 for generation 27550:
+
+Oceanic mean pheno: 9.6549
+Freshwater mean pheno: -9.5026
+-------------------------------
+Output1 for generation 27600:
+
+Oceanic mean pheno: 9.64071
+Freshwater mean pheno: -9.9934
+-------------------------------
+Output1 for generation 27650:
+
+Oceanic mean pheno: 9.70461
+Freshwater mean pheno: -9.85557
+-------------------------------
+Output1 for generation 27700:
+
+Oceanic mean pheno: 9.50315
+Freshwater mean pheno: -9.52119
+-------------------------------
+Output1 for generation 27750:
+
+Oceanic mean pheno: 9.33586
+Freshwater mean pheno: -9.65786
+-------------------------------
+Output1 for generation 27800:
+
+Oceanic mean pheno: 9.44119
+Freshwater mean pheno: -9.80541
+-------------------------------
+Output1 for generation 27850:
+
+Oceanic mean pheno: 9.54324
+Freshwater mean pheno: -9.6662
+-------------------------------
+Output1 for generation 27900:
+
+Oceanic mean pheno: 9.48018
+Freshwater mean pheno: -9.9399
+-------------------------------
+Output1 for generation 27950:
+
+Oceanic mean pheno: 9.48558
+Freshwater mean pheno: -9.93815
+-------------------------------
+Output1 for generation 28000:
+
+Oceanic mean pheno: 9.67477
+Freshwater mean pheno: -9.69268
+-------------------------------
+Output1 for generation 28050:
+
+Oceanic mean pheno: 9.34902
+Freshwater mean pheno: -10.0193
+-------------------------------
+Output1 for generation 28100:
+
+Oceanic mean pheno: 9.60481
+Freshwater mean pheno: -9.7979
+-------------------------------
+Output1 for generation 28150:
+
+Oceanic mean pheno: 9.65849
+Freshwater mean pheno: -9.85982
+-------------------------------
+Output1 for generation 28200:
+
+Oceanic mean pheno: 9.61914
+Freshwater mean pheno: -10.0314
+-------------------------------
+Output1 for generation 28250:
+
+Oceanic mean pheno: 9.65037
+Freshwater mean pheno: -10.0241
+-------------------------------
+Output1 for generation 28300:
+
+Oceanic mean pheno: 8.89838
+Freshwater mean pheno: -9.84128
+-------------------------------
+Output1 for generation 28350:
+
+Oceanic mean pheno: 9.51341
+Freshwater mean pheno: -9.76305
+-------------------------------
+Output1 for generation 28400:
+
+Oceanic mean pheno: 9.2762
+Freshwater mean pheno: -10.2167
+-------------------------------
+Output1 for generation 28450:
+
+Oceanic mean pheno: 9.64181
+Freshwater mean pheno: -10.0119
+-------------------------------
+Output1 for generation 28500:
+
+Oceanic mean pheno: 9.72139
+Freshwater mean pheno: -9.9116
+-------------------------------
+Output1 for generation 28550:
+
+Oceanic mean pheno: 9.55527
+Freshwater mean pheno: -9.73915
+-------------------------------
+Output1 for generation 28600:
+
+Oceanic mean pheno: 9.7408
+Freshwater mean pheno: -9.42159
+-------------------------------
+Output1 for generation 28650:
+
+Oceanic mean pheno: 9.51311
+Freshwater mean pheno: -9.68751
+-------------------------------
+Output1 for generation 28700:
+
+Oceanic mean pheno: 9.62992
+Freshwater mean pheno: -9.85748
+-------------------------------
+Output1 for generation 28750:
+
+Oceanic mean pheno: 9.39479
+Freshwater mean pheno: -9.86849
+-------------------------------
+Output1 for generation 28800:
+
+Oceanic mean pheno: 9.61545
+Freshwater mean pheno: -9.75623
+-------------------------------
+Output1 for generation 28850:
+
+Oceanic mean pheno: 9.56665
+Freshwater mean pheno: -9.97483
+-------------------------------
+Output1 for generation 28900:
+
+Oceanic mean pheno: 9.63497
+Freshwater mean pheno: -9.76597
+-------------------------------
+Output1 for generation 28950:
+
+Oceanic mean pheno: 9.68739
+Freshwater mean pheno: -9.99278
+-------------------------------
+Output1 for generation 29000:
+
+Oceanic mean pheno: 9.17764
+Freshwater mean pheno: -9.90091
+-------------------------------
+Output1 for generation 29050:
+
+Oceanic mean pheno: 9.51799
+Freshwater mean pheno: -9.64836
+-------------------------------
+Output1 for generation 29100:
+
+Oceanic mean pheno: 9.51019
+Freshwater mean pheno: -9.64848
+-------------------------------
+Output1 for generation 29150:
+
+Oceanic mean pheno: 9.47707
+Freshwater mean pheno: -9.79899
+-------------------------------
+Output1 for generation 29200:
+
+Oceanic mean pheno: 9.29012
+Freshwater mean pheno: -9.5457
+-------------------------------
+Output1 for generation 29250:
+
+Oceanic mean pheno: 9.35044
+Freshwater mean pheno: -9.91365
+-------------------------------
+Output1 for generation 29300:
+
+Oceanic mean pheno: 9.59405
+Freshwater mean pheno: -9.88196
+-------------------------------
+Output1 for generation 29350:
+
+Oceanic mean pheno: 9.5897
+Freshwater mean pheno: -9.24429
+-------------------------------
+Output1 for generation 29400:
+
+Oceanic mean pheno: 9.54796
+Freshwater mean pheno: -9.59333
+-------------------------------
+Output1 for generation 29450:
+
+Oceanic mean pheno: 9.62376
+Freshwater mean pheno: -9.65757
+-------------------------------
+Output1 for generation 29500:
+
+Oceanic mean pheno: 9.33672
+Freshwater mean pheno: -9.81701
+-------------------------------
+Output1 for generation 29550:
+
+Oceanic mean pheno: 9.44736
+Freshwater mean pheno: -9.77218
+-------------------------------
+Output1 for generation 29600:
+
+Oceanic mean pheno: 9.30911
+Freshwater mean pheno: -9.90335
+-------------------------------
+Output1 for generation 29650:
+
+Oceanic mean pheno: 9.6593
+Freshwater mean pheno: -9.8976
+-------------------------------
+Output1 for generation 29700:
+
+Oceanic mean pheno: 9.81613
+Freshwater mean pheno: -9.85881
+-------------------------------
+Output1 for generation 29750:
+
+Oceanic mean pheno: 9.61731
+Freshwater mean pheno: -9.77406
+-------------------------------
+Output1 for generation 29800:
+
+Oceanic mean pheno: 9.26252
+Freshwater mean pheno: -9.92981
+-------------------------------
+Output1 for generation 29850:
+
+Oceanic mean pheno: 9.44395
+Freshwater mean pheno: -9.75666
+-------------------------------
+Output1 for generation 29900:
+
+Oceanic mean pheno: 9.30339
+Freshwater mean pheno: -9.72054
+-------------------------------
+Output1 for generation 29950:
+
+Oceanic mean pheno: 9.50505
+Freshwater mean pheno: -9.83687
+-------------------------------
+Output1 for generation 30000:
+
+Oceanic mean pheno: 9.39621
+Freshwater mean pheno: -9.90292
+-------------------------------
+Output1 for generation 30050:
+
+Oceanic mean pheno: 9.74405
+Freshwater mean pheno: -9.79776
+-------------------------------
+Output1 for generation 30100:
+
+Oceanic mean pheno: 9.52522
+Freshwater mean pheno: -10.018
+-------------------------------
+Output1 for generation 30150:
+
+Oceanic mean pheno: 9.78555
+Freshwater mean pheno: -10.048
+-------------------------------
+Output1 for generation 30200:
+
+Oceanic mean pheno: 9.46656
+Freshwater mean pheno: -9.7184
+-------------------------------
+Output1 for generation 30250:
+
+Oceanic mean pheno: 9.48751
+Freshwater mean pheno: -9.22623
+-------------------------------
+Output1 for generation 30300:
+
+Oceanic mean pheno: 9.2432
+Freshwater mean pheno: -9.58129
+-------------------------------
+Output1 for generation 30350:
+
+Oceanic mean pheno: 9.59716
+Freshwater mean pheno: -9.86844
+-------------------------------
+Output1 for generation 30400:
+
+Oceanic mean pheno: 9.8615
+Freshwater mean pheno: -9.71301
+-------------------------------
+Output1 for generation 30450:
+
+Oceanic mean pheno: 9.34986
+Freshwater mean pheno: -9.87367
+-------------------------------
+Output1 for generation 30500:
+
+Oceanic mean pheno: 9.77317
+Freshwater mean pheno: -9.78492
+-------------------------------
+Output1 for generation 30550:
+
+Oceanic mean pheno: 9.56018
+Freshwater mean pheno: -10.137
+-------------------------------
+Output1 for generation 30600:
+
+Oceanic mean pheno: 9.8612
+Freshwater mean pheno: -9.87072
+-------------------------------
+Output1 for generation 30650:
+
+Oceanic mean pheno: 9.7018
+Freshwater mean pheno: -9.75541
+-------------------------------
+Output1 for generation 30700:
+
+Oceanic mean pheno: 9.50944
+Freshwater mean pheno: -9.60135
+-------------------------------
+Output1 for generation 30750:
+
+Oceanic mean pheno: 9.16159
+Freshwater mean pheno: -9.95736
+-------------------------------
+Output1 for generation 30800:
+
+Oceanic mean pheno: 9.23224
+Freshwater mean pheno: -9.65516
+-------------------------------
+Output1 for generation 30850:
+
+Oceanic mean pheno: 9.46427
+Freshwater mean pheno: -9.64473
+-------------------------------
+Output1 for generation 30900:
+
+Oceanic mean pheno: 9.57124
+Freshwater mean pheno: -9.6005
+-------------------------------
+Output1 for generation 30950:
+
+Oceanic mean pheno: 9.3496
+Freshwater mean pheno: -9.94481
+-------------------------------
+Output1 for generation 31000:
+
+Oceanic mean pheno: 9.42719
+Freshwater mean pheno: -9.5257
+-------------------------------
+Output1 for generation 31050:
+
+Oceanic mean pheno: 9.47245
+Freshwater mean pheno: -9.844
+-------------------------------
+Output1 for generation 31100:
+
+Oceanic mean pheno: 9.49385
+Freshwater mean pheno: -9.74188
+-------------------------------
+Output1 for generation 31150:
+
+Oceanic mean pheno: 9.97074
+Freshwater mean pheno: -9.9348
+-------------------------------
+Output1 for generation 31200:
+
+Oceanic mean pheno: 9.56415
+Freshwater mean pheno: -9.87313
+-------------------------------
+Output1 for generation 31250:
+
+Oceanic mean pheno: 9.59737
+Freshwater mean pheno: -9.73429
+-------------------------------
+Output1 for generation 31300:
+
+Oceanic mean pheno: 9.53661
+Freshwater mean pheno: -9.85746
+-------------------------------
+Output1 for generation 31350:
+
+Oceanic mean pheno: 9.56576
+Freshwater mean pheno: -9.76487
+-------------------------------
+Output1 for generation 31400:
+
+Oceanic mean pheno: 9.73138
+Freshwater mean pheno: -9.6259
+-------------------------------
+Output1 for generation 31450:
+
+Oceanic mean pheno: 9.53279
+Freshwater mean pheno: -9.74888
+-------------------------------
+Output1 for generation 31500:
+
+Oceanic mean pheno: 9.58789
+Freshwater mean pheno: -9.96629
+-------------------------------
+Output1 for generation 31550:
+
+Oceanic mean pheno: 9.46354
+Freshwater mean pheno: -9.66474
+-------------------------------
+Output1 for generation 31600:
+
+Oceanic mean pheno: 9.61316
+Freshwater mean pheno: -9.68234
+-------------------------------
+Output1 for generation 31650:
+
+Oceanic mean pheno: 9.64772
+Freshwater mean pheno: -9.55779
+-------------------------------
+Output1 for generation 31700:
+
+Oceanic mean pheno: 9.44576
+Freshwater mean pheno: -9.72994
+-------------------------------
+Output1 for generation 31750:
+
+Oceanic mean pheno: 9.4682
+Freshwater mean pheno: -9.58614
+-------------------------------
+Output1 for generation 31800:
+
+Oceanic mean pheno: 9.64668
+Freshwater mean pheno: -9.49191
+-------------------------------
+Output1 for generation 31850:
+
+Oceanic mean pheno: 9.34108
+Freshwater mean pheno: -9.81588
+-------------------------------
+Output1 for generation 31900:
+
+Oceanic mean pheno: 9.45189
+Freshwater mean pheno: -9.48773
+-------------------------------
+Output1 for generation 31950:
+
+Oceanic mean pheno: 9.70761
+Freshwater mean pheno: -9.35881
+-------------------------------
+Output1 for generation 32000:
+
+Oceanic mean pheno: 9.82074
+Freshwater mean pheno: -9.47309
+-------------------------------
+Output1 for generation 32050:
+
+Oceanic mean pheno: 9.43735
+Freshwater mean pheno: -9.65404
+-------------------------------
+Output1 for generation 32100:
+
+Oceanic mean pheno: 9.31552
+Freshwater mean pheno: -9.70934
+-------------------------------
+Output1 for generation 32150:
+
+Oceanic mean pheno: 9.48899
+Freshwater mean pheno: -9.90753
+-------------------------------
+Output1 for generation 32200:
+
+Oceanic mean pheno: 9.69646
+Freshwater mean pheno: -9.76834
+-------------------------------
+Output1 for generation 32250:
+
+Oceanic mean pheno: 9.85398
+Freshwater mean pheno: -9.83664
+-------------------------------
+Output1 for generation 32300:
+
+Oceanic mean pheno: 9.52405
+Freshwater mean pheno: -9.90659
+-------------------------------
+Output1 for generation 32350:
+
+Oceanic mean pheno: 9.75752
+Freshwater mean pheno: -9.71002
+-------------------------------
+Output1 for generation 32400:
+
+Oceanic mean pheno: 9.32599
+Freshwater mean pheno: -9.86339
+-------------------------------
+Output1 for generation 32450:
+
+Oceanic mean pheno: 9.39737
+Freshwater mean pheno: -9.63541
+-------------------------------
+Output1 for generation 32500:
+
+Oceanic mean pheno: 9.44065
+Freshwater mean pheno: -9.56741
+-------------------------------
+Output1 for generation 32550:
+
+Oceanic mean pheno: 9.64274
+Freshwater mean pheno: -9.62266
+-------------------------------
+Output1 for generation 32600:
+
+Oceanic mean pheno: 9.65368
+Freshwater mean pheno: -9.52337
+-------------------------------
+Output1 for generation 32650:
+
+Oceanic mean pheno: 9.54004
+Freshwater mean pheno: -9.69021
+-------------------------------
+Output1 for generation 32700:
+
+Oceanic mean pheno: 9.51827
+Freshwater mean pheno: -9.76668
+-------------------------------
+Output1 for generation 32750:
+
+Oceanic mean pheno: 9.18541
+Freshwater mean pheno: -9.94514
+-------------------------------
+Output1 for generation 32800:
+
+Oceanic mean pheno: 9.34933
+Freshwater mean pheno: -9.77908
+-------------------------------
+Output1 for generation 32850:
+
+Oceanic mean pheno: 9.46134
+Freshwater mean pheno: -9.80187
+-------------------------------
+Output1 for generation 32900:
+
+Oceanic mean pheno: 9.4076
+Freshwater mean pheno: -9.78238
+-------------------------------
+Output1 for generation 32950:
+
+Oceanic mean pheno: 9.78433
+Freshwater mean pheno: -10.3864
+-------------------------------
+Output1 for generation 33000:
+
+Oceanic mean pheno: 9.8113
+Freshwater mean pheno: -10.0765
+-------------------------------
+Output1 for generation 33050:
+
+Oceanic mean pheno: 9.53324
+Freshwater mean pheno: -9.81894
+-------------------------------
+Output1 for generation 33100:
+
+Oceanic mean pheno: 9.65146
+Freshwater mean pheno: -9.68101
+-------------------------------
+Output1 for generation 33150:
+
+Oceanic mean pheno: 9.60513
+Freshwater mean pheno: -9.67342
+-------------------------------
+Output1 for generation 33200:
+
+Oceanic mean pheno: 9.53404
+Freshwater mean pheno: -9.52511
+-------------------------------
+Output1 for generation 33250:
+
+Oceanic mean pheno: 9.58907
+Freshwater mean pheno: -9.75925
+-------------------------------
+Output1 for generation 33300:
+
+Oceanic mean pheno: 9.57355
+Freshwater mean pheno: -9.82292
+-------------------------------
+Output1 for generation 33350:
+
+Oceanic mean pheno: 9.57301
+Freshwater mean pheno: -10.0758
+-------------------------------
+Output1 for generation 33400:
+
+Oceanic mean pheno: 9.72376
+Freshwater mean pheno: -9.77124
+-------------------------------
+Output1 for generation 33450:
+
+Oceanic mean pheno: 9.64691
+Freshwater mean pheno: -9.86675
+-------------------------------
+Output1 for generation 33500:
+
+Oceanic mean pheno: 9.37493
+Freshwater mean pheno: -10.1856
+-------------------------------
+Output1 for generation 33550:
+
+Oceanic mean pheno: 9.75874
+Freshwater mean pheno: -9.97481
+-------------------------------
+Output1 for generation 33600:
+
+Oceanic mean pheno: 9.5438
+Freshwater mean pheno: -9.94343
+-------------------------------
+Output1 for generation 33650:
+
+Oceanic mean pheno: 9.48043
+Freshwater mean pheno: -9.78018
+-------------------------------
+Output1 for generation 33700:
+
+Oceanic mean pheno: 9.41614
+Freshwater mean pheno: -9.55575
+-------------------------------
+Output1 for generation 33750:
+
+Oceanic mean pheno: 9.53062
+Freshwater mean pheno: -10.1632
+-------------------------------
+Output1 for generation 33800:
+
+Oceanic mean pheno: 9.46869
+Freshwater mean pheno: -9.30101
+-------------------------------
+Output1 for generation 33850:
+
+Oceanic mean pheno: 9.40819
+Freshwater mean pheno: -9.66648
+-------------------------------
+Output1 for generation 33900:
+
+Oceanic mean pheno: 9.72744
+Freshwater mean pheno: -9.66817
+-------------------------------
+Output1 for generation 33950:
+
+Oceanic mean pheno: 9.28228
+Freshwater mean pheno: -9.81947
+-------------------------------
+Output1 for generation 34000:
+
+Oceanic mean pheno: 9.36697
+Freshwater mean pheno: -9.69416
+-------------------------------
+Output1 for generation 34050:
+
+Oceanic mean pheno: 9.48375
+Freshwater mean pheno: -9.37437
+-------------------------------
+Output1 for generation 34100:
+
+Oceanic mean pheno: 9.66679
+Freshwater mean pheno: -9.80807
+-------------------------------
+Output1 for generation 34150:
+
+Oceanic mean pheno: 9.4987
+Freshwater mean pheno: -9.91367
+-------------------------------
+Output1 for generation 34200:
+
+Oceanic mean pheno: 9.4751
+Freshwater mean pheno: -9.93072
+-------------------------------
+Output1 for generation 34250:
+
+Oceanic mean pheno: 9.71455
+Freshwater mean pheno: -9.44693
+-------------------------------
+Output1 for generation 34300:
+
+Oceanic mean pheno: 9.5793
+Freshwater mean pheno: -9.21621
+-------------------------------
+Output1 for generation 34350:
+
+Oceanic mean pheno: 9.43821
+Freshwater mean pheno: -9.79093
+-------------------------------
+Output1 for generation 34400:
+
+Oceanic mean pheno: 9.75848
+Freshwater mean pheno: -9.46979
+-------------------------------
+Output1 for generation 34450:
+
+Oceanic mean pheno: 9.45304
+Freshwater mean pheno: -9.62027
+-------------------------------
+Output1 for generation 34500:
+
+Oceanic mean pheno: 9.60978
+Freshwater mean pheno: -9.65259
+-------------------------------
+Output1 for generation 34550:
+
+Oceanic mean pheno: 9.53261
+Freshwater mean pheno: -9.80637
+-------------------------------
+Output1 for generation 34600:
+
+Oceanic mean pheno: 9.57648
+Freshwater mean pheno: -9.61687
+-------------------------------
+Output1 for generation 34650:
+
+Oceanic mean pheno: 9.26976
+Freshwater mean pheno: -9.53424
+-------------------------------
+Output1 for generation 34700:
+
+Oceanic mean pheno: 9.47021
+Freshwater mean pheno: -9.8741
+-------------------------------
+Output1 for generation 34750:
+
+Oceanic mean pheno: 9.62727
+Freshwater mean pheno: -9.69923
+-------------------------------
+Output1 for generation 34800:
+
+Oceanic mean pheno: 9.66174
+Freshwater mean pheno: -10.055
+-------------------------------
+Output1 for generation 34850:
+
+Oceanic mean pheno: 9.65058
+Freshwater mean pheno: -9.82545
+-------------------------------
+Output1 for generation 34900:
+
+Oceanic mean pheno: 9.66403
+Freshwater mean pheno: -9.64744
+-------------------------------
+Output1 for generation 34950:
+
+Oceanic mean pheno: 9.61162
+Freshwater mean pheno: -9.68509
+-------------------------------
+Output1 for generation 35000:
+
+Oceanic mean pheno: 9.25025
+Freshwater mean pheno: -9.77753
+-------------------------------
+Output1 for generation 35050:
+
+Oceanic mean pheno: 9.54529
+Freshwater mean pheno: -9.44443
+-------------------------------
+Output1 for generation 35100:
+
+Oceanic mean pheno: 9.863
+Freshwater mean pheno: -9.42225
+-------------------------------
+Output1 for generation 35150:
+
+Oceanic mean pheno: 9.40715
+Freshwater mean pheno: -9.84596
+-------------------------------
+Output1 for generation 35200:
+
+Oceanic mean pheno: 9.55255
+Freshwater mean pheno: -9.73349
+-------------------------------
+Output1 for generation 35250:
+
+Oceanic mean pheno: 9.39073
+Freshwater mean pheno: -10.0403
+-------------------------------
+Output1 for generation 35300:
+
+Oceanic mean pheno: 9.85295
+Freshwater mean pheno: -9.96548
+-------------------------------
+Output1 for generation 35350:
+
+Oceanic mean pheno: 9.58802
+Freshwater mean pheno: -9.64851
+-------------------------------
+Output1 for generation 35400:
+
+Oceanic mean pheno: 9.64197
+Freshwater mean pheno: -9.86034
+-------------------------------
+Output1 for generation 35450:
+
+Oceanic mean pheno: 9.70036
+Freshwater mean pheno: -9.746
+-------------------------------
+Output1 for generation 35500:
+
+Oceanic mean pheno: 9.47617
+Freshwater mean pheno: -10.2113
+-------------------------------
+Output1 for generation 35550:
+
+Oceanic mean pheno: 9.53913
+Freshwater mean pheno: -9.52235
+-------------------------------
+Output1 for generation 35600:
+
+Oceanic mean pheno: 9.28317
+Freshwater mean pheno: -9.73984
+-------------------------------
+Output1 for generation 35650:
+
+Oceanic mean pheno: 9.60474
+Freshwater mean pheno: -9.73029
+-------------------------------
+Output1 for generation 35700:
+
+Oceanic mean pheno: 9.47768
+Freshwater mean pheno: -9.85629
+-------------------------------
+Output1 for generation 35750:
+
+Oceanic mean pheno: 9.66819
+Freshwater mean pheno: -9.80493
+-------------------------------
+Output1 for generation 35800:
+
+Oceanic mean pheno: 9.64184
+Freshwater mean pheno: -9.67485
+-------------------------------
+Output1 for generation 35850:
+
+Oceanic mean pheno: 9.55997
+Freshwater mean pheno: -9.92885
+-------------------------------
+Output1 for generation 35900:
+
+Oceanic mean pheno: 9.00431
+Freshwater mean pheno: -9.51251
+-------------------------------
+Output1 for generation 35950:
+
+Oceanic mean pheno: 9.44763
+Freshwater mean pheno: -9.757
+-------------------------------
+Output1 for generation 36000:
+
+Oceanic mean pheno: 9.58878
+Freshwater mean pheno: -9.24992
+-------------------------------
+Output1 for generation 36050:
+
+Oceanic mean pheno: 9.41248
+Freshwater mean pheno: -9.49047
+-------------------------------
+Output1 for generation 36100:
+
+Oceanic mean pheno: 9.56612
+Freshwater mean pheno: -9.80794
+-------------------------------
+Output1 for generation 36150:
+
+Oceanic mean pheno: 9.62649
+Freshwater mean pheno: -9.77136
+-------------------------------
+Output1 for generation 36200:
+
+Oceanic mean pheno: 9.62159
+Freshwater mean pheno: -9.61084
+-------------------------------
+Output1 for generation 36250:
+
+Oceanic mean pheno: 9.54592
+Freshwater mean pheno: -9.78112
+-------------------------------
+Output1 for generation 36300:
+
+Oceanic mean pheno: 9.54417
+Freshwater mean pheno: -9.87916
+-------------------------------
+Output1 for generation 36350:
+
+Oceanic mean pheno: 9.30215
+Freshwater mean pheno: -10.0285
+-------------------------------
+Output1 for generation 36400:
+
+Oceanic mean pheno: 9.62086
+Freshwater mean pheno: -9.84213
+-------------------------------
+Output1 for generation 36450:
+
+Oceanic mean pheno: 9.4806
+Freshwater mean pheno: -9.68637
+-------------------------------
+Output1 for generation 36500:
+
+Oceanic mean pheno: 9.80924
+Freshwater mean pheno: -9.33426
+-------------------------------
+Output1 for generation 36550:
+
+Oceanic mean pheno: 9.89084
+Freshwater mean pheno: -9.56801
+-------------------------------
+Output1 for generation 36600:
+
+Oceanic mean pheno: 9.84816
+Freshwater mean pheno: -9.79632
+-------------------------------
+Output1 for generation 36650:
+
+Oceanic mean pheno: 9.70938
+Freshwater mean pheno: -9.57684
+-------------------------------
+Output1 for generation 36700:
+
+Oceanic mean pheno: 9.4861
+Freshwater mean pheno: -9.76325
+-------------------------------
+Output1 for generation 36750:
+
+Oceanic mean pheno: 9.43135
+Freshwater mean pheno: -9.52526
+-------------------------------
+Output1 for generation 36800:
+
+Oceanic mean pheno: 9.31901
+Freshwater mean pheno: -9.37696
+-------------------------------
+Output1 for generation 36850:
+
+Oceanic mean pheno: 9.3581
+Freshwater mean pheno: -9.87258
+-------------------------------
+Output1 for generation 36900:
+
+Oceanic mean pheno: 9.76307
+Freshwater mean pheno: -9.77672
+-------------------------------
+Output1 for generation 36950:
+
+Oceanic mean pheno: 9.70565
+Freshwater mean pheno: -9.34798
+-------------------------------
+Output1 for generation 37000:
+
+Oceanic mean pheno: 9.23636
+Freshwater mean pheno: -9.51167
+-------------------------------
+Output1 for generation 37050:
+
+Oceanic mean pheno: 9.42367
+Freshwater mean pheno: -9.56807
+-------------------------------
+Output1 for generation 37100:
+
+Oceanic mean pheno: 9.20077
+Freshwater mean pheno: -9.70802
+-------------------------------
+Output1 for generation 37150:
+
+Oceanic mean pheno: 9.677
+Freshwater mean pheno: -9.59512
+-------------------------------
+Output1 for generation 37200:
+
+Oceanic mean pheno: 9.22854
+Freshwater mean pheno: -9.73019
+-------------------------------
+Output1 for generation 37250:
+
+Oceanic mean pheno: 9.09667
+Freshwater mean pheno: -9.56824
+-------------------------------
+Output1 for generation 37300:
+
+Oceanic mean pheno: 9.44287
+Freshwater mean pheno: -9.80418
+-------------------------------
+Output1 for generation 37350:
+
+Oceanic mean pheno: 9.18465
+Freshwater mean pheno: -9.77261
+-------------------------------
+Output1 for generation 37400:
+
+Oceanic mean pheno: 9.24058
+Freshwater mean pheno: -9.59648
+-------------------------------
+Output1 for generation 37450:
+
+Oceanic mean pheno: 9.61922
+Freshwater mean pheno: -9.254
+-------------------------------
+Output1 for generation 37500:
+
+Oceanic mean pheno: 9.11012
+Freshwater mean pheno: -9.87331
+-------------------------------
+Output1 for generation 37550:
+
+Oceanic mean pheno: 9.25796
+Freshwater mean pheno: -9.73826
+-------------------------------
+Output1 for generation 37600:
+
+Oceanic mean pheno: 9.63881
+Freshwater mean pheno: -9.55552
+-------------------------------
+Output1 for generation 37650:
+
+Oceanic mean pheno: 9.47868
+Freshwater mean pheno: -9.62924
+-------------------------------
+Output1 for generation 37700:
+
+Oceanic mean pheno: 9.23225
+Freshwater mean pheno: -9.6689
+-------------------------------
+Output1 for generation 37750:
+
+Oceanic mean pheno: 9.29774
+Freshwater mean pheno: -9.75591
+-------------------------------
+Output1 for generation 37800:
+
+Oceanic mean pheno: 9.46004
+Freshwater mean pheno: -9.80563
+-------------------------------
+Output1 for generation 37850:
+
+Oceanic mean pheno: 9.50978
+Freshwater mean pheno: -9.82517
+-------------------------------
+Output1 for generation 37900:
+
+Oceanic mean pheno: 9.37894
+Freshwater mean pheno: -9.56693
+-------------------------------
+Output1 for generation 37950:
+
+Oceanic mean pheno: 9.07289
+Freshwater mean pheno: -9.90061
+-------------------------------
+Output1 for generation 38000:
+
+Oceanic mean pheno: 9.43516
+Freshwater mean pheno: -9.92718
+-------------------------------
+Output1 for generation 38050:
+
+Oceanic mean pheno: 9.56756
+Freshwater mean pheno: -9.90557
+-------------------------------
+Output1 for generation 38100:
+
+Oceanic mean pheno: 9.56705
+Freshwater mean pheno: -9.70216
+-------------------------------
+Output1 for generation 38150:
+
+Oceanic mean pheno: 9.8939
+Freshwater mean pheno: -9.57113
+-------------------------------
+Output1 for generation 38200:
+
+Oceanic mean pheno: 9.74993
+Freshwater mean pheno: -9.65805
+-------------------------------
+Output1 for generation 38250:
+
+Oceanic mean pheno: 9.85244
+Freshwater mean pheno: -9.37503
+-------------------------------
+Output1 for generation 38300:
+
+Oceanic mean pheno: 9.38212
+Freshwater mean pheno: -9.43912
+-------------------------------
+Output1 for generation 38350:
+
+Oceanic mean pheno: 9.68343
+Freshwater mean pheno: -9.77132
+-------------------------------
+Output1 for generation 38400:
+
+Oceanic mean pheno: 9.71709
+Freshwater mean pheno: -9.65121
+-------------------------------
+Output1 for generation 38450:
+
+Oceanic mean pheno: 9.33189
+Freshwater mean pheno: -9.87354
+-------------------------------
+Output1 for generation 38500:
+
+Oceanic mean pheno: 9.55199
+Freshwater mean pheno: -9.73778
+-------------------------------
+Output1 for generation 38550:
+
+Oceanic mean pheno: 9.62849
+Freshwater mean pheno: -9.87547
+-------------------------------
+Output1 for generation 38600:
+
+Oceanic mean pheno: 9.51614
+Freshwater mean pheno: -9.49262
+-------------------------------
+Output1 for generation 38650:
+
+Oceanic mean pheno: 9.64836
+Freshwater mean pheno: -10.1176
+-------------------------------
+Output1 for generation 38700:
+
+Oceanic mean pheno: 9.56202
+Freshwater mean pheno: -9.91846
+-------------------------------
+Output1 for generation 38750:
+
+Oceanic mean pheno: 9.63834
+Freshwater mean pheno: -9.71157
+-------------------------------
+Output1 for generation 38800:
+
+Oceanic mean pheno: 9.54494
+Freshwater mean pheno: -9.37236
+-------------------------------
+Output1 for generation 38850:
+
+Oceanic mean pheno: 9.57943
+Freshwater mean pheno: -9.68908
+-------------------------------
+Output1 for generation 38900:
+
+Oceanic mean pheno: 9.75564
+Freshwater mean pheno: -9.71837
+-------------------------------
+Output1 for generation 38950:
+
+Oceanic mean pheno: 9.63491
+Freshwater mean pheno: -9.62529
+-------------------------------
+Output1 for generation 39000:
+
+Oceanic mean pheno: 9.36896
+Freshwater mean pheno: -9.59912
+-------------------------------
+Output1 for generation 39050:
+
+Oceanic mean pheno: 9.61245
+Freshwater mean pheno: -9.38782
+-------------------------------
+Output1 for generation 39100:
+
+Oceanic mean pheno: 9.5405
+Freshwater mean pheno: -9.20341
+-------------------------------
+Output1 for generation 39150:
+
+Oceanic mean pheno: 9.80966
+Freshwater mean pheno: -9.33676
+-------------------------------
+Output1 for generation 39200:
+
+Oceanic mean pheno: 9.6435
+Freshwater mean pheno: -9.38616
+-------------------------------
+Output1 for generation 39250:
+
+Oceanic mean pheno: 9.46036
+Freshwater mean pheno: -9.43377
+-------------------------------
+Output1 for generation 39300:
+
+Oceanic mean pheno: 9.65619
+Freshwater mean pheno: -9.29523
+-------------------------------
+Output1 for generation 39350:
+
+Oceanic mean pheno: 9.57195
+Freshwater mean pheno: -9.59927
+-------------------------------
+Output1 for generation 39400:
+
+Oceanic mean pheno: 9.6816
+Freshwater mean pheno: -9.94723
+-------------------------------
+Output1 for generation 39450:
+
+Oceanic mean pheno: 9.53459
+Freshwater mean pheno: -9.69584
+-------------------------------
+Output1 for generation 39500:
+
+Oceanic mean pheno: 9.73295
+Freshwater mean pheno: -9.74012
+-------------------------------
+Output1 for generation 39550:
+
+Oceanic mean pheno: 9.41492
+Freshwater mean pheno: -9.86152
+-------------------------------
+Output1 for generation 39600:
+
+Oceanic mean pheno: 9.47123
+Freshwater mean pheno: -9.73124
+-------------------------------
+Output1 for generation 39650:
+
+Oceanic mean pheno: 9.63009
+Freshwater mean pheno: -9.83044
+-------------------------------
+Output1 for generation 39700:
+
+Oceanic mean pheno: 9.49951
+Freshwater mean pheno: -9.68849
+-------------------------------
+Output1 for generation 39750:
+
+Oceanic mean pheno: 9.3509
+Freshwater mean pheno: -9.77588
+-------------------------------
+Output1 for generation 39800:
+
+Oceanic mean pheno: 9.53488
+Freshwater mean pheno: -9.8352
+-------------------------------
+Output1 for generation 39850:
+
+Oceanic mean pheno: 9.40642
+Freshwater mean pheno: -9.54092
+-------------------------------
+Output1 for generation 39900:
+
+Oceanic mean pheno: 9.5729
+Freshwater mean pheno: -9.88053
+-------------------------------
+Output1 for generation 39950:
+
+Oceanic mean pheno: 9.45591
+Freshwater mean pheno: -9.64197
+-------------------------------
+Output1 for generation 40000:
+
+Oceanic mean pheno: 10.0503
+Freshwater mean pheno: -9.68626
+{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = 51132 35682 25374 99504
+elapsed: 2:49:09 / kernel: 1.79 / user: 10145.82 / mem: 168748
+Done!
