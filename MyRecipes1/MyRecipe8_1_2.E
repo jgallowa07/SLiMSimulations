@@ -35,7 +35,7 @@ initialize() {
 
 	introduce = 40000;
 
-	migrationRate = 0.005;
+	migrationRate = 0.05;
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
@@ -228,23 +228,33 @@ initialize() {
 		individual.tagF = dominantMarine+recessiveFreshwater+dominantFreshwater+recessiveMarine+additiveMarine+additiveFreshwater+substitutionOffset;		
 	}
 
+	if (sim.generation >= INP & sim.generation % 5 == 0){
+
+		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
+		newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
+		
+		sim.setValue("FAP",Freshwater_mean_phenotype);
+		sim.setValue("IAP",newFreshwater_mean_phenotype);
+
+	}
+
 	//--SAMPLE PHENOTYPE--
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
-		cat("-------------------------------\n");
-		cat("Output1 for generation " + sim.generation + ":\n\n");
+//		cat("-------------------------------\n");
+//		cat("Output1 for generation " + sim.generation + ":\n\n");
 		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
 		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
-		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);	
+//		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
+//		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);	
 
 
 		if (sim.generation >= INP){
 			newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
-			catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
+//			catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
 			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
 		}else{
 			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
@@ -465,7 +475,6 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 	}
 
 	writeFile(PATH+"sgv.txt",paste(sgv_s),append = T);
-
 	return;
 
 }
@@ -474,8 +483,6 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 
 1: late(){		
 
-
-	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//GET MUTATIONS THAT ONLY EXIST IN WANTED POPULATIONS FOR SAMPLING.
@@ -515,8 +522,11 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 		
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 				
-		origFreshMeanPheno =  mean(p2.individuals.tagF);
-		introFreshMeanPheno = mean(p3.individuals.tagF);
+		origFreshMeanPheno = sim.getValue("FAP");
+		introFreshMeanPheno = sim.getValue("IAP");
+
+//		catn(sim.generation + " " + origFreshMeanPheno);
+//		catn(sim.generation + " " + introFreshMeanPheno);
 
 		highFreqAlleles = getHighFreqFreshAlleles(p2,effectMutations);
 		FWAA = unique(highFreqAlleles);
@@ -530,6 +540,12 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);
 
 		if (abs(origFreshMeanPheno - introFreshMeanPheno) <= 1 & !(sim.getValue("Adapted"))){
+			
+//			catn("origFreshMeanPheno: " + sim.getValue("FAP"));
+//			catn("introFreshMeanPheno: " + sim.getValue("IAP"));
+
+//			catn("gen: "+ sim.generation);
+//			catn("INP: "+ INP);
 
 			timeToAdaptation = sim.generation - INP;			
 			writeFile(PATH+"timeToAdaptation.txt",timeToAdaptation + " ",append = F);
@@ -544,7 +560,6 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 			writeFile(PATH+"FWAA_IDs_ORIG_INTRO",paste(p3_ids),append = T);
 
 			sim.setValue("Adapted",T);
-
 		}
 	}				
 }
