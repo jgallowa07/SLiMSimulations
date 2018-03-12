@@ -4,13 +4,13 @@ initialize() {
 
 	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_1_2/";
 	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_1_2Local/";
-	//pathToOutputFile = "~/Desktop/";
+	pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
 
 	endOfSimulation = 80000;
 
-	samplingInterval = 10;
+	samplingInterval = 50;
 
 	numberOfLakes = 10;	
 	
@@ -55,8 +55,6 @@ initialize() {
 	defineConstant("P", sizeOfEffectRegions);   	// Size of contribution (Effect) Loci 
 	defineConstant("INP", introduce);
 	defineConstant("MGR", migrationRate);
-
-	
 
 	initializeSLiMOptions(dimensionality="x");
 	initializeMutationRate(MR); 	
@@ -180,18 +178,7 @@ initialize() {
 	}
 
 }
-/*
-//--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
-388 late(){
-	p1.setMigrationRates(p2,0.0);
-	p2.setMigrationRates(p1,0.0);
-}
-//--BRING MIGRATION BACK AFTER
-401 late(){
-	p1.setMigrationRates(p2,MGR);
-	p2.setMigrationRates(p1,MGR);
-}
-*/
+
 //--INTRODUCE NEW FRESH POPULATION--
 
 40000 late(){
@@ -211,7 +198,6 @@ initialize() {
 	}
 }
 	
-
 1: late() {  
 
 	//--EVALUATE SPATIAL INTERALCTION FUNCTIONS--
@@ -414,7 +400,7 @@ function (o<Mutation>)getHighFreqFreshAlleles(o<Subpopulation>$ subpop, o<Mutati
 	return ret;
 }
 
-//--
+//--RECORD THE EFFECT MUTATION FREQUENCIES IN ALL POPS--
 
 function (void)recordFrequencies(o<Mutation> mutations){
 
@@ -438,6 +424,8 @@ function (void)recordFrequencies(o<Mutation> mutations){
 
 }
 
+//--RECORD 1. AVG NUMBER OF LAKES EACH FWAA ALLELE APPEARS IN 2. AVG NUMBER OF FWAA / MARINE IND 3. NUM FWAA 
+
 function (void)recordFreshAdaptedAlleles(o<Mutation> mutations){
 
 	highFreqAlleles = getHighFreqFreshAlleles(p2,mutations);
@@ -453,6 +441,8 @@ function (void)recordFreshAdaptedAlleles(o<Mutation> mutations){
 	return;
 
 }
+
+//--RECORD THE SGV IN A POPULATION
 
 function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutation> mutations){
 
@@ -501,15 +491,11 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 		m6s = sim.mutationsOfType(m6);			
 		m7s = sim.mutationsOfType(m7);			
 		
-		allMutations = sim.mutations;
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
-		neutralMutations = sim.mutationsOfType(m3);
 
 		recordFrequencies(effectMutations);
 		
 		recordFreshAdaptedAlleles(effectMutations);
-
-		//TODO: SGV throughout. recordSGV for all populations. 
 		
 	}			
 }
