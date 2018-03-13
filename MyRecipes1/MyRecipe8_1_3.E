@@ -2,8 +2,8 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_1_2/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_1_2Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_1_3/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_1_3Local/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
@@ -35,7 +35,7 @@ initialize() {
 
 	introduce = 40000;
 
-	migrationRate = 0.05;
+	migrationRate = 5e-05;
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);

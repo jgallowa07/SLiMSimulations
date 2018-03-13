@@ -2,8 +2,8 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_1_2/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_1_2Local/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_2_6/";
+	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_2_6Local/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
@@ -30,7 +30,7 @@ initialize() {
 	
 	mutationRate = 1e-7;
 		
-	rrEffect = 1e-3;
+	rrEffect = 1e-6;
 	rrNeut = 1e-3;
 
 	introduce = 40000;
