@@ -1,0 +1,277 @@
+
+
+200 late(){
+
+	sim.addSubpopSplit("p3",IIF,p1);
+	p1.setSpatialBounds(c(0.0, LOP));
+	
+	lakeIndividuals2 = p3.individuals;
+	
+	p1.setMigrationRates(p3,MGR);
+	p3.setMigrationRates(p1,MGR);
+
+	for (i in 0:(NLAKES-1)){
+		for (j in 0:(IPF-1)){
+			lakeIndividuals2[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
+		}
+	}
+}
+
+
+
+200: late(){
+
+	if((sim.generation % INT == 0) | (sim.generation == END))
+	{
+
+		AverageFsts = NULL;
+
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+	
+		//-----------------------Between Ocean/Freshwater Fst Sample-----------------------------
+
+		p1_p = sim.mutationFrequencies(p1);
+		p2_p = sim.mutationFrequencies(p3);
+		mean_p = (p1_p + p2_p) / 2.0;
+		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
+		mean_pq = mean_p * (1 - mean_p);
+		fst = 1 - (pq / mean_pq);		
+	
+		meanOceanFresh2Fst = mean(fst);
+		if (isNULL(meanOceanFresh2Fst)){
+			meanOceanFresh2Fst = 0; 
+		}
+		
+		AverageFsts = c(AverageFsts,meanOceanFresh2Fst);
+		
+		//cat("mean Ocean/Fresh Fst: ");
+		//catn(meanOceanFreshFst);
+		
+		//-----------------------Between Ocean/Freshwater Fst Sample (Neutral Muts)-----------------------------
+
+		neutralMutations = sim.mutationsOfType(m3);
+
+		p1_n = sim.mutationFrequencies(p1,neutralMutations);
+		p2_n = sim.mutationFrequencies(p3,neutralMutations);
+		mean_n = (p1_n + p2_n) / 2.0;
+		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
+		mean_pqn = mean_n * (1 - mean_n);
+		fst_n = 1 - (pqn / mean_pqn);	
+		
+		meanOceanFresh2FstNeutral = mean(fst_n);
+		if (isNULL(meanOceanFresh2FstNeutral)){
+			meanOceanFresh2FstNeutral = 0; 
+		}
+
+		AverageFsts = c(AverageFsts,meanOceanFresh2FstNeutral);
+
+		//cat("mean Ocean/Fresh Fst (Neutral mutations only): ");
+		//catn(meanOceanFreshFstNeutral);
+		
+		//-----------------------Between Ocean/Freshwater Fst Sample (Effect Muts)-----------------------------
+		
+		//effectMutations = c(m1mutations,m2mutations);
+
+		p1_e = sim.mutationFrequencies(p1,effectMutations);
+		p2_e = sim.mutationFrequencies(p3,effectMutations);
+		mean_e = (p1_e + p2_e) / 2.0;
+		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
+		mean_pqe = mean_e * (1 - mean_e);
+		fst_e = 1 - (pqe / mean_pqe);	
+		
+		meanOceanFresh2FstEffect = mean(fst_e);
+		if (isNULL(meanOceanFresh2FstEffect)){
+			meanOceanFresh2FstEffect = 0; 
+		}
+
+		AverageFsts = c(AverageFsts,meanOceanFresh2FstEffect);
+
+		//catn("mean Ocean/Fresh Fst (Effect mutations only): "+ meanOceanFreshFstEffect);
+		
+		
+			 
+		//-----------------------Between Lakes Fst Sample-----------------------------
+		
+		muts = sim.mutations;
+		freqs = rep(0,size(muts));
+		mean_p = freqs;
+		mean_het = freqs;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs = rep(0, size(muts));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs = freqs + asInteger(geno.containsMutations(muts));		
+			}
+			freqs = freqs / (2*size(lake_individuals));
+			mean_p = mean_p + freqs;
+			mean_het = mean_het + (freqs * (1-freqs));
+		} 
+		
+		mean_p = mean_p/NLAKES;        
+		temp = mean_p;
+		mean_het = mean_het/NLAKES;         
+
+		mean_p = mean_p[mean_p != 0 & mean_het != 0];
+		mean_het = mean_het[temp != 0 & mean_het != 0];		
+	
+		betweenSecondLakesFst = mean(1 - mean_het / (mean_p * (1 - mean_p)));
+		if (isNULL(betweenSecondLakesFst)){
+			betweenSecondLakesFst = 0; 
+		}
+				
+		AverageFsts = c(AverageFsts,betweenSecondLakesFst);
+
+		//catn("between lakes Fst: "+ between_fst);							
+
+
+		//-----------------------Between Lakes Fst Sample (Neutral Mutations)-----------------------------
+
+		
+		freqs_n = rep(0,size(neutralMutations));
+		mean_p_n = freqs_n;
+		mean_het_n = freqs_n;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_n = rep(0, size(neutralMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_n = freqs_n + asInteger(geno.containsMutations(neutralMutations));		
+			}
+			freqs_n = freqs_n / (2*size(lake_individuals));
+			mean_p_n = mean_p_n + freqs_n;
+			mean_het_n = mean_het_n + (freqs_n * (1-freqs_n));
+		} 
+		
+		mean_p_n = mean_p_n/NLAKES;        
+		temp_n = mean_p_n;
+		mean_het_n = mean_het_n/NLAKES;         
+
+		mean_p_n = mean_p_n[mean_p_n != 0 & mean_het_n != 0];
+		mean_het_n = mean_het_n[temp_n != 0 & mean_het_n != 0];		
+	
+		betweenSecondLakesFstNeutral = mean(1 - mean_het_n / (mean_p_n * (1 - mean_p_n)));
+		if (isNULL(betweenSecondLakesFstNeutral)){
+			betweenSecondLakesFstNeutral = 0; 
+		}
+				
+		AverageFsts = c(AverageFsts,betweenSecondLakesFstNeutral);
+
+		//catn("between lakes Fst (neutral): "+ between_fst_n);							
+
+		//-----------------------Between Lakes Fst Sample (Effect Mutations)-----------------------------
+		
+		freqs_e = rep(0,size(effectMutations));
+		mean_p_e = freqs_e;
+		mean_het_e = freqs_e;
+	
+		for (i in 1:NLAKES)
+		{	
+			locationOfLake = (i - 0.5);
+			lake_individuals = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
+			
+			freqs_e = rep(0, size(effectMutations));
+			
+			for (geno in lake_individuals.genomes)
+			{
+				freqs_e = freqs_e + asInteger(geno.containsMutations(effectMutations));		
+			}
+			freqs_e = freqs_e / (2*size(lake_individuals));
+			mean_p_e = mean_p_e + freqs_e;
+			mean_het_e = mean_het_e + (freqs_e * (1-freqs_e));
+		} 
+		
+		mean_p_e = mean_p_e/NLAKES;        
+		temp_e = mean_p_e;
+		mean_het_e = mean_het_e/NLAKES;         
+
+		mean_p_e = mean_p_e[mean_p_e != 0 & mean_het_e != 0];
+		mean_het_e = mean_het_e[temp_e != 0 & mean_het_e != 0];		
+	
+		betweenSecondLakesFstEffect = mean(1 - mean_het_e / (mean_p_e * (1 - mean_p_e)));
+		if (isNULL(betweenSecondLakesFstEffect)){
+			betweenSecondLakesFstEffect = 0; 
+		}
+				
+		AverageFsts = c(AverageFsts,betweenSecondLakesFstEffect);
+
+		//catn("between lakes Fst (effect): "+ between_fst_e);							
+
+		//-----------------------Between Freshwater/newFreshwater Fst Sample-----------------------------
+
+		p1_p = sim.mutationFrequencies(p2);
+		p2_p = sim.mutationFrequencies(p3);
+		mean_p = (p1_p + p2_p) / 2.0;
+		pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
+		mean_pq = mean_p * (1 - mean_p);
+		fst = 1 - (pq / mean_pq);		
+	
+		meanFreshFresh2Fst = mean(fst);
+		if (isNULL(meanFreshFresh2Fst)){
+			meanFreshFresh2Fst = 0; 
+		}
+		
+		AverageFsts = c(AverageFsts,meanFreshFresh2Fst);
+		
+		//-----------------------Between Freshwater/newFreshwater Fst Sample (Neutral Muts)-----------------------------
+
+		//neutralMutations = sim.mutationsOfType(m3);
+
+		p1_n = sim.mutationFrequencies(p2,neutralMutations);
+		p2_n = sim.mutationFrequencies(p3,neutralMutations);
+		mean_n = (p1_n + p2_n) / 2.0;
+		pqn = (p1_n * (1 - p1_n) + p2_n * (1 - p2_n))/2.0;
+		mean_pqn = mean_n * (1 - mean_n);
+		fst_n = 1 - (pqn / mean_pqn);	
+		
+		meanFreshFresh2FstNeutral = mean(fst_n);
+		if (isNULL(meanFreshFresh2FstNeutral)){
+			meanFreshFresh2FstNeutral = 0; 
+		}
+
+		AverageFsts = c(AverageFsts,meanFreshFresh2FstNeutral);
+
+		
+		//-----------------------Between Freshwater/newFreshwater Fst Sample (Effect Muts)-----------------------------
+		
+		//effectMutations = c(m1mutations,m2mutations);
+
+		p1_e = sim.mutationFrequencies(p2,effectMutations);
+		p2_e = sim.mutationFrequencies(p3,effectMutations);
+		mean_e = (p1_e + p2_e) / 2.0;
+		pqe = (p1_e * (1 - p1_e) + p2_e * (1 - p2_e))/2.0;
+		mean_pqe = mean_e * (1 - mean_e);
+		fst_e = 1 - (pqe / mean_pqe);	
+		
+		meanOceanFresh2FstEffect = mean(fst_e);
+		if (isNULL(meanOceanFresh2FstEffect)){
+			meanOceanFresh2FstEffect = 0; 
+		}
+
+		AverageFsts = c(AverageFsts,meanOceanFresh2FstEffect);
+
+		
+
+
+		catn(AverageFsts);			
+		writeFile(PATH+"AverageFst2.txt",paste(AverageFsts),append = T);
+	}	
+	
+}

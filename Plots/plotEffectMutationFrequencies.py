@@ -77,11 +77,17 @@ for line in File:
 	
 	intervalCount += 1
 
-file2 = open
+#put the mutation ID's you want to trace in the the Dict's
+
+File2 = open("../Output1/MyRecipe"+ recipeNumber +"/FWAA_IDs_ORIG_INTRO","r")
+highFreqAllelesOriginal = File2.readline().split()
+highFreqAllelesIntro = File2.readline().split()
+allHighFreq = list(set(highFreqAllelesOriginal).union(highFreqAllelesIntro))
+allHighFreq = [int(i) for i in allHighFreq]
 			
-disDict1 = {k:MutationFrequenciesp1[k] for k in (178833,1796380,7251872)}
-disDict2 = {k:MutationFrequenciesp2[k] for k in (178833,1796380,7251872)}
-disDict3 = {k:MutationFrequenciesp3[k] for k in (178833,1796380,7251872)}
+disDict1 = {k:MutationFrequenciesp1[k] for k in allHighFreq}
+disDict2 = {k:MutationFrequenciesp2[k] for k in allHighFreq}
+disDict3 = {k:MutationFrequenciesp3[k] for k in allHighFreq}
 
 Traces = []
 
