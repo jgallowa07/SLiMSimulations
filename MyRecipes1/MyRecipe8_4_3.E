@@ -382,7 +382,7 @@ s2 40000: late(){
 
 		//get high frequency alleles in introduced lakes
 		highFreqAllelesInIntro = getHighFreqFreshAlleles(p3,effectMutations);
-		FWAA_P3 = unique(highFreqAllelesInOrig);
+		FWAA_P3 = unique(highFreqAllelesInIntro);
 		
 		numberOfSharedFWAA = sum(match(FWAA_P2.id,FWAA_P3.id) >= 0);
 
