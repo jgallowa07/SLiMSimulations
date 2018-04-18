@@ -393,8 +393,6 @@ initialize() {
 			else if (type[i] == m6){newType[i] = "AM";}		
 			else {newType[i] = "AF";}		
 		}
-
-		
 		
 		writeFile(PATH+"EffectMutations.txt",paste(positions),append = F);
 		writeFile(PATH+"EffectMutations.txt",paste(age),append = T);
@@ -444,6 +442,7 @@ function (numeric $)cor(numeric x,numeric y){
 
 }
 */
+
 
 //--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
 
@@ -602,6 +601,8 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
 		
+				
+		
 
 	}			
 }
@@ -658,8 +659,6 @@ function (f$)calcFSTbetweenMarine(o<Mutation> mutations)
 
 		freq3 = sim.mutationFrequencies(p3,effectMutations);
 		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
-		
-				
 
 	}	
 	
