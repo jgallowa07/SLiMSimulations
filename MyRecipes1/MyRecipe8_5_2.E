@@ -7,7 +7,7 @@ initialize() {
 	source("/projects/haldane/shared/SLiMSimulations/MyRecipes1/Utils.slim");
 
 	//The Path Where You want sampling files written to
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_3_2/";
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_5_2/";
 	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_3_2Local/";
 	//pathToOutputFile = "~/Desktop/";
 

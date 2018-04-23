@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p long
 #SBATCH -n 1
-#SBATCH -t 20:00:00
+#SBATCH -t 100:00:00
 #SBATCH --mem-per-cpu=8G
 #SBATCH --ntasks-per-core=1
 
