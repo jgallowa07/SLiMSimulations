@@ -1,4 +1,57 @@
 //return the frequecies for a set of mutations among a given set of individuals
+
+
+function (void)recordNumberOfFWAAPerMarineInd(){
+
+	highFreqAlleles = getHighFreqFreshAlleles(p2,mutations);
+	freshwaterAdaptedAlleles = unique(highFreqAlleles);
+	marineIndividualGenomes = p1.individuals.genomes;
+
+	numFWAAPerMarineIndividual = rep(0,4000);
+	iter = 0; 
+	for (g in genomes){
+
+		num = sum(g.containsMutations(freshwaterAdaptedAlleles));
+		numFWAAPerMarineIndividual[iter] = num;
+		iter = iter + 1;
+	}
+
+	writeFile(PATH+"FWAAPerMarineIndCounts",paste(numFWAAPerMarineIndividual),append = T);
+
+}
+/*
+function (void)recordHaplotypes(){
+
+	//create binary vectors to for haplotype map.
+	
+	numLakesToLookAt = 3;
+	numLakeSamples = 40;
+	numMarineSamples = 100;
+	samplesVec = NULL;
+
+	muts = sim.mutations;
+	freqs = sim.mutationFrequencies(NULL,muts);
+	muts = muts[freqs > 0.05 && freqs < 0.95];
+	
+	for (i in 1:numLakesToLookAt){
+
+		locationOfLake = (i - 0.5);
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		samp = sample(lake_individuals,numSamples);
+		samplesVec = c(samplesVec,samp);	
+
+	}	
+	marineSamples = sample(p1.individuals,numMarineSamples);
+	samplesVec = c(samplesVec,marineSamples);
+
+		
+
+	writeFile(PATH+"HaplotypeVectors",,append = F);
+
+	return;
+
+}
+*/
 //currently slim doesn't support this but I think it should ..
 function (f)mutFreq(o<Mutation> mutations, o<Individual> individuals)
 {

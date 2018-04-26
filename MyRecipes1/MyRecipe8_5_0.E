@@ -147,6 +147,8 @@ initialize() {
 	writeFile(PATH+"Adaptation.txt",header,append = F);	
 	writeFile(PATH+"MeanFstThroughoutNeutral.txt",header,append = F);
 	writeFile(PATH+"MeanFstThroughoutEffect.txt",header,append = F);
+	writeFile(PATH+"HaplotypeVectors",header,append = F);
+	writeFile(PATH+"FWAAPerMarineIndCounts",header,append = F);
 
 	//TODO CHECK ALL FILE PATHS
 	
