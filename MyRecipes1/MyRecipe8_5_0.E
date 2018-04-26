@@ -155,12 +155,12 @@ initialize() {
 //right off the bat, set adapted to false because the new populations have not adapted
 //also schedule the introduction blocks to the defined value in init
 //--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
-39998 late(){
+39999 late(){
 	p1.setMigrationRates(p2,0.0);
 	p2.setMigrationRates(p1,0.0);
 }
 //--BRING MIGRATION BACK AFTER
-40001 late(){
+40000 late(){
 	p1.setMigrationRates(p2,MGR);
 	p2.setMigrationRates(p1,MGR);
 }
@@ -397,7 +397,7 @@ s2 40000: late(){
 		
 		numberOfSharedFWAA = sum(match(FWAA_P2.id,FWAA_P3.id) >= 0);
 
-		totalNumOfFWAA = size(c(FWAA_P2,FWAA_P3));
+		totalNumOfFWAA = size(unique(c(FWAA_P2,FWAA_P3)));
 
 		freqFWAA_P2InP2 = sim.mutationFrequencies(p2,FWAA_P2);
 		freqFWAA_P2InP3 = sim.mutationFrequencies(p3,FWAA_P2);

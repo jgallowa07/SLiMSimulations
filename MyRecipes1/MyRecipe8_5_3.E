@@ -397,7 +397,7 @@ s2 40000: late(){
 		
 		numberOfSharedFWAA = sum(match(FWAA_P2.id,FWAA_P3.id) >= 0);
 
-		totalNumOfFWAA = size(c(FWAA_P2,FWAA_P3));
+		totalNumOfFWAA = size(unique(c(FWAA_P2,FWAA_P3)));
 
 		freqFWAA_P2InP2 = sim.mutationFrequencies(p2,FWAA_P2);
 		freqFWAA_P2InP3 = sim.mutationFrequencies(p3,FWAA_P2);
