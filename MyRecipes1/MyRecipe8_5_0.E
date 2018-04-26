@@ -13,11 +13,11 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 80000;
+	endOfSimulation = 80;
 
-	introduce = 40000;
+	introduce = 40;
 
-	samplingInterval = 50;
+	samplingInterval = 500;
 
 	numberOfLakes = 10;	
 	
@@ -217,6 +217,9 @@ initialize() {
 //--INTRODUCE NEW FRESH POPULATION--
 
 s1 40000 late(){
+
+	//before introduction, lets sample the ditribution of FWAA in Marine individuals.
+	recordNumberOfFWAAPerMarineInd();
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));
