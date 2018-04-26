@@ -1,15 +1,24 @@
 //return the frequecies for a set of mutations among a given set of individuals
 
 
-function (void)recordNumberOfFWAAPerMarineInd(){
+function (void)recordNumberOfFWAAPerMarineInd(void){
 
-	highFreqAlleles = getHighFreqFreshAlleles(p2,mutations);
+	m1s = sim.mutationsOfType(m1);			
+	m2s = sim.mutationsOfType(m2);			
+	m4s = sim.mutationsOfType(m4);			
+	m5s = sim.mutationsOfType(m5);			
+	m6s = sim.mutationsOfType(m6);			
+	m7s = sim.mutationsOfType(m7);			
+
+	effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);	
+
+	highFreqAlleles = getHighFreqFreshAlleles(p2,effectMutations);
 	freshwaterAdaptedAlleles = unique(highFreqAlleles);
-	marineIndividualGenomes = p1.individuals.genomes;
+	marineGenomes = p1.individuals.genomes;
 
 	numFWAAPerMarineIndividual = rep(0,4000);
 	iter = 0; 
-	for (g in genomes){
+	for (g in marineGenomes){
 
 		num = sum(g.containsMutations(freshwaterAdaptedAlleles));
 		numFWAAPerMarineIndividual[iter] = num;
@@ -17,6 +26,8 @@ function (void)recordNumberOfFWAAPerMarineInd(){
 	}
 
 	writeFile(PATH+"FWAAPerMarineIndCounts",paste(numFWAAPerMarineIndividual),append = T);
+	
+	return;
 
 }
 /*

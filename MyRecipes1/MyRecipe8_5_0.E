@@ -13,11 +13,11 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 80;
+	endOfSimulation = 80000;
 
-	introduce = 40;
+	introduce = 40000;
 
-	samplingInterval = 500;
+	samplingInterval = 50;
 
 	numberOfLakes = 10;	
 	

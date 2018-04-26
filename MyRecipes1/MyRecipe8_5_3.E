@@ -147,6 +147,8 @@ initialize() {
 	writeFile(PATH+"Adaptation.txt",header,append = F);	
 	writeFile(PATH+"MeanFstThroughoutNeutral.txt",header,append = F);
 	writeFile(PATH+"MeanFstThroughoutEffect.txt",header,append = F);
+	writeFile(PATH+"HaplotypeVectors",header,append = F);
+	writeFile(PATH+"FWAAPerMarineIndCounts",header,append = F);
 
 	//TODO CHECK ALL FILE PATHS
 	
@@ -155,12 +157,12 @@ initialize() {
 //right off the bat, set adapted to false because the new populations have not adapted
 //also schedule the introduction blocks to the defined value in init
 //--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
-39998 late(){
+39999 late(){
 	p1.setMigrationRates(p2,0.0);
 	p2.setMigrationRates(p1,0.0);
 }
 //--BRING MIGRATION BACK AFTER
-40001 late(){
+40000 late(){
 	p1.setMigrationRates(p2,MGR);
 	p2.setMigrationRates(p1,MGR);
 }
@@ -217,6 +219,9 @@ initialize() {
 //--INTRODUCE NEW FRESH POPULATION--
 
 s1 40000 late(){
+
+	//before introduction, lets sample the ditribution of FWAA in Marine individuals.
+	recordNumberOfFWAAPerMarineInd();
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));
