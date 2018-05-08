@@ -269,7 +269,7 @@ fitness(NULL, p1) {
 }
 //--CHOOSE MATES BASED UPON FITNESS & SPATIAL LOCATION--
 
-1: mateChoice(p2) {
+1: mateChoice(p1) {
 	return  i1.strength(individual) * weights; 
 }
 
