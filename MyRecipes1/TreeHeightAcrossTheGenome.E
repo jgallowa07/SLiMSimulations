@@ -16,7 +16,7 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 80;
+	endOfSimulation = 10000;
 
 	introduce = 100000;
 
