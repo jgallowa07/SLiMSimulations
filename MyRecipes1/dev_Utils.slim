@@ -1,0 +1,415 @@
+//return the frequecies for a set of mutations among a given set of individuals
+
+
+function (void)recordNumberOfFWAAPerMarineInd(void){
+
+	m1s = sim.mutationsOfType(m1);			
+	m2s = sim.mutationsOfType(m2);			
+	m4s = sim.mutationsOfType(m4);			
+	m5s = sim.mutationsOfType(m5);			
+	m6s = sim.mutationsOfType(m6);			
+	m7s = sim.mutationsOfType(m7);			
+
+	effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);	
+
+	highFreqAlleles = getHighFreqFreshAlleles(p2,effectMutations);
+	freshwaterAdaptedAlleles = unique(highFreqAlleles);
+	marineGenomes = p1.individuals.genomes;
+
+	numFWAAPerMarineIndividual = rep(0,4000);
+	iter = 0; 
+	for (g in marineGenomes){
+
+		num = sum(g.containsMutations(freshwaterAdaptedAlleles));
+		numFWAAPerMarineIndividual[iter] = num;
+		iter = iter + 1;
+	}
+
+	writeFile(PATH+"FWAAPerMarineIndCounts",paste(numFWAAPerMarineIndividual),append = T);
+	
+	return;
+
+}
+/*
+function (void)recordHaplotypes(){
+
+	//create binary vectors to for haplotype map.
+	
+	numLakesToLookAt = 3;
+	numLakeSamples = 40;
+	numMarineSamples = 100;
+	samplesVec = NULL;
+
+	muts = sim.mutations;
+	freqs = sim.mutationFrequencies(NULL,muts);
+	muts = muts[freqs > 0.05 && freqs < 0.95];
+	
+	for (i in 1:numLakesToLookAt){
+
+		locationOfLake = (i - 0.5);
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		samp = sample(lake_individuals,numSamples);
+		samplesVec = c(samplesVec,samp);	
+
+	}	
+	marineSamples = sample(p1.individuals,numMarineSamples);
+	samplesVec = c(samplesVec,marineSamples);
+
+		
+
+	writeFile(PATH+"HaplotypeVectors",,append = F);
+
+	return;
+
+}
+*/
+//currently slim doesn't support this but I think it should ..
+function (f)mutFreq(o<Mutation> mutations, o<Individual> individuals)
+{
+	freqs = rep(0,size(mutations));
+	for (geno in individuals.genomes)
+	{
+		freqs = freqs + asInteger(geno.containsMutations(mutations));		
+	}
+	freqs = freqs / (2 * size(individuals));
+	
+	return freqs;
+}
+
+//--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
+
+function (f)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
+{
+	p1_p = sim.mutationFrequencies(subpop1,mutations);
+	p2_p = sim.mutationFrequencies(subpop2,mutations);
+
+	mean_p = (p1_p + p2_p) / 2.0;
+	pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
+	mean_pq = mean_p * (1 - mean_p);
+	fst = 1 - (pq / mean_pq);		
+	
+	return fst;
+}
+
+//--HELPER TO GET ALL THE HIGH FREQ ALLELES FOR EACH LAKE, THAT ARE NOT HIGH FREQ IN MARINE
+
+function (o<Mutation>)getHighFreqFreshAlleles(o<Subpopulation>$ subpop, o<Mutation> mutations)
+{
+	//filter out any alleles that are high frequency in the marine as well
+
+	frequencyInMarine = sim.mutationFrequencies(p1,mutations);
+	mutations = mutations[frequencyInMarine < 0.5];
+
+	ret = NULL;	
+	for (i in 1:NLAKES){
+
+		locationOfLake = (i - 0.5);
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		freq = mutFreq(mutations,lake_individuals);
+		Ki = mutations[freq > 0.5];
+		ret = c(ret,Ki);		
+
+	}	
+	
+	return ret;
+}
+
+//--RECORD THE EFFECT MUTATION FREQUENCIES IN ALL POPS--
+
+function (void)recordFrequencies(o<Mutation> mutations){
+
+	if(sim.generation == INP){
+		writeFile(PATH+"EffectMutationFrequenciesThroughout.txt","#",append = T);
+	}
+
+	Ids = mutations.id;
+	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",paste(Ids),append = T);	
+	freq1 = sim.mutationFrequencies(p1,mutations);
+	freq2 = sim.mutationFrequencies(p2,mutations);
+	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",paste(freq1),append = T);
+	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",paste(freq2),append = T);
+
+	if(sim.generation >= INP){
+		freq3 = sim.mutationFrequencies(p3,mutations);
+		writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",paste(freq3),append = T);
+	}
+	
+	return;
+
+}
+
+//--RECORD 1. AVG NUMBER OF LAKES EACH FWAA ALLELE APPEARS IN 2. AVG NUMBER OF FWAA / MARINE IND 3. NUM FWAA 
+
+function (void)recordFreshAdaptedAlleles(o<Mutation> mutations){
+
+	highFreqAlleles = getHighFreqFreshAlleles(p2,mutations);
+	freshwaterAdaptedAlleles = unique(highFreqAlleles);
+	avgSharedAlleles = size(highFreqAlleles) / size(freshwaterAdaptedAlleles);
+	avgSharedAlleles[isNAN(avgSharedAlleles)] = 0;
+
+
+	freqInMarine = sim.mutationFrequencies(p1,freshwaterAdaptedAlleles);	
+	avgFreshAllelesPerMarineInd = sum(freqInMarine);
+
+	writeFile(PATH+"AvgNumLakesFreshAlleleAppearsIn.txt",asString(avgSharedAlleles),append = T);
+	writeFile(PATH+"AvgFreshAllelesPerMarineInd.txt",asString(avgFreshAllelesPerMarineInd),append = T);
+	writeFile(PATH+"numfreshAlleles.txt",asString(size(freshwaterAdaptedAlleles)),append=T);
+
+	return;
+
+}
+
+//--RECORD THE SGV IN A POPULATION
+
+function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutation> mutations){
+
+	sgv_s = NULL;
+
+	for (sub in subpop){		
+
+		numEffMuts = size(mutations);
+		total = 0;
+
+		for (ef in mutations){
+			s = ef.selectionCoeff;
+			p = sim.mutationFrequencies(sub,ef);
+			additiveGeneticVariance = (s*s)*(p)*(1-p);
+			total = total + additiveGeneticVariance;
+		}
+
+		sgv = total/numEffMuts;
+		sgv_s = c(sgv_s,sgv);
+	}
+
+	writeFile(PATH+"StandingGeneticVariationThroughout.txt",paste(sgv_s),append = T);
+	return;
+
+}
+
+
+function (void)FstAcrossChromosome(void){
+
+
+		muts = sim.mutations;
+		mutpos = muts.position;
+		ids = muts.id;
+		
+		//FST PER MUTATION ----------------------------- OceanFreshwater ----------------------
+
+
+		fst1 = calcFST(p1,p2,muts);
+
+		ids1 = ids[!isNAN(fst1)];
+		mutPosMatch1 = mutpos[!isNAN(fst1)];
+		fst1 = fst1[!isNAN(fst1)];
+
+		top_mutations1 = ids1[fst1 > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = " + paste(top_mutations1));
+		writeFile(PATH+"MutationID_FstGreaterThan_5",paste(top_mutations1),append = F);
+
+		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst1),append = T);
+		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutPosMatch1),append = T);
+
+		//FST PER MUTATION ----------------------------- OceanFreshwater2 ----------------------
+
+		fst2 = calcFST(p1,p3,muts);
+
+		ids2 = ids[!isNAN(fst2)];
+		mutPosMatch2 = mutpos[!isNAN(fst2)];
+		fst2 = fst2[!isNAN(fst2)];
+
+		top_mutations2 = ids2[fst2 > 0.5];
+		catn("{ Effect Mutations | fst(Ocean,Introduced) > 0.5 } = " + paste(top_mutations2));
+		writeFile(PATH+"MutationID_FstGreaterThan_5",paste(top_mutations2),append = T);
+
+		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst2),append = T);
+		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutPosMatch2),append = T);
+
+		//FST PER MUTATION ----------------------------- FreshwaterFreshwater2 ----------------------
+		
+		fst3 = calcFST(p2,p3,muts);
+
+		mutPosMatch3 = mutpos[!isNAN(fst3)];
+		fst3 = fst3[!isNAN(fst3)];
+
+		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst3),append = T);
+		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutPosMatch3),append = T);
+	
+		//------------------Effect Mutation Sampling-------------
+		return;
+
+}
+
+//--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
+
+function (f$)calcMeanFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
+{
+	p1_p = sim.mutationFrequencies(subpop1,mutations);
+	p2_p = sim.mutationFrequencies(subpop2,mutations);
+
+	mean_p = (p1_p + p2_p) / 2.0;
+	pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
+	mean_pq = mean_p * (1 - mean_p);
+	fst = 1 - (pq / mean_pq);		
+	fst = fst[!isNAN(fst)];
+	
+	return mean(fst);
+}
+
+//--HELPER TO CALCULATE FST BETWEEN LAKES--
+
+function (f$)calcMeanFSTBetweenFresh(o<Subpopulation>$ subpop, o<Mutation> mutations)
+{
+	freqs = rep(0,size(mutations));
+	mean_p = freqs;
+	mean_het = freqs;
+
+	for (i in 1:NLAKES)
+	{	
+		locationOfLake = (i - 0.5);		
+		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
+		
+		freqs = rep(0, size(mutations));
+		
+		for (geno in lake_individuals.genomes)
+		{
+			freqs = freqs + asInteger(geno.containsMutations(mutations));		
+		}
+		freqs = freqs / (2*size(lake_individuals));
+		mean_p = mean_p + freqs;
+		mean_het = mean_het + (freqs * (1-freqs));
+	} 
+	
+	mean_p = mean_p/NLAKES;        
+	mean_het = mean_het/NLAKES;         
+	
+	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
+	fst = mean(fst[!isNAN(fst)]);
+	
+	if(isNULL(fst)){
+		fst = 0.0;
+	}	
+	
+	return mean(fst);
+}
+
+//--HELPER TO CALCULATE FST WITHIN MARINE--
+
+function (f$)calcMeanFSTBetweenMarine(o<Mutation> mutations)
+{
+	freqs = rep(0,size(mutations));
+	mean_p = freqs;
+	mean_het = freqs;
+
+	for (i in 1:NLAKES)
+	{	
+		leftBound = (i - 1);
+		rightBound = i;
+
+		region_individuals = p1.individuals[p1.individuals.x >= leftBound & p1.individuals.x < rightBound];
+					
+		freqs = rep(0, size(mutations));
+		
+		for (geno in region_individuals.genomes)
+		{
+			freqs = freqs + asInteger(geno.containsMutations(mutations));		
+		}
+		freqs = freqs / (2*size(region_individuals));
+		mean_p = mean_p + freqs;
+		mean_het = mean_het + (freqs * (1-freqs));
+	} 
+	
+	mean_p = mean_p/NLAKES;        
+	mean_het = mean_het/NLAKES;         
+
+	fst = (1 - mean_het / (mean_p * (1 - mean_p)));
+	fst = mean(fst[!isNAN(fst)]);
+	
+	if(isNULL(fst)){
+		fst = 0.0;
+	}	
+
+	return fst;
+}
+
+function (void)recordFsts(void)
+{
+		
+		AverageFstsNeutral = NULL;
+		AverageFstsEffect = NULL;
+
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+		
+		allMutations = sim.mutations;
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		neutralMutations = sim.mutationsOfType(m3);
+		
+//		OceanFreshFst = calcMeanFST(p1,p2,allMutations);
+//		AverageFsts = c(AverageFsts,OceanFreshFst);
+
+		OceanFreshFstNeutral = calcMeanFST(p1,p2,neutralMutations);
+		AverageFstsNeutral = c(AverageFstsNeutral,OceanFreshFstNeutral);
+		
+		OceanFreshFstEffect = calcMeanFST(p1,p2,effectMutations);
+		AverageFstsEffect = c(AverageFstsEffect,OceanFreshFstEffect);
+			 
+//		betweenLakesFst = calcMeanFSTBetweenFresh(p2,allMutations);
+//		AverageFsts = c(AverageFsts,betweenLakesFst);
+
+//		betweenLakesFstNeutral = calcMeanFSTBetweenFresh(p2,neutralMutations);	
+//		AverageFsts = c(AverageFsts,betweenLakesFstNeutral);
+
+//		betweenLakesFstEffect = calcMeanFSTBetweenFresh(p2,effectMutations);	
+//		AverageFsts = c(AverageFsts,betweenLakesFstEffect);
+
+//		betweenMarineFst = calcMeanFSTBetweenMarine(allMutations);	
+//		AverageFsts = c(AverageFsts,betweenMarineFst);
+
+//		betweenMarineFstNeutral = calcMeanFSTBetweenMarine(neutralMutations);	
+//		AverageFsts = c(AverageFsts,betweenMarineFstNeutral);
+	
+//		betweenMarineFstEffect = calcMeanFSTBetweenMarine(effectMutations);	
+//		AverageFsts = c(AverageFsts,betweenMarineFstEffect);
+
+//		MarineIntroFst = calcMeanFST(p1,p3,allMutations);	
+//		AverageFsts = c(AverageFsts,MarineIntroFst);
+		
+		MarineIntroFstNeutral = calcMeanFST(p1,p3,neutralMutations);
+		AverageFstsNeutral = c(AverageFstsNeutral,MarineIntroFstNeutral);
+	
+		MarineIntroFstEffect = calcMeanFST(p1,p3,effectMutations);
+		AverageFstsEffect = c(AverageFstsEffect,MarineIntroFstEffect);
+
+//		betweenIntroFst = calcMeanFSTBetweenFresh(p3,allMutations);
+//		AverageFsts = c(AverageFsts,betweenIntroFst); 	
+
+//		betweenIntroFstNeutral = calcMeanFSTBetweenFresh(p3,neutralMutations);
+//		AverageFsts = c(AverageFsts,betweenIntroFstNeutral); 	
+
+//		betweenIntroFstEffect = calcMeanFSTBetweenFresh(p3,effectMutations);
+//		AverageFsts = c(AverageFsts,betweenIntroFstEffect); 	
+
+//		freshIntroFst = calcMeanFST(p2,p3,allMutations);
+//		AverageFsts = c(AverageFsts,freshIntroFst);
+		
+		freshIntroFstNeutral = calcMeanFST(p2,p3,neutralMutations);
+		AverageFstsNeutral = c(AverageFstsNeutral,freshIntroFstNeutral);
+
+		freshIntroFstEffect = calcMeanFST(p2,p3,effectMutations);
+		AverageFstsEffect = c(AverageFstsEffect,freshIntroFstEffect);
+
+//		catn(AverageFstsNeutral);			
+//		catn(AverageFstsEffect);			
+		writeFile(PATH+"MeanFstThroughoutNeutral.txt",paste(AverageFstsNeutral),append = T);
+		writeFile(PATH+"MeanFstThroughoutEffect.txt",paste(AverageFstsEffect),append = T);
+		
+	
+		return;
+
+}
+
