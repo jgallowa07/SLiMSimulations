@@ -34,13 +34,13 @@ initialize() {
 
 	sizeOfNonEffectBuffer = 4950;
 	
-	mutationRateInEffectRegions = 1e-7;
+	mutationRateInEffectRegions = 1e-5;
 	
 	mutationRateInNeutralRegions = 0;
 		
-	recombinationRateInEffectRegions = 1e-3;
+	recombinationRateInEffectRegions = 1e-5;
 
-	recombinationRateInNeutralRegions = 1e-3;
+	recombinationRateInNeutralRegions = 1e-5;
 
 	migrationRate = 0.005;
 
@@ -150,8 +150,8 @@ initialize() {
 	writeFile(PATH+"avgFWAA.txt",header,append = F);	
 	writeFile(PATH+"avgFWAA_divTotal.txt",header,append = F);	
 	writeFile(PATH+"Adaptation.txt",header,append = F);	
-//	writeFile(PATH+"MeanFstThroughoutNeutral.txt",header,append = F);
-//	writeFile(PATH+"MeanFstThroughoutEffect.txt",header,append = F);
+	writeFile(PATH+"MeanFstThroughoutNeutral.txt",header,append = F);
+	writeFile(PATH+"MeanFstThroughoutEffect.txt",header,append = F);
 //	writeFile(PATH+"HaplotypeVectors",header,append = F);
 	writeFile(PATH+"FWAAPerMarineIndCounts",header,append = F);
 
@@ -290,7 +290,6 @@ s1 40000 late(){
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
-		//TODO Number of mutations per individual. 
 	
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
@@ -303,6 +302,13 @@ s1 40000 late(){
 		}else{
 			writeFile(PATH+"AveragePhenotypeThoughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP"),append = T);
 		}
+
+		//Get Average Phenotype for all lakes.
+
+		
+
+		
+
 	}
 
 	//--CALCULATE FITNESS BASED UPON PHENOTYPE--
@@ -449,7 +455,7 @@ s2 40000: late(){
 			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(0,0,0)),append = T);
 		}
 
-		//recordFsts();
+		recordFsts();
 	
 	}
 	
