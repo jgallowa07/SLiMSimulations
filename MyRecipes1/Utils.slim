@@ -501,9 +501,9 @@ function (void) samplePhenotype (void){
 				intro_lake_phenos_string = intro_lake_phenos_string+asString(lake_phenos[i])+" ";
 			}
 				
-			writeFile(PATH+"AveragePhenotypeThoughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+sim.getValue("IAP")+" "+orig_lake_phenos_string+" "+intro_lake_phenos_string,append = T);
+			writeFile(PATH+"AveragePhenotypeThroughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+orig_lake_phenos_string+" "+sim.getValue("IAP")+" "+intro_lake_phenos_string,append = T);
 		}else{
-			writeFile(PATH+"AveragePhenotypeThoughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+orig_lake_phenos_string,append = T);
+			writeFile(PATH+"AveragePhenotypeThroughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+orig_lake_phenos_string,append = T);
 		}
 
 		return;
