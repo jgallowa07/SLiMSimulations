@@ -455,4 +455,57 @@ function (numeric $)cor(numeric x,numeric y){
 	
 
 }
+		
+function (void) samplePhenotype (void){
+		
+		lake_phenos = NULL;		
 
+		for (i in 1:NLAKES)
+		{
+			//Pheno sampling	
+			
+			locationOfLake = (i - 0.5);
+			lake_individuals = p2.individuals[abs(p2.individuals.spatialPosition - locationOfLake) < 1e-8];
+			lake_mean_pheno = mean(lake_individuals.tagF);
+			lake_phenos = c(lake_phenos,lake_mean_pheno);			
+		}
+		
+	
+		orig_lake_phenos_string = "";
+		
+		for (i in 0:(NLAKES-1))
+		{
+			orig_lake_phenos_string = orig_lake_phenos_string+asString(lake_phenos[i])+" ";
+		}
+
+		if (sim.generation >= INP){
+
+					
+			lake_phenos = NULL;		
+
+			for (i in 1:NLAKES)
+			{
+				//Pheno sampling	
+				
+				locationOfLake = (i - 0.5);
+				lake_individuals = p3.individuals[abs(p3.individuals.spatialPosition - locationOfLake) < 1e-8];
+				lake_mean_pheno = mean(lake_individuals.tagF);
+				lake_phenos = c(lake_phenos,lake_mean_pheno);			
+			}
+			
+		
+			intro_lake_phenos_string = "";
+			
+			for (i in 0:(NLAKES-1))
+			{
+				intro_lake_phenos_string = intro_lake_phenos_string+asString(lake_phenos[i])+" ";
+			}
+				
+			writeFile(PATH+"AveragePhenotypeThoughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+sim.getValue("IAP")+" "+orig_lake_phenos_string+" "+intro_lake_phenos_string,append = T);
+		}else{
+			writeFile(PATH+"AveragePhenotypeThoughout.txt",sim.getValue("MAP")+" "+sim.getValue("FAP")+" "+orig_lake_phenos_string,append = T);
+		}
+
+		return;
+
+}
