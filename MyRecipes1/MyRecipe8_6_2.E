@@ -455,8 +455,8 @@ s2 40000: late(){
 			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(0,0,0)),append = T);
 		}
 
-		recordFsts();
-	
+		recordFsts();	
+		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);
 	}
 	
 }

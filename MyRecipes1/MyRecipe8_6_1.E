@@ -456,7 +456,7 @@ s2 40000: late(){
 		}
 
 		recordFsts();
-	
+		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);	
 	}
 	
 }
