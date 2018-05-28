@@ -34,7 +34,7 @@ initialize() {
 
 	sizeOfNonEffectBuffer = 4950;
 
-	mutationRate = 1e-5;
+	mutationRate = 1e-7;
 	
 	recombinationRateInEffectRegions = 1e-5;
 
@@ -289,9 +289,7 @@ s1 40000 late(){
 		cat("-------------------------------\n");
 		cat("Output1 for generation " + sim.generation + ":\n\n");
 
-	
 		samplePhenotype();
-			
 	}
 
 	//--CALCULATE FITNESS BASED UPON PHENOTYPE--

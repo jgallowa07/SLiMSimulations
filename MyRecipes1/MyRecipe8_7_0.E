@@ -34,7 +34,7 @@ initialize() {
 
 	sizeOfNonEffectBuffer = 4950;
 
-	mutationRateInEffectRegions = 1e-5;
+	mutationRateInEffectRegions = 1e-7;
 	
 	mutationRateInNeutralRegions = 0;
 	

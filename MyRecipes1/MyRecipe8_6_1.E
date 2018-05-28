@@ -34,7 +34,7 @@ initialize() {
 
 	sizeOfNonEffectBuffer = 4950;
 
-	mutationRate = 1e-5;
+	mutationRate = 1e-7;
 	
 	recombinationRateInEffectRegions = 1e-5;
 
