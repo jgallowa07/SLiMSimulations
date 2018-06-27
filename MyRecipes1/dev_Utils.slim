@@ -469,3 +469,51 @@ function (void) samplePhenotype (void){
 
 
 
+
+function (void)FstAcrossChromosome2(void){
+
+
+		muts = sim.mutations;
+		mutpos = muts.position;
+		ids = muts.id;
+		mutType = muts.mutationType;
+
+		isEffect = rep(0,size(muts));
+		for (m in 0:(size(mutType)-1)){
+			if(mutType[m] == m3){
+				isEffect[m] = 0;
+			}else{
+				isEffect[m] = 1;
+			}
+		}		
+
+		files = "OceanFreshwaterFstRoc.txt";
+	
+		fst = calcFST(p1,p2,muts);
+
+		ids1 = ids[!isNAN(fst)];
+		mutPosMatch1 = mutpos[!isNAN(fst)];
+		isEffect1 = isEffect[!isNAN(fst)];
+		fst1 = fst[!isNAN(fst)];
+
+		roc1 = cumSum(isEffect1[order(fst1,ascending = F)]) / 1:size(isEffect1);	
+		sortedfst1 = sort(fst1,ascending = F); 
+
+		writeFile(PATH+files,paste(fst1),append = T);
+		writeFile(PATH+files,paste(mutPosMatch1),append = T);
+		writeFile(PATH+files,paste(isEffect),append = T);
+		writeFile(PATH+files,paste(roc1),append = T);
+		writeFile(PATH+files,paste(sortedfst1),append = T);
+
+
+		return;
+
+}
+
+
+
+
+
+
+
+

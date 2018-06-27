@@ -134,7 +134,7 @@ initialize() {
 	header = numberOfSamplingPoints+" "+INT+" "+INP+" "+END;
 	
 	writeFile(PATH+"AveragePhenotypeThoughout.txt",header,append = F);
-	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);	
+	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",header,append=F);	
 	writeFile(PATH+"AvgNumLakesFreshAlleleAppearsIn.txt",header,append=F);
 	writeFile(PATH+"numfreshAlleles.txt",header,append=F);
 	writeFile(PATH+"AvgFreshAllelesPerMarineInd.txt",header,append=F);

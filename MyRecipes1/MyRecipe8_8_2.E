@@ -2,13 +2,19 @@
 
 initialize() {
 
-	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_2_6/";
-	//pathToOutputFile = "~/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe8_2_6Local/";
+	//Source File With Helper Functions
+	//source("dev_Utils.slim");
+	source("/projects/haldane/shared/SLiMSimulations/MyRecipes1/dev_Utils.slim");
+
+	//The Path Where You want sampling files written to
+	pathToOutputFile = "/projects/haldane/shared/SLiMSimulations/Output1/MyRecipe8_8_2/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
 
 	endOfSimulation = 80000;
+
+	introduce = 40000;
 
 	samplingInterval = 50;
 
@@ -27,15 +33,14 @@ initialize() {
 	sizeOfEffectRegions = 100;
 
 	sizeOfNonEffectBuffer = 4950;
-	
+
 	mutationRate = 1e-7;
-		
-	rrEffect = 1e-6;
-	rrNeut = 1e-3;
+	
+	recombinationRateInEffectRegions = 1e-5;
 
-	introduce = 40000;
+	recombinationRateInNeutralRegions = 1e-5;
 
-	migrationRate = 0.05;
+	migrationRate = 5e-03;
 
 	individualsPerFresh = individualsInFresh/numberOfLakes;	
 	lengthOfPops = asFloat(numberOfLakes);
@@ -90,18 +95,18 @@ initialize() {
 	{
 		initializeGenomicElement(g1, pos, pos + W-1);    
 		pos = pos + W;
-		recombVector = c(recombVector,rrNeut);
+		recombVector = c(recombVector,recombinationRateInNeutralRegions);
 		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g2, pos, pos + P-1);
 		q = c(q,c(pos,pos+P-1));
 		pos = pos + P;	
-		recombVector = c(recombVector,rrEffect);
+		recombVector = c(recombVector,recombinationRateInEffectRegions);
 		lociVector = c(lociVector,pos-1);
 
 		initializeGenomicElement(g1, pos, pos + W-1);
 		pos = pos + W;
-		recombVector = c(recombVector,rrNeut);
+		recombVector = c(recombVector,recombinationRateInNeutralRegions);
 		lociVector = c(lociVector,pos-1);
 	}
 
@@ -110,9 +115,6 @@ initialize() {
 
 	defineConstant("TL", totalNumOfLoci);
 	defineConstant("Q", q);     // remember our QTL positions
-		
-//	catn(Q);	
-//	catn(TL);
 
 	initializeRecombinationRate(recombVector,lociVector);	
 
@@ -125,25 +127,60 @@ initialize() {
 
 	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
 	i2.setInteractionFunction("n", 0.5, 0.5);
+
+
+	//file header for ALL sampling files = numberOfSamplingPoints + sampingInterval + introduction + endofsim
+	header = numberOfSamplingPoints+" "+INT+" "+INP+" "+END;
 	
-	writeFile(PATH+"AveragePheno.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append = F);
-	writeFile(PATH+"EffectMutationsThrough.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
-	writeFile(PATH+"sharedAlleles.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
-	writeFile(PATH+"numfreshAlleles.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
-	writeFile(PATH+"AvgFreshAllelesPerMarineInd.txt",numberOfSamplingPoints+" "+INT+" "+((INP/INT)-1),append=F);
-	writeFile(PATH+"OceanFreshwaterFst.txt"," ",append = F);
-	writeFile(PATH+"OceanFreshwater2Fst.txt"," ",append = F);
-	writeFile(PATH+"FreshwaterFreshwater2Fst.txt"," ",append = F);
-	writeFile(PATH+"sgv.txt",(((END-INP)/5)+1)+" "+5+" "+INP+" ",append = F);
-	writeFile(PATH+"avgFWAA.txt",(((END-INP)/5)+1)+" "+5+" "+INP+" ",append = F);
+	writeFile(PATH+"AveragePhenotypeThroughout.txt",header,append = F);
+//	writeFile(PATH+"EffectMutationFrequenciesThroughout.txt",header,append=F);	
+	writeFile(PATH+"AvgNumLakesFreshAlleleAppearsIn.txt",header,append=F);
+	writeFile(PATH+"numfreshAlleles.txt",header,append=F);
+	writeFile(PATH+"AvgFreshAllelesPerMarineInd.txt",header,append=F);
+	writeFile(PATH+"OceanFreshwaterFstRoc.txt",header,append = F);
+	writeFile(PATH+"OceanFreshwaterFst.txt",header,append = F);
+	writeFile(PATH+"OceanFreshwater2Fst.txt",header,append = F);
+	writeFile(PATH+"FreshwaterFreshwater2Fst.txt",header,append = F);
+	writeFile(PATH+"StandingGeneticVariationThroughout.txt",header,append = F);
+	writeFile(PATH+"avgFWAA.txt",header,append = F);	
+	writeFile(PATH+"avgFWAA_divTotal.txt",header,append = F);	
+	writeFile(PATH+"Adaptation.txt",header,append = F);	
+	writeFile(PATH+"MeanFstThroughoutNeutral.txt",header,append = F);
+	writeFile(PATH+"MeanFstThroughoutEffect.txt",header,append = F);
+	writeFile(PATH+"HaplotypeVectors",header,append = F);
+	writeFile(PATH+"FWAAPerMarineIndCounts",header,append = F);
+
+	//TODO CHECK ALL FILE PATHS
 	
+}
+
+//right off the bat, set adapted to false because the new populations have not adapted
+//also schedule the introduction blocks to the defined value in init
+//--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
+39999 late(){
+	p1.setMigrationRates(p2,0.0);
+	p2.setMigrationRates(p1,0.0);
+}
+//--BRING MIGRATION BACK AFTER
+40000 late(){
+	p1.setMigrationRates(p2,MGR);
+	p2.setMigrationRates(p1,MGR);
+}
+
+1 early(){
+	sim.setValue("Adapted",F);
+
+	sim.rescheduleScriptBlock(s1,INP,INP);
+
+	for (block in c(s2,s3,s4,s5)){
+		sim.rescheduleScriptBlock(block,INP);
+	}	
 }
 
 //--INTRODUCE MARINE AND FRESHWATER POPULATION--
 
-1 late(){
+1 late(){	
 
-	sim.setValue("Adapted",F);
 	
 	sim.addSubpop("p1", IIO);  //Marine 
 	sim.addSubpop("p2", IIF);  //Freshwater
@@ -181,7 +218,12 @@ initialize() {
 
 //--INTRODUCE NEW FRESH POPULATION--
 
-40000 late(){
+s1 40000 late(){
+
+	//before introduction, lets sample the ditribution of FWAA in Marine individuals.
+	recordNumberOfFWAAPerMarineInd();
+	sim.outputFull(PATH+"simStateAtIntroduction.txt");
+	FstAcrossChromosome2();
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));
@@ -228,39 +270,31 @@ initialize() {
 		individual.tagF = dominantMarine+recessiveFreshwater+dominantFreshwater+recessiveMarine+additiveMarine+additiveFreshwater+substitutionOffset;		
 	}
 
-	if (sim.generation >= INP & sim.generation % 5 == 0){
+	//every generation, get reference to average phenotype.
 
-		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-		newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
-		
-		sim.setValue("FAP",Freshwater_mean_phenotype);
-		sim.setValue("IAP",newFreshwater_mean_phenotype);
+	marine_mean_phenotype = mean(p1.individuals.tagF);
+	freshwater_mean_phenotype = mean(p2.individuals.tagF);
 
+	sim.setValue("FAP",freshwater_mean_phenotype);
+	sim.setValue("MAP",marine_mean_phenotype);
+
+	if (sim.generation >= INP){
+		introduced_mean_phenotype = mean(p3.individuals.tagF);
+		sim.setValue("IAP",introduced_mean_phenotype);
 	}
-
+	
 	//--SAMPLE PHENOTYPE--
 	
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//TODO Number of mutations per individual. 
 	
-//		cat("-------------------------------\n");
-//		cat("Output1 for generation " + sim.generation + ":\n\n");
-		Oceanic_mean_phenotype =  mean(p1.individuals.tagF);
-		Freshwater_mean_phenotype = mean(p2.individuals.tagF);
-//		catn("Oceanic mean pheno: "+Oceanic_mean_phenotype);
-//		catn("Freshwater mean pheno: "+Freshwater_mean_phenotype);	
+		cat("-------------------------------\n");
+		cat("Output1 for generation " + sim.generation + ":\n\n");
 
-
-		if (sim.generation >= INP){
-			newFreshwater_mean_phenotype = mean(p3.individuals.tagF);
-//			catn("new Freshwater mean pheno: "+newFreshwater_mean_phenotype);		
-			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype+" "+newFreshwater_mean_phenotype,append = T);
-		}else{
-			writeFile(PATH+"AveragePheno.txt",Oceanic_mean_phenotype+" "+Freshwater_mean_phenotype,append = T);
-		}
-
-
+	
+		samplePhenotype();
+			
 	}
 
 	//--CALCULATE FITNESS BASED UPON PHENOTYPE--
@@ -299,200 +333,18 @@ initialize() {
 
 	if(sim.generation == END)
 	{
-		endsim();
+		FstAcrossChromosome();
+		sim.simulationFinished();
 	}
 }
 
 //--AT THE END OF THE SIM, SAMPLE FST ACROSS THE GENOME FOR ALL THREE COMBINATIONS OF SUBPOPS--
-
-function (void)endsim(void){
-
-
-		muts = sim.mutations;
-		mutpos = muts.position;
-		ids = muts.id;
-		
-		//FST PER MUTATION ----------------------------- OceanFreshwater ----------------------
-
-
-		fst1 = calcFST(p1,p2,muts);
-
-		ids1 = ids[!isNAN(fst1)];
-		mutPosMatch1 = mutpos[!isNAN(fst1)];
-		fst1 = fst1[!isNAN(fst1)];
-
-		top_mutations1 = ids1[fst1 > 0.5];
-		catn("{ Effect Mutations | fst(Ocean,Freshwater) > 0.5 } = " + paste(top_mutations1));
-
-		writeFile(PATH+"OceanFreshwaterFst.txt",paste(fst1),append = T);
-		writeFile(PATH+"OceanFreshwaterFst.txt",paste(mutPosMatch1),append = T);
-
-		//FST PER MUTATION ----------------------------- OceanFreshwater2 ----------------------
-
-		fst2 = calcFST(p1,p3,muts);
-
-		ids2 = ids[!isNAN(fst2)];
-		mutPosMatch2 = mutpos[!isNAN(fst2)];
-		fst2 = fst2[!isNAN(fst2)];
-
-		top_mutations2 = ids2[fst2 > 0.5];
-		catn("{ Effect Mutations | fst(Ocean,Introduced) > 0.5 } = " + paste(top_mutations2));
-
-		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(fst2),append = T);
-		writeFile(PATH+"OceanFreshwater2Fst.txt",paste(mutPosMatch2),append = T);
-
-		//FST PER MUTATION ----------------------------- FreshwaterFreshwater2 ----------------------
-		
-		fst3 = calcFST(p2,p3,muts);
-
-		mutPosMatch3 = mutpos[!isNAN(fst3)];
-		fst3 = fst3[!isNAN(fst3)];
-
-		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(fst3),append = T);
-		writeFile(PATH+"FreshwaterFreshwater2Fst.txt",paste(mutPosMatch3),append = T);
-	
-		//------------------Effect Mutation Sampling-------------
-
-
-		sim.simulationFinished();
-	}
-
-
-//return the frequecies for a set of mutations among a given set of individuals
-//currently slim doesn't support this but I think it should ..
-function (f)mutFreq(o<Mutation> mutations, o<Individual> individuals)
-{
-	freqs = rep(0,size(mutations));
-	for (geno in individuals.genomes)
-	{
-		freqs = freqs + asInteger(geno.containsMutations(mutations));		
-	}
-	freqs = freqs / (2 * size(individuals));
-	
-	return freqs;
-}
-
-//--HELPER TO CALCULATE FST BETWEEN TWO SUBPOPULATIONS--
-
-function (f)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Mutation> mutations)
-{
-	p1_p = sim.mutationFrequencies(subpop1,mutations);
-	p2_p = sim.mutationFrequencies(subpop2,mutations);
-
-	mean_p = (p1_p + p2_p) / 2.0;
-	pq = (p1_p * (1 - p1_p) + p2_p * (1 - p2_p))/2.0;
-	mean_pq = mean_p * (1 - mean_p);
-	fst = 1 - (pq / mean_pq);		
-	
-	return fst;
-}
-
-//--HELPER TO GET ALL THE HIGH FREQ ALLELES FOR EACH LAKE, THAT ARE NOT HIGH FREQ IN MARINE
-
-function (o<Mutation>)getHighFreqFreshAlleles(o<Subpopulation>$ subpop, o<Mutation> mutations)
-{
-	//filter out any alleles that are high frequency in the marine as well
-
-	frequencyInMarine = sim.mutationFrequencies(p1,mutations);
-	mutations = mutations[frequencyInMarine < 0.5];
-
-	ret = NULL;	
-	for (i in 1:NLAKES){
-
-		locationOfLake = (i - 0.5);
-		lake_individuals = subpop.individuals[abs(subpop.individuals.spatialPosition - locationOfLake) < 1e-8];
-		freq = mutFreq(mutations,lake_individuals);
-		Ki = mutations[freq > 0.5];
-		ret = c(ret,Ki);		
-
-	}	
-	
-	return ret;
-}
-
-//--RECORD THE EFFECT MUTATION FREQUENCIES IN ALL POPS--
-
-function (void)recordFrequencies(o<Mutation> mutations){
-
-	if(sim.generation == INP){
-		writeFile(PATH+"EffectMutationsThrough.txt","#",append = T);
-	}
-
-	Ids = mutations.id;
-	writeFile(PATH+"EffectMutationsThrough.txt",paste(Ids),append = T);	
-	freq1 = sim.mutationFrequencies(p1,mutations);
-	freq2 = sim.mutationFrequencies(p2,mutations);
-	writeFile(PATH+"EffectMutationsThrough.txt",paste(freq1),append = T);
-	writeFile(PATH+"EffectMutationsThrough.txt",paste(freq2),append = T);
-
-	if(sim.generation >= INP){
-		freq3 = sim.mutationFrequencies(p3,mutations);
-		writeFile(PATH+"EffectMutationsThrough.txt",paste(freq3),append = T);
-	}
-	
-	return;
-
-}
-
-//--RECORD 1. AVG NUMBER OF LAKES EACH FWAA ALLELE APPEARS IN 2. AVG NUMBER OF FWAA / MARINE IND 3. NUM FWAA 
-
-function (void)recordFreshAdaptedAlleles(o<Mutation> mutations){
-
-	highFreqAlleles = getHighFreqFreshAlleles(p2,mutations);
-	freshwaterAdaptedAlleles = unique(highFreqAlleles);
-	avgSharedAlleles = size(highFreqAlleles) / size(freshwaterAdaptedAlleles);
-	avgSharedAlleles[isNAN(avgSharedAlleles)] = 0;
-
-
-	freqInMarine = sim.mutationFrequencies(p1,freshwaterAdaptedAlleles);	
-	avgFreshAllelesPerMarineInd = sum(freqInMarine);
-
-	writeFile(PATH+"sharedAlleles.txt",asString(avgSharedAlleles),append = T);
-	writeFile(PATH+"AvgFreshAllelesPerMarineInd.txt",asString(avgFreshAllelesPerMarineInd),append = T);
-	writeFile(PATH+"numfreshAlleles.txt",asString(size(freshwaterAdaptedAlleles)),append=T);
-
-	return;
-
-}
-
-//--RECORD THE SGV IN A POPULATION
-
-function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutation> mutations){
-
-	sgv_s = NULL;
-
-	for (sub in subpop){		
-
-		numEffMuts = size(mutations);
-		total = 0;
-
-		for (ef in mutations){
-			s = ef.selectionCoeff;
-			p = sim.mutationFrequencies(sub,ef);
-			additiveGeneticVariance = (s*s)*(p)*(1-p);
-			total = total + additiveGeneticVariance;
-		}
-
-		sgv = total/numEffMuts;
-		sgv_s = c(sgv_s,sgv);
-	}
-
-	writeFile(PATH+"sgv.txt",paste(sgv_s),append = T);
-	return;
-
-}
-
-//--SAMPLING--
 
 1: late(){		
 
 	if((sim.generation % INT == 0) | (sim.generation == END))
 	{
 		//GET MUTATIONS THAT ONLY EXIST IN WANTED POPULATIONS FOR SAMPLING.
-		
-		AverageFsts = NULL;
-		highFreqAllelesInp2 = NULL;
-		highFreqAllelesInp3 = NULL;
 
 		m1s = sim.mutationsOfType(m1);			
 		m2s = sim.mutationsOfType(m2);			
@@ -503,18 +355,28 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 		
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 
-		recordFrequencies(effectMutations);
+		//recordFrequencies(effectMutations);
 		
 		recordFreshAdaptedAlleles(effectMutations);
 		
 	}			
 }
 
-//--THIS IS WHERE WE HAVE A MORE VERBODE SAMPLING INTERVAL, 5, AND TRY TO ANALYZE THE RECONSTRUCTION OF THE FRESHWATER GENOTYPE 
+//--ANALYZE THE RECONSTRUCTION OF THE FRESHWATER GENOTYPE 
 
-40000: late(){
-	
-	if (sim.generation % 5 == 0){
+s2 40000: late(){
+
+	//TODO RECORD P2 HAPLO AT TIME OF INTRODUCTION ... 
+
+
+	//time of adaptation
+	if (abs(sim.getValue("FAP") - sim.getValue("IAP")) <= 0.5 & !(sim.getValue("Adapted"))){
+
+		sim.setValue("Adapted",T);
+		
+		//record time it took to adapt
+		timeToAdaptation = sim.generation - INP;			
+
 		
 		m1s = sim.mutationsOfType(m1);			
 		m2s = sim.mutationsOfType(m2);			
@@ -522,43 +384,84 @@ function (void)recordStandingGeneticVariation(o<Subpopulation> subpop, o<Mutatio
 		m5s = sim.mutationsOfType(m5);			
 		m6s = sim.mutationsOfType(m6);			
 		m7s = sim.mutationsOfType(m7);			
-		
-		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
-				
-		origFreshMeanPheno = sim.getValue("FAP");
-		introFreshMeanPheno = sim.getValue("IAP");
 
-//		catn(sim.generation + " " + origFreshMeanPheno);
-//		catn(sim.generation + " " + introFreshMeanPheno);
+		allMutations = sim.mutations;
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		neutralMutations = sim.mutationsOfType(m3);		
+		
+		//get high frequency alleles in original lakes
+		highFreqAllelesInOrig = getHighFreqFreshAlleles(p2,effectMutations);
+		FWAA_P2 = unique(highFreqAllelesInOrig);
+
+		//get high frequency alleles in introduced lakes
+		highFreqAllelesInIntro = getHighFreqFreshAlleles(p3,effectMutations);
+		FWAA_P3 = unique(highFreqAllelesInIntro);
+		
+		numberOfSharedFWAA = sum(match(FWAA_P2.id,FWAA_P3.id) >= 0);
+
+		totalNumOfFWAA = size(unique(c(FWAA_P2,FWAA_P3)));
+
+		freqFWAA_P2InP2 = sim.mutationFrequencies(p2,FWAA_P2);
+		freqFWAA_P2InP3 = sim.mutationFrequencies(p3,FWAA_P2);
+		
+		corFWAA_P2_freqs = cor(freqFWAA_P2InP2,freqFWAA_P2InP3);	
+		
+		freqEffectInP2 = sim.mutationFrequencies(p2,effectMutations);	
+		freqEffectInP3 = sim.mutationFrequencies(p3,effectMutations);
+
+		corEffect_freqs = cor(freqEffectInP2,freqEffectInP3);
+			
+		writeFile(PATH+"Adaptation.txt",paste(FWAA_P2.id),append = T);
+		writeFile(PATH+"Adaptation.txt",paste(FWAA_P3.id),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(timeToAdaptation),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(numberOfSharedFWAA),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(totalNumOfFWAA),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(corFWAA_P2_freqs),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(corEffect_freqs),append = T);
+		
+		sim.outputFull(PATH+"simStateAtAdaptation.txt");
+		
+
+		// TODO RECORD FREQUENCIES AND CORRELATIONS ....
+
+	}	
+
+	if((sim.generation % INT == 0) | (sim.generation == END)){
+		
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 
 		highFreqAlleles = getHighFreqFreshAlleles(p2,effectMutations);
-		FWAA = unique(highFreqAlleles);
+		FWAA_P2 = unique(highFreqAlleles);
 
-		avgFWAAinMarine = sum(sim.mutationFrequencies(p1,FWAA));
-		avgFWAAinOrigFresh = sum(sim.mutationFrequencies(p2,FWAA));
-		avgFWAAinIntroFresh = sum(sim.mutationFrequencies(p3,FWAA));
+		numFWAA_P2 = size(FWAA_P2);
 
-		writeFile(PATH+"avgFWAA.txt",paste(c(avgFWAAinMarine,avgFWAAinOrigFresh,avgFWAAinIntroFresh)),append = T);		
+		avgFWAAinMarine = sum(sim.mutationFrequencies(p1,FWAA_P2));
+		avgFWAAinOrigFresh = sum(sim.mutationFrequencies(p2,FWAA_P2));
+		avgFWAAinIntroFresh = sum(sim.mutationFrequencies(p3,FWAA_P2));
 
-		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);
+		writeFile(PATH+"avgFWAA.txt",paste(c(avgFWAAinMarine,avgFWAAinOrigFresh,avgFWAAinIntroFresh)),append = T);
 
-		if (abs(origFreshMeanPheno - introFreshMeanPheno) <= 1 & !(sim.getValue("Adapted"))){
-			
-			timeToAdaptation = sim.generation - INP;			
-			writeFile(PATH+"timeToAdaptation.txt",timeToAdaptation + " ",append = F);
-			
-			highFreqAllelesInIntro = getHighFreqFreshAlleles(p3,effectMutations);
-			FWAAIN = unique(highFreqAllelesInIntro);
+		PercentFWAAinMarine = avgFWAAinMarine / numFWAA_P2;
+		PercentFWAAinOrigFresh = avgFWAAinOrigFresh / numFWAA_P2;
+		PercentFWAAinIntroFresh = avgFWAAinIntroFresh / numFWAA_P2;
 
-			p2_ids = FWAA.id;
-			p3_ids = FWAAIN.id;
-
-			writeFile(PATH+"FWAA_IDs_ORIG_INTRO",paste(p2_ids),append = F);
-			writeFile(PATH+"FWAA_IDs_ORIG_INTRO",paste(p3_ids),append = T);
-
-			sim.setValue("Adapted",T);
+		if (!numFWAA_P2 == 0){	
+			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(PercentFWAAinMarine,PercentFWAAinOrigFresh,PercentFWAAinIntroFresh)),append = T);	
+		}else{
+			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(0,0,0)),append = T);
 		}
-	}				
+
+		recordFsts();	
+		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);
+	}
+	
 }
 
 
@@ -582,7 +485,7 @@ fitness(NULL, p1) {
 fitness(NULL, p2) {
 	return individual.tagF;
 }
-40000: fitness(NULL, p3){
+s3 40000: fitness(NULL, p3){
 	return individual.tagF;
 }
 
@@ -594,7 +497,7 @@ fitness(NULL, p2) {
 1: mateChoice(p1){
 	return i2.strength(individual) * weights;
 }
-40000: mateChoice(p3){
+s4 40000: mateChoice(p3){
 	return i1.strength(individual) * weights;
 }
 
@@ -637,7 +540,7 @@ modifyChild(p2){
 	return T;
 }
 
-40000: modifyChild(p3){
+s5 40000: modifyChild(p3){
 
 	if(sourceSubpop != subpop){  //migrant from Lake -> Oceanic 
 		pos = parent1.spatialPosition + rnorm(1,0,0.5);
