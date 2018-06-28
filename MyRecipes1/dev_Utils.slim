@@ -93,6 +93,25 @@ function (f)calcFST(o<Subpopulation>$ subpop1, o<Subpopulation>$ subpop2, o<Muta
 
 //--HELPER TO GET ALL THE HIGH FREQ ALLELES FOR EACH LAKE, THAT ARE NOT HIGH FREQ IN MARINE
 
+function (o<Mutation>)getFAA(void){
+	
+	m1s = sim.mutationsOfType(m1);			
+	m2s = sim.mutationsOfType(m2);			
+	m4s = sim.mutationsOfType(m4);			
+	m5s = sim.mutationsOfType(m5);			
+	m6s = sim.mutationsOfType(m6);			
+	m7s = sim.mutationsOfType(m7);			
+
+	effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+
+	highf = getHighFreqFreshAlleles(p2,effectMutations);
+	FAA = unique(highf);
+
+	return FAA;
+
+
+}
+
 function (o<Mutation>)getHighFreqFreshAlleles(o<Subpopulation>$ subpop, o<Mutation> mutations)
 {
 	//filter out any alleles that are high frequency in the marine as well
@@ -509,6 +528,48 @@ function (void)FstAcrossChromosome2(void){
 		return;
 
 }
+
+
+
+function (void)countFaaPerEffectRegion(void){
+
+	numBuckets = rep(0,40000);
+	index = 0;
+	FAA = getFAA();
+	positions = FAA.position;	
+
+	for (g in p2.individuals.genomes){
+	
+		faaInThisGenome = g.containsMutations(FAA);
+		pos = positions[faaInThisGenome];
+		
+		for (q in 0:(C-1)){
+			
+			startER = Q[2*q];
+			endER = startER + P;
+			numBuckets[index] = size(pos[(pos > startER) & (pos < endER)]);
+			index = index + 1;
+		}	
+	}
+
+	writeFile(PATH+"numBuckets.txt",paste(numBuckets),append = T);
+
+	return;
+
+
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
