@@ -227,7 +227,6 @@ s1 40000 late(){
 	FstAcrossChromosome2();
 	countFaaPerEffectRegion();
 	
-	sim.simulationFinished();
 
 	sim.addSubpopSplit("p3",IIF,p1);
 	p3.setSpatialBounds(c(0.0, LOP));

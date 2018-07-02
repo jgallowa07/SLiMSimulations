@@ -531,7 +531,7 @@ function (void)FstAcrossChromosome2(void){
 
 
 
-function (void)countFaaPerEffectRegion(void){
+function (i)countFaaPerEffectRegion(void){
 
 	numBuckets = rep(0,40000);
 	index = 0;
@@ -552,11 +552,10 @@ function (void)countFaaPerEffectRegion(void){
 		}	
 	}
 
-	writeFile(PATH+"numBuckets.txt",paste(numBuckets),append = T);
-
-	return;
+	//writeFile(PATH+"numBuckets.txt",paste(numBuckets),append = T);
 
 
+	return numBuckets;
 	
 	
 }
