@@ -516,12 +516,14 @@ function (void)FstAcrossChromosome2(void){
 		fst1 = fst[!isNAN(fst)];
 
 		roc1 = cumSum(isEffect1[order(fst1,ascending = F)]) / 1:size(isEffect1);	
+		roc2 = cumSum(isEffect1[order(fst1,ascending = F)]) / sum(isEffect1);
 		sortedfst1 = sort(fst1,ascending = F); 
 
 		writeFile(PATH+files,paste(fst1),append = T);
 		writeFile(PATH+files,paste(mutPosMatch1),append = T);
-		writeFile(PATH+files,paste(isEffect),append = T);
+		writeFile(PATH+files,paste(isEffect1),append = T);
 		writeFile(PATH+files,paste(roc1),append = T);
+		writeFile(PATH+files,paste(roc2),append = T);
 		writeFile(PATH+files,paste(sortedfst1),append = T);
 
 
@@ -531,7 +533,7 @@ function (void)FstAcrossChromosome2(void){
 
 
 
-function (i)countFaaPerEffectRegion(void){
+function (void)countFaaPerEffectRegion(void){
 
 	numBuckets = rep(0,40000);
 	index = 0;
@@ -552,16 +554,58 @@ function (i)countFaaPerEffectRegion(void){
 		}	
 	}
 
-	//writeFile(PATH+"numBuckets.txt",paste(numBuckets),append = T);
+	writeFile(PATH+"numBuckets.txt",paste(numBuckets),append = T);
 
-
-	return numBuckets;
+	return;
 	
 	
 }
 
 
+function (void)WriteEffectMutations(void){
 
+
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
+		
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		positions = effectMutations.position;
+		origin = effectMutations.subpopID;
+		selectCoeff = effectMutations.selectionCoeff;
+		age = (rep(sim.generation,size(effectMutations))) - (effectMutations.originGeneration);
+		freq1 = sim.mutationFrequencies(p1,effectMutations);
+		freq2 = sim.mutationFrequencies(p2,effectMutations);
+		freq3 = sim.mutationFrequencies(p3,effectMutations);
+		freq4 = sim.mutationFrequencies(NULL,effectMutations);
+		type = effectMutations.mutationType;
+		newType = rep("",size(type));
+
+		for (i in 0:(size(type)-1)){
+			if (type[i] == m1){newType[i] = "DM";}		
+			else if (type[i] == m2){newType[i] = "DF";}		
+			else if (type[i] == m4){newType[i] = "RM";}		
+			else if (type[i] == m5){newType[i] = "RF";}		
+			else if (type[i] == m6){newType[i] = "AM";}		
+			else {newType[i] = "AF";}		
+		}
+		
+		writeFile(PATH+"EffectMutations.txt",paste(positions),append = F);
+		writeFile(PATH+"EffectMutations.txt",paste(age),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(origin),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(selectCoeff),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(freq1),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(freq2),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(freq3),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(freq4),append = T);
+		writeFile(PATH+"EffectMutations.txt",paste(newType),append = T);
+
+		return;
+
+}
 
 
 
