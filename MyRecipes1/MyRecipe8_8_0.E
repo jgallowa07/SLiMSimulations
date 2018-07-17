@@ -1,4 +1,3 @@
-//This model has mutations for both freshwater and marine that are recessive (complete) and dominant (complete)
 
 initialize() {
 
