@@ -153,8 +153,6 @@ initialize() {
 	
 }
 
-//right off the bat, set adapted to false because the new populations have not adapted
-//also schedule the introduction blocks to the defined value in init
 //--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
 39999 late(){
 	p1.setMigrationRates(p2,0.0);
@@ -167,6 +165,8 @@ initialize() {
 }
 
 1 early(){
+	//right off the bat, set adapted to false because the new populations have not adapted
+	//also schedule the introduction blocks to the defined value in init
 	sim.setValue("Adapted",F);
 
 	sim.rescheduleScriptBlock(s1,INP,INP);
