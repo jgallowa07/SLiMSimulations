@@ -489,7 +489,7 @@ function (void) samplePhenotype (void){
 
 
 
-function (void)FstAcrossChromosome2(void){
+function (void)TrueNegative_StatPower(void){
 
 
 		muts = sim.mutations;
@@ -608,15 +608,79 @@ function (void)WriteEffectMutations(void){
 }
 
 
+function (void)AdaptationSampling(void){
 
+		//record time it took to adapt
+		timeToAdaptation = sim.generation - INP;			
 
+		
+		m1s = sim.mutationsOfType(m1);			
+		m2s = sim.mutationsOfType(m2);			
+		m4s = sim.mutationsOfType(m4);			
+		m5s = sim.mutationsOfType(m5);			
+		m6s = sim.mutationsOfType(m6);			
+		m7s = sim.mutationsOfType(m7);			
 
+		allMutations = sim.mutations;
+		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
+		//neutralMutations = sim.mutationsOfType(m3);		
+		
+		//get high frequency alleles in original lakes
+		highFreqAllelesInOrig = getHighFreqFreshAlleles(p2,effectMutations);
+		FWAA_P2 = unique(highFreqAllelesInOrig);
 
+		//get high frequency alleles in introduced lakes
+		highFreqAllelesInIntro = getHighFreqFreshAlleles(p3,effectMutations);
+		FWAA_P3 = unique(highFreqAllelesInIntro);
+		
+		numberOfSharedFWAA = sum(match(FWAA_P2.id,FWAA_P3.id) >= 0);
 
+		totalNumOfFWAA = size(unique(c(FWAA_P2,FWAA_P3)));
 
+		freqFWAA_P2InP2 = sim.mutationFrequencies(p2,FWAA_P2);
+		freqFWAA_P2InP3 = sim.mutationFrequencies(p3,FWAA_P2);
+		
+		corFWAA_P2_freqs = cor(freqFWAA_P2InP2,freqFWAA_P2InP3);	
+		
+		freqEffectInP2 = sim.mutationFrequencies(p2,effectMutations);	
+		freqEffectInP3 = sim.mutationFrequencies(p3,effectMutations);
 
+		corEffect_freqs = cor(freqEffectInP2,freqEffectInP3);
+			
+		writeFile(PATH+"Adaptation.txt",paste(FWAA_P2.id),append = T);
+		writeFile(PATH+"Adaptation.txt",paste(FWAA_P3.id),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(timeToAdaptation),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(numberOfSharedFWAA),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(totalNumOfFWAA),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(corFWAA_P2_freqs),append = T);
+		writeFile(PATH+"Adaptation.txt",asString(corEffect_freqs),append = T);
 
+}
 
+function (void)MeanPreExistingFAA_PerIndividual(o<Mutation> effectMutations){ 
+
+		highFreqAlleles = getHighFreqFreshAlleles(p2,effectMutations);
+		FWAA_P2 = unique(highFreqAlleles);
+
+		numFWAA_P2 = size(FWAA_P2);
+
+		avgFWAAinMarine = sum(sim.mutationFrequencies(p1,FWAA_P2));
+		avgFWAAinOrigFresh = sum(sim.mutationFrequencies(p2,FWAA_P2));
+		avgFWAAinIntroFresh = sum(sim.mutationFrequencies(p3,FWAA_P2));
+
+		writeFile(PATH+"avgFWAA.txt",paste(c(avgFWAAinMarine,avgFWAAinOrigFresh,avgFWAAinIntroFresh)),append = T);
+
+		PercentFWAAinMarine = avgFWAAinMarine / numFWAA_P2;
+		PercentFWAAinOrigFresh = avgFWAAinOrigFresh / numFWAA_P2;
+		PercentFWAAinIntroFresh = avgFWAAinIntroFresh / numFWAA_P2;
+
+		if (!numFWAA_P2 == 0){	
+			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(PercentFWAAinMarine,PercentFWAAinOrigFresh,PercentFWAAinIntroFresh)),append = T);	
+		}else{
+			writeFile(PATH+"avgFWAA_divTotal.txt",paste(c(0,0,0)),append = T);
+		}
+
+}
 
 
 
