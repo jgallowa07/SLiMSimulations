@@ -82,7 +82,7 @@ initialize() {
 
 	//Genomic elements: 	
 
-	initializeGenomicElementType("g1", m1, 0.0);                       				//Neutral 
+	initializeGenomicElementType("g1", m1, 0.0); //Neutral, although m1 is defined to arise, notice the mutRate in these regions is 0
 	initializeGenomicElementType("g2", c(m1,m2,m4,m5,m6,m7), c(1.0,1.0,1.0,1.0,1.0,1.0)); 	//Potential to impact individual trait value
 
 	//Make all mutations stack "Late" meaning the last mutation to arise at a locus takes precedent
@@ -424,9 +424,6 @@ s2 40000: late(){
 	}
 	
 }
-
-
-
 
 //--TO OVERRIDE SLIM'S DEFAULT DISTRIBUTION OF FITNESS EFFECTS--
 
