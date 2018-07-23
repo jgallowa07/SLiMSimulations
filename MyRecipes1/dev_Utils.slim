@@ -16,7 +16,7 @@ function (void)recordNumberOfFWAAPerMarineInd(void){
 	freshwaterAdaptedAlleles = unique(highFreqAlleles);
 	marineGenomes = p1.individuals.genomes;
 
-	numFWAAPerMarineIndividual = rep(0,4000);
+	numFWAAPerMarineIndividual = rep(0,IIO * 2);
 	iter = 0; 
 	for (g in marineGenomes){
 

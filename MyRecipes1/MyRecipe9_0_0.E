@@ -5,7 +5,7 @@ initialize() {
 	source("./dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
-	//pathToOutputFile = "../Output1/MyRecipe8_8_0/";
+	//pathToOutputFile = "../Output1/MyRecipe9_0_0/";
 	pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
@@ -22,9 +22,9 @@ initialize() {
 	
 	optimumPhenoFresh = -10;
 
-	individualsInOcean = 2000;
+	individualsInOcean = 10000;
 	
-	individualsInFresh = 2000;
+	individualsInFresh = 10000;
 
 	numberOfEffectRegions = 10;
 
@@ -32,7 +32,7 @@ initialize() {
 
 	sizeOfNonEffectBuffer = 4950000;
 
-	mutationRateInEffectRegions = 1e-7;
+	mutationRateInEffectRegions = 1e-10;
 	
 	mutationRateInNeutralRegions = 0; //Because TreeSeq :-) 
 	
@@ -135,15 +135,15 @@ initialize() {
 	initializeRecombinationRate(recombVector,lociVector);	
 	initializeMutationRate(mutRateVector,lociVector); 	
 
-	//Interation Function for Freshwater mateChoice() callback...
-
-	initializeInteractionType(1, "x", reciprocal=T, maxDistance=0.02);
-	i1.setInteractionFunction("n", 0.5, 0.02);
-
 	//Interaction Function for Oceanic mateChoice() callback...
 
-	initializeInteractionType(2, "x", reciprocal=T, maxDistance=1.0);
-	i2.setInteractionFunction("n", 0.5, 0.5);
+	initializeInteractionType(1, "x", reciprocal=T, maxDistance=1.0);
+	i1.setInteractionFunction("n", 0.5, 0.5);
+
+	//Interation Function for Freshwater mateChoice() callback...
+
+	initializeInteractionType(2, "x", reciprocal=T, maxDistance=0.02);
+	i2.setInteractionFunction("n", 0.5, 0.02);
 
 	//file header for ALL sampling files = numberOfSamplingPoints + sampingInterval + introduction + endofsim
 
@@ -170,17 +170,6 @@ initialize() {
 	
 }
 
-//PETER: Not that it makes a huge difference, but should we do this at all?
-//--CUT MIGRATION RIGHT BEFORE INTRODUCTION TO ENSURE NO IMMEDIATE MIGRANTS
-39999 late(){
-	p1.setMigrationRates(p2,0.0);
-	p2.setMigrationRates(p1,0.0);
-}
-//--BRING MIGRATION BACK AFTER
-40000 late(){
-	p1.setMigrationRates(p2,MGR);
-	p2.setMigrationRates(p1,MGR);
-}
 
 1 early(){
 
@@ -268,10 +257,7 @@ s1 40000 late(){
 	
 1: late() {  
 
-	//--EVALUATE SPATIAL INTERALCTION FUNCTIONS--
-	
-	i1.evaluate();
-	i2.evaluate();		
+
 	
 	//--CALCULATE PHENOTYPE--
 		
@@ -303,10 +289,14 @@ s1 40000 late(){
 
 	sim.setValue("FAP",freshwater_mean_phenotype);
 	sim.setValue("MAP",marine_mean_phenotype);
+	i1.evaluate(p1);
 
 	if (sim.generation >= INP){
 		introduced_mean_phenotype = mean(p3.individuals.tagF);
 		sim.setValue("IAP",introduced_mean_phenotype);
+		i2.evaluate(c(p2,p3));		
+	}else{
+		i2.evaluate(p2);
 	}
 	
 	//--SAMPLE PHENOTYPE--
@@ -450,13 +440,13 @@ s3 40000: fitness(NULL, p3){
 //--CHOOSE MATES BASED UPON FITNESS & SPATIAL LOCATION--
 
 1: mateChoice(p2) {
-	return  i1.strength(individual) * weights; 
+	return  i2.strength(individual) * weights; 
 }
 1: mateChoice(p1){
-	return i2.strength(individual) * weights;
+	return i1.strength(individual) * weights;
 }
 s4 40000: mateChoice(p3){
-	return i1.strength(individual) * weights;
+	return i2.strength(individual) * weights;
 }
 
 //--IF (THE OFFSPRING IS A MIGRANT FROM THE OCEAN) 
