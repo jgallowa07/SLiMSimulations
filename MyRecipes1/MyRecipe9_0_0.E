@@ -10,13 +10,13 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 80; 		//80000 for real runs
+	endOfSimulation = 8; 		//80000 for real runs
 
-	introduce = 40;			//40000 for real runs
+	introduce = 4;			//40000 for real runs
 
-	samplingInterval = 10;		//50 for real runs
+	samplingInterval = 1;		//50 for real runs
 
-	numberOfLakes = 10;	
+	numberOfLakes = 20;	
 	
 	optimumPhenoMarine = 10;
 	
@@ -181,7 +181,10 @@ initialize() {
 
 	for (block in c(s2,s3,s4,s5)){
 		sim.rescheduleScriptBlock(block,INP);
-	}	
+	}
+	
+	sim.rescheduleScriptBlock(s6,END,END);
+	
 }
 
 //--INTRODUCE MARINE AND FRESHWATER POPULATION--
@@ -346,11 +349,11 @@ s1 40000 late(){
 	//--SAMPLE FST ACROSS THE GENOME AT THE END BETWEEN ALL PAIRS OF SUBPOPS--
 	//--END SIMULATION--
 
-	if(sim.generation == END)
-	{
-		sim.treeSeqOutput(PATH+"EndTrees.trees");
-		sim.simulationFinished();
-	}
+//	if(sim.generation == END)
+//	{
+//		sim.treeSeqOutput(PATH+"EndTrees.trees");
+//		sim.simulationFinished();
+//	}
 }
 
 
@@ -499,4 +502,12 @@ s5 40000: modifyChild(p3){
 	return T;
 }
 
-160001 late() {sim.simulationFinished();}
+s6 160001 late() {
+
+	sim.treeSeqOutput(PATH+"EndTrees.trees");
+	sim.simulationFinished();
+
+	}
+
+
+
