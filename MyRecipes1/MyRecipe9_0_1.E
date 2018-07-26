@@ -3,6 +3,7 @@ initialize() {
 
 	//Source File With Helper Functions
 	source("./MyRecipes1/dev_Utils.slim");
+	//source("./dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
 	pathToOutputFile = "./Output1/MyRecipe9_0_1/";
@@ -10,13 +11,13 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 1000; 		//80000 for real runs
+	endOfSimulation = 80000; 		//80000 for real runs
 
-	introduce = 500;			//40000 for real runs
+	introduce = 40000;			//40000 for real runs
 
 	samplingInterval = 50;			//50 for real runs
 
-	numberOfLakes = 20;	
+	numberOfLakes = 50;	
 	
 	optimumPhenoMarine = 10;
 	
@@ -40,7 +41,7 @@ initialize() {
 
 	recombinationRateInNeutralRegions = 1e-8;
 
-	migrationRate = 1e-4;  //When executing, use "-d MigRate=<Desired Migration Rate>"
+	migrationRate = 1e-4;
 
 	//For the Header of Files
 
@@ -254,8 +255,7 @@ s1 40000 late(){
 	sim.treeSeqRememberIndividuals(p3.individuals);
 
 	//Output full so that we can dig into the simulation directly after introducing the new population
-	//We could also do this with the treeSequence ..
-	sim.outputFull(PATH+"simStateAtIntroduction.txt");
+	sim.treeSeqOutput(PATH+"TreesAtIntroduction.trees");
 }
 	
 1: late() {  
@@ -346,14 +346,6 @@ s1 40000 late(){
 		}
 	}
 
-	//--SAMPLE FST ACROSS THE GENOME AT THE END BETWEEN ALL PAIRS OF SUBPOPS--
-	//--END SIMULATION--
-
-//	if(sim.generation == END)
-//	{
-//		sim.treeSeqOutput(PATH+"EndTrees.trees");
-//		sim.simulationFinished();
-//	}
 }
 
 
@@ -391,7 +383,7 @@ s2 40000: late(){
 
 		sim.setValue("Adapted",T);
 		AdaptationSampling();		
-		sim.outputFull(PATH+"simStateAtAdaptation.txt");
+		sim.treeSeqOutput(PATH+"TreesAtAdaptation.trees");
 		
 
 		// TODO RECORD FREQUENCIES AND CORRELATIONS ....
