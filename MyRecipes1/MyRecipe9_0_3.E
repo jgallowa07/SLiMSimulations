@@ -5,7 +5,7 @@ initialize() {
 	source("./dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
-	pathToOutputFile = "../Output1/MyRecipe9_0_0/";
+	pathToOutputFile = "../Output1/MyRecipe9_0_3/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
@@ -40,7 +40,7 @@ initialize() {
 
 	recombinationRateInNeutralRegions = 1e-8;
 
-	migrationRate = 1e-5;  //When executing, use "-d MigRate=<Desired Migration Rate>"
+	migrationRate = 1e-2;  //When executing, use "-d MigRate=<Desired Migration Rate>"
 
 	//For the Header of Files
 
