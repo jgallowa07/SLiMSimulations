@@ -10,11 +10,11 @@ initialize() {
 
 	//KNOBS//
 
-	endOfSimulation = 8; 		//80000 for real runs
+	endOfSimulation = 1000; 		//80000 for real runs
 
-	introduce = 4;			//40000 for real runs
+	introduce = 500;			//40000 for real runs
 
-	samplingInterval = 1;		//50 for real runs
+	samplingInterval = 50;			//50 for real runs
 
 	numberOfLakes = 20;	
 	
