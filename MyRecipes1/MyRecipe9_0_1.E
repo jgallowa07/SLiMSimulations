@@ -2,10 +2,10 @@
 initialize() {
 
 	//Source File With Helper Functions
-	source("./dev_Utils.slim");
+	source("./MyRecipes1/dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
-	pathToOutputFile = "../Output1/MyRecipe9_0_1/";
+	pathToOutputFile = "./Output1/MyRecipe9_0_1/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
