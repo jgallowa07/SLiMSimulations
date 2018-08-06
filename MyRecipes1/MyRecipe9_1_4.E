@@ -1,31 +1,31 @@
+	
+initialize(){
 
-initialize() {
-
-	//Source File With Helper Functions
-	source("./MyRecipes1/dev_Utils.slim");
-	//source("./dev_Utils.slim");
+    //Source File With Helper Functions
+	//source("/Users/jaredgalloway/Documents/ResearchStuff/CODEBASS/Assigned/MyRecipes1/dev_Utils.slim");
+	source("./dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
-	pathToOutputFile = "./Output1/MyRecipe9_0_0/";
+	pathToOutputFile = "./Output1/MyRecipe9_1_4/";
 	//pathToOutputFile = "~/Desktop/";
 
 	//KNOBS//
 
-	endOfSimulation = 80000; 		//80000 for real runs
+	endOfSimulation = 200000; 		//80000 for real runs
 
-	introduce = 40000;			//40000 for real runs
+	introduce = 100000;			//40000 for real runs
 
 	samplingInterval = 50;			//50 for real runs
 
-	numberOfLakes = 50;
+	numberOfLakes = 25;	
 	
 	optimumPhenoMarine = 10;
 	
 	optimumPhenoFresh = -10;
 
-	individualsInOcean = 10000;
+	individualsInOcean = 5000;
 	
-	individualsInFresh = 10000;
+	individualsInFresh = 5000;
 
 	numberOfEffectRegions = 10;
 
@@ -41,7 +41,7 @@ initialize() {
 
 	recombinationRateInNeutralRegions = 1e-8;
 
-	migrationRate = 1e-5;
+	migrationRate = 5e-1;
 
 	//For the Header of Files
 
@@ -173,6 +173,8 @@ initialize() {
 
 
 1 early(){
+	
+	
 
 	//right off the bat, set adapted to false because the new populations have not adapted
 	//also schedule the introduction blocks to the defined value in init
@@ -190,8 +192,11 @@ initialize() {
 
 //--INTRODUCE MARINE AND FRESHWATER POPULATION--
 
+
+
 1 late(){	
 
+	//sim.readFromPopulationFile("/Users/jaredgalloway/Documents/ResearchStuff/CODEBASS/Assigned/Output1/MyRecipe9_0_3/TreesAtAdaptation.trees");
 	
 	sim.addSubpop("p1", IIO);  //Marine 
 	sim.addSubpop("p2", IIF);  //Freshwater
@@ -221,9 +226,11 @@ initialize() {
 
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
-			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
+			lakeIndividuals[IPF*i + j].setSpatialPosition((i+1)-(0.5));					
 		}
 	}
+	
+	
 
 }
 
@@ -247,7 +254,7 @@ s1 40000 late(){
 
 	for (i in 0:(NLAKES-1)){
 		for (j in 0:(IPF-1)){
-			lakeIndividuals2[IPF*i + j].setSpatialPosition((i+1)-(0.5));						
+			lakeIndividuals2[IPF*i + j].setSpatialPosition((i+1)-(0.5));					
 		}
 	}
 	
@@ -320,7 +327,7 @@ s1 40000 late(){
 		individual.tagF = dnorm(-10.0 - individual.tagF,0.0,15.0);
 	}
 	for (individual in p1.individuals){
-		individual.tagF = dnorm(10 - individual.tagF,0.0,15.0);
+		individual.tagF = dnorm(10 - individual.tagF,0.0,15.0) * exp( - i1.totalOfNeighborStrengths(individual)/400);
 	}
 	if (sim.generation >= INP){
 		for (individual in p3.individuals){
@@ -384,9 +391,6 @@ s2 40000: late(){
 		sim.setValue("Adapted",T);
 		AdaptationSampling();		
 		sim.treeSeqOutput(PATH+"TreesAtAdaptation.trees");
-		
-
-		// TODO RECORD FREQUENCIES AND CORRELATIONS ....
 
 	}	
 
@@ -402,8 +406,6 @@ s2 40000: late(){
 		effectMutations = c(m1s,m2s,m4s,m5s,m6s,m7s);
 
 		MeanPreExistingFAA_PerIndividual(effectMutations);
-
-		//recordFsts();
 
 		recordStandingGeneticVariation(c(p1,p2,p3),effectMutations);	
 	}
@@ -500,6 +502,3 @@ s6 160001 late() {
 	sim.simulationFinished();
 
 	}
-
-
-
