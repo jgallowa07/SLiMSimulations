@@ -3,7 +3,7 @@ initialize(){
 
     //Source File With Helper Functions
 	//source("/Users/jaredgalloway/Documents/ResearchStuff/CODEBASS/Assigned/MyRecipes1/dev_Utils.slim");
-	source("./dev_Utils.slim");
+	source("./MyRecipes1/dev_Utils.slim");
 
 	//The Path Where You want sampling files written to
 	pathToOutputFile = "./Output1/MyRecipe9_1_2/";
