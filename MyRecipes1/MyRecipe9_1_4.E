@@ -11,7 +11,7 @@ initialize(){
 
 	//KNOBS//
 
-	endOfSimulation = 200000; 		//80000 for real runs
+	endOfSimulation = 150000; 		//80000 for real runs
 
 	introduce = 100000;			//40000 for real runs
 
